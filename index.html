@@ -220,7 +220,7 @@ function show(i){
     if(/[?&]action=stream(?:&|$)/i.test(u)||/[?&]realid=/i.test(u)){
       toast('جارٍ تجهيز رابط البث…');
       try{
-        var response=await fetch(u,{cache:'no-store'});
+        var resolveUrl=PROXY.replace(/\/?$/,'/')+'proxy?url='+encodeURIComponent(u);\n        var response=await fetch(resolveUrl,{cache:'no-store'});
         if(!response.ok)throw new Error('HTTP '+response.status);
         var data=await response.json();
         if(!data||typeof data.url!=='string'||!/^https?:\/\//i.test(data.url))throw new Error('Missing stream URL');
