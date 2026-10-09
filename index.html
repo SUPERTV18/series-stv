@@ -213,16 +213,29 @@ function show(i){
   '<div class="eh"><span class="pill" id="pn"></span><span class="prog" id="pg"></span></div><div class="pbar"><div id="bf"></div></div><div class="eps" id="eps"></div></div>';
   var box=document.getElementById('eps'),E=[],TB=det.querySelectorAll('.sbtn');
   function upd(){var n=SS[cs].length,c=cnt(i,cs);document.getElementById('pn').textContent='الموسم '+(cs+1);document.getElementById('pg').textContent='شاهدت '+c+' من '+n;document.getElementById('bf').style.width=(c/n*100)+'%'}
-  function go(k){
+  async function go(k){
     var ep=SS[cs][k],u=(ep.u||'').trim(),ua=(ep.ua||UA||'').trim(),rf=(ep.ref||REF||'').trim();
     if(!u){toast('لسه مفيش رابط للحلقة '+(k+1));return}
-    done[i][cs][k]=true;
-    E[k].classList.add('done');
-    upd();
     var fin=u;
+    if(/[?&]action=stream(?:&|$)/i.test(u)||/[?&]realid=/i.test(u)){
+      toast('جارٍ تجهيز رابط البث…');
+      try{
+        var response=await fetch(u,{cache:'no-store'});
+        if(!response.ok)throw new Error('HTTP '+response.status);
+        var data=await response.json();
+        if(!data||typeof data.url!=='string'||!/^https?:\/\//i.test(data.url))throw new Error('Missing stream URL');
+        fin=data.url;
+        if(!ua&&data.user_agent)ua=String(data.user_agent);
+      }catch(err){
+        toast('تعذر تجهيز البث؛ قد يمنع المصدر طلبات CORS');
+        console.error('Stream resolver error:',err);
+        return;
+      }
+    }
+    done[i][cs][k]=true;E[k].classList.add('done');upd();
     if(PROXY&&(ua||rf)){
-      var path=/\.m3u8(?:$|\?)/i.test(u)?'proxy.m3u8':(/\.mp4(?:$|\?)/i.test(u)?'proxy.mp4':'proxy');
-      fin=PROXY.replace(/\/?$/,'/')+path+'?url='+encodeURIComponent(u)+(ua?'&ua='+encodeURIComponent(ua):'')+(rf?'&ref='+encodeURIComponent(rf):'');
+      var path=/\.m3u8(?:$|\?)/i.test(fin)?'proxy.m3u8':(/\.mp4(?:$|\?)/i.test(fin)?'proxy.mp4':'proxy');
+      fin=PROXY.replace(/\/?$/,'/')+path+'?url='+encodeURIComponent(fin)+(ua?'&ua='+encodeURIComponent(ua):'')+(rf?'&ref='+encodeURIComponent(rf):'');
     }
     window.location.href=fin;
   }
