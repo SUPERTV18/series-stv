@@ -216,31 +216,22 @@ function show(i){
   async function go(k){
     var ep=SS[cs][k],u=(ep.u||'').trim(),ua=(ep.ua||UA||'').trim(),rf=(ep.ref||REF||'').trim();
     if(!u){toast('لسه مفيش رابط للحلقة '+(k+1));return}
-    var fin=u;
+    var fin=u,viaResolver=false;
     if(/[?&]action=stream(?:&|$)/i.test(u)||/[?&]realid=/i.test(u)){
-      toast('جارٍ تجهيز رابط البث…');
-      try{
-        var resolveUrl=PROXY.replace(/\/?$/,'/')+'proxy?url='+encodeURIComponent(u);
-        var response=await fetch(resolveUrl,{cache:'no-store'});
-        if(!response.ok)throw new Error('HTTP '+response.status);
-        var data=await response.json();
-        if(!data||typeof data.url!=='string'||!/^https?:\/\//i.test(data.url))throw new Error('Missing stream URL');
-        fin=data.url;
-        if(!ua&&data.user_agent)ua=String(data.user_agent);
-      }catch(err){
-        toast('تعذر تجهيز البث؛ قد يمنع المصدر طلبات CORS');
-        console.error('Stream resolver error:',err);
-        return;
-      }
+      if(!PROXY){toast('رابط البث يحتاج إعداد Worker');return}
+      // أرسل رابط JSON للـ Worker، ودع الـ Worker يستخرج رابط M3U8.
+      // اجعل مسار الطلب ينتهي بـ m3u8 كي يتعرف عليه مشغل الفيديو داخل التطبيق.
+      fin=PROXY.replace(/\/?$/,'/')+'proxy.m3u8?url='+encodeURIComponent(u)+(ua?'&ua='+encodeURIComponent(ua):'')+(rf?'&ref='+encodeURIComponent(rf):'');
+      viaResolver=true;
     }
     done[i][cs][k]=true;E[k].classList.add('done');upd();
-    if(PROXY&&(ua||rf)){
+    if(PROXY&&(ua||rf)&&!viaResolver){
       var path=/\.m3u8(?:$|\?)/i.test(fin)?'proxy.m3u8':(/\.mp4(?:$|\?)/i.test(fin)?'proxy.mp4':'proxy');
       fin=PROXY.replace(/\/?$/,'/')+path+'?url='+encodeURIComponent(fin)+(ua?'&ua='+encodeURIComponent(ua):'')+(rf?'&ref='+encodeURIComponent(rf):'');
     }
     window.location.href=fin;
   }
-  function draw(){
+    function draw(){
     box.innerHTML=SS[cs].map(function(ep,k){return '<button class="ep'+(done[i][cs][k]?' done':'')+'" data-k="'+k+'"><span class="n"><b>'+(k+1)+'</b>'+CK+'</span><span class="t">'+esc(ep.t)+'</span><span class="pl">'+PLAYI+'</span></button>'}).join('');
     E=box.querySelectorAll('.ep');
     E.forEach(function(el){el.onclick=function(){go(+el.getAttribute('data-k'))}});
