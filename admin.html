@@ -6,7 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{color-scheme:dark;--bg:#0a0a12;--card:#14141f;--card2:#1e1e2e;--line:#303047;--fg:#f5f4fa;--mut:#aaa7bf;--ac:#7c5cff;--bad:#9e3047;--ok:#237f60}*{box-sizing:border-box}body{margin:0;background:radial-gradient(70% 35% at 50% 0, #31205f 0, transparent 70%),var(--bg);color:var(--fg);font:16px/1.7 Cairo,Tahoma,sans-serif}.wrap{max-width:950px;margin:auto;padding:24px 14px 60px}h1{font-size:1.7rem;margin:0 0 4px}h2{font-size:1.15rem;margin:0 0 10px}.sub,.hint{color:var(--mut);font-size:.9rem;margin:0 0 16px}.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:5px;font-size:.9rem;min-width:0}.full{grid-column:1/-1}.remember-row{display:flex;flex-direction:row;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card2);cursor:pointer}.remember-row input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:20px;height:20px;flex:none;margin:0;accent-color:var(--ac);cursor:pointer}.remember-row span{display:block}input,textarea,select{width:100%;background:#0d0d17;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:11px;font:inherit;min-width:0}textarea{min-height:135px;resize:vertical}input:focus,textarea:focus{outline:2px solid #7c5cff66;border-color:var(--ac)}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.btn{border:0;border-radius:10px;background:var(--ac);color:white;padding:9px 16px;font:700 .9rem Cairo;cursor:pointer}.btn.secondary{background:var(--card2);border:1px solid var(--line)}.btn.danger{background:var(--bad)}.btn:disabled{opacity:.5;cursor:wait}.status{white-space:pre-wrap;overflow-wrap:anywhere;border-radius:10px;padding:10px 12px;background:#0d0d17;border:1px solid var(--line);font-size:.9rem}.status.ok{border-color:var(--ok)}.status.bad{border-color:var(--bad)}.series{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.series:last-child{border-bottom:0}.series small{display:block;color:var(--mut)}.series .btn{flex:none}.warning{border-right:3px solid #d6a23a;padding:8px 12px;background:#d6a23a12;border-radius:8px;font-size:.88rem;color:#f0d9a5}.season-box{border:1px solid var(--line);background:#10101a;border-radius:12px;padding:12px;margin-top:12px}.season-head,.episode-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.season-title{font-weight:800}.episode-box{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;background:var(--card)}.episode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.episode-grid .field{font-size:.85rem}.episode-grid input{font-size:.9rem}.mini-btn{border:1px solid var(--line);background:var(--card2);color:var(--fg);border-radius:8px;padding:6px 10px;font:600 .85rem Cairo;cursor:pointer}.mini-btn.danger{background:var(--bad)}code{direction:ltr;unicode-bidi:embed;overflow-wrap:anywhere}@media(max-width:620px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.panel{padding:14px}.episode-grid{grid-template-columns:1fr}}
-.vstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}.vst{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}.vst small{display:block;color:var(--mut);font-size:.8rem}.vst b{display:block;font-size:1.25rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vrow{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.vrow:last-child{border-bottom:0}.vrow .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vrow .num{font-weight:800;color:#ffd166}.vbar{grid-column:1/-1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}.vbar i{display:block;height:100%;background:var(--ac)}.vkey{grid-column:1/-1;color:var(--mut);font-size:.75rem;direction:ltr;text-align:right}@media(max-width:620px){.vstats{grid-template-columns:1fr}}
+.vstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}.vst{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}.vst small{display:block;color:var(--mut);font-size:.8rem}.vst b{display:block;font-size:1.25rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vrow{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.vrow:last-child{border-bottom:0}.vrow .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vrow .num{font-weight:800;color:#ffd166}.vbar{grid-column:1/-1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}.vbar i{display:block;height:100%;background:var(--ac)}.vkey{grid-column:1/-1;color:var(--mut);font-size:.75rem;direction:ltr;text-align:right}.vep{grid-column:1/-1;margin-top:4px;border-top:1px dashed var(--line);padding-top:6px}.vep h4{margin:8px 0 4px;font-size:.85rem;color:var(--mut)}.vepr{display:flex;justify-content:space-between;gap:10px;font-size:.85rem;padding:2px 0}.vepr span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:left}.vepr b{color:#ffd166}.vep[hidden]{display:none}@media(max-width:620px){.vstats{grid-template-columns:1fr}}
 </style></head>
 <body><main class="wrap">
 <h1>إدارة مكتبة المسلسلات</h1><p class="sub">إدارة كل أقسام المكتبة من صفحة واحدة، مع ملف JSON مستقل لكل قسم.</p>
@@ -29,7 +29,7 @@
 </div><div class="actions"><button class="btn" id="saveSeries" type="submit">حفظ المسلسل على GitHub</button><button class="btn secondary" id="cancelEdit" type="button">إلغاء التعديل / مسح النموذج</button></div></form>
 </section>
 <section class="panel"><h2>3) المسلسلات الموجودة في ملف JSON</h2><p class="hint">بعد الاتصال، يمكنك تعديل بيانات مسلسل أو حذفه. الحفظ ينشئ commit جديدًا في GitHub.</p><div id="seriesList"><p class="hint">حمّل البيانات أولًا.</p></div></section>
-<section class="panel"><h2>4) المشاهدات</h2><p class="hint">عدد مرات فتح حلقات كل مسلسل (أول مرة لكل جهاز). الأرقام من خدمة العدّاد المرتبطة بصفحة المكتبة، وتتحدث تلقائيًا بعد الاتصال.</p><div class="actions" style="margin-top:0"><button class="btn secondary" id="viewsRefresh" type="button">تحديث المشاهدات</button><span class="hint" id="viewsTime" style="margin:0;align-self:center"></span></div><div id="viewsBody"><p class="hint">حمّل البيانات أولًا.</p></div></section>
+<section class="panel"><h2>4) المشاهدات</h2><p class="hint">عدد مرات فتح كل حلقة وكل مسلسل (كل ضغطة على حلقة ليها رابط بتتحسب، وتتجاهل التكرار السريع). الأرقام من خدمة العدّاد المرتبطة بصفحة المكتبة، وتتحدث تلقائيًا بعد الاتصال.</p><div class="actions" style="margin-top:0"><button class="btn secondary" id="viewsRefresh" type="button">تحديث المشاهدات</button><span class="hint" id="viewsTime" style="margin:0;align-self:center"></span></div><div id="viewsBody"><p class="hint">حمّل البيانات أولًا.</p></div></section>
 <section class="panel"><h2>مهم بخصوص الأمان</h2><p class="warning">لا تضع GitHub Token داخل ملف المكتبة الرئيسي أو ملف الإدارة كقيمة ثابتة. لا تستخدم Token بصلاحيات واسعة؛ أنشئ Fine-grained token للمستودع الجديد فقط، مع Contents: Read and write. لا ترفع هذا الرمز إلى GitHub.</p></section>
 </main>
 <script>
@@ -56,18 +56,50 @@ function resetForm(){ $('form').reset();$('year').value=new Date().getFullYear()
 function editSeries(i){var x=series[i];editingIndex=i;$('title').value=x.t||'';$('year').value=x.y||new Date().getFullYear();$('genre').value=x.g||'';$('rating').value=x.r||'0.0';$('image').value=x.img||'';$('color').value=x.ac||'#7c5cff';$('description').value=x.d||'';renderSeasonEditor(x.ss);$('saveSeries').textContent='حفظ تعديلات المسلسل';window.scrollTo({top:0,behavior:'smooth'})}
 function drawList(){var host=$('seriesList');if(!series.length){host.innerHTML='<p class="hint">ملف JSON فارغ حاليًا. أضف أول مسلسل من النموذج أعلاه.</p>';return}host.innerHTML=series.map(function(x,i){var count=(x.ss||[]).reduce(function(n,s){return n+s.length},0);return '<div class="series"><div><strong>'+escapeHtml(x.t)+'</strong><small>'+count+' حلقة · '+(x.ss||[]).length+' موسم</small></div><div class="actions"><button class="btn secondary" data-edit="'+i+'">تعديل</button><button class="btn danger" data-del="'+i+'">حذف</button></div></div>'}).join('');host.querySelectorAll('[data-edit]').forEach(function(b){b.onclick=function(){editSeries(+b.dataset.edit)}});host.querySelectorAll('[data-del]').forEach(function(b){b.onclick=async function(){var i=+b.dataset.del;if(!confirm('حذف مسلسل «'+series[i].t+'» من ملف GitHub؟'))return;var old=series[i];series.splice(i,1);if(await saveData('Delete series: '+old.t)){if(editingIndex===i)resetForm()}else{series.splice(i,0,old);drawList()}}})}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-/* ===== المشاهدات: لازم COUNTER_BASE و COUNTER_NS يطابقوا اللي في صفحة كل قسم ===== */
-var COUNTER_BASE='https://api.counterapi.dev/v1/';
+/* ===== المشاهدات (خدمة Abacus): COUNTER_NS لازم يطابق اللي في صفحة كل قسم (3 حروف على الأقل) ===== */
+var COUNTER_BASE='https://abacus.jasoncameron.dev/';
 var COUNTER_NS={'series-arabic.json':'seties-arabic','series-foreign.json':'seties-foreign','series-turkish.json':'seties-turkish','series-korean.json':'seties-korean'};
 var viewsBusy=false;
 function hash36(t){var h=5381;for(var i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i))>>>0;return h.toString(36)}
-function ckey(x){var k=x.k?String(x.k).toLowerCase().replace(/[^a-z0-9_-]+/g,'-').replace(/^-+|-+$/g,''):'';return k||('h'+hash36(String(x.t)))}
+function ckey(x){var k=x.k?String(x.k).toLowerCase().replace(/[^a-z0-9_-]+/g,'-').replace(/^-+|-+$/g,''):'';return (k||('h'+hash36(String(x.t)))).slice(0,40)}
+function skey(x){return 's-'+ckey(x)}
+function ekey(x,s,k){return 'e-'+ckey(x)+'-'+(s+1)+'-'+(k+1)}
 function fmtNum(n){return Number(n).toLocaleString('en-US')}
+async function getCount(url,tries){
+  tries=tries||0;
+  try{
+    var r=await fetch(url,{cache:'no-store'});
+    if(r.status===404)return 0;
+    if(r.status===429&&tries<3){await new Promise(function(res){setTimeout(res,2500)});return getCount(url,tries+1)}
+    if(!r.ok)return null;
+    var j=await r.json();
+    return typeof j.value==='number'?j.value:null;
+  }catch(e){return null}
+}
 function drawViews(res,ns){
   var total=res.reduce(function(a,r){return a+(r.n||0)},0),sorted=res.slice().sort(function(a,b){return (b.n||0)-(a.n||0)}),top=sorted.length&&sorted[0].n>0?sorted[0]:null,max=top?top.n:1;
   $('viewsBody').innerHTML='<div class="vstats"><div class="vst"><small>إجمالي المشاهدات</small><b>'+fmtNum(total)+'</b></div><div class="vst"><small>عدد المسلسلات</small><b>'+res.length+'</b></div><div class="vst"><small>الأعلى مشاهدة</small><b>'+(top?escapeHtml(top.t):'—')+'</b></div></div>'+sorted.map(function(r){
-    return '<div class="vrow"><div class="nm">'+escapeHtml(r.t)+'</div><div class="num">'+(r.n===null?'<span style="color:#ff8a8a">تعذر</span>':fmtNum(r.n))+'</div><div class="vbar"><i style="width:'+(r.n?Math.max(2,r.n/max*100):0)+'%"></i></div><div class="vkey">'+escapeHtml(ns)+' / '+escapeHtml(r.key)+'</div></div>';
+    return '<div class="vrow"><div class="nm">'+escapeHtml(r.t)+'</div><div class="num">'+(r.n===null?'<span style="color:#ff8a8a">تعذر</span>':fmtNum(r.n))+'</div><div class="vbar"><i style="width:'+(r.n?Math.max(2,r.n/max*100):0)+'%"></i></div><div style="grid-column:1/-1"><button class="mini-btn" type="button" data-ep="'+r.i+'">تفاصيل الحلقات</button></div><div class="vep" id="vep-'+r.i+'" hidden></div><div class="vkey">'+escapeHtml(ns)+' / '+escapeHtml(r.key)+'</div></div>';
   }).join('');
+  $('viewsBody').querySelectorAll('[data-ep]').forEach(function(b){b.onclick=function(){loadEpDetails(+b.dataset.ep)}});
+}
+async function loadEpDetails(i){
+  var host=$('vep-'+i);if(!host)return;
+  if(!host.hidden){host.hidden=true;return}
+  host.hidden=false;
+  var x=series[i],path=$('path').value,ns=COUNTER_NS[path],items=[];
+  if(!x||!ns)return;
+  (x.ss||[]).forEach(function(se,s){se.forEach(function(ep,k){items.push({s:s,k:k,t:ep.t||('الحلقة '+(k+1)),n:null,key:ekey(x,s,k)})})});
+  host.innerHTML='<p class="hint">جاري تحميل أرقام الحلقات…</p>';
+  var j=0;
+  var w=async function(){while(j<items.length){var it=items[j++];it.n=await getCount(COUNTER_BASE+'get/'+ns+'/'+it.key)}};
+  await Promise.all([w(),w(),w()]);
+  var h='',cur=-1;
+  items.forEach(function(it){
+    if(it.s!==cur){cur=it.s;h+='<h4>الموسم '+(cur+1)+'</h4>'}
+    h+='<div class="vepr"><span>'+(it.k+1)+'. '+escapeHtml(it.t)+'</span><b>'+(it.n===null?'تعذر':fmtNum(it.n))+'</b></div>';
+  });
+  host.innerHTML=h||'<p class="hint">لا توجد حلقات.</p>';
 }
 async function refreshViews(){
   var box=$('viewsBody');
@@ -77,18 +109,9 @@ async function refreshViews(){
   if(viewsBusy)return;
   viewsBusy=true;var btn=$('viewsRefresh');btn.disabled=true;btn.textContent='جاري التحديث…';
   try{
-    var res=series.map(function(x){return {t:x.t,key:ckey(x),n:null}}),i=0;
-    var worker=async function(){
-      while(i<res.length){
-        var r=res[i++];
-        try{
-          var resp=await fetch(COUNTER_BASE+ns+'/'+r.key+'/',{cache:'no-store'});
-          if(resp.status===404){r.n=0}
-          else if(resp.ok){var j=await resp.json();var n=j.count!==undefined?j.count:(j.value!==undefined?j.value:(j.data&&j.data.up_count));if(typeof n==='number')r.n=n}
-        }catch(e){}
-      }
-    };
-    await Promise.all([worker(),worker(),worker(),worker()]);
+    var res=series.map(function(x,idx){return {i:idx,t:x.t,key:skey(x),n:null}}),i=0;
+    var worker=async function(){while(i<res.length){var r=res[i++];r.n=await getCount(COUNTER_BASE+'get/'+ns+'/'+r.key)}};
+    await Promise.all([worker(),worker(),worker()]);
     if($('path').value===path){drawViews(res,ns);$('viewsTime').textContent='آخر تحديث: '+new Date().toLocaleTimeString('ar-EG')}
   }catch(e){box.innerHTML='<p class="hint">تعذر تحميل المشاهدات. اضغط تحديث للمحاولة مرة أخرى.</p>'}
   viewsBusy=false;btn.disabled=false;btn.textContent='تحديث المشاهدات';
