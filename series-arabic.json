@@ -119,7 +119,8 @@
         }
       ]
     ],
-    "src": "elCinema"
+    "src": "elCinema",
+    "pin": true
   },
   {
     "k": "remote-1791718955487",
