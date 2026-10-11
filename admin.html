@@ -8,12 +8,13 @@
 :root{color-scheme:dark;--bg:#0a0a12;--card:#14141f;--card2:#1e1e2e;--line:#303047;--fg:#f5f4fa;--mut:#aaa7bf;--ac:#7c5cff;--bad:#9e3047;--ok:#237f60}*{box-sizing:border-box}body{margin:0;background:radial-gradient(70% 35% at 50% 0, #31205f 0, transparent 70%),var(--bg);color:var(--fg);font:16px/1.7 Cairo,Tahoma,sans-serif}.wrap{max-width:950px;margin:auto;padding:24px 14px 60px}h1{font-size:1.7rem;margin:0 0 4px}h2{font-size:1.15rem;margin:0 0 10px}.sub,.hint{color:var(--mut);font-size:.9rem;margin:0 0 16px}.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:5px;font-size:.9rem;min-width:0}.full{grid-column:1/-1}.remember-row{display:flex;flex-direction:row;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card2);cursor:pointer}.remember-row input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:20px;height:20px;flex:none;margin:0;accent-color:var(--ac);cursor:pointer}.remember-row span{display:block}input,textarea,select{width:100%;background:#0d0d17;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:11px;font:inherit;min-width:0}textarea{min-height:135px;resize:vertical}input:focus,textarea:focus{outline:2px solid #7c5cff66;border-color:var(--ac)}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.btn{border:0;border-radius:10px;background:var(--ac);color:white;padding:9px 16px;font:700 .9rem Cairo;cursor:pointer}.btn.secondary{background:var(--card2);border:1px solid var(--line)}.btn.danger{background:var(--bad)}.btn:disabled{opacity:.5;cursor:wait}.status{white-space:pre-wrap;overflow-wrap:anywhere;border-radius:10px;padding:10px 12px;background:#0d0d17;border:1px solid var(--line);font-size:.9rem}.status.ok{border-color:var(--ok)}.status.bad{border-color:var(--bad)}.series{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.series:last-child{border-bottom:0}.series small{display:block;color:var(--mut)}.series .btn{flex:none}.warning{border-right:3px solid #d6a23a;padding:8px 12px;background:#d6a23a12;border-radius:8px;font-size:.88rem;color:#f0d9a5}.season-box{border:1px solid var(--line);background:#10101a;border-radius:12px;padding:12px;margin-top:12px}.season-head,.episode-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.season-title{font-weight:800}.episode-box{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;background:var(--card)}.episode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.episode-grid .field{font-size:.85rem}.episode-grid input{font-size:.9rem}.mini-btn{border:1px solid var(--line);background:var(--card2);color:var(--fg);border-radius:8px;padding:6px 10px;font:600 .85rem Cairo;cursor:pointer}.mini-btn.danger{background:var(--bad)}code{direction:ltr;unicode-bidi:embed;overflow-wrap:anywhere}@media(max-width:620px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.panel{padding:14px}.episode-grid{grid-template-columns:1fr}}
 .vstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}.vst{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}.vst small{display:block;color:var(--mut);font-size:.8rem}.vst b{display:block;font-size:1.25rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vrow{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.vrow:last-child{border-bottom:0}.vrow .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vrow .num{font-weight:800;color:#ffd166}.vbar{grid-column:1/-1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}.vbar i{display:block;height:100%;background:var(--ac)}.vkey{grid-column:1/-1;color:var(--mut);font-size:.75rem;direction:ltr;text-align:right}.vep{grid-column:1/-1;margin-top:4px;border-top:1px dashed var(--line);padding-top:6px}.vep h4{margin:8px 0 4px;font-size:.85rem;color:var(--mut)}.vepr{display:flex;justify-content:space-between;gap:10px;font-size:.85rem;padding:2px 0}.vepr span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:left}.vepr b{color:#ffd166}.vep[hidden]{display:none}@media(max-width:620px){.vstats{grid-template-columns:1fr}}
 .sitem{border-bottom:1px solid var(--line);padding:8px 0}.sitem:last-child{border-bottom:0}.srow{display:flex;align-items:center;gap:8px;border-radius:12px;padding:6px 8px;border:1px solid transparent}.srow.pinned{border-color:var(--ac);background:#7c5cff10}.srow.dim .stt{opacity:.55}.srow.dragging{opacity:.5;border-color:var(--ac)}.stt{flex:1;min-width:0}.stt strong{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}.stt small{display:block;color:var(--mut)}.grip{width:22px;flex:none;display:flex;justify-content:center;color:var(--mut);cursor:grab;touch-action:none;user-select:none;padding:8px 0}.grip svg{width:16px;height:16px;fill:currentColor}.ib{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--card2);color:var(--fg);display:inline-flex;align-items:center;justify-content:center;flex:none;cursor:pointer;padding:0}.ib svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ib.on{background:var(--ac);border-color:var(--ac)}.tg{display:inline-block;font-size:.7rem;padding:0 8px;border-radius:999px;margin-inline-start:6px;vertical-align:middle;font-weight:600}.tp{background:#7c5cff33;color:#c9bcff}.th{background:#9e304755;color:#ffb3c0}.ts{background:#d6a23a30;color:#f0d9a5}.sitem .actions{margin-top:0;justify-content:flex-end}.sched{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#10101a}.sched[hidden]{display:none}.dropline{height:0;border-top:2px dashed var(--ac);margin:2px 4px}.bkcmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.bkcmp div{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.85rem;color:var(--mut)}.bkcmp b{display:block;color:var(--fg);font-size:1.1rem}
+.undo{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid #d6a23a;background:#d6a23a12;border-radius:10px;padding:8px 12px;margin-bottom:10px;font-size:.88rem;color:#f0d9a5}.bulk{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid var(--ac);background:#7c5cff1c;border-radius:10px;padding:8px 12px;margin-bottom:10px}[hidden]{display:none!important}.sel{width:20px;height:20px;flex:none;margin:0;accent-color:var(--ac);cursor:pointer}.sugg{border:1px solid var(--line);background:var(--card2);border-radius:12px;padding:6px}.sg{display:flex;gap:10px;align-items:center;padding:6px;border-radius:10px;border:1px solid transparent;cursor:pointer}.sg.sel{background:#7c5cff26;border-color:var(--ac)}.sg b{display:block;font-size:.92rem;direction:ltr;text-align:right}.sg small{color:var(--mut)}.sgp{width:34px;height:48px;border-radius:6px;background:#303047 center/cover no-repeat;flex:none}.chk{border:1px solid var(--line);background:var(--card2);border-radius:12px;padding:10px 12px;margin-top:10px}.chkh{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px}.chkh .mini-btn{margin-inline-start:auto}.chkr{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--line);background:#10101a;border-radius:8px;margin-top:6px;font-size:.88rem}.chkr .dot{width:10px;height:10px;border-radius:50%;flex:none}.chkr .tx{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chkr small{color:var(--mut)}.pgb{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:6px 0 10px}.pgb i{display:block;height:100%;background:var(--ac);width:0;transition:width .2s}.rep{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border:1px solid var(--line);background:var(--card2);border-radius:12px;padding:10px 12px;margin-top:8px}.rep .rt{flex:1;min-width:160px}.rep .rt small{display:block;color:var(--mut)}
 </style></head>
 <body><main class="wrap">
 <h1>إدارة مكتبة المسلسلات</h1><p class="sub">إدارة كل أقسام المكتبة من صفحة واحدة، مع ملف JSON مستقل لكل قسم.</p>
 <section class="panel"><h2>1) الاتصال بمستودع GitHub</h2>
 <p class="hint">أدخل بيانات مستودع المسلسلات الجديد. اختر القسم الذي تريد إدارته؛ كل قسم يُحفظ في ملف مستقل. أنشئ Fine-grained Personal Access Token بصلاحية Contents: Read and write لهذا المستودع فقط. الرمز لا يُحفظ داخل الصفحة أو على GitHub.</p>
-<div class="grid"><label class="field">اسم مستخدم GitHub<input id="owner" value="SUPERTV18" placeholder="اسم حسابك" autocomplete="off"></label><label class="field">اسم المستودع<input id="repo" value="series-stv" autocomplete="off"></label><label class="field">الفرع<input id="branch" value="main" autocomplete="off"></label><label class="field">القسم / ملف JSON<select id="path"><option value="series-arabic.json">المسلسلات العربية</option><option value="series-foreign.json">المسلسلات الأجنبية</option><option value="series-turkish.json">المسلسلات التركية</option><option value="series-korean.json">المسلسلات الكورية</option></select></label><label class="field full">GitHub Token (لا تشاركه مع أحد)<input id="token" type="password" autocomplete="off" placeholder="github_pat_…"><label class="remember-row" for="rememberToken"><input id="rememberToken" type="checkbox"><span>حفظ التوكن على هذا الجهاز والمتصفح</span></label><small style="color:var(--mut)">فعّل علامة الصح لو الجهاز خاص بيك فقط. التوكن المحفوظ قد يتمكن أي شخص يستخدم نفس المتصفح من الوصول إليه.</small></label></div>
+<div class="grid"><label class="field">اسم مستخدم GitHub<input id="owner" value="SUPERTV18" placeholder="اسم حسابك" autocomplete="off"></label><label class="field">اسم المستودع<input id="repo" value="series-stv" autocomplete="off"></label><label class="field">الفرع<input id="branch" value="main" autocomplete="off"></label><label class="field">القسم / ملف JSON<select id="path"><option value="series-arabic.json">المسلسلات العربية</option><option value="series-foreign.json">المسلسلات الأجنبية</option><option value="series-turkish.json">المسلسلات التركية</option><option value="series-korean.json">المسلسلات الكورية</option></select></label><label class="field full">GitHub Token (لا تشاركه مع أحد)<input id="token" type="password" autocomplete="off" placeholder="github_pat_…"><label class="remember-row" for="rememberToken"><input id="rememberToken" type="checkbox"><span>حفظ التوكن على هذا الجهاز والمتصفح</span></label><small style="color:var(--mut)">فعّل علامة الصح لو الجهاز خاص بيك فقط. التوكن المحفوظ قد يتمكن أي شخص يستخدم نفس المتصفح من الوصول إليه.</small></label><label class="field full">مفتاح TMDB (اختياري، لملء بيانات المسلسل تلقائيًا)<input id="tmdbKey" type="password" autocomplete="off" placeholder="API key (v3)"></label></div>
 <div class="actions"><button class="btn" id="connect">اتصال / تحميل البيانات</button><button class="btn secondary" id="clearToken">مسح الرمز من الصفحة</button></div>
 <div id="status" class="status" role="status">غير متصل. أدخل الرمز واضغط اتصال.</div>
 </section>
@@ -21,19 +22,26 @@
 <form id="form"><div class="grid">
 <label class="field">اسم المسلسل *<input id="title" required maxlength="120" placeholder="مثال: مسلسل جديد"></label>
 <label class="field">سنة العرض<input id="year" type="number" min="1900" max="2100" value="2026"></label>
+<div class="field full" id="suggWrap" hidden><div class="sugg" id="suggList"></div><div class="actions" style="margin-top:0"><button class="btn" id="suggFill" type="button">ملء البيانات من النتيجة المختارة</button></div></div>
 <label class="field">التصنيف<input id="genre" placeholder="دراما، أكشن"></label>
 <label class="field">التقييم<input id="rating" value="0.0" placeholder="8.5"></label>
 <label class="field">رابط صورة البوستر<input id="image" type="url" placeholder="https://..."></label>
 <label class="field">لون المسلسل<input id="color" type="color" value="#7c5cff" style="height:48px;padding:4px"></label>
+<div class="field full"><div class="actions" style="margin-top:0"><button class="btn secondary" id="upPoster" type="button">رفع صورة من الجهاز</button><input id="posterFile" type="file" accept="image/*" hidden><span class="hint" id="upInfo" style="margin:0;align-self:center"></span></div></div>
 <label class="field full">الوصف<textarea id="description" style="min-height:75px" placeholder="نبذة قصيرة عن المسلسل"></textarea></label>
 <label class="field">حالة الظهور<select id="vis"><option value="show">ظاهر</option><option value="hide">مخفي</option><option value="sched">مجدول بتاريخ</option></select></label>
 <label class="field" id="showAtWrap" style="display:none">تاريخ ووقت الظهور<input id="showAt" type="datetime-local"></label>
 <div class="field full"><span>الحلقات والمواسم *</span><p class="hint">أضف كل حلقة في حقول مستقلة، واستخدم زر «إضافة موسم» للموسم التالي. رابط الفيديو مطلوب؛ وحقلا User-Agent وReferer اختياريان.</p><div id="seasonsEditor"></div><div class="actions"><button class="btn secondary" id="addSeason" type="button">＋ إضافة موسم</button></div></div>
 </div><div class="actions"><button class="btn" id="saveSeries" type="submit">حفظ المسلسل على GitHub</button><button class="btn secondary" id="cancelEdit" type="button">إلغاء التعديل / مسح النموذج</button></div></form>
 </section>
-<section class="panel"><h2>3) المسلسلات الموجودة في ملف JSON</h2><p class="hint">بعد الاتصال، يمكنك تعديل بيانات مسلسل أو حذفه. الحفظ ينشئ commit جديدًا في GitHub.</p><div id="seriesList"><p class="hint">حمّل البيانات أولًا.</p></div></section>
+<section class="panel"><h2>3) المسلسلات الموجودة في ملف JSON</h2><p class="hint">بعد الاتصال، يمكنك تعديل بيانات مسلسل أو حذفه. الحفظ ينشئ commit جديدًا في GitHub.</p>
+<div class="undo" id="undoBar" hidden><span id="undoTxt"></span><button class="btn secondary" id="undoBtn" type="button">تراجع</button></div>
+<input id="listSearch" type="search" placeholder="ابحث في المسلسلات…" autocomplete="off" style="margin-bottom:10px">
+<div class="bulk" id="bulkBar" hidden><b id="bulkN"></b><div class="actions" style="margin:0"><button class="mini-btn" id="bulkHide" type="button">إخفاء</button><button class="mini-btn" id="bulkShow" type="button">إظهار</button><button class="mini-btn danger" id="bulkDel" type="button">حذف</button><button class="mini-btn" id="bulkClear" type="button">إلغاء التحديد</button></div></div><div id="seriesList"><p class="hint">حمّل البيانات أولًا.</p></div></section>
 <section class="panel"><h2>4) المشاهدات</h2><p class="hint">عدد مرات فتح كل حلقة وكل مسلسل (كل ضغطة على حلقة ليها رابط بتتحسب، وتتجاهل التكرار السريع). الأرقام من خدمة العدّاد المرتبطة بصفحة المكتبة، وتتحدث تلقائيًا بعد الاتصال.</p><div class="actions" style="margin-top:0"><button class="btn secondary" id="viewsRefresh" type="button">تحديث المشاهدات</button><span class="hint" id="viewsTime" style="margin:0;align-self:center"></span></div><div id="viewsBody"><p class="hint">حمّل البيانات أولًا.</p></div></section>
 <section class="panel"><h2>5) النسخ الاحتياطي</h2><p class="hint">نزّل نسخة من ملف القسم الحالي، أو استعد نسخة قديمة. الاستعادة بتغيّر الصفحة بس، ومفيش حاجة بتتغيّر على GitHub لحد ما تضغط حفظ.</p><div class="actions" style="margin-top:0"><button class="btn" id="bkDown" type="button">تنزيل نسخة احتياطية</button><button class="btn secondary" id="bkPick" type="button">استعادة من ملف…</button><input id="bkFile" type="file" accept="application/json,.json" hidden></div><p class="hint" id="bkInfo" style="direction:ltr;text-align:right;margin:8px 0 0"></p><div id="bkCmp"></div></section>
+<section class="panel"><h2>6) فحص الروابط</h2><p class="hint">بيفحص كل روابط القسم عن طريق الـ Worker ويقولك أنهي حلقة رابطها واقع أو بطيء. النتيجة تقريبية، لأن الفحص بيتم من الـ Worker مش من جهاز المستخدم.</p><div class="actions" style="margin-top:0"><button class="btn" id="chkAll" type="button">فحص كل الروابط</button><span class="hint" id="chkTime" style="margin:0;align-self:center"></span></div><div id="chkProg" hidden><div class="hint" id="chkTxt" style="margin:8px 0 0"></div><div class="pgb"><i id="chkBar"></i></div></div><div id="chkBody"></div></section>
+<section class="panel"><h2>7) بلاغات المستخدمين</h2><p class="hint">الحلقات اللي المستخدمين بلّغوا إن رابطها مش شغال، مرتبة بالأكثر. "تصفير" بيبدأ العدّ من جديد للحلقة بعد ما تصلح الرابط.</p><div class="actions" style="margin-top:0"><button class="btn secondary" id="repRefresh" type="button">تحديث البلاغات</button></div><div id="repBody"><p class="hint">اضغط تحديث لعرض البلاغات.</p></div></section>
 <section class="panel"><h2>مهم بخصوص الأمان</h2><p class="warning">لا تضع GitHub Token داخل ملف المكتبة الرئيسي أو ملف الإدارة كقيمة ثابتة. لا تستخدم Token بصلاحيات واسعة؛ أنشئ Fine-grained token للمستودع الجديد فقط، مع Contents: Read and write. لا ترفع هذا الرمز إلى GitHub.</p></section>
 </main>
 <script>
@@ -46,15 +54,15 @@ function apiUrl(){var c=config();return 'https://api.github.com/repos/'+encodeUR
 function headers(){return {'Accept':'application/vnd.github+json','Authorization':'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'}}
 function fromB64(s){var bin=atob(s.replace(/\n/g,'')),bytes=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return new TextDecoder('utf-8').decode(bytes)}
 function toB64(s){var bytes=new TextEncoder().encode(s),bin='';for(var i=0;i<bytes.length;i+=0x8000)bin+=String.fromCharCode.apply(null,bytes.subarray(i,Math.min(i+0x8000,bytes.length)));return btoa(bin)}
-async function loadData(){if(!token){status('أدخل GitHub Token أولًا.','bad');return}var c=config();if(!c.owner||!c.repo||!c.path){status('أكمل بيانات المستودع والملف.','bad');return}status('جارٍ الاتصال بـ GitHub وتحميل الملف…');try{var r=await fetch(apiUrl(),{headers:headers(),cache:'no-store'});if(r.status===404){series=[];currentSha=null;drawList();status('الملف غير موجود بعد. سيتم إنشاؤه عند أول عملية حفظ.','ok');refreshViews();return}var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));currentSha=j.sha;var parsed=JSON.parse(fromB64(j.content||''));if(!Array.isArray(parsed)||parsed.some(function(x){return !x||typeof x.t!=='string'||!Array.isArray(x.ss)}))throw new Error('محتوى JSON لا يطابق صيغة المسلسلات المتوقعة.');series=parsed;drawList();status('تم الاتصال بنجاح. عدد المسلسلات: '+series.length,'ok');refreshViews()}catch(e){status('فشل التحميل: '+e.message+'\nتأكد من الرمز وصلاحية Contents Read and write واسم المستودع.','bad')}}
-async function saveData(message){if(!token){status('اتصل بـ GitHub أولًا.','bad');return false}var c=config(),body={message:message,content:toB64(JSON.stringify(series,null,2)+'\n'),branch:c.branch};if(currentSha)body.sha=currentSha;try{var r=await fetch('https://api.github.com/repos/'+encodeURIComponent(c.owner)+'/'+encodeURIComponent(c.repo)+'/contents/'+c.path.split('/').map(encodeURIComponent).join('/'),{method:'PUT',headers:headers(),body:JSON.stringify(body)});var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));currentSha=j.content&&j.content.sha?j.content.sha:currentSha;drawList();status('تم الحفظ في GitHub بنجاح. انتظر قليلًا حتى تتحدث نسخة raw ثم افتح المكتبة أو حدّثها.','ok');return true}catch(e){status('فشل الحفظ: '+e.message+'\nقد تكون البيانات تغيّرت من مكان آخر؛ اضغط اتصال/تحميل ثم حاول مرة أخرى.','bad');return false}}
+async function loadData(){if(!token){status('أدخل GitHub Token أولًا.','bad');return}var c=config();if(!c.owner||!c.repo||!c.path){status('أكمل بيانات المستودع والملف.','bad');return}status('جارٍ الاتصال بـ GitHub وتحميل الملف…');try{var r=await fetch(apiUrl(),{headers:headers(),cache:'no-store'});if(r.status===404){series=[];currentSha=null;drawList();status('الملف غير موجود بعد. سيتم إنشاؤه عند أول عملية حفظ.','ok');refreshViews();return}var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));currentSha=j.sha;var parsed=JSON.parse(fromB64(j.content||''));if(!Array.isArray(parsed)||parsed.some(function(x){return !x||typeof x.t!=='string'||!Array.isArray(x.ss)}))throw new Error('محتوى JSON لا يطابق صيغة المسلسلات المتوقعة.');series=parsed;drawList();status('تم الاتصال بنجاح. عدد المسلسلات: '+series.length,'ok');refreshViews();refreshUndoBar()}catch(e){status('فشل التحميل: '+e.message+'\nتأكد من الرمز وصلاحية Contents Read and write واسم المستودع.','bad')}}
+async function saveData(message){if(!token){status('اتصل بـ GitHub أولًا.','bad');return false}var c=config(),body={message:message,content:toB64(JSON.stringify(series,null,2)+'\n'),branch:c.branch};if(currentSha)body.sha=currentSha;try{var r=await fetch('https://api.github.com/repos/'+encodeURIComponent(c.owner)+'/'+encodeURIComponent(c.repo)+'/contents/'+c.path.split('/').map(encodeURIComponent).join('/'),{method:'PUT',headers:headers(),body:JSON.stringify(body)});var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));currentSha=j.content&&j.content.sha?j.content.sha:currentSha;drawList();setTimeout(refreshUndoBar,1500);status('تم الحفظ في GitHub بنجاح. انتظر قليلًا حتى تتحدث نسخة raw ثم افتح المكتبة أو حدّثها.','ok');return true}catch(e){status('فشل الحفظ: '+e.message+'\nقد تكون البيانات تغيّرت من مكان آخر؛ اضغط اتصال/تحميل ثم حاول مرة أخرى.','bad');return false}}
 function makeField(labelText,value,placeholder,type){var label=document.createElement('label');label.className='field';label.appendChild(document.createTextNode(labelText));var input=document.createElement('input');input.type=type||'text';input.value=value||'';input.placeholder=placeholder||'';input.autocomplete='off';if(labelText==='رابط الفيديو')input.required=true;label.appendChild(input);return {label:label,input:input}}
 function renderSeasonEditor(initial){var host=$('seasonsEditor');host.innerHTML='';var source=Array.isArray(initial)&&initial.length?initial:[[{t:'',u:'',ua:'',ref:''}]];source.forEach(function(season){addSeasonEditor(season)})}
 function addSeasonEditor(initial){var host=$('seasonsEditor'),box=document.createElement('section');box.className='season-box';box.dataset.season='1';var head=document.createElement('div');head.className='season-head';var title=document.createElement('div');title.className='season-title';var tools=document.createElement('div');tools.className='actions';tools.style.marginTop='0';var addEp=document.createElement('button');addEp.type='button';addEp.className='mini-btn';addEp.textContent='＋ إضافة حلقة';addEp.onclick=function(){addEpisodeEditor(episodesHost,{})};var delSeason=document.createElement('button');delSeason.type='button';delSeason.className='mini-btn danger';delSeason.textContent='حذف الموسم';delSeason.onclick=function(){if(host.querySelectorAll('.season-box').length<=1){status('لازم تسيب موسم واحد على الأقل.','bad');return}box.remove();renumberSeasons()};var dupSeason=document.createElement('button');dupSeason.type='button';dupSeason.className='mini-btn';dupSeason.textContent='تكرار الموسم';dupSeason.onclick=function(){var data=[];box.querySelectorAll('.episode-box').forEach(function(eb){var f=eb._fields;data.push({t:f.t.value,u:f.u.value,ua:f.ua.value,ref:f.ref.value})});addSeasonEditor(data);renumberSeasons()};tools.appendChild(addEp);tools.appendChild(dupSeason);tools.appendChild(delSeason);head.appendChild(title);head.appendChild(tools);box.appendChild(head);var episodesHost=document.createElement('div');episodesHost.className='episodes-host';box.appendChild(episodesHost);host.appendChild(box);(Array.isArray(initial)&&initial.length?initial:[{}]).forEach(function(ep){addEpisodeEditor(episodesHost,ep||{})});renumberSeasons()}
-function addEpisodeEditor(host,ep){var box=document.createElement('div');box.className='episode-box';box.dataset.episode='1';var head=document.createElement('div');head.className='episode-head';var title=document.createElement('strong');title.className='episode-title';title.textContent='حلقة';var del=document.createElement('button');del.type='button';del.className='mini-btn danger';del.textContent='حذف الحلقة';del.onclick=function(){if(host.querySelectorAll('.episode-box').length<=1){status('لازم تسيب حلقة واحدة على الأقل في كل موسم.','bad');return}box.remove();renumberEpisodes(host)};head.appendChild(title);head.appendChild(del);box.appendChild(head);var grid=document.createElement('div');grid.className='episode-grid';var t=makeField('اسم الحلقة',ep.t||'','مثال: الحلقة الأولى','text');var u=makeField('رابط الفيديو',ep.u||'','https://example.com/video.m3u8','url');var ua=makeField('User-Agent (اختياري)',ep.ua||'','اتركه فارغًا إذا لم يلزم','text');var ref=makeField('Referer (اختياري)',ep.ref||'','https://example.com/','url');grid.appendChild(t.label);grid.appendChild(u.label);grid.appendChild(ua.label);grid.appendChild(ref.label);box.appendChild(grid);box._fields={t:t.input,u:u.input,ua:ua.input,ref:ref.input};host.appendChild(box);renumberEpisodes(host)}
+function addEpisodeEditor(host,ep){var box=document.createElement('div');box.className='episode-box';box.dataset.episode='1';var head=document.createElement('div');head.className='episode-head';var title=document.createElement('strong');title.className='episode-title';title.textContent='حلقة';var del=document.createElement('button');del.type='button';del.className='mini-btn danger';del.textContent='حذف الحلقة';del.onclick=function(){if(host.querySelectorAll('.episode-box').length<=1){status('لازم تسيب حلقة واحدة على الأقل في كل موسم.','bad');return}box.remove();renumberEpisodes(host)};head.appendChild(title);head.appendChild(del);box.appendChild(head);var grid=document.createElement('div');grid.className='episode-grid';var t=makeField('اسم الحلقة',ep.t||'','مثال: الحلقة الأولى','text');var u=makeField('رابط الفيديو',ep.u||'','https://example.com/video.m3u8','url');var ua=makeField('User-Agent (اختياري)',ep.ua||'','اتركه فارغًا إذا لم يلزم','text');var ref=makeField('Referer (اختياري)',ep.ref||'','https://example.com/','url');grid.appendChild(t.label);grid.appendChild(u.label);grid.appendChild(ua.label);grid.appendChild(ref.label);box.appendChild(grid);box._fields={t:t.input,u:u.input,ua:ua.input,ref:ref.input};box._rp=ep.rp;host.appendChild(box);renumberEpisodes(host)}
 function renumberSeasons(){Array.prototype.forEach.call($('seasonsEditor').querySelectorAll('.season-box'),function(box,i){box.querySelector('.season-title').textContent='الموسم '+(i+1);renumberEpisodes(box.querySelector('.episodes-host'))})}
 function renumberEpisodes(host){Array.prototype.forEach.call(host.querySelectorAll('.episode-box'),function(box,i){box.querySelector('.episode-title').textContent='الحلقة '+(i+1)})}
-function getSeasonsFromEditor(){var boxes=Array.prototype.slice.call($('seasonsEditor').querySelectorAll('.season-box'));var result=[];boxes.forEach(function(seasonBox,si){var eps=[];Array.prototype.forEach.call(seasonBox.querySelectorAll('.episode-box'),function(box,ei){var f=box._fields,t=f.t.value.trim(),u=f.u.value.trim(),ua=f.ua.value.trim(),ref=f.ref.value.trim();if(!u){if(t||ua||ref)throw new Error('أدخل رابط الفيديو للحلقة '+(ei+1)+' في الموسم '+(si+1)+'.');return}var ep={t:t||('الحلقة '+(ei+1)),u:u};if(ua)ep.ua=ua;if(ref)ep.ref=ref;eps.push(ep)});if(!eps.length)throw new Error('أضف رابط فيديو واحدًا على الأقل للموسم '+(si+1)+'.');result.push(eps)});return result}
+function getSeasonsFromEditor(){var boxes=Array.prototype.slice.call($('seasonsEditor').querySelectorAll('.season-box'));var result=[];boxes.forEach(function(seasonBox,si){var eps=[];Array.prototype.forEach.call(seasonBox.querySelectorAll('.episode-box'),function(box,ei){var f=box._fields,t=f.t.value.trim(),u=f.u.value.trim(),ua=f.ua.value.trim(),ref=f.ref.value.trim();if(!u){if(t||ua||ref)throw new Error('أدخل رابط الفيديو للحلقة '+(ei+1)+' في الموسم '+(si+1)+'.');return}var ep={t:t||('الحلقة '+(ei+1)),u:u};if(ua)ep.ua=ua;if(ref)ep.ref=ref;if(box._rp)ep.rp=box._rp;eps.push(ep)});if(!eps.length)throw new Error('أضف رابط فيديو واحدًا على الأقل للموسم '+(si+1)+'.');result.push(eps)});return result}
 function formToSeries(){var ss=getSeasonsFromEditor();if(!ss.length)throw new Error('أضف حلقة واحدة على الأقل.');var o={k:'remote-'+Date.now(),img:$('image').value.trim(),t:$('title').value.trim(),y:+$('year').value||new Date().getFullYear(),g:$('genre').value.trim()||'مسلسل',r:$('rating').value.trim()||'—',ac:$('color').value||'#7c5cff',s:ss.length,d:$('description').value.trim(),ss:ss};var vis=$('vis').value;if(vis==='hide')o.hide=true;if(vis==='sched'){var v=$('showAt').value;if(!v)throw new Error('اختر تاريخ ووقت الظهور.');o.showAt=v}return o}
 function toggleShowAt(){$('showAtWrap').style.display=$('vis').value==='sched'?'':'none'}
 function resetForm(){ $('form').reset();$('year').value=new Date().getFullYear();$('rating').value='0.0';$('color').value='#7c5cff';renderSeasonEditor();editingIndex=-1;editingK=null;toggleShowAt();$('saveSeries').textContent='حفظ المسلسل على GitHub'}
@@ -66,13 +74,14 @@ async function mutate(msg,fn){var snap=JSON.stringify(series);fn();syncEditing()
 function rowHtml(x,i){
   var count=(x.ss||[]).reduce(function(n,s){return n+s.length},0),st=statusOf(x);
   var tg=(x.pin?'<span class="tg tp">مثبّت</span>':'')+(st.k==='hide'?'<span class="tg th">مخفي</span>':'')+(st.k==='sched'?'<span class="tg ts">'+escapeHtml(st.label)+'</span>':'');
-  return '<div class="sitem"><div class="srow'+(x.pin?' pinned':'')+(st.k==='hide'?' dim':'')+'"><span class="grip" data-grip="'+i+'" title="اسحب لتغيير الترتيب"><svg viewBox="0 0 16 16"><circle cx="5" cy="3" r="1.4"/><circle cx="11" cy="3" r="1.4"/><circle cx="5" cy="8" r="1.4"/><circle cx="11" cy="8" r="1.4"/><circle cx="5" cy="13" r="1.4"/><circle cx="11" cy="13" r="1.4"/></svg></span><div class="stt"><strong>'+escapeHtml(x.t)+'</strong>'+tg+'<small>'+count+' حلقة · '+(x.ss||[]).length+' موسم</small></div><div class="actions"><button type="button" class="ib'+(x.pin?' on':'')+'" data-pin="'+i+'" title="تثبيت في أول القائمة">'+IC.pin+'</button><button type="button" class="ib'+(st.k==='hide'?' on':'')+'" data-hide="'+i+'" title="إخفاء / إظهار">'+(st.k==='hide'?IC.eyeoff:IC.eye)+'</button><button type="button" class="ib'+(st.k==='sched'?' on':'')+'" data-sch="'+i+'" title="جدولة الظهور">'+IC.cal+'</button><button type="button" class="ib" data-dup="'+i+'" title="تكرار المسلسل">'+IC.copy+'</button><button class="btn secondary" data-edit="'+i+'">تعديل</button><button class="btn danger" data-del="'+i+'">حذف</button></div></div><div class="sched" id="sch-'+i+'" hidden><label class="field">تاريخ ووقت الظهور<input type="datetime-local" id="schv-'+i+'" value="'+escapeHtml(x.showAt||'')+'"></label><div class="actions"><button type="button" class="btn" data-schsave="'+i+'">حفظ الجدولة</button><button type="button" class="btn secondary" data-schclear="'+i+'">إزالة الجدولة</button></div><p class="hint" style="margin:8px 0 0">المسلسل بيظهر تلقائيًا في الوقت ده (بحسب ساعة جهاز المستخدم).</p></div></div>';
+  return '<div class="sitem" data-name="'+escapeHtml(String(x.t).toLowerCase())+'"><div class="srow'+(x.pin?' pinned':'')+(st.k==='hide'?' dim':'')+'"><span class="grip" data-grip="'+i+'" title="اسحب لتغيير الترتيب"><svg viewBox="0 0 16 16"><circle cx="5" cy="3" r="1.4"/><circle cx="11" cy="3" r="1.4"/><circle cx="5" cy="8" r="1.4"/><circle cx="11" cy="8" r="1.4"/><circle cx="5" cy="13" r="1.4"/><circle cx="11" cy="13" r="1.4"/></svg></span><input type="checkbox" class="sel" data-sel="'+escapeHtml(x.k||x.t)+'"'+(selKeys[x.k||x.t]?' checked':'')+'><div class="stt"><strong>'+escapeHtml(x.t)+'</strong>'+tg+'<small>'+count+' حلقة · '+(x.ss||[]).length+' موسم</small></div><div class="actions"><button type="button" class="ib'+(x.pin?' on':'')+'" data-pin="'+i+'" title="تثبيت في أول القائمة">'+IC.pin+'</button><button type="button" class="ib'+(st.k==='hide'?' on':'')+'" data-hide="'+i+'" title="إخفاء / إظهار">'+(st.k==='hide'?IC.eyeoff:IC.eye)+'</button><button type="button" class="ib'+(st.k==='sched'?' on':'')+'" data-sch="'+i+'" title="جدولة الظهور">'+IC.cal+'</button><button type="button" class="ib" data-dup="'+i+'" title="تكرار المسلسل">'+IC.copy+'</button><button class="btn secondary" data-edit="'+i+'">تعديل</button><button class="btn danger" data-del="'+i+'">حذف</button></div></div><div class="sched" id="sch-'+i+'" hidden><label class="field">تاريخ ووقت الظهور<input type="datetime-local" id="schv-'+i+'" value="'+escapeHtml(x.showAt||'')+'"></label><div class="actions"><button type="button" class="btn" data-schsave="'+i+'">حفظ الجدولة</button><button type="button" class="btn secondary" data-schclear="'+i+'">إزالة الجدولة</button></div><p class="hint" style="margin:8px 0 0">المسلسل بيظهر تلقائيًا في الوقت ده (بحسب ساعة جهاز المستخدم).</p></div></div>';
 }
 function moveSeries(from,to){if(from===to||from<0||to<0||to>=series.length)return Promise.resolve(false);return mutate('Reorder series: '+series[from].t,function(){var it=series.splice(from,1)[0];series.splice(to,0,it)})}
 function initDrag(host){
   host.querySelectorAll('.grip').forEach(function(g){
     g.addEventListener('pointerdown',function(e){
       e.preventDefault();
+      if($('listSearch').value.trim()){status('امسح البحث الأول قبل ما تسحب للترتيب.','bad');return}
       var from=+g.getAttribute('data-grip'),items=[].slice.call(host.querySelectorAll('.sitem')),p=from,line=document.createElement('div');line.className='dropline';
       items[from].classList.add('dragging');try{g.setPointerCapture(e.pointerId)}catch(x){}
       function pos(y){var n=0;items.forEach(function(it){var r=it.getBoundingClientRect();if(r.top+r.height/2<y)n++});return n}
@@ -88,7 +97,7 @@ function initDrag(host){
 }
 function drawList(){var host=$('seriesList');if(!series.length){host.innerHTML='<p class="hint">ملف JSON فارغ حاليًا. أضف أول مسلسل من النموذج أعلاه.</p>';return}
   host.innerHTML=series.map(rowHtml).join('');
-  initDrag(host);
+  initDrag(host);bindSel(host);applyFilter();
   host.querySelectorAll('[data-edit]').forEach(function(b){b.onclick=function(){editSeries(+b.dataset.edit)}});
   host.querySelectorAll('[data-pin]').forEach(function(b){b.onclick=function(){var i=+b.dataset.pin;mutate((series[i].pin?'Unpin':'Pin')+' series: '+series[i].t,function(){var x=series[i];if(x.pin){delete x.pin}else{x.pin=true;series.splice(i,1);var q=0;while(q<series.length&&series[q].pin)q++;series.splice(q,0,x)}})}});
   host.querySelectorAll('[data-hide]').forEach(function(b){b.onclick=function(){var i=+b.dataset.hide;mutate((series[i].hide?'Show':'Hide')+' series: '+series[i].t,function(){var x=series[i];if(x.hide)delete x.hide;else x.hide=true})}});
@@ -158,6 +167,185 @@ async function refreshViews(){
   }catch(e){box.innerHTML='<p class="hint">تعذر تحميل المشاهدات. اضغط تحديث للمحاولة مرة أخرى.</p>'}
   viewsBusy=false;btn.disabled=false;btn.textContent='تحديث المشاهدات';
 }
+
+/* ===== أدوات القائمة: تحديد متعدد وبحث وتراجع ===== */
+var selKeys={};
+function selCount(){return Object.keys(selKeys).length}
+function updateBulk(){var n=selCount();$('bulkBar').hidden=!n;$('bulkN').textContent='تم تحديد '+n}
+function bindSel(host){host.querySelectorAll('.sel').forEach(function(c){c.onchange=function(){var k=c.getAttribute('data-sel');if(c.checked)selKeys[k]=1;else delete selKeys[k];updateBulk()}});updateBulk()}
+function applyFilter(){var v=($('listSearch').value||'').trim().toLowerCase();document.querySelectorAll('#seriesList .sitem').forEach(function(el){el.style.display=(!v||(el.getAttribute('data-name')||'').indexOf(v)>-1)?'':'none'})}
+$('listSearch').addEventListener('input',applyFilter);
+function bulkApply(label,fn){mutate(label,fn).then(function(){selKeys={};updateBulk();drawList()})}
+$('bulkHide').onclick=function(){bulkApply('Hide selected series',function(){series.forEach(function(x){if(selKeys[x.k||x.t])x.hide=true})})};
+$('bulkShow').onclick=function(){bulkApply('Show selected series',function(){series.forEach(function(x){if(selKeys[x.k||x.t])delete x.hide})})};
+$('bulkDel').onclick=function(){var n=selCount();if(!n||!confirm('حذف '+n+' مسلسل من ملف GitHub؟'))return;bulkApply('Delete selected series',function(){series=series.filter(function(x){return !selKeys[x.k||x.t]})})};
+$('bulkClear').onclick=function(){selKeys={};updateBulk();drawList()};
+var undoInfo=null;
+function ago(t){var s=(Date.now()-t)/1000;if(s<60)return 'قبل لحظات';if(s<3600)return 'قبل '+Math.floor(s/60)+' دقيقة';if(s<86400)return 'قبل '+Math.floor(s/3600)+' ساعة';return 'قبل '+Math.floor(s/86400)+' يوم'}
+function repoUrl(c,rest){return 'https://api.github.com/repos/'+encodeURIComponent(c.owner)+'/'+encodeURIComponent(c.repo)+rest}
+async function refreshUndoBar(){
+  var bar=$('undoBar');if(!token){bar.hidden=true;return}
+  var c=config();
+  try{
+    var r=await fetch(repoUrl(c,'/commits?sha='+encodeURIComponent(c.branch)+'&path='+encodeURIComponent(c.path)+'&per_page=2'),{headers:headers(),cache:'no-store'});
+    var j=await r.json();
+    if(!r.ok||!Array.isArray(j)||!j.length){bar.hidden=true;return}
+    undoInfo={cur:j[0],prev:j[1]||null};
+    $('undoTxt').textContent='آخر تغيير: '+String(j[0].commit.message).split('\n')[0]+' · '+ago(new Date(j[0].commit.committer.date).getTime());
+    $('undoBtn').disabled=!j[1];bar.hidden=false;
+  }catch(e){bar.hidden=true}
+}
+$('undoBtn').onclick=async function(){
+  if(!undoInfo||!undoInfo.prev)return;
+  var msg=String(undoInfo.cur.commit.message).split('\n')[0];
+  if(!confirm('التراجع عن آخر تغيير: «'+msg+'»؟ الملف هيرجع للنسخة اللي قبله.'))return;
+  var c=config();$('undoBtn').disabled=true;
+  try{
+    var r=await fetch(repoUrl(c,'/contents/'+c.path.split('/').map(encodeURIComponent).join('/')+'?ref='+undoInfo.prev.sha),{headers:headers(),cache:'no-store'});
+    var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));
+    var arr=JSON.parse(fromB64(j.content||''));
+    if(!validSeries(arr))throw new Error('النسخة السابقة مش بصيغة المسلسلات المتوقعة.');
+    var snap=JSON.stringify(series);series=arr;selKeys={};
+    if(await saveData('Undo: '+msg)){resetForm();status('تم التراجع عن آخر تغيير.','ok')}else{series=JSON.parse(snap);drawList()}
+  }catch(e){status('فشل التراجع: '+e.message,'bad')}
+  setTimeout(refreshUndoBar,1500);
+};
+/* ===== فحص الروابط ===== */
+var PROXY='https://seties.super-stv.workers.dev/';
+function enc(x){return encodeURIComponent(x)}
+function checkUrl(ep){
+  var u=(ep.u||'').trim(),ua=(ep.ua||'').trim(),rf=(ep.ref||'').trim(),base=PROXY.replace(/\/?$/,'/'),q='?url='+enc(u)+(ua?'&ua='+enc(ua):'')+(rf?'&ref='+enc(rf):'');
+  if(/[?&]action=stream(?:&|$)/i.test(u)||/[?&]realid=/i.test(u))return base+'proxy.m3u8'+q;
+  var path=/\.m3u8(?:$|\?)/i.test(u)?'proxy.m3u8':(/\.mp4(?:$|\?)/i.test(u)?'proxy.mp4':'proxy');
+  return base+path+q;
+}
+async function checkEp(ep){
+  var t0=Date.now(),c=new AbortController(),tm=setTimeout(function(){c.abort()},15000);
+  try{
+    var r=await fetch(checkUrl(ep),{headers:{'Range':'bytes=0-'},signal:c.signal,cache:'no-store'});
+    var ms=Date.now()-t0;clearTimeout(tm);try{c.abort()}catch(e){}
+    if(r.ok||r.status===206)return {s:ms>4000?'slow':'ok',ms:ms,code:r.status};
+    return {s:'bad',code:r.status,ms:ms};
+  }catch(e){clearTimeout(tm);return {s:'bad',code:c.signal.aborted?'انتهت المهلة':'تعذر الاتصال'}}
+}
+var chk={},chkBusy=false;
+function chkText(r){return r.s==='slow'?'بطيء · '+(r.ms/1000).toFixed(1)+' ث':(r.s==='ok'?'يعمل · '+(r.ms/1000).toFixed(1)+' ث':'لا يعمل · '+r.code)}
+function drawChk(){
+  var h='';
+  series.forEach(function(x,i){
+    var ok=0,slow=0,bad=0,probs=[];
+    (x.ss||[]).forEach(function(se,s){se.forEach(function(ep,k){var r=chk[i+'|'+s+'|'+k];if(!r)return;if(r.s==='ok')ok++;else{if(r.s==='slow')slow++;else bad++;probs.push({s:s,k:k,ep:ep,r:r})}})});
+    if(!ok&&!slow&&!bad)return;
+    h+='<div class="chk"><div class="chkh"><strong>'+escapeHtml(x.t)+'</strong><span class="tg" style="background:#1e503c;color:#96ebb9">'+ok+' تعمل</span>'+(slow?'<span class="tg ts">'+slow+' بطيء</span>':'')+(bad?'<span class="tg th">'+bad+' لا يعمل</span>':'')+((slow||bad)?'<button class="mini-btn" type="button" data-chkedit="'+i+'">تعديل</button>':'')+'</div>'+probs.map(function(p){return '<div class="chkr"><span class="dot" style="background:'+(p.r.s==='slow'?'#f0be3c':'#e04852')+'"></span><span class="tx">الموسم '+(p.s+1)+' · الحلقة '+(p.k+1)+' <small>'+escapeHtml(p.ep.t||'')+'</small></span><small>'+escapeHtml(chkText(p.r))+'</small></div>'}).join('')+'</div>';
+  });
+  $('chkBody').innerHTML=h||'<p class="hint">لسه ما اتعملش فحص.</p>';
+  $('chkBody').querySelectorAll('[data-chkedit]').forEach(function(b){b.onclick=function(){editSeries(+b.dataset.chkedit)}});
+}
+async function checkAll(){
+  if(chkBusy)return;
+  if(!series.length){status('اتصل وحمّل البيانات الأول.','bad');return}
+  var jobs=[];series.forEach(function(x,i){(x.ss||[]).forEach(function(se,s){se.forEach(function(ep,k){if((ep.u||'').trim())jobs.push({i:i,s:s,k:k,ep:ep})})})});
+  if(!jobs.length){$('chkBody').innerHTML='<p class="hint">مفيش روابط تتفحص.</p>';return}
+  chkBusy=true;chk={};var done=0,n=jobs.length,j=0;$('chkProg').hidden=false;$('chkAll').disabled=true;
+  function prog(){$('chkTxt').textContent='تم فحص '+done+' من '+n;$('chkBar').style.width=(done/n*100)+'%'}prog();
+  var w=async function(){while(j<jobs.length){var job=jobs[j++];chk[job.i+'|'+job.s+'|'+job.k]=await checkEp(job.ep);done++;prog()}};
+  await Promise.all([w(),w(),w()]);
+  chkBusy=false;$('chkAll').disabled=false;$('chkTime').textContent='آخر فحص: '+new Date().toLocaleTimeString('ar-EG');drawChk();
+}
+$('chkAll').onclick=checkAll;
+/* ===== بلاغات المستخدمين ===== */
+var repData=[];
+function rkey(x,s,k){return 'r-'+ckey(x)+'-'+(s+1)+'-'+(k+1)}
+function rskey(x){return 'rs-'+ckey(x)}
+function drawReports(){
+  var box=$('repBody');
+  if(!repData.length){box.innerHTML='<p class="hint">مفيش بلاغات حاليًا.</p>';return}
+  box.innerHTML=repData.map(function(r,idx){
+    var x=series[r.i],ep=x.ss[r.s][r.k];
+    return '<div class="rep"><div class="rt"><strong>'+escapeHtml(x.t)+'</strong><small>الموسم '+(r.s+1)+' · الحلقة '+(r.k+1)+' — '+escapeHtml(ep.t||'')+'</small><small id="rpc-'+idx+'"></small></div><span class="tg '+(r.active>=3?'th':'ts')+'">'+r.active+' بلاغ</span><button class="mini-btn" type="button" data-rchk="'+idx+'">فحص</button><button class="mini-btn" type="button" data-redit="'+idx+'">تعديل</button><button class="mini-btn danger" type="button" data-rreset="'+idx+'">تصفير</button></div>';
+  }).join('');
+  box.querySelectorAll('[data-rchk]').forEach(function(b){b.onclick=async function(){var idx=+b.dataset.rchk,r=repData[idx],ep=series[r.i].ss[r.s][r.k],el=$('rpc-'+idx);el.textContent='جاري الفحص…';el.textContent=chkText(await checkEp(ep))}});
+  box.querySelectorAll('[data-redit]').forEach(function(b){b.onclick=function(){editSeries(repData[+b.dataset.redit].i)}});
+  box.querySelectorAll('[data-rreset]').forEach(function(b){b.onclick=async function(){
+    var idx=+b.dataset.rreset,r=repData[idx];if(!r)return;
+    var ok=await mutate('Reset reports: '+series[r.i].t,function(){
+      series[r.i].ss[r.s][r.k].rp=r.n;
+      var others=repData.some(function(o,q){return q!==idx&&o.i===r.i});
+      if(!others)series[r.i].rpS=r.rs;
+    });
+    if(ok){repData.splice(idx,1);drawReports()}
+  }});
+}
+async function refreshReports(){
+  var box=$('repBody');
+  if(!series.length){box.innerHTML='<p class="hint">حمّل البيانات أولًا.</p>';return}
+  var path=$('path').value,ns=COUNTER_NS[path];
+  if(!ns){box.innerHTML='<p class="hint">لا يوجد اسم عدّاد لهذا القسم.</p>';return}
+  var btn=$('repRefresh');btn.disabled=true;btn.textContent='جاري التحديث…';box.innerHTML='<p class="hint">جاري التحميل…</p>';
+  var rs=new Array(series.length),i=0;
+  var w1=async function(){while(i<series.length){var idx=i++;rs[idx]=await getCount(COUNTER_BASE+'get/'+ns+'/'+rskey(series[idx]))}};
+  await Promise.all([w1(),w1(),w1()]);
+  var jobs=[];
+  series.forEach(function(x,idx){if(typeof rs[idx]==='number'&&rs[idx]>(x.rpS||0))(x.ss||[]).forEach(function(se,s){se.forEach(function(ep,k){jobs.push({i:idx,s:s,k:k,n:null})})})});
+  var j=0;
+  var w2=async function(){while(j<jobs.length){var job=jobs[j++];job.n=await getCount(COUNTER_BASE+'get/'+ns+'/'+rkey(series[job.i],job.s,job.k))}};
+  await Promise.all([w2(),w2(),w2()]);
+  btn.disabled=false;btn.textContent='تحديث البلاغات';
+  if($('path').value!==path)return;
+  repData=jobs.filter(function(job){var ep=series[job.i].ss[job.s][job.k];return typeof job.n==='number'&&job.n-(ep.rp||0)>0}).map(function(job){var ep=series[job.i].ss[job.s][job.k];return {i:job.i,s:job.s,k:job.k,n:job.n,active:job.n-(ep.rp||0),rs:rs[job.i]}}).sort(function(a,b){return b.active-a.active});
+  drawReports();
+}
+$('repRefresh').onclick=refreshReports;
+/* ===== ملء البيانات من TMDB ورفع البوستر ===== */
+var tmdbGenres=null,suggTimer=null,suggSel=null,suggList=[];
+function tmdbKey(){return ($('tmdbKey').value||'').trim()}
+async function tmdbGet(path,params){var r=await fetch('https://api.themoviedb.org/3'+path+'?api_key='+enc(tmdbKey())+'&language=ar'+(params||''));if(!r.ok)throw new Error('TMDB '+r.status);return r.json()}
+async function loadGenres(){if(tmdbGenres)return tmdbGenres;var j=await tmdbGet('/genre/tv/list');tmdbGenres={};(j.genres||[]).forEach(function(g){tmdbGenres[g.id]=g.name});return tmdbGenres}
+function drawSugg(){
+  var w=$('suggWrap');if(!suggList.length){w.hidden=true;return}
+  w.hidden=false;
+  $('suggList').innerHTML=suggList.map(function(x,i){var y=(x.first_air_date||'').slice(0,4);return '<div class="sg'+(i===suggSel?' sel':'')+'" data-sg="'+i+'"><div class="sgp"'+(x.poster_path?' style="background-image:url(https://image.tmdb.org/t/p/w92'+x.poster_path+')"':'')+'></div><div><b>'+escapeHtml(x.name||x.original_name||'')+'</b><small>مسلسل · '+(y||'—')+' · ★ '+(x.vote_average?x.vote_average.toFixed(1):'—')+'</small></div></div>'}).join('');
+  $('suggList').querySelectorAll('.sg').forEach(function(el){el.onclick=function(){suggSel=+el.getAttribute('data-sg');drawSugg()}});
+}
+$('title').addEventListener('input',function(){
+  clearTimeout(suggTimer);var v=$('title').value.trim();
+  if(!tmdbKey()||v.length<2||editingIndex>=0){suggList=[];drawSugg();return}
+  suggTimer=setTimeout(async function(){try{var j=await tmdbGet('/search/tv','&query='+enc(v));suggList=(j.results||[]).slice(0,5);suggSel=suggList.length?0:null;drawSugg()}catch(e){status('تعذر البحث في TMDB: '+e.message,'bad')}},450);
+});
+$('suggFill').onclick=async function(){
+  var x=suggList[suggSel];if(!x)return;
+  try{
+    var g=await loadGenres(),ids=(x.genre_ids||[]).map(function(id){return g[id]}).filter(Boolean).slice(0,3),y=(x.first_air_date||'').slice(0,4);
+    $('title').value=x.name||x.original_name||$('title').value;
+    if(y)$('year').value=y;if(x.vote_average)$('rating').value=x.vote_average.toFixed(1);if(ids.length)$('genre').value=ids.join('، ');
+    if(x.overview)$('description').value=x.overview;if(x.poster_path)$('image').value='https://image.tmdb.org/t/p/w500'+x.poster_path;
+    suggList=[];drawSugg();status('تم ملء البيانات من TMDB. راجعها قبل الحفظ.','ok');
+  }catch(e){status('تعذر جلب بيانات TMDB: '+e.message,'bad')}
+};
+$('tmdbKey').addEventListener('input',function(){try{localStorage.setItem('seriesAdminTmdb',tmdbKey())}catch(e){}});
+try{var tk=localStorage.getItem('seriesAdminTmdb');if(tk)$('tmdbKey').value=tk}catch(e){}
+function slugName(t){return String(t).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,30)}
+function imgToJpegB64(file){
+  return new Promise(function(res,rej){
+    var rd=new FileReader();rd.onerror=function(){rej(new Error('تعذر قراءة الصورة'))};
+    rd.onload=function(){var im=new Image();im.onerror=function(){rej(new Error('الملف مش صورة صالحة'))};im.onload=function(){var sc=Math.min(1,600/im.width),cv=document.createElement('canvas');cv.width=Math.round(im.width*sc);cv.height=Math.round(im.height*sc);cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);res(cv.toDataURL('image/jpeg',.85).split(',')[1])};im.src=rd.result};
+    rd.readAsDataURL(file);
+  });
+}
+$('upPoster').onclick=function(){$('posterFile').click()};
+$('posterFile').onchange=async function(){
+  var f=$('posterFile').files&&$('posterFile').files[0];if(!f)return;
+  if(!token){status('اتصل بـ GitHub الأول عشان ترفع الصورة.','bad');$('posterFile').value='';return}
+  $('upInfo').textContent='جاري الرفع…';
+  try{
+    var data=await imgToJpegB64(f),c=config(),name='posters/'+(slugName($('title').value)||'poster')+'-'+Date.now()+'.jpg';
+    var r=await fetch(repoUrl(c,'/contents/'+name.split('/').map(encodeURIComponent).join('/')),{method:'PUT',headers:headers(),body:JSON.stringify({message:'Upload poster: '+name,content:data,branch:c.branch})});
+    var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));
+    $('image').value='https://raw.githubusercontent.com/'+c.owner+'/'+c.repo+'/'+c.branch+'/'+name;
+    $('upInfo').textContent='تم رفع الصورة إلى المستودع ✓';
+  }catch(e){$('upInfo').textContent='فشل الرفع: '+e.message}
+  $('posterFile').value='';
+};
 $('connect').onclick=loadData;$('clearToken').onclick=function(){token='';$('token').value='';status('تم مسح الرمز من ذاكرة الصفحة.','ok')};
 $('viewsRefresh').onclick=refreshViews;
 $('vis').addEventListener('change',toggleShowAt);
@@ -196,7 +384,7 @@ function saveTokenPreference(){var v=$('token').value.trim();if($('rememberToken
 var savedToken='';try{savedToken=localStorage.getItem('seriesAdminToken')||''}catch(e){}if(savedToken){token=savedToken;$('token').value=savedToken;$('rememberToken').checked=true}
 $('rememberToken').addEventListener('change',function(){if($('rememberToken').checked){if(!$('token').value.trim()){$('rememberToken').checked=false;status('الصق التوكن أولًا ثم فعّل الحفظ.','bad');return}saveTokenPreference();status('تم حفظ التوكن على هذا المتصفح.','ok')}else{saveTokenPreference();status('تم حذف التوكن المحفوظ من هذا المتصفح.','ok')}});
 $('token').addEventListener('change',function(){token=$('token').value.trim();saveTokenPreference()});$('token').addEventListener('input',function(){token=$('token').value.trim();saveTokenPreference()});
-$('form').onsubmit=async function(e){e.preventDefault();if(!token){status('أدخل Token واتصل أولًا.','bad');return}var item;try{item=formToSeries();if(!item.t)throw new Error('اكتب اسم المسلسل.')}catch(err){status(err.message,'bad');return}var prev=editingIndex>=0?series[editingIndex]:null,prevIndex=editingIndex;if(prevIndex>=0){item.k=prev.k||item.k;if(prev.pin)item.pin=true;series[prevIndex]=item}else{series.push(item)}$('saveSeries').disabled=true;var ok=await saveData((prev?'Update':'Add')+' series: '+item.t);$('saveSeries').disabled=false;if(ok)resetForm();else{if(prevIndex>=0)series[prevIndex]=prev;else series.pop();drawList()}};
+$('form').onsubmit=async function(e){e.preventDefault();if(!token){status('أدخل Token واتصل أولًا.','bad');return}var item;try{item=formToSeries();if(!item.t)throw new Error('اكتب اسم المسلسل.')}catch(err){status(err.message,'bad');return}var prev=editingIndex>=0?series[editingIndex]:null,prevIndex=editingIndex;if(prevIndex>=0){item.k=prev.k||item.k;if(prev.pin)item.pin=true;if(prev.rpS)item.rpS=prev.rpS;series[prevIndex]=item}else{series.push(item)}$('saveSeries').disabled=true;var ok=await saveData((prev?'Update':'Add')+' series: '+item.t);$('saveSeries').disabled=false;if(ok)resetForm();else{if(prevIndex>=0)series[prevIndex]=prev;else series.pop();drawList()}};
 $('cancelEdit').onclick=resetForm;$('addSeason').onclick=function(){addSeasonEditor([{}]);renumberSeasons()};renderSeasonEditor();
 window.addEventListener('pagehide',function(){token='';$('token').value=''});
 </script></body></html>
