@@ -1,44 +1,59 @@
 [
   {
     "k": "remote-1791760928496",
-    "img": "https://bm.alooytv16.xyz/uploads/video_thumb/1985.jpg",
-    "t": "القصة الكاملة (نسخة)",
+    "img": "https://media0106.elcinema.com/uploads/_315x420_4e2a34a6650b51cb1960c09d4210e2f8199a665b9a62041bdd8bf9bc0ff5d04d.jpg",
+    "t": "خمسين خمسين",
     "y": 2026,
-    "g": "تشويق وإثارة، جريمة، غموض",
+    "g": "كوميدي",
     "r": "0.0",
     "ac": "#e1bc05",
     "s": 1,
-    "d": "في إطار درامي تشويقي يعتمد على أحداث واقعية. تتناول الأحداث مجموعة من قصص منفصلة، تكشف تفاصيل وأسرار قضايا شهيرة. ويتناول العمل حكايات بارزة مثل \"لعبة جهنم\" و\"ما لم يُحكَ عن بني ...اقرأ المزيد مزار\" و\"سفاح المرج\" و\"ريا وسكينة\" برؤية جديدة.",
+    "d": "تدور الأحداث حول (رانيا)، المحامية المتفانية التي تنقلب حياتها رأسًا على عقب بعد اختفاء زوجها فجأةً، لتتحول إلى امرأة قوية تسعى للانتقام واستعادة حياتها بطرقها الخاصة بالتعاون مع ...اقرأ المزيد ابنها.",
     "ss": [
       [
         {
-          "t": "قصة لعبة جهنم",
-          "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla/01.mp4",
+          "t": "الحلقة 1",
+          "u": "https://vid8.ujeklsj.site/Khamsin-Khamsin/01.mp4",
           "ref": "https://et.alooytv16.xyz/"
         },
         {
-          "t": "قصة لعبة جهنم",
-          "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla/02.mp4",
+          "t": "الحلقة 2",
+          "u": "https://vid8.ujeklsj.site/Khamsin-Khamsin/02.mp4",
           "ref": "https://et.alooytv16.xyz/"
         },
         {
-          "t": "قصة لعبة جهنم",
-          "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla/03.mp4",
+          "t": "الحلقة 3",
+          "u": "https://vid8.ujeklsj.site/Khamsin-Khamsin/03.mp4",
           "ref": "https://et.alooytv16.xyz/"
         },
         {
-          "t": "قصة ما لم يُحكَ عن بني مزار",
-          "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla-Drama-Ma-Lam-Yohka-An-Bani-Mazar/01.mp4",
+          "t": "الحلقة 4",
+          "u": "https://vid8.ujeklsj.site/Khamsin-Khamsin/04.mp4",
           "ref": "https://et.alooytv16.xyz/"
         },
         {
-          "t": "قصة ما لم يُحكَ عن بني مزار",
-          "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla-Drama-Ma-Lam-Yohka-An-Bani-Mazar/02.mp4",
+          "t": "الحلقة 5",
+          "u": "https://vid8.ujeklsj.site/Khamsin-Khamsin05.mp4",
           "ref": "https://et.alooytv16.xyz/"
         },
         {
-          "t": "قصة ما لم يُحكَ عن بني مزار",
-          "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla-Drama-Ma-Lam-Yohka-An-Bani-Mazar/03.mp4",
+          "t": "الحلقة 6",
+          "u": "https://vid8.ujeklsj.site/Khamsin-Khamsin06.mp4",
+          "ref": "https://et.alooytv16.xyz/"
+        },
+        {
+          "t": "الحلقة 7",
+          "u": "https://vid8.ujeklsj.site/Khamsin-Khamsin07.mp4",
+          "ref": "https://et.alooytv16.xyz/"
+        },
+        {
+          "t": "الحلقة 8",
+          "u": "https://vid8.ujeklsj.site/Khamsin-Khamsin08.mp4",
+          "ref": "https://et.alooytv16.xyz/"
+        },
+        {
+          "t": "الحلقة 9",
+          "u": "https://vid8.ujeklsj.site/Khamsin-Khamsin09.mp4",
           "ref": "https://et.alooytv16.xyz/"
         }
       ]
