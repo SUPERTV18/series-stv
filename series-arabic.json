@@ -167,6 +167,62 @@
     "pin": true
   },
   {
+    "k": "remote-1791729835788",
+    "img": "https://media0106.elcinema.com/uploads/_315x420_d090215d460caf19530fc8e8981c2b792092b33d7b5d355f0925b9e61a238abe.jpg",
+    "t": "مسلسل الفرنساوي",
+    "y": 2026,
+    "g": "تشويق وإثارة",
+    "r": "0.0",
+    "ac": "#7c5cff",
+    "s": 1,
+    "d": "تدور أحداث المسلسل حول خالد مشير، المحامي الذكي والداهية الذي لا يؤمن بالعدالة المطلقة قدر إيمانه بقوة النص القانوني. يُعرف في الوسط القانوني بقدرته الفائقة على قلب الموازين، ليس ...اقرأ المزيد بالبحث عن الحقيقة، ولكن عبر استغلال ثغرات القانون وتطويعها لصالح موكليه.",
+    "ss": [
+      [
+        {
+          "t": "الحلقة 1",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=209063"
+        },
+        {
+          "t": "الحلقة 2",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=209062"
+        },
+        {
+          "t": "الحلقة 3",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=209905"
+        },
+        {
+          "t": "الحلقة 4",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=209904"
+        },
+        {
+          "t": "الحلقة 5",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=210613"
+        },
+        {
+          "t": "الحلقة 6",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=210568"
+        },
+        {
+          "t": "الحلقة 7",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=211975"
+        },
+        {
+          "t": "الحلقة 8",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=211310"
+        },
+        {
+          "t": "الحلقة 9",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=211975"
+        },
+        {
+          "t": "الحلقة 10",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=211974"
+        }
+      ]
+    ],
+    "src": "elCinema"
+  },
+  {
     "k": "remote-1791722668005",
     "img": "https://media0106.elcinema.com/uploads/_315x420_f0ff7f1df284c4143344a64a9d9fa1d91b880c899959dff5e16ab966a0943fe8.jpg",
     "t": "مسلسل ابن النادي",
@@ -441,61 +497,5 @@
         }
       ]
     ]
-  },
-  {
-    "k": "remote-1791729835788",
-    "img": "https://media0106.elcinema.com/uploads/_315x420_d090215d460caf19530fc8e8981c2b792092b33d7b5d355f0925b9e61a238abe.jpg",
-    "t": "مسلسل الفرنساوي",
-    "y": 2026,
-    "g": "تشويق وإثارة",
-    "r": "0.0",
-    "ac": "#7c5cff",
-    "s": 1,
-    "d": "تدور أحداث المسلسل حول خالد مشير، المحامي الذكي والداهية الذي لا يؤمن بالعدالة المطلقة قدر إيمانه بقوة النص القانوني. يُعرف في الوسط القانوني بقدرته الفائقة على قلب الموازين، ليس ...اقرأ المزيد بالبحث عن الحقيقة، ولكن عبر استغلال ثغرات القانون وتطويعها لصالح موكليه.",
-    "ss": [
-      [
-        {
-          "t": "الحلقة 1",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=209063"
-        },
-        {
-          "t": "الحلقة 2",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=209062"
-        },
-        {
-          "t": "الحلقة 3",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=209905"
-        },
-        {
-          "t": "الحلقة 4",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=209904"
-        },
-        {
-          "t": "الحلقة 5",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=210613"
-        },
-        {
-          "t": "الحلقة 6",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=210568"
-        },
-        {
-          "t": "الحلقة 7",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=211975"
-        },
-        {
-          "t": "الحلقة 8",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=211310"
-        },
-        {
-          "t": "الحلقة 9",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=211975"
-        },
-        {
-          "t": "الحلقة 10",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=211974"
-        }
-      ]
-    ],
-    "src": "elCinema"
   }
 ]
