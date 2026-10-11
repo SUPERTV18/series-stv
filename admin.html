@@ -22,6 +22,7 @@
 <form id="form"><div class="grid">
 <label class="field">اسم المسلسل *<input id="title" required maxlength="120" placeholder="مثال: مسلسل جديد"></label>
 <label class="field">سنة العرض<input id="year" type="number" min="1900" max="2100" value="2026"></label>
+<div class="field full"><span>رابط صفحة المسلسل على elCinema (اختياري)</span><div class="actions" style="margin-top:0;flex-wrap:nowrap"><input id="elUrl" type="url" placeholder="https://elcinema.com/work/2097156/" style="direction:ltr;flex:1"><button class="btn secondary" id="elFetch" type="button" style="flex:none">جلب البيانات</button></div><p class="hint" id="elInfo" style="margin:0"></p></div>
 <div class="field full" id="suggWrap" hidden><div class="sugg" id="suggList"></div><div class="actions" style="margin-top:0"><button class="btn" id="suggFill" type="button">ملء البيانات من النتيجة المختارة</button></div></div>
 <label class="field">التصنيف<input id="genre" placeholder="دراما، أكشن"></label>
 <label class="field">التقييم<input id="rating" value="0.0" placeholder="8.5"></label>
@@ -63,10 +64,12 @@ function addEpisodeEditor(host,ep){var box=document.createElement('div');box.cla
 function renumberSeasons(){Array.prototype.forEach.call($('seasonsEditor').querySelectorAll('.season-box'),function(box,i){box.querySelector('.season-title').textContent='الموسم '+(i+1);renumberEpisodes(box.querySelector('.episodes-host'))})}
 function renumberEpisodes(host){Array.prototype.forEach.call(host.querySelectorAll('.episode-box'),function(box,i){box.querySelector('.episode-title').textContent='الحلقة '+(i+1)})}
 function getSeasonsFromEditor(){var boxes=Array.prototype.slice.call($('seasonsEditor').querySelectorAll('.season-box'));var result=[];boxes.forEach(function(seasonBox,si){var eps=[];Array.prototype.forEach.call(seasonBox.querySelectorAll('.episode-box'),function(box,ei){var f=box._fields,t=f.t.value.trim(),u=f.u.value.trim(),ua=f.ua.value.trim(),ref=f.ref.value.trim();if(!u){if(t||ua||ref)throw new Error('أدخل رابط الفيديو للحلقة '+(ei+1)+' في الموسم '+(si+1)+'.');return}var ep={t:t||('الحلقة '+(ei+1)),u:u};if(ua)ep.ua=ua;if(ref)ep.ref=ref;if(box._rp)ep.rp=box._rp;eps.push(ep)});if(!eps.length)throw new Error('أضف رابط فيديو واحدًا على الأقل للموسم '+(si+1)+'.');result.push(eps)});return result}
-function formToSeries(){var ss=getSeasonsFromEditor();if(!ss.length)throw new Error('أضف حلقة واحدة على الأقل.');var o={k:'remote-'+Date.now(),img:$('image').value.trim(),t:$('title').value.trim(),y:+$('year').value||new Date().getFullYear(),g:$('genre').value.trim()||'مسلسل',r:$('rating').value.trim()||'—',ac:$('color').value||'#7c5cff',s:ss.length,d:$('description').value.trim(),ss:ss};var vis=$('vis').value;if(vis==='hide')o.hide=true;if(vis==='sched'){var v=$('showAt').value;if(!v)throw new Error('اختر تاريخ ووقت الظهور.');o.showAt=v}return o}
+var srcs={};
+function srcString(){return Object.keys(srcs).join('، ')}
+function formToSeries(){var ss=getSeasonsFromEditor();if(!ss.length)throw new Error('أضف حلقة واحدة على الأقل.');var o={k:'remote-'+Date.now(),img:$('image').value.trim(),t:$('title').value.trim(),y:+$('year').value||new Date().getFullYear(),g:$('genre').value.trim()||'مسلسل',r:$('rating').value.trim()||'—',ac:$('color').value||'#7c5cff',s:ss.length,d:$('description').value.trim(),ss:ss};var vis=$('vis').value;var sl=srcString();if(sl)o.src=sl;if(vis==='hide')o.hide=true;if(vis==='sched'){var v=$('showAt').value;if(!v)throw new Error('اختر تاريخ ووقت الظهور.');o.showAt=v}return o}
 function toggleShowAt(){$('showAtWrap').style.display=$('vis').value==='sched'?'':'none'}
-function resetForm(){ $('form').reset();$('year').value=new Date().getFullYear();$('rating').value='0.0';$('color').value='#7c5cff';renderSeasonEditor();editingIndex=-1;editingK=null;toggleShowAt();$('saveSeries').textContent='حفظ المسلسل على GitHub'}
-function editSeries(i){var x=series[i];editingIndex=i;editingK=x.k||x.t;$('title').value=x.t||'';$('year').value=x.y||new Date().getFullYear();$('genre').value=x.g||'';$('rating').value=x.r||'0.0';$('image').value=x.img||'';$('color').value=x.ac||'#7c5cff';$('description').value=x.d||'';$('vis').value=x.hide?'hide':(x.showAt?'sched':'show');$('showAt').value=x.showAt||'';toggleShowAt();renderSeasonEditor(x.ss);$('saveSeries').textContent='حفظ تعديلات المسلسل';window.scrollTo({top:0,behavior:'smooth'})}
+function resetForm(){ $('form').reset();$('year').value=new Date().getFullYear();$('rating').value='0.0';$('color').value='#7c5cff';renderSeasonEditor();editingIndex=-1;editingK=null;srcs={};$('elInfo').textContent='';toggleShowAt();$('saveSeries').textContent='حفظ المسلسل على GitHub'}
+function editSeries(i){var x=series[i];editingIndex=i;editingK=x.k||x.t;srcs={};String(x.src||'').split('،').forEach(function(t){t=t.trim();if(t)srcs[t]=1});$('title').value=x.t||'';$('year').value=x.y||new Date().getFullYear();$('genre').value=x.g||'';$('rating').value=x.r||'0.0';$('image').value=x.img||'';$('color').value=x.ac||'#7c5cff';$('description').value=x.d||'';$('vis').value=x.hide?'hide':(x.showAt?'sched':'show');$('showAt').value=x.showAt||'';toggleShowAt();renderSeasonEditor(x.ss);$('saveSeries').textContent='حفظ تعديلات المسلسل';window.scrollTo({top:0,behavior:'smooth'})}
 var IC={pin:'<svg viewBox="0 0 24 24"><path d="M12 17v5M9 3h6l-1 6 3 3v2H7v-2l3-3z"/></svg>',eye:'<svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',eyeoff:'<svg viewBox="0 0 24 24"><path d="M3 3l18 18M10.6 5.1A10.9 10.9 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.1 6.1A17 17 0 0 0 2 12s3.6 7 10 7a10.9 10.9 0 0 0 4.2-.8"/></svg>',cal:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',copy:'<svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>'};
 function statusOf(x){var t=x.showAt?new Date(x.showAt).getTime():NaN;if(x.hide)return {k:'hide'};if(!isNaN(t)&&t>Date.now())return {k:'sched',label:'يظهر '+new Date(t).toLocaleString('ar-EG',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})};return {k:'show'}}
 function syncEditing(){if(editingK!==null){editingIndex=series.findIndex(function(x){return (x.k||x.t)===editingK})}}
@@ -297,20 +300,21 @@ async function refreshReports(){
 }
 $('repRefresh').onclick=refreshReports;
 /* ===== ملء البيانات من TMDB ورفع البوستر ===== */
-var tmdbGenres=null,suggTimer=null,suggSel=null,suggList=[];
+var tmdbGenres=null,suggTimer=null,suggSel=null,suggList=[],suggMsg='';
 function tmdbKey(){return ($('tmdbKey').value||'').trim()}
 async function tmdbGet(path,params){var r=await fetch('https://api.themoviedb.org/3'+path+'?api_key='+enc(tmdbKey())+'&language=ar'+(params||''));if(!r.ok)throw new Error('TMDB '+r.status);return r.json()}
 async function loadGenres(){if(tmdbGenres)return tmdbGenres;var j=await tmdbGet('/genre/tv/list');tmdbGenres={};(j.genres||[]).forEach(function(g){tmdbGenres[g.id]=g.name});return tmdbGenres}
 function drawSugg(){
-  var w=$('suggWrap');if(!suggList.length){w.hidden=true;return}
-  w.hidden=false;
+  var w=$('suggWrap');
+  if(!suggList.length){if(!suggMsg){w.hidden=true;return}w.hidden=false;$('suggFill').hidden=true;$('suggList').innerHTML='<p class="hint" style="margin:6px 8px">'+escapeHtml(suggMsg)+'</p>';return}
+  w.hidden=false;$('suggFill').hidden=false;
   $('suggList').innerHTML=suggList.map(function(x,i){var y=(x.first_air_date||'').slice(0,4);return '<div class="sg'+(i===suggSel?' sel':'')+'" data-sg="'+i+'"><div class="sgp"'+(x.poster_path?' style="background-image:url(https://image.tmdb.org/t/p/w92'+x.poster_path+')"':'')+'></div><div><b>'+escapeHtml(x.name||x.original_name||'')+'</b><small>مسلسل · '+(y||'—')+' · ★ '+(x.vote_average?x.vote_average.toFixed(1):'—')+'</small></div></div>'}).join('');
   $('suggList').querySelectorAll('.sg').forEach(function(el){el.onclick=function(){suggSel=+el.getAttribute('data-sg');drawSugg()}});
 }
 $('title').addEventListener('input',function(){
-  clearTimeout(suggTimer);var v=$('title').value.trim();
+  clearTimeout(suggTimer);suggMsg='';var v=$('title').value.trim();
   if(!tmdbKey()||v.length<2||editingIndex>=0){suggList=[];drawSugg();return}
-  suggTimer=setTimeout(async function(){try{var j=await tmdbGet('/search/tv','&query='+enc(v));suggList=(j.results||[]).slice(0,5);suggSel=suggList.length?0:null;drawSugg()}catch(e){status('تعذر البحث في TMDB: '+e.message,'bad')}},450);
+  suggTimer=setTimeout(async function(){try{var j=await tmdbGet('/search/tv','&query='+enc(v));suggList=(j.results||[]).slice(0,5);suggSel=suggList.length?0:null;suggMsg=suggList.length?'':'مفيش نتائج في TMDB للاسم ده. جرّب الاسم بالإنجليزي أو بصيغة تانية، أو املأ البيانات بإيدك.';drawSugg()}catch(e){status('تعذر البحث في TMDB: '+e.message,'bad')}},450);
 });
 $('suggFill').onclick=async function(){
   var x=suggList[suggSel];if(!x)return;
@@ -318,12 +322,32 @@ $('suggFill').onclick=async function(){
     var g=await loadGenres(),ids=(x.genre_ids||[]).map(function(id){return g[id]}).filter(Boolean).slice(0,3),y=(x.first_air_date||'').slice(0,4);
     $('title').value=x.name||x.original_name||$('title').value;
     if(y)$('year').value=y;if(x.vote_average)$('rating').value=x.vote_average.toFixed(1);if(ids.length)$('genre').value=ids.join('، ');
-    if(x.overview)$('description').value=x.overview;if(x.poster_path)$('image').value='https://image.tmdb.org/t/p/w500'+x.poster_path;
-    suggList=[];drawSugg();status('تم ملء البيانات من TMDB. راجعها قبل الحفظ.','ok');
+    if(x.overview)$('description').value=x.overview;if(x.poster_path)$('image').value='https://image.tmdb.org/t/p/w500'+x.poster_path;srcs.TMDB=1;
+    suggList=[];suggMsg='';drawSugg();status('تم ملء البيانات من TMDB. راجعها قبل الحفظ.','ok');
   }catch(e){status('تعذر جلب بيانات TMDB: '+e.message,'bad')}
 };
 $('tmdbKey').addEventListener('input',function(){try{localStorage.setItem('seriesAdminTmdb',tmdbKey())}catch(e){}});
 try{var tk=localStorage.getItem('seriesAdminTmdb');if(tk)$('tmdbKey').value=tk}catch(e){}
+$('elFetch').onclick=async function(){
+  var u=($('elUrl').value||'').trim(),info=$('elInfo');
+  if(!/^https?:\/\/(www\.)?elcinema\.com\/(en\/)?work\/\d+/i.test(u)){info.textContent='الصق رابط صفحة مسلسل صحيح من elCinema، مثل: https://elcinema.com/work/2097156/';return}
+  info.textContent='جاري الجلب…';
+  try{
+    var r=await fetch(PROXY.replace(/\/?$/,'/')+'elcinema?url='+enc(u),{cache:'no-store'});
+    var j=await r.json();
+    if(!r.ok||j.error)throw new Error(j.error||('HTTP '+r.status));
+    if(j.title)$('title').value=j.title;
+    if(j.year)$('year').value=j.year;
+    if(j.genres&&j.genres.length)$('genre').value=j.genres.slice(0,3).join('، ');
+    if(j.overview)$('description').value=j.overview;
+    if(j.poster)$('image').value=j.poster;
+    srcs.elCinema=1;
+    var note='تم ملء البيانات من elCinema. التقييم مش بيتملى تلقائيًا، وراجع باقي البيانات قبل الحفظ.';
+    if(j.category&&j.category.indexOf('مسلسل')<0)note='تنبيه: الصفحة دي نوعها "'+j.category+'" مش مسلسل. '+note;
+    if(j.episodes)note+=' عدد الحلقات حسب الموقع: '+j.episodes+'.';
+    info.textContent=note;
+  }catch(e){info.textContent='تعذر الجلب: '+e.message}
+};
 function slugName(t){return String(t).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,30)}
 function imgToJpegB64(file){
   return new Promise(function(res,rej){
