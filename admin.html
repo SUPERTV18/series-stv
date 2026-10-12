@@ -707,8 +707,8 @@ if(typeof origAdd!=='function'||typeof origGet!=='function')return;
 window.addEpisodeEditor=function(host,ep,after){
   var box=origAdd(host,ep,after),grid=box.querySelector('.episode-grid');
   var label=document.createElement('label');label.className='field';label.style.gridColumn='1/-1';
-  label.appendChild(document.createTextNode('المفتاح / DRM (اختياري، لحلقات MPD)'));
-  var inp=document.createElement('input');inp.type='text';inp.autocomplete='off';inp.dir='ltr';inp.placeholder='kid:key (hex)';
+  label.appendChild(document.createTextNode('المفتاح / رابط الترخيص (اختياري، لحلقات MPD)'));
+  var inp=document.createElement('input');inp.type='text';inp.autocomplete='off';inp.dir='ltr';inp.placeholder='https://clkey.vercel.app/api/results.php?keyid=...&key=... أو keyid:key';
   var v=(ep&&ep.key)||(after&&after._xk&&ep&&ep.key===undefined?after._xk.value:'');inp.value=v||'';
   label.appendChild(inp);grid.appendChild(label);box._xk=inp;return box;
 };
