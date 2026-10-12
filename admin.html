@@ -483,7 +483,7 @@ var h1=main.querySelector('h1'),sub=main.querySelector('.sub'),hd0=document.crea
 hd0.innerHTML='<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="12" fill="#1b2459"/><path d="M15 11l20 11-20 11z" fill="#8a63ff"/></svg><div id="xt"></div>';
 main.insertBefore(hd0,main.firstChild);g('xt').appendChild(h1);g('xt').appendChild(sub);
 /* القائمة الجانبية */
-var NAV=[['home','الرئيسية','⌂'],['add','إضافة مسلسل','＋'],['list','قائمة المسلسلات','☰'],['log','سجل التغييرات','↺'],['stats','الإحصائيات','▥'],['set','الإعدادات','⚙']];
+var NAV=[['home','الرئيسية','⌂'],['add','إضافة مسلسل','＋'],['list','قائمة المسلسلات','☰'],['log','سجل التغييرات','↺'],['stats','الإحصائيات','▥'],['tools','أدوات متقدمة','✦'],['set','الإعدادات','⚙']];
 var side=document.createElement('aside');side.className='xside';
 side.innerHTML='<div class="xbrand">لوحة الإدارة</div><h4>إدارة المسلسلات</h4>'+NAV.map(function(n){return '<button type="button" data-pg="'+n[0]+'"><i>'+n[2]+'</i>'+n[1]+'</button>'}).join('')+'<div class="xgap"></div><button type="button" id="xOut"><i>⏻</i>تسجيل الخروج</button>';
 document.body.insertBefore(side,main);
@@ -502,7 +502,7 @@ dsh.innerHTML=
  card(8,'إعدادات متقدمة','خيارات إضافية للتحكم في المحتوى.','<div class="xsoon"><div>إدارة المستخدمين<small>(قريبًا)</small></div><div>الإشعارات<small>(قريبًا)</small></div><div>المهام المجدولة<small>(قريبًا)</small></div><div>إعدادات عامة<small>(قريبًا)</small></div></div>');
 main.insertBefore(dsh,hd0.nextSibling);
 /* الصفحات: نخفي/نظهر الأقسام الأصلية فقط */
-var PAGES={home:['الاتصال','#'],add:['بيانات المسلسل','Referer'],list:['المسلسلات الموجودة'],log:['النسخ الاحتياطي','#'],stats:['المشاهدات','فحص الروابط','بلاغات'],set:['الاتصال','الأمان']};
+var PAGES={home:['الاتصال','#'],add:['بيانات المسلسل','Referer'],list:['المسلسلات الموجودة'],log:['النسخ الاحتياطي','#'],stats:['المشاهدات','فحص الروابط','بلاغات'],set:['الاتصال','الأمان'],tools:['الاتصال','أدوات متقدمة']};
 function show(pg){
   var keys=PAGES[pg]||PAGES.home;
   Array.prototype.forEach.call(main.children,function(e){
@@ -583,6 +583,77 @@ g('xCsv').onclick=function(){
 g('connect').addEventListener('click',function(){setTimeout(load,1500)});
 show('home');
 if(token)setTimeout(load,600);
+})();
+</script>
+<!-- ===== إضافة الأدوات المتقدمة (لا تغيّر أي كود موجود) ===== -->
+<script>
+(function(){
+'use strict';
+var main=document.querySelector('.wrap'),g=function(i){return document.getElementById(i)};
+var FILES=[['series-arabic.json','المسلسلات العربية'],['series-foreign.json','المسلسلات الأجنبية'],['series-turkish.json','المسلسلات التركية'],['series-korean.json','المسلسلات الكورية']];
+var sec=document.createElement('section');sec.style.display='none';
+sec.innerHTML='<h2 style="margin:0 0 4px">أدوات متقدمة</h2><p class="hint" id="tCur"></p><div class="xgrid" style="grid-template-columns:repeat(2,minmax(0,1fr))">'+
+'<div class="xc"><h3><span class="xn">1</span>نقل مسلسل بين الأقسام</h3><p>بينقل المسلسل لقسم تاني ويحذفه من القسم الحالي.</p><select id="tMvS"></select><select id="tMvT"></select><div class="actions"><button class="btn" id="tMvB" type="button">نقل المسلسل</button></div></div>'+
+'<div class="xc"><h3><span class="xn">2</span>استبدال الروابط بالجملة</h3><p>غيّر جزء من الرابط (مثل الدومين) في كل حلقات القسم الحالي.</p><input id="tFrom" dir="ltr" placeholder="old-host.com" style="margin-bottom:6px"><input id="tTo" dir="ltr" placeholder="new-host.com"><label class="xck" style="display:flex;margin-top:6px"><input type="checkbox" id="tRef" checked>تغيير Referer كمان</label><div id="tRepP" class="hint" style="margin:8px 0 0"></div><div class="actions"><button class="btn secondary" id="tRepV" type="button">معاينة</button><button class="btn" id="tRepB" type="button">تطبيق وحفظ</button></div></div>'+
+'<div class="xc"><h3><span class="xn">3</span>فرز يتحفظ فعلًا</h3><p>بيرتب القسم الحالي ويحفظه (المثبّت يفضل في الأول).</p><select id="tSort"><option value="new">الأحدث إضافة</option><option value="old">الأقدم إضافة</option><option value="eps">الأكثر حلقات</option><option value="year">الأحدث سنة</option><option value="name">الاسم</option></select><div id="tSortP"></div><div class="actions"><button class="btn" id="tSortB" type="button">تطبيق الفرز وحفظه</button></div></div>'+
+'<div class="xc"><h3><span class="xn">4</span>فحص جودة البيانات</h3><p>مسلسلات ناقصة بوستر أو وصف أو تقييم أو روابط.</p><div id="tQ"></div></div>'+
+'</div>';
+main.appendChild(sec);
+function cur(){var s=g('path');return s.options[s.selectedIndex].text}
+function ts(x){var n=parseInt(String(x.k||'').replace('remote-',''),10);return isNaN(n)?0:n}
+function eps(x){return (x.ss||[]).reduce(function(n,s){return n+s.length},0)}
+function cmp(m){return function(p,q){return m==='new'?ts(q)-ts(p):m==='old'?ts(p)-ts(q):m==='eps'?eps(q)-eps(p):m==='year'?(q.y||0)-(p.y||0):String(p.t).localeCompare(String(q.t),'ar')}}
+function render(){
+  g('tCur').textContent='القسم الحالي: '+cur()+' · '+series.length+' مسلسل. غيّر القسم من «الإعدادات».';
+  g('tMvS').innerHTML=series.map(function(x,i){return '<option value="'+i+'">'+escapeHtml(x.t)+'</option>'}).join('')||'<option value="">لا توجد مسلسلات</option>';
+  var p=g('path').value;g('tMvT').innerHTML=FILES.filter(function(f){return f[0]!==p}).map(function(f){return '<option value="'+f[0]+'">'+f[1]+'</option>'}).join('');
+  sortPrev();repScan();quality();
+}
+function sortPrev(){var a=series.slice().sort(cmp(g('tSort').value)).slice(0,3);g('tSortP').innerHTML=a.map(function(x){return '<div class="xit"><div><b>'+escapeHtml(x.t)+'</b><br><small>'+(x.y||'—')+' · '+eps(x)+' حلقة</small></div></div>'}).join('')}
+g('tSort').onchange=sortPrev;
+g('tSortB').onclick=function(){
+  if(!token||!series.length){status('اتصل وحمّل البيانات أولًا.','bad');return}
+  var m=g('tSort').value;
+  mutate('Sort series: '+m,function(){var pins=series.filter(function(x){return x.pin}),rest=series.filter(function(x){return !x.pin});rest.sort(cmp(m));series=pins.concat(rest)}).then(function(ok){if(ok)render()});
+};
+function scan(f){var out=[],withRef=g('tRef').checked;series.forEach(function(x,i){(x.ss||[]).forEach(function(se,s){se.forEach(function(ep,k){['u','ref'].forEach(function(fl){if(fl==='ref'&&!withRef)return;if(ep[fl]&&ep[fl].indexOf(f)>-1)out.push({i:i,s:s,k:k,fl:fl,v:ep[fl]})})})})});return out}
+function repScan(){var f=g('tFrom').value.trim();if(!f){g('tRepP').textContent='اكتب الجزء اللي عايز تغيّره.';return}var o=scan(f),t=g('tTo').value,n={};o.forEach(function(r){n[r.i]=1});
+  g('tRepP').innerHTML=o.length?'هيتغيّر <b>'+o.length+'</b> رابط في <b>'+Object.keys(n).length+'</b> مسلسل.<div dir="ltr" style="margin-top:6px;text-align:left"><div style="color:#ff9fb0">- '+escapeHtml(o[0].v)+'</div><div style="color:#8ff0bf">+ '+escapeHtml(o[0].v.split(f).join(t))+'</div></div>':'مفيش روابط فيها النص ده.'}
+g('tRepV').onclick=repScan;
+g('tRepB').onclick=function(){
+  if(!token){status('اتصل بـ GitHub أولًا.','bad');return}
+  var f=g('tFrom').value.trim(),t=g('tTo').value.trim();if(!f||!t){status('اكتب النص القديم والجديد.','bad');return}
+  var o=scan(f);if(!o.length){repScan();return}
+  if(!confirm('تغيير '+o.length+' رابط في '+cur()+'؟'))return;
+  mutate('Replace links: '+f+' -> '+t,function(){o.forEach(function(r){var ep=series[r.i].ss[r.s][r.k];ep[r.fl]=ep[r.fl].split(f).join(t)})}).then(function(ok){if(ok){status('تم تغيير '+o.length+' رابط.','ok');render()}});
+};
+async function getFile(path){var c=config(),r=await fetch(repoUrl(c,'/contents/'+path+'?ref='+enc(c.branch)),{headers:headers(),cache:'no-store'});if(r.status===404)return {arr:[],sha:null};var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));var a=JSON.parse(fromB64(j.content||''));if(!validSeries(a))throw new Error('ملف القسم الهدف مش بصيغة المسلسلات.');return {arr:a,sha:j.sha}}
+async function putFile(path,arr,sha,msg){var c=config(),b={message:msg,content:toB64(JSON.stringify(arr,null,2)+'\n'),branch:c.branch};if(sha)b.sha=sha;var r=await fetch(repoUrl(c,'/contents/'+path.split('/').map(enc).join('/')),{method:'PUT',headers:headers(),body:JSON.stringify(b)});var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status))}
+g('tMvB').onclick=async function(){
+  if(!token){status('اتصل بـ GitHub أولًا.','bad');return}
+  var i=+g('tMvS').value,tp=g('tMvT').value,x=series[i];if(!x||!tp)return;
+  var tn=FILES.filter(function(f){return f[0]===tp})[0][1];
+  if(!confirm('نقل «'+x.t+'» إلى '+tn+'؟'))return;
+  g('tMvB').disabled=true;
+  try{
+    var t=await getFile(tp);
+    if(t.arr.some(function(y){return String(y.t).toLowerCase()===String(x.t).toLowerCase()})&&!confirm('فيه مسلسل بنفس الاسم في القسم الهدف. تكمل؟')){g('tMvB').disabled=false;return}
+    var c=JSON.parse(JSON.stringify(x));delete c.pin;t.arr.unshift(c);
+    await putFile(tp,t.arr,t.sha,'Move series in: '+x.t);
+    var key=x.k||x.t;
+    var ok=await mutate('Move series out: '+x.t,function(){series=series.filter(function(y){return (y.k||y.t)!==key})});
+    status(ok?'تم نقل «'+x.t+'» إلى '+tn+'.':'اتضاف للقسم الهدف لكن فشل حذفه من القسم الحالي. احذفه يدويًا.',ok?'ok':'bad');
+  }catch(e){status('فشل النقل: '+e.message,'bad')}
+  g('tMvB').disabled=false;render();
+};
+function quality(){
+  var rows=[];series.forEach(function(x,i){var p=[];if(!x.img)p.push('بدون بوستر');if(!x.d)p.push('بدون وصف');if(!x.r||x.r==='0.0'||x.r==='—')p.push('بدون تقييم');if(!x.g||x.g==='مسلسل')p.push('نوع افتراضي');var nl=0;(x.ss||[]).forEach(function(s){s.forEach(function(e){if(!(e.u||'').trim())nl++})});if(nl)p.push(nl+' حلقة بلا رابط');if(p.length)rows.push({i:i,t:x.t,p:p})});
+  var ok=series.length-rows.length,pc=series.length?Math.round(ok/series.length*100):0;
+  g('tQ').innerHTML=series.length?'<div class="xb"><b>'+pc+'%</b> مكتملة ('+ok+' من '+series.length+')</div>'+rows.slice(0,8).map(function(r){return '<div class="xr"><span>'+escapeHtml(r.t)+'<br><small style="color:var(--mut)">'+escapeHtml(r.p.join(' · '))+'</small></span><button class="mini-btn" type="button" data-edit="'+r.i+'" onclick="editSeries('+r.i+')">تعديل</button></div>'}).join('')+(rows.length>8?'<p class="hint">و'+(rows.length-8)+' مسلسل كمان.</p>':''):'<p class="hint">حمّل البيانات أولًا.</p>';
+}
+g('tFrom').addEventListener('input',repScan);g('tTo').addEventListener('input',repScan);g('tRef').addEventListener('change',repScan);
+document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('[data-pg="tools"]'))setTimeout(render,50)});
+g('connect').addEventListener('click',function(){setTimeout(render,2000)});
 })();
 </script>
 <!-- ===== نهاية الإضافة ===== -->
