@@ -14,7 +14,7 @@
         {
           "t": "الحلقة 1",
           "u": "https://orng.shahid.net/out/v1/6428888cd3c94ef0a7dc823270954790/22166333d51a4d528478144cc30fc048/65aee16b2775429e8add39c54f7b6995/index.mpd?aws.manifestfilter=audio_language:ar;video_codec:H264;video_framerate:25-25;video_height:144-720",
-          "key": "f0e8008edc384e9f9430cbdcbb61fdde:79bce45186e7c31e929fc352aad45529"
+          "key": "https://clkey.vercel.app/api/results.php?keyid=f0e8008edc384e9f9430cbdcbb61fdde&key=79bce45186e7c31e929fc352aad45529"
         }
       ]
     ],
