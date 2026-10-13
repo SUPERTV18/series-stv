@@ -502,9 +502,15 @@ dsh.innerHTML=
  card(8,'اكتمال البيانات','نقص البيانات في كل الأقسام.','<div id="xQual"><p class="hint">حمّل البيانات أولًا.</p></div><div class="actions"><button class="mini-btn" type="button" data-pg="tools">فتح أدوات متقدمة</button></div>');
 main.insertBefore(dsh,hd0.nextSibling);
 /* الصفحات: نخفي/نظهر الأقسام الأصلية فقط */
-var ORDER=['connect','form','presets','list','views','backup','check','reports','security'],oi=0;
-Array.prototype.forEach.call(main.children,function(e){if(e.tagName==='SECTION'&&e!==dsh)e.setAttribute('data-sec',ORDER[oi++]||('x'+oi))});
-var PAGES={home:['connect','#'],add:['form','presets'],list:['list'],log:['backup','#'],stats:['views','check','reports'],set:['connect','security'],tools:['connect','tools']};
+var SEC=[['connect','#connect'],['form','#form'],['presets','#refMgr'],['list','#seriesList'],['views','#viewsBody'],['backup','#bkDown'],['check','#chkAll'],['reports','#repBody']];
+Array.prototype.forEach.call(main.children,function(e){
+  if(e.tagName!=='SECTION'||e===dsh)return;
+  var id='other';
+  for(var i=0;i<SEC.length;i++){if(e.querySelector(SEC[i][1])){id=SEC[i][0];break}}
+  if(id==='other'&&e.querySelector('.warning')&&!e.querySelector('button,input,select'))id='security';
+  e.setAttribute('data-sec',id);
+});
+var PAGES={home:['connect','#'],add:['form','presets'],list:['list'],log:['backup','#'],stats:['views','check','reports'],set:['connect','security','other'],tools:['connect','tools']};
 function show(pg){
   var keys=PAGES[pg]||PAGES.home;
   Array.prototype.forEach.call(main.children,function(e){
@@ -516,7 +522,7 @@ function show(pg){
   window.scrollTo(0,0);
 }
 document.addEventListener('click',function(e){
-  var b=e.target.closest&&e.target.closest('[data-pg]');if(b){show(b.getAttribute('data-pg'));return}
+  var b=e.target.closest&&e.target.closest('[data-pg]');if(b){var pg=b.getAttribute('data-pg');show(pg);if((pg==='home'||pg==='log')&&token&&Date.now()-lastFull>60000)load();return}
   if(e.target.closest&&e.target.closest('[data-edit],[data-chkedit],[data-redit]'))setTimeout(function(){show('add')},0);
 });
 g('xOut').onclick=function(){g('clearToken').click();try{localStorage.removeItem('seriesAdminToken')}catch(e){}g('rememberToken').checked=false;status('تم تسجيل الخروج ومسح التوكن المحفوظ من هذا المتصفح.','ok');show('set')};
@@ -526,9 +532,9 @@ function eps(x){return (x.ss||[]).reduce(function(n,s){return n+s.length},0)}
 function noLink(x){var n=0;(x.ss||[]).forEach(function(s){s.forEach(function(e){if(!(e.u||'').trim())n++})});return n}
 function all(){var o=[];F.forEach(function(f){(D[f[0]]||[]).forEach(function(x,i){o.push({l:f[1],x:x,i:i})})});return o}
 function stOf(x){return x.hide?'مخفي':(x.showAt?'مجدول':'ظاهر')}
-var busy=false,rowsLog=[];
+var busy=false,again=false,lastFull=0,LOG={};
 async function load(){
-  if(busy||!token)return;busy=true;var c=config();D={};
+  if(!token)return;if(busy){again=true;return}busy=true;var c=config();D={};
   try{
     for(var i=0;i<F.length;i++){
       var r=await fetch(repoUrl(c,'/contents/'+F[i][0]+'?ref='+encodeURIComponent(c.branch)),{headers:hd(true),cache:'no-store'});
@@ -538,7 +544,17 @@ async function load(){
     }
     draw();drawSort();drawQual();g('xCsv').disabled=false;await log(c);
   }catch(e){g('xStats').innerHTML='<p class="hint">تعذر تحميل الملخص: '+escapeHtml(e.message)+'</p>'}
-  busy=false;
+  busy=false;lastFull=Date.now();
+  if(again){again=false;load()}
+}
+/* بعد أي حفظ: نحدّث القسم الحالي من الذاكرة + طلب commits واحد، بدل إعادة تحميل كل الأقسام */
+function refreshCurrent(){
+  if(!token)return;
+  if(busy){again=true;return}
+  if(!Object.keys(D).length){load();return}
+  var c=config();D[c.path]=series;
+  draw();drawSort();drawQual();
+  log(c,[c.path]);
 }
 function draw(){
   var a=all(),E=0,NL=0,H=0;a.forEach(function(r){E+=eps(r.x);NL+=noLink(r.x);if(r.x.hide)H++});
@@ -555,9 +571,10 @@ function draw(){
   Object.keys(d).forEach(function(s){if(d[s].length>1)dl.push(d[s])});
   g('xDup').innerHTML=dl.length?dl.map(function(x){return '<div class="xdup"><b>'+escapeHtml(x[0].x.t)+'</b> موجود '+x.length+' مرات في: '+x.map(function(r){return escapeHtml(r.l)}).join('، ')+'</div>'}).join(''):'<p class="hint">لا يوجد تكرار.</p>';
 }
-function ts(x){var n=parseInt(String(x.k||'').replace('remote-',''),10);return isNaN(n)?0:n}
+function addedOf(x){var a=+x.addedAt;if(a>0)return a;var n=parseInt(String(x.k||'').replace('remote-',''),10);return isNaN(n)?0:n}
+window.__addedOf=addedOf;
 function drawSort(){
-  var a=all().sort(function(p,q){return ts(q.x)-ts(p.x)});
+  var a=all().sort(function(p,q){return addedOf(q.x)-addedOf(p.x)||p.i-q.i});
   g('xSortB').innerHTML=a.slice(0,3).map(function(r){return '<div class="xit"><img alt="" src="'+escapeHtml(r.x.img||'')+'" onerror="this.style.visibility=\'hidden\'"><div><b>'+escapeHtml(r.x.t)+'</b><br><small>'+(r.x.y||'—')+' · '+eps(r.x)+' حلقة · '+r.l+'</small></div></div>'}).join('')||'<p class="hint">لا توجد بيانات.</p>';
 }
 function lc(x){var n=0;(x.ss||[]).forEach(function(s){s.forEach(function(e){if((e.u||'').trim())n++})});return n}
@@ -582,12 +599,14 @@ g('xShowAll').onclick=function(){
   mutate('Show hidden series',function(){series.forEach(function(x){delete x.hide})});
 };
 function kind(m){return /^(add|أضف)/i.test(m)?['إضافة','xadd']:/^delete/i.test(m)?['حذف','xdel']:['تعديل','xupd']}
-async function log(c){
-  var rows=[];
+async function log(c,only){
   for(var i=0;i<F.length;i++){
+    if(only&&only.indexOf(F[i][0])<0)continue;
+    var lbl=F[i][1],list=[];
     try{var r=await fetch(repoUrl(c,'/commits?sha='+encodeURIComponent(c.branch)+'&path='+F[i][0]+'&per_page=5'),{headers:hd(false),cache:'no-store'}),j=await r.json();
-    if(Array.isArray(j))j.forEach(function(x){rows.push({d:new Date(x.commit.committer.date),m:String(x.commit.message).split('\n')[0],u:(x.author&&x.author.login)||x.commit.author.name,l:F[i][1]})})}catch(e){}
+    if(Array.isArray(j)){j.forEach(function(x){list.push({d:new Date(x.commit.committer.date),m:String(x.commit.message).split('\n')[0],u:(x.author&&x.author.login)||x.commit.author.name,l:lbl})});LOG[F[i][0]]=list}}catch(e){}
   }
+  var rows=[];Object.keys(LOG).forEach(function(k){rows=rows.concat(LOG[k])});
   rows.sort(function(x,y){return y.d-x.d});rows=rows.slice(0,6);
   g('xLog').innerHTML=rows.length?'<table><tr><th>التاريخ</th><th>النوع</th><th>القسم</th><th>التفاصيل</th><th>المستخدم</th></tr>'+rows.map(function(r){var k=kind(r.m);return '<tr><td>'+r.d.toLocaleString('ar-EG',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+'</td><td><span class="xtag '+k[1]+'">'+k[0]+'</span></td><td>'+escapeHtml(r.l)+'</td><td dir="ltr" style="text-align:right">'+escapeHtml(r.m)+'</td><td>'+escapeHtml(r.u)+'</td></tr>'}).join('')+'</table>':'<p class="hint">لا توجد تغييرات.</p>';
   g('xLast').innerHTML=rows.length?'آخر تغيير: <b dir="ltr">'+escapeHtml(rows[0].m)+'</b> · '+escapeHtml(rows[0].l):'لا توجد بيانات بعد.';
@@ -601,7 +620,7 @@ g('xCsv').onclick=function(){
   a.href=URL.createObjectURL(b);a.download='series-export-'+new Date().toISOString().slice(0,10)+'.csv';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},800);
 };
 g('connect').addEventListener('click',function(){setTimeout(load,1500)});
-window.__xLoad=load;
+window.__xLoad=load;window.__xRefresh=refreshCurrent;
 show('home');
 if(token)setTimeout(load,600);
 })();
@@ -621,9 +640,9 @@ sec.innerHTML='<h2 style="margin:0 0 4px">أدوات متقدمة</h2><p class="
 '</div>';
 main.appendChild(sec);
 function cur(){var s=g('path');return s.options[s.selectedIndex].text}
-function ts(x){var n=parseInt(String(x.k||'').replace('remote-',''),10);return isNaN(n)?0:n}
+function ts(x){return window.__addedOf?window.__addedOf(x):0}
 function eps(x){return (x.ss||[]).reduce(function(n,s){return n+s.length},0)}
-function cmp(m){return function(p,q){return m==='new'?ts(q)-ts(p):m==='old'?ts(p)-ts(q):m==='eps'?eps(q)-eps(p):m==='year'?(q.y||0)-(p.y||0):String(p.t).localeCompare(String(q.t),'ar')}}
+function cmp(m){return function(p,q){return m==='new'?(ts(q)-ts(p)||series.indexOf(p)-series.indexOf(q)):m==='old'?(ts(p)-ts(q)||series.indexOf(q)-series.indexOf(p)):m==='eps'?eps(q)-eps(p):m==='year'?(q.y||0)-(p.y||0):String(p.t).localeCompare(String(q.t),'ar')}}
 function render(){
   g('tCur').textContent='القسم الحالي: '+cur()+' · '+series.length+' مسلسل. غيّر القسم من «الإعدادات».';
   g('tMvS').innerHTML=series.map(function(x,i){return '<option value="'+i+'">'+escapeHtml(x.t)+'</option>'}).join('')||'<option value="">لا توجد مسلسلات</option>';
@@ -688,12 +707,12 @@ g('connect').addEventListener('click',function(){setTimeout(render,2000)});
 var st=document.getElementById('status'),box=document.createElement('div'),tm,rf,last=st.textContent,init=st.textContent;
 box.className='xtoast';box.setAttribute('role','status');box.setAttribute('aria-live','polite');document.body.appendChild(box);
 new MutationObserver(function(){
-  var t=st.textContent;if(!t||t===last||t===init)return;last=t;
+  var t=st.textContent;if(!t||t===init)return;
   var k=st.classList.contains('bad')?'bad':(st.classList.contains('ok')?'ok':'');
   box.textContent=t;box.className='xtoast on '+k;clearTimeout(tm);
-  tm=setTimeout(function(){box.classList.remove('on');last=''},k==='bad'?9000:5000);
+  tm=setTimeout(function(){box.classList.remove('on')},k==='bad'?9000:5000);
   if(k==='ok'&&/^(تم الحفظ|تم التراجع|تم تغيير|تم نقل)/.test(t)){
-    clearTimeout(rf);rf=setTimeout(function(){if(window.__xLoad)window.__xLoad();if(window.__xRender)window.__xRender()},1200);
+    clearTimeout(rf);rf=setTimeout(function(){if(/^تم نقل/.test(t)){if(window.__xLoad)window.__xLoad()}else if(window.__xRefresh)window.__xRefresh();if(window.__xRender)window.__xRender()},1200);
   }
 }).observe(st,{childList:true,characterData:true,subtree:true,attributes:true,attributeFilter:['class']});
 })();
@@ -727,6 +746,17 @@ window.getSeasonsFromEditor=function(){
 };
 /* الحلقات الموجودة حاليًا في النموذج الفاضي */
 try{window.renderSeasonEditor()}catch(e){}
+})();
+</script>
+<script>
+/* تاريخ الإضافة: يتسجّل مرة واحدة للمسلسل الجديد ويفضل ثابت عند التعديل */
+(function(){
+var orig=window.formToSeries;if(typeof orig!=='function')return;
+window.formToSeries=function(){
+  var o=orig(),prev=(typeof editingIndex==='number'&&editingIndex>=0)?series[editingIndex]:null;
+  if(prev){var a=+prev.addedAt;if(a>0)o.addedAt=a}else o.addedAt=Date.now();
+  return o;
+};
 })();
 </script>
 <!-- ===== نهاية الإضافة ===== -->
