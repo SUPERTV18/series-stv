@@ -1,1 +1,59 @@
-[]
+[
+  {
+    "k": "remote-1792021112836",
+    "addedAt": "2026-10-14T23:38:32.837Z",
+    "img": "https://image.tmdb.org/t/p/w500/hf3tdaDfpkCk4XWukWlk6vh3PAW.jpg",
+    "t": "Furious",
+    "y": 2026,
+    "g": "دراما، جريمة",
+    "r": "7.4",
+    "ac": "#7c5cff",
+    "s": 1,
+    "d": "تدور القصة حول عميلة في مكتب التحقيقات الفيدرالي (FBI) تُدعى أليس بلاك، تؤدي دورها إيمي روسوم، تنطلق في مطاردة قاتلة متسلسلة ذكية وغامضة تُدعى كاثرين. ومع تقدم الأحداث، تبدأ حياة المطاردة والمجرمة بالتشابك، ويصبح من الصعب التمييز بين الخير والشر والعدالة والانتقام",
+    "ss": [
+      [
+        {
+          "t": "الحلقة 1",
+          "u": "https://cdn.mediaoscar.com/t/tmzxim/5ScfMirNWYGL0wEsVU9VvtoJJf6/b2/files/US/Furious/Furious-S01-EP001-720p.mp4",
+          "ua": "TDMuaHLS99"
+        },
+        {
+          "t": "الحلقة 2",
+          "u": "https://cdn.mediaoscar.com/t/tmzxim/5ScfMirNWYGL0wEsVU9VvtoJJf6/b2/files/US/Furious/Furious-S01-EP002-720p.mp4",
+          "ua": "TDMuaHLS99"
+        },
+        {
+          "t": "الحلقة 3",
+          "u": "https://cdn.mediaoscar.com/t/tmzxim/5ScfMirNWYGL0wEsVU9VvtoJJf6/b2/files/US/Furious/Furious-S01-EP003-720p.mp4",
+          "ua": "TDMuaHLS99"
+        },
+        {
+          "t": "الحلقة 4",
+          "u": "https://cdn.mediaoscar.com/t/tmzxim/5ScfMirNWYGL0wEsVU9VvtoJJf6/b2/files/US/Furious/Furious-S01-EP004-720p.mp4",
+          "ua": "TDMuaHLS99"
+        },
+        {
+          "t": "الحلقة 5",
+          "u": "https://cdn.mediaoscar.com/t/tmzxim/5ScfMirNWYGL0wEsVU9VvtoJJf6/b2/files/US/Furious/Furious-S01-EP005-720p.mp4",
+          "ua": "TDMuaHLS99"
+        },
+        {
+          "t": "الحلقة 6",
+          "u": "https://cdn.mediaoscar.com/t/tmzxim/5ScfMirNWYGL0wEsVU9VvtoJJf6/b2/files/US/Furious/Furious-S01-EP006-720p.mp4",
+          "ua": "TDMuaHLS99"
+        },
+        {
+          "t": "الحلقة 7",
+          "u": "https://cdn.mediaoscar.com/t/tmzxim/5ScfMirNWYGL0wEsVU9VvtoJJf6/b2/files/US/Furious/Furious-S01-EP007-720p.mp4",
+          "ua": "TDMuaHLS99"
+        },
+        {
+          "t": "الحلقة 8 والأخيرة",
+          "u": "https://cdn.mediaoscar.com/t/tmzxim/5ScfMirNWYGL0wEsVU9VvtoJJf6/b2/files/US/Furious/Furious-S01-EP008-720p.mp4",
+          "ua": "TDMuaHLS99"
+        }
+      ]
+    ],
+    "src": "TMDB"
+  }
+]
