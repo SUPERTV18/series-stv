@@ -506,8 +506,8 @@ dsh.innerHTML=
  card(8,'اكتمال البيانات','نقص البيانات في كل الأقسام.','<div id="xQual"><p class="hint">حمّل البيانات أولًا.</p></div><div class="actions"><button class="mini-btn" type="button" data-pg="tools">فتح أدوات متقدمة</button></div>');
 main.insertBefore(dsh,hd0.nextSibling);
 /* الصفحات: كل قسم له معرّف ثابت. أي قسم جديد مش مذكور هنا بيظهر في «الإعدادات» تلقائيًا */
-var ALL=['pConnect','pForm','pPresets','pList','pViews','pBackup','pCheck','pReports','pSecurity','pTools'];
-var IDS={home:['pConnect'],add:['pForm','pPresets'],list:['pList'],log:['pBackup'],stats:['pViews','pCheck','pReports'],set:['pConnect','pSecurity'],tools:['pConnect','pTools']};
+var ALL=['pConnect','pForm','pPresets','pList','pDaily','pViews','pBackup','pCheck','pReports','pSecurity','pTools'];
+var IDS={home:['pConnect'],add:['pForm','pPresets'],list:['pList'],log:['pBackup'],stats:['pDaily','pViews','pCheck','pReports'],set:['pConnect','pSecurity'],tools:['pConnect','pTools']};
 function show(pg){
   var on=IDS[pg]||IDS.home;
   ALL.forEach(function(id){var e=g(id);if(e)e.style.display=on.indexOf(id)>-1?'':'none'});
@@ -745,6 +745,116 @@ new MutationObserver(function(){
   box.textContent=t;box.className='xtoast on '+k;clearTimeout(tm);
   tm=setTimeout(function(){box.classList.remove('on')},k==='bad'?9000:5000);
 }).observe(st,{childList:true,characterData:true,subtree:true,attributes:true,attributeFilter:['class']});
+})();
+</script>
+<!-- ===== إضافات: توليد حلقات من نمط + حالة المسلسل + المشاهدات اليومية (لا تغيّر أي كود موجود) ===== -->
+<style>
+.xgen{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;background:#10101a}
+.dbars{display:flex;align-items:flex-end;gap:8px;height:130px;margin-top:12px}
+.dbars>div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.dbars i{display:block;width:100%;background:var(--ac);border-radius:6px 6px 0 0;min-height:3px}
+.dbars b{font-size:.75rem;margin-bottom:3px}.dbars small{color:var(--mut);font-size:.7rem;margin-top:4px;white-space:nowrap}
+</style>
+<script>
+(function(){
+'use strict';
+var g=function(i){return document.getElementById(i)},main=document.querySelector('.wrap');
+
+/* ===== (4) توليد حلقات من نمط رابط ===== */
+var origSeason=window.addSeasonEditor;
+function decorate(box){
+  var head=box.querySelector('.season-head'),tools=head&&head.querySelector('.actions');
+  if(!tools||box._xg)return;box._xg=1;
+  var b=document.createElement('button');b.type='button';b.className='mini-btn';b.textContent='توليد حلقات';
+  tools.insertBefore(b,tools.firstChild);
+  var p=document.createElement('div');p.className='xgen';p.hidden=true;
+  p.innerHTML='<div class="grid"><label class="field full">نمط الرابط (اكتب {n} مكان رقم الحلقة)<input class="g-pat" dir="ltr" placeholder="https://site.com/series/ep{n}.mp4"></label><label class="field">من حلقة<input class="g-from" type="number" min="0" value="1"></label><label class="field">إلى حلقة<input class="g-to" type="number" min="1" value="30"></label><label class="field">قالب الاسم<input class="g-name" value="الحلقة {n}"></label><label class="field">عدد الأرقام (0 = بدون أصفار)<input class="g-pad" type="number" min="0" max="5" value="0"></label></div><p class="hint g-info" style="margin:8px 0 0;direction:ltr;text-align:left"></p><div class="actions"><button type="button" class="btn g-ok">توليد</button><button type="button" class="btn secondary g-no">إغلاق</button></div>';
+  head.parentNode.insertBefore(p,head.nextSibling);
+  var q=function(c){return p.querySelector(c)};
+  function pad(n){var s=String(n),w=+q('.g-pad').value||0;while(s.length<w)s='0'+s;return s}
+  function preview(){
+    var pat=q('.g-pat').value.trim(),f=+q('.g-from').value,t=+q('.g-to').value;
+    q('.g-info').textContent=(pat&&pat.indexOf('{n}')>-1&&t>=f)?(pat.split('{n}').join(pad(f))+'  ←  '+pat.split('{n}').join(pad(t))):'';
+  }
+  ['.g-pat','.g-from','.g-to','.g-pad'].forEach(function(c){q(c).addEventListener('input',preview)});
+  b.onclick=function(){p.hidden=!p.hidden};
+  q('.g-no').onclick=function(){p.hidden=true};
+  q('.g-ok').onclick=function(){
+    var pat=q('.g-pat').value.trim(),f=+q('.g-from').value,t=+q('.g-to').value,name=q('.g-name').value||'الحلقة {n}';
+    if(!pat||pat.indexOf('{n}')<0){status('اكتب نمط رابط فيه {n} مكان رقم الحلقة.','bad');return}
+    if(!(t>=f)||t-f>299){status('«إلى» لازم تكون أكبر من أو تساوي «من»، والحد الأقصى 300 حلقة.','bad');return}
+    var host=box.querySelector('.episodes-host');
+    /* نشيل الحلقات الفاضية خالص قبل ما نضيف */
+    Array.prototype.forEach.call(host.querySelectorAll('.episode-box'),function(eb){
+      var fl=eb._fields;if(!fl.t.value.trim()&&!fl.u.value.trim()&&!fl.ua.value.trim()&&!fl.ref.value.trim()&&!(eb._xk&&eb._xk.value.trim()))eb.remove();
+    });
+    for(var n=f;n<=t;n++)window.addEpisodeEditor(host,{t:name.split('{n}').join(n),u:pat.split('{n}').join(pad(n))});
+    window.renumberEpisodes(host);
+    status('تم توليد '+(t-f+1)+' حلقة. راجعها واحفظ المسلسل.','ok');
+    p.hidden=true;
+  };
+}
+if(typeof origSeason==='function'){
+  window.addSeasonEditor=function(initial){
+    origSeason(initial);
+    var bx=g('seasonsEditor').querySelectorAll('.season-box');if(bx.length)decorate(bx[bx.length-1]);
+  };
+}
+
+/* ===== (7) حالة المسلسل (مستمر / مكتمل / قريبًا) ===== */
+var visLabel=g('vis')&&g('vis').closest('label');
+if(visLabel&&!g('xStatus')){
+  var lab=document.createElement('label');lab.className='field';
+  lab.innerHTML='حالة المسلسل<select id="xStatus"><option value="">غير محددة</option><option value="ongoing">مستمر</option><option value="done">مكتمل</option><option value="soon">قريبًا</option></select>';
+  visLabel.parentNode.insertBefore(lab,visLabel.nextSibling);
+  var oF=window.formToSeries,oE=window.editSeries,oR=window.resetForm;
+  window.formToSeries=function(){var o=oF(),v=g('xStatus').value;if(v)o.st=v;return o};
+  window.editSeries=function(i){oE(i);g('xStatus').value=(series[i]&&series[i].st)||''};
+  window.resetForm=function(){oR();g('xStatus').value=''};
+}
+
+/* ===== (12) المشاهدات اليومية (آخر 7 أيام) ===== */
+var sec=document.createElement('section');sec.className='panel';sec.id='pDaily';sec.style.display='none';
+sec.innerHTML='<h2>المشاهدات اليومية (آخر 7 أيام)</h2><p class="hint">إجمالي مرات فتح الحلقات في اليوم للقسم الحالي. الأيام بتوقيت UTC، والعدّ بيبدأ من لما ترفع صفحة المسلسلات المحدّثة، فالأيام السابقة هتبان صفر.</p><div class="actions" style="margin-top:0"><button class="btn secondary" id="dRef" type="button">تحديث</button><button class="btn secondary" id="dTop" type="button">أكثر المسلسلات مشاهدة آخر 7 أيام</button><span class="hint" id="dInfo" style="margin:0;align-self:center"></span></div><div id="dChart"></div><div id="dTopB"></div>';
+main.insertBefore(sec,g('pViews')||null);
+var DAYS=[],DV=[],busyD=false,lastD=0;
+function dkey(d){return d.toISOString().slice(0,10).replace(/-/g,'')}
+function last7(){var a=[];for(var i=6;i>=0;i--){var d=new Date(Date.now()-i*864e5);a.push({k:dkey(d),l:d.toLocaleDateString('ar-EG',{weekday:'short',day:'numeric',timeZone:'UTC'})})}return a}
+function nsNow(){return COUNTER_NS[g('path').value]}
+async function loadDaily(){
+  var ns=nsNow();
+  if(!ns){g('dChart').innerHTML='<p class="hint">لا يوجد اسم عدّاد لهذا القسم.</p>';return}
+  if(busyD)return;busyD=true;g('dRef').disabled=true;g('dInfo').textContent='جاري التحميل…';
+  var days=last7(),vals=new Array(7),i=0;
+  var w=async function(){while(i<7){var j=i++;vals[j]=await getCount(COUNTER_BASE+'get/'+ns+'/d-'+days[j].k)}};
+  await Promise.all([w(),w(),w()]);
+  DAYS=days;DV=vals;lastD=Date.now();
+  var mx=Math.max.apply(null,vals.map(function(v){return v||0}).concat([1])),tot=vals.reduce(function(a,v){return a+(v||0)},0);
+  g('dChart').innerHTML='<div class="dbars">'+days.map(function(d,k){var v=vals[k];return '<div><b>'+(v===null?'تعذر':fmtNum(v))+'</b><i style="height:'+(v?Math.max(3,v/mx*100):3)+'%"></i><small>'+escapeHtml(d.l)+'</small></div>'}).join('')+'</div>';
+  g('dInfo').textContent='الإجمالي: '+fmtNum(tot)+' · '+new Date().toLocaleTimeString('ar-EG');
+  g('dRef').disabled=false;busyD=false;
+}
+async function loadTop(){
+  var ns=nsNow();if(!ns||!series.length){g('dTopB').innerHTML='<p class="hint">حمّل بيانات القسم الأول.</p>';return}
+  if(!DV.length)await loadDaily();
+  var days=DAYS.filter(function(d,k){return DV[k]>0});
+  if(!days.length){g('dTopB').innerHTML='<p class="hint">مفيش مشاهدات يومية مسجّلة لسه.</p>';return}
+  var jobs=[];series.forEach(function(x,idx){days.forEach(function(d){jobs.push({idx:idx,key:'sd-'+ckey(x)+'-'+d.k})})});
+  if(jobs.length>400&&!confirm('هيتعمل '+jobs.length+' طلب لخدمة العدّاد وممكن ياخد دقيقة أو أكتر. تكمل؟'))return;
+  var sums=series.map(function(){return 0}),done=0,j=0,btn=g('dTop');btn.disabled=true;
+  var w=async function(){while(j<jobs.length){var jb=jobs[j++];var n=await getCount(COUNTER_BASE+'get/'+ns+'/'+jb.key);sums[jb.idx]+=(typeof n==='number'?n:0);done++;g('dInfo').textContent='تم '+done+' من '+jobs.length}};
+  await Promise.all([w(),w(),w(),w()]);
+  btn.disabled=false;
+  var rows=series.map(function(x,idx){return {t:x.t,n:sums[idx]}}).filter(function(r){return r.n>0}).sort(function(a,b){return b.n-a.n}).slice(0,10),mx=rows.length?rows[0].n:1;
+  g('dTopB').innerHTML=rows.length?'<h3 style="font-size:1rem;margin:16px 0 4px">الأكثر مشاهدة</h3>'+rows.map(function(r){return '<div class="vrow"><div class="nm">'+escapeHtml(r.t)+'</div><div class="num">'+fmtNum(r.n)+'</div><div class="vbar"><i style="width:'+Math.max(2,r.n/mx*100)+'%"></i></div></div>'}).join(''):'<p class="hint">مفيش مشاهدات مسجّلة للمسلسلات في الفترة دي.</p>';
+  g('dInfo').textContent='تم.';
+}
+g('dRef').onclick=loadDaily;g('dTop').onclick=loadTop;
+document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('[data-pg="stats"]')&&Date.now()-lastD>60000)setTimeout(loadDaily,80)});
+g('path').addEventListener('change',function(){DV=[];DAYS=[];g('dChart').innerHTML='';g('dTopB').innerHTML=''});
+
+/* نعيد بناء نموذج الحلقات الفاضي عشان زر التوليد وحقل المفتاح يظهروا فيه */
+try{window.renderSeasonEditor()}catch(e){}
 })();
 </script>
 <!-- ===== نهاية الإضافة ===== -->
