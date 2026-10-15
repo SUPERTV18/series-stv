@@ -511,7 +511,7 @@ var h1=main.querySelector('h1'),sub=main.querySelector('.sub'),hd0=document.crea
 hd0.innerHTML='<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="12" fill="#1b2459"/><path d="M15 11l20 11-20 11z" fill="#8a63ff"/></svg><div id="xt"></div>';
 main.insertBefore(hd0,main.firstChild);g('xt').appendChild(h1);g('xt').appendChild(sub);
 /* القائمة الجانبية */
-var NAV=[['home','الرئيسية','⌂'],['add','إضافة مسلسل','＋'],['list','قائمة المسلسلات','☰'],['log','سجل التغييرات','↺'],['stats','الإحصائيات','▥'],['tools','أدوات متقدمة','✦'],['set','الإعدادات','⚙']];
+var NAV=[['home','الرئيسية','⌂'],['add','إضافة مسلسل','＋'],['list','قائمة المسلسلات','☰'],['log','سجل التغييرات','↺'],['stats','الإحصائيات','▥'],['ads','إعدادات الإعلان','◉'],['tools','أدوات متقدمة','✦'],['set','الإعدادات','⚙']];
 var side=document.createElement('aside');side.className='xside';
 side.innerHTML='<div class="xbrand">لوحة الإدارة</div><h4>إدارة المسلسلات</h4>'+NAV.map(function(n){return '<button type="button" data-pg="'+n[0]+'"><i>'+n[2]+'</i>'+n[1]+'</button>'}).join('')+'<div class="xgap"></div><button type="button" id="xOut"><i>⏻</i>تسجيل الخروج</button>';
 document.body.insertBefore(side,main);
@@ -530,8 +530,8 @@ dsh.innerHTML=
  card(8,'اكتمال البيانات','نقص البيانات في كل الأقسام.','<div id="xQual"><p class="hint">حمّل البيانات أولًا.</p></div><div class="actions"><button class="mini-btn" type="button" data-pg="tools">فتح أدوات متقدمة</button></div>');
 main.insertBefore(dsh,hd0.nextSibling);
 /* الصفحات: كل قسم له معرّف ثابت. أي قسم جديد مش مذكور هنا بيظهر في «الإعدادات» تلقائيًا */
-var ALL=['pConnect','pForm','pPresets','pList','pDaily','pViews','pBackup','pCheck','pReports','pSecurity','pTools'];
-var IDS={home:['pConnect'],add:['pForm','pPresets'],list:['pList'],log:['pBackup'],stats:['pDaily','pViews','pCheck','pReports'],set:['pConnect','pSecurity'],tools:['pConnect','pTools']};
+var ALL=['pConnect','pForm','pPresets','pList','pDaily','pViews','pBackup','pCheck','pReports','pSecurity','pTools','pAdSettings'];
+var IDS={home:['pConnect'],add:['pForm','pPresets'],list:['pList'],log:['pBackup'],stats:['pDaily','pViews','pCheck','pReports'],ads:['pAdSettings'],set:['pConnect','pSecurity'],tools:['pConnect','pTools']};
 function show(pg){
   var on=IDS[pg]||IDS.home;
   ALL.forEach(function(id){var e=g(id);if(e)e.style.display=on.indexOf(id)>-1?'':'none'});
