@@ -180,6 +180,55 @@
     "src": "TMDB، elCinema"
   },
   {
+    "k": "remote-1792021112836",
+    "addedAt": "2026-10-14T23:38:32.837Z",
+    "img": "https://image.tmdb.org/t/p/w500/hf3tdaDfpkCk4XWukWlk6vh3PAW.jpg",
+    "t": "Furious",
+    "y": 2026,
+    "g": "دراما، جريمة",
+    "r": "7.4",
+    "ac": "#7c5cff",
+    "s": 1,
+    "d": "تدور القصة حول عميلة في مكتب التحقيقات الفيدرالي (FBI) تُدعى أليس بلاك، تؤدي دورها إيمي روسوم، تنطلق في مطاردة قاتلة متسلسلة ذكية وغامضة تُدعى كاثرين. ومع تقدم الأحداث، تبدأ حياة المطاردة والمجرمة بالتشابك، ويصبح من الصعب التمييز بين الخير والشر والعدالة والانتقام",
+    "ss": [
+      [
+        {
+          "t": "الحلقة 1",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218220"
+        },
+        {
+          "t": "الحلقة 2",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218238"
+        },
+        {
+          "t": "الحلقة 3",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218250"
+        },
+        {
+          "t": "الحلقة 4",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218841"
+        },
+        {
+          "t": "الحلقة 5",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=219284"
+        },
+        {
+          "t": "الحلقة 6",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=220107"
+        },
+        {
+          "t": "الحلقة 7",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=220777"
+        },
+        {
+          "t": "الحلقة 8 والأخيرة",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=221412"
+        }
+      ]
+    ],
+    "src": "TMDB"
+  },
+  {
     "k": "remote-1792092892672",
     "addedAt": "2026-10-15T19:34:52.672Z",
     "img": "https://media0106.elcinema.com/uploads/_315x420_dedcf6cddef3631657f613dfb469f436441da7b66f684cf40c3e891302c81fb5.jpg",
@@ -352,55 +401,6 @@
           "t": "الحلقة 6 والأخيرة",
           "u": "https://vid8.2026-ss.xyz/His-and-Hers/06.mp4",
           "ref": "https://et.alooytv16.xyz/"
-        }
-      ]
-    ],
-    "src": "TMDB"
-  },
-  {
-    "k": "remote-1792021112836",
-    "addedAt": "2026-10-14T23:38:32.837Z",
-    "img": "https://image.tmdb.org/t/p/w500/hf3tdaDfpkCk4XWukWlk6vh3PAW.jpg",
-    "t": "Furious",
-    "y": 2026,
-    "g": "دراما، جريمة",
-    "r": "7.4",
-    "ac": "#7c5cff",
-    "s": 1,
-    "d": "تدور القصة حول عميلة في مكتب التحقيقات الفيدرالي (FBI) تُدعى أليس بلاك، تؤدي دورها إيمي روسوم، تنطلق في مطاردة قاتلة متسلسلة ذكية وغامضة تُدعى كاثرين. ومع تقدم الأحداث، تبدأ حياة المطاردة والمجرمة بالتشابك، ويصبح من الصعب التمييز بين الخير والشر والعدالة والانتقام",
-    "ss": [
-      [
-        {
-          "t": "الحلقة 1",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218220"
-        },
-        {
-          "t": "الحلقة 2",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218238"
-        },
-        {
-          "t": "الحلقة 3",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218250"
-        },
-        {
-          "t": "الحلقة 4",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218841"
-        },
-        {
-          "t": "الحلقة 5",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=219284"
-        },
-        {
-          "t": "الحلقة 6",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=220107"
-        },
-        {
-          "t": "الحلقة 7",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=220777"
-        },
-        {
-          "t": "الحلقة 8 والأخيرة",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=221412"
         }
       ]
     ],
