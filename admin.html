@@ -10,6 +10,18 @@
 .sitem{border-bottom:1px solid var(--line);padding:8px 0}.sitem:last-child{border-bottom:0}.srow{display:flex;align-items:center;gap:8px;border-radius:12px;padding:6px 8px;border:1px solid transparent}.srow.pinned{border-color:var(--ac);background:#7c5cff10}.srow.dim .stt{opacity:.55}.srow.dragging{opacity:.5;border-color:var(--ac)}.stt{flex:1;min-width:0}.stt strong{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}.stt small{display:block;color:var(--mut)}.grip{width:22px;flex:none;display:flex;justify-content:center;color:var(--mut);cursor:grab;touch-action:none;user-select:none;padding:8px 0}.grip svg{width:16px;height:16px;fill:currentColor}.ib{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--card2);color:var(--fg);display:inline-flex;align-items:center;justify-content:center;flex:none;cursor:pointer;padding:0}.ib svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ib.on{background:var(--ac);border-color:var(--ac)}.tg{display:inline-block;font-size:.7rem;padding:0 8px;border-radius:999px;margin-inline-start:6px;vertical-align:middle;font-weight:600}.tp{background:#7c5cff33;color:#c9bcff}.th{background:#9e304755;color:#ffb3c0}.ts{background:#d6a23a30;color:#f0d9a5}.sitem .actions{margin-top:0;justify-content:flex-end}.sched{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#10101a}.sched[hidden]{display:none}.dropline{height:0;border-top:2px dashed var(--ac);margin:2px 4px}.bkcmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.bkcmp div{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.85rem;color:var(--mut)}.bkcmp b{display:block;color:var(--fg);font-size:1.1rem}
 .undo{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid #d6a23a;background:#d6a23a12;border-radius:10px;padding:8px 12px;margin-bottom:10px;font-size:.88rem;color:#f0d9a5}.bulk{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid var(--ac);background:#7c5cff1c;border-radius:10px;padding:8px 12px;margin-bottom:10px}[hidden]{display:none!important}.sel{width:20px;height:20px;flex:none;margin:0;accent-color:var(--ac);cursor:pointer}.sugg{border:1px solid var(--line);background:var(--card2);border-radius:12px;padding:6px}.sg{display:flex;gap:10px;align-items:center;padding:6px;border-radius:10px;border:1px solid transparent;cursor:pointer}.sg.sel{background:#7c5cff26;border-color:var(--ac)}.sg b{display:block;font-size:.92rem;direction:ltr;text-align:right}.sg small{color:var(--mut)}.sgp{width:34px;height:48px;border-radius:6px;background:#303047 center/cover no-repeat;flex:none}.chk{border:1px solid var(--line);background:var(--card2);border-radius:12px;padding:10px 12px;margin-top:10px}.chkh{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px}.chkh .mini-btn{margin-inline-start:auto}.chkr{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--line);background:#10101a;border-radius:8px;margin-top:6px;font-size:.88rem}.chkr .dot{width:10px;height:10px;border-radius:50%;flex:none}.chkr .tx{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chkr small{color:var(--mut)}.pgb{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:6px 0 10px}.pgb i{display:block;height:100%;background:var(--ac);width:0;transition:width .2s}.rep{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border:1px solid var(--line);background:var(--card2);border-radius:12px;padding:10px 12px;margin-top:8px}.rep .rt{flex:1;min-width:160px}.rep .rt small{display:block;color:var(--mut)}
 .mini-sel{width:auto;max-width:150px;padding:5px 8px;font-size:.78rem;border-radius:8px;background:var(--card2);border:1px solid var(--line);color:var(--fg)}.pset{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#10101a;border-radius:8px;padding:5px 8px;margin-top:6px;font-size:.82rem}.pset .tx{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:left}
+
+/* محرر تصميم نافذة الإعلان */
+.ad-editor-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.9fr);gap:16px;align-items:start}
+.ad-design-preview{position:sticky;top:12px;border:1px solid var(--line);border-radius:18px;padding:16px;background:#0e0e18;overflow:hidden}
+.ad-mock-window{position:relative;margin:10px auto 0;width:100%;max-width:390px;min-height:270px;border:1px solid #38384d;border-radius:18px;padding:14px;box-shadow:0 18px 45px #0007;overflow:hidden}
+.ad-mock-top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
+.ad-mock-video{display:grid;place-items:center;min-height:130px;border:1px solid #ffffff20;border-radius:12px;background:linear-gradient(135deg,#29243e,#171725 65%,#30224c);color:#fff;gap:8px;text-align:center}
+.ad-mock-video .playmark{font-size:36px;line-height:1}
+.ad-mock-action{display:block;width:100%;border:0;border-radius:12px;padding:12px;margin-top:12px;font-weight:800;color:#fff;text-align:center}
+.ad-mock-footer{font-size:11px;text-align:center;margin-top:10px;opacity:.75}
+.ad-preview-caption{font-size:12px;color:var(--mut);margin-top:10px}
+@media(max-width:800px){.ad-editor-grid{grid-template-columns:1fr}.ad-design-preview{position:static}}
 </style></head>
 <body><main class="wrap">
 <h1>إدارة مكتبة المسلسلات</h1><p class="sub">إدارة كل أقسام المكتبة من صفحة واحدة، مع ملف JSON مستقل لكل قسم.</p>
@@ -52,6 +64,7 @@
 <section class="panel" id="pAdSettings">
 <h2>8) إعدادات الإعلان قبل تشغيل الحلقة</h2>
 <p class="hint">تتحكم الإعدادات دي في نافذة الإعلان والعداد داخل ملفات المكتبة التي تدعم إعدادات الإعلان. التغييرات تُحفظ في ملف <code>ad-settings.json</code> بالمستودع، وتُستخدم عبر أقسام المسلسلات.</p>
+<div class="ad-editor-grid">
 <div class="grid">
 <label class="field full">حالة الإعلان<select id="adEnabled"><option value="true">مفعّل قبل تشغيل الحلقة</option><option value="false">إيقاف الإعلان</option></select></label>
 <label class="field full">رابط الإعلان<input id="adUrl" type="url" dir="ltr" value="https://omg10.com/4/7060393" placeholder="https://example.com/ad"></label>
@@ -60,16 +73,26 @@
 <label class="field">لون التصميم الأساسي<input id="adAccent" type="color" value="#7c5cff" style="height:48px;padding:4px"></label>
 <label class="field">لون خلفية النافذة<input id="adBackground" type="color" value="#11111b" style="height:48px;padding:4px"></label>
 <label class="field">شكل العداد<select id="adCounterStyle"><option value="pill">رقمي داخل كبسولة</option><option value="circle">دائري</option><option value="bar">شريط تقدم</option></select></label>
+<label class="field">شكل النافذة<select id="adShape"><option value="rounded">حواف دائرية</option><option value="square">حواف مستقيمة</option><option value="soft">حواف ناعمة</option></select></label>
+<label class="field">عرض النافذة<select id="adWidth"><option value="compact">صغير</option><option value="normal" selected>متوسط</option><option value="wide">عريض</option></select></label>
+<label class="field">نص زر المتابعة<input id="adButtonText" maxlength="45" value="جارٍ تجهيز الحلقة..."></label>
+<label class="field">شفافية الخلفية الخارجية<select id="adOverlay"><option value="0.65">خفيفة</option><option value="0.82" selected>متوسطة</option><option value="0.94">داكنة</option></select></label>
 <label class="field">زر الإلغاء<select id="adCanCancel"><option value="true">إظهار زر الإلغاء</option><option value="false">إخفاء زر الإلغاء</option></select></label>
+<div class="field full"><span class="hint">غيّر أي إعداد لمشاهدة المعاينة مباشرة، ثم احفظ الإعدادات. هذه المعاينة توضح إطار النافذة وعناصرها، وليست بثًا حقيقيًا للإعلان.</span></div>
 </div>
-<div class="actions"><button class="btn secondary" id="adLoad" type="button">تحميل إعدادات الإعلان</button><button class="btn" id="adSave" type="button">حفظ إعدادات الإعلان</button><button class="btn secondary" id="adPreview" type="button">معاينة التصميم</button></div>
+<div class="ad-design-preview">
+<b>معاينة التصميم المباشرة</b>
+<div id="adPreviewBox" class="ad-mock-window">
+<div id="adPreviewHead" class="ad-mock-top"><b id="adPreviewTitle">إعلان قبل تشغيل الحلقة</b><span style="font-size:.72rem;border:1px solid #ffffff30;border-radius:999px;padding:3px 9px">إعلان</span></div>
+<div class="ad-mock-video"><div class="playmark">▶</div><div>مساحة عرض الإعلان</div></div>
+<div id="adPreviewCounter" class="ad-mock-action">جارٍ تجهيز الحلقة...</div>
+<div id="adPreviewFooter" class="ad-mock-footer">سيبدأ تشغيل الحلقة بعد انتهاء العدّ التنازلي</div>
+</div>
+<div class="ad-preview-caption">المعاينة تتحدث تلقائيًا أثناء تعديل الألوان والشكل والحجم.</div>
+</div>
+</div>
+<div class="actions"><button class="btn secondary" id="adLoad" type="button">تحميل إعدادات الإعلان</button><button class="btn" id="adSave" type="button">حفظ إعدادات الإعلان</button><button class="btn secondary" id="adPreview" type="button">إظهار / إخفاء المعاينة</button></div>
 <div id="adStatus" class="status" role="status">اتصل بـ GitHub أولًا، ثم حمّل إعدادات الإعلان أو احفظها.</div>
-<p class="hint" style="margin-top:10px">ملحوظة: «شكل العداد» يغيّر عرض العداد داخل نافذة المكتبة، لكنه لا يغيّر تصميم الإعلان نفسه الذي يقدمه موقع الإعلان. لو الموقع يمنع iframe، سيظهر رابط فتح الإعلان كبديل.</p>
-<div id="adPreviewBox" hidden style="margin-top:12px;border:1px solid var(--line);border-radius:14px;padding:14px;background:#11111b">
-<div id="adPreviewHead" style="display:flex;align-items:center;justify-content:space-between;gap:10px"><b id="adPreviewTitle">إعلان قبل تشغيل الحلقة</b><span style="font-size:.75rem;border:1px solid var(--line);border-radius:999px;padding:2px 9px">إعلان</span></div>
-<div style="height:140px;margin:12px 0;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;color:var(--mut)">معاينة مساحة عرض الإعلان</div>
-<div id="adPreviewCounter" style="text-align:center;padding:10px;border-radius:10px;font-weight:800">تشغيل الحلقة خلال 5 ثوانٍ</div>
-</div>
 </section>
 
 <section class="panel" id="pSecurity"><h2>مهم بخصوص الأمان</h2><p class="warning">لا تضع GitHub Token داخل ملف المكتبة الرئيسي أو ملف الإدارة كقيمة ثابتة. لا تستخدم Token بصلاحيات واسعة؛ أنشئ Fine-grained token للمستودع الجديد فقط، مع Contents: Read and write. لا ترفع هذا الرمز إلى GitHub.</p></section>
@@ -899,7 +922,11 @@ function adForm(){
   accent:$('adAccent').value||'#7c5cff',
   background:$('adBackground').value||'#11111b',
   counterStyle:$('adCounterStyle').value||'pill',
-  canCancel:$('adCanCancel').value==='true'
+  canCancel:$('adCanCancel').value==='true',
+  shape:$('adShape').value||'rounded',
+  width:$('adWidth').value||'normal',
+  buttonText:$('adButtonText').value.trim()||'جارٍ تجهيز الحلقة...',
+  overlay:parseFloat($('adOverlay').value)||0.82
  };
 }
 function putAdForm(o){
@@ -911,6 +938,10 @@ function putAdForm(o){
  $('adBackground').value=o.background||'#11111b';
  $('adCounterStyle').value=o.counterStyle||'pill';
  $('adCanCancel').value=String(o.canCancel!==false);
+ $('adShape').value=o.shape||'rounded';
+ $('adWidth').value=o.width||'normal';
+ $('adButtonText').value=o.buttonText||'جارٍ تجهيز الحلقة...';
+ $('adOverlay').value=String(o.overlay==null?0.82:o.overlay);
 }
 function adApiUrl(){var c=config();return repoUrl(c,'/contents/'+SETTINGS_PATH+'?ref='+encodeURIComponent(c.branch))}
 async function loadAdSettings(){
@@ -951,21 +982,34 @@ async function saveAdSettings(){
 }
 function renderAdPreview(){
  var o=adForm(),box=$('adPreviewBox'),counter=$('adPreviewCounter');
- box.style.background=o.background;box.style.borderColor=o.accent;
+ box.style.background=o.background;
+ box.style.borderColor=o.accent;
+ box.style.borderRadius=o.shape==='square'?'3px':(o.shape==='soft'?'28px':'18px');
+ box.style.maxWidth=o.width==='compact'?'300px':(o.width==='wide'?'520px':'390px');
+ box.style.setProperty('--ad-overlay',String(o.overlay));
  $('adPreviewTitle').textContent=o.title;
  $('adPreviewHead').style.color=o.accent;
- counter.style.color=o.accent;counter.style.border='1px solid '+o.accent;
- counter.style.borderRadius=o.counterStyle==='circle'?'999px':(o.counterStyle==='bar'?'4px':'999px');
- counter.style.display=o.counterStyle==='circle'?'inline-block':'block';
- counter.style.minWidth=o.counterStyle==='circle'?'110px':'0';
- counter.style.padding=o.counterStyle==='circle'?'35px 15px':'10px';
- counter.style.margin=o.counterStyle==='circle'?'0 auto':'0';
- counter.textContent=o.enabled?('تشغيل الحلقة خلال '+o.duration+' ثوانٍ'):'الإعلان متوقف — تشغيل مباشر';
+ counter.style.background=o.accent;
+ counter.style.color='#ffffff';
+ counter.style.border='1px solid '+o.accent;
+ counter.style.borderRadius=o.shape==='square'?'3px':(o.shape==='soft'?'18px':'12px');
+ counter.style.display='block';
+ counter.style.width='100%';
+ counter.style.boxSizing='border-box';
+ counter.style.padding=o.counterStyle==='circle'?'24px 12px':'12px';
+ counter.style.minHeight=o.counterStyle==='circle'?'86px':'0';
+ counter.style.maxWidth=o.counterStyle==='circle'?'130px':'none';
+ counter.style.margin=o.counterStyle==='circle'?'12px auto 0':'12px 0 0';
+ counter.textContent=o.enabled?(o.buttonText+' • '+o.duration+' ث'):'الإعلان متوقف — تشغيل مباشر';
+ counter.style.opacity=o.enabled?'1':'.65';
+ $('adPreviewFooter').textContent=o.canCancel?'يمكن إظهار زر الإلغاء حسب دعم المكتبة':'زر الإلغاء مخفي حسب الإعدادات';
+ box.style.boxShadow='0 18px 45px #0007,0 0 0 1px '+o.accent+'22';
 }
+
 $('adLoad').addEventListener('click',loadAdSettings);
 $('adSave').addEventListener('click',saveAdSettings);
 $('adPreview').addEventListener('click',function(){renderAdPreview();$('adPreviewBox').hidden=!$('adPreviewBox').hidden});
-['adEnabled','adUrl','adDuration','adTitle','adAccent','adBackground','adCounterStyle','adCanCancel'].forEach(function(id){$(id).addEventListener('input',renderAdPreview);$(id).addEventListener('change',renderAdPreview)});
+['adEnabled','adUrl','adDuration','adTitle','adAccent','adBackground','adCounterStyle','adCanCancel','adShape','adWidth','adButtonText','adOverlay'].forEach(function(id){$(id).addEventListener('input',renderAdPreview);$(id).addEventListener('change',renderAdPreview)});
 document.getElementById('connect').addEventListener('click',function(){setTimeout(function(){if(token)loadAdSettings()},1800)});
 document.getElementById('path').addEventListener('change',function(){/* إعدادات الإعلان مشتركة ولا تتغير بتغيير القسم */});
 })();
