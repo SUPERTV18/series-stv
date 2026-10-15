@@ -857,7 +857,6 @@
         }
       ]
     ],
-    "src": "TMDB",
-    "hide": true
+    "src": "TMDB"
   }
 ]
