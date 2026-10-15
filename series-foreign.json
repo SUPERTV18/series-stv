@@ -68,51 +68,51 @@
   {
     "k": "remote-1792103609983",
     "addedAt": "2026-10-15T22:33:29.983Z",
-    "img": "https://image.tmdb.org/t/p/w500/hf3tdaDfpkCk4XWukWlk6vh3PAW.jpg",
-    "t": "Furious (نسخة)",
+    "img": "https://m.media-amazon.com/images/M/MV5BM2ZjZDNlNDgtMjJlMy00NGRjLThlMGEtM2U4N2E4MDUwNjNmXkEyXkFqcGc@._V1_.jpg",
+    "t": "Lanterns",
     "y": 2026,
-    "g": "دراما، جريمة",
-    "r": "7.4",
+    "g": "غموض، دراما، جريمة",
+    "r": "7.8",
     "ac": "#7c5cff",
     "s": 1,
-    "d": "تدور القصة حول عميلة في مكتب التحقيقات الفيدرالي (FBI) تُدعى أليس بلاك، تؤدي دورها إيمي روسوم، تنطلق في مطاردة قاتلة متسلسلة ذكية وغامضة تُدعى كاثرين. ومع تقدم الأحداث، تبدأ حياة المطاردة والمجرمة بالتشابك، ويصبح من الصعب التمييز بين الخير والشر والعدالة والانتقام",
+    "d": "يتبع العمل قصة المجند الجديد (جون ستيوارت) وأسطورة اللانترنز (هال جوردان)، وهما شرطيان يجدان نفسيهما منخرطين في لغز مظلم على كوكب الأرض، أثناء تحقيقهما في جريمة قتل وقعت في قلب ...اقرأ المزيد الولايات المتحدة.",
     "ss": [
       [
         {
           "t": "الحلقة 1",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218220"
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=220106"
         },
         {
           "t": "الحلقة 2",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218238"
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=220702"
         },
         {
           "t": "الحلقة 3",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218250"
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=221532"
         },
         {
           "t": "الحلقة 4",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=218841"
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=221886"
         },
         {
           "t": "الحلقة 5",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=219284"
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=222506"
         },
         {
           "t": "الحلقة 6",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=220107"
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=223336"
         },
         {
           "t": "الحلقة 7",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=220777"
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=224080"
         },
         {
           "t": "الحلقة 8 والأخيرة",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=221412"
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=224923"
         }
       ]
     ],
-    "src": "TMDB",
+    "src": "TMDB، elCinema",
     "hide": true
   },
   {
