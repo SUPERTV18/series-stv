@@ -48,6 +48,30 @@
 <section class="panel" id="pBackup"><h2>5) النسخ الاحتياطي</h2><p class="hint">نزّل نسخة من ملف القسم الحالي، أو استعد نسخة قديمة. الاستعادة بتغيّر الصفحة بس، ومفيش حاجة بتتغيّر على GitHub لحد ما تضغط حفظ.</p><div class="actions" style="margin-top:0"><button class="btn" id="bkDown" type="button">تنزيل نسخة احتياطية</button><button class="btn secondary" id="bkPick" type="button">استعادة من ملف…</button><input id="bkFile" type="file" accept="application/json,.json" hidden></div><p class="hint" id="bkInfo" style="direction:ltr;text-align:right;margin:8px 0 0"></p><div id="bkCmp"></div></section>
 <section class="panel" id="pCheck"><h2>6) فحص الروابط</h2><p class="hint">بيفحص كل روابط القسم عن طريق الـ Worker ويقولك أنهي حلقة رابطها واقع أو بطيء. النتيجة تقريبية، لأن الفحص بيتم من الـ Worker مش من جهاز المستخدم.</p><div class="actions" style="margin-top:0"><button class="btn" id="chkAll" type="button">فحص كل الروابط</button><span class="hint" id="chkTime" style="margin:0;align-self:center"></span></div><div id="chkProg" hidden><div class="hint" id="chkTxt" style="margin:8px 0 0"></div><div class="pgb"><i id="chkBar"></i></div></div><div id="chkBody"></div></section>
 <section class="panel" id="pReports"><h2>7) بلاغات المستخدمين</h2><p class="hint">الحلقات اللي المستخدمين بلّغوا إن رابطها مش شغال، مرتبة بالأكثر. "تصفير" بيبدأ العدّ من جديد للحلقة بعد ما تصلح الرابط.</p><div class="actions" style="margin-top:0"><button class="btn secondary" id="repRefresh" type="button">تحديث البلاغات</button></div><div id="repBody"><p class="hint">اضغط تحديث لعرض البلاغات.</p></div></section>
+
+<section class="panel" id="pAdSettings">
+<h2>8) إعدادات الإعلان قبل تشغيل الحلقة</h2>
+<p class="hint">تتحكم الإعدادات دي في نافذة الإعلان والعداد داخل ملفات المكتبة التي تدعم إعدادات الإعلان. التغييرات تُحفظ في ملف <code>ad-settings.json</code> بالمستودع، وتُستخدم عبر أقسام المسلسلات.</p>
+<div class="grid">
+<label class="field full">حالة الإعلان<select id="adEnabled"><option value="true">مفعّل قبل تشغيل الحلقة</option><option value="false">إيقاف الإعلان</option></select></label>
+<label class="field full">رابط الإعلان<input id="adUrl" type="url" dir="ltr" value="https://omg10.com/4/7060393" placeholder="https://example.com/ad"></label>
+<label class="field">مدة العداد بالثواني<input id="adDuration" type="number" min="0" max="60" value="5"></label>
+<label class="field">عنوان النافذة<input id="adTitle" maxlength="100" value="إعلان قبل تشغيل الحلقة"></label>
+<label class="field">لون التصميم الأساسي<input id="adAccent" type="color" value="#7c5cff" style="height:48px;padding:4px"></label>
+<label class="field">لون خلفية النافذة<input id="adBackground" type="color" value="#11111b" style="height:48px;padding:4px"></label>
+<label class="field">شكل العداد<select id="adCounterStyle"><option value="pill">رقمي داخل كبسولة</option><option value="circle">دائري</option><option value="bar">شريط تقدم</option></select></label>
+<label class="field">زر الإلغاء<select id="adCanCancel"><option value="true">إظهار زر الإلغاء</option><option value="false">إخفاء زر الإلغاء</option></select></label>
+</div>
+<div class="actions"><button class="btn secondary" id="adLoad" type="button">تحميل إعدادات الإعلان</button><button class="btn" id="adSave" type="button">حفظ إعدادات الإعلان</button><button class="btn secondary" id="adPreview" type="button">معاينة التصميم</button></div>
+<div id="adStatus" class="status" role="status">اتصل بـ GitHub أولًا، ثم حمّل إعدادات الإعلان أو احفظها.</div>
+<p class="hint" style="margin-top:10px">ملحوظة: «شكل العداد» يغيّر عرض العداد داخل نافذة المكتبة، لكنه لا يغيّر تصميم الإعلان نفسه الذي يقدمه موقع الإعلان. لو الموقع يمنع iframe، سيظهر رابط فتح الإعلان كبديل.</p>
+<div id="adPreviewBox" hidden style="margin-top:12px;border:1px solid var(--line);border-radius:14px;padding:14px;background:#11111b">
+<div id="adPreviewHead" style="display:flex;align-items:center;justify-content:space-between;gap:10px"><b id="adPreviewTitle">إعلان قبل تشغيل الحلقة</b><span style="font-size:.75rem;border:1px solid var(--line);border-radius:999px;padding:2px 9px">إعلان</span></div>
+<div style="height:140px;margin:12px 0;border:1px solid var(--line);border-radius:10px;display:grid;place-items:center;color:var(--mut)">معاينة مساحة عرض الإعلان</div>
+<div id="adPreviewCounter" style="text-align:center;padding:10px;border-radius:10px;font-weight:800">تشغيل الحلقة خلال 5 ثوانٍ</div>
+</div>
+</section>
+
 <section class="panel" id="pSecurity"><h2>مهم بخصوص الأمان</h2><p class="warning">لا تضع GitHub Token داخل ملف المكتبة الرئيسي أو ملف الإدارة كقيمة ثابتة. لا تستخدم Token بصلاحيات واسعة؛ أنشئ Fine-grained token للمستودع الجديد فقط، مع Contents: Read and write. لا ترفع هذا الرمز إلى GitHub.</p></section>
 </main>
 <script>
@@ -858,4 +882,93 @@ try{window.renderSeasonEditor()}catch(e){}
 })();
 </script>
 <!-- ===== نهاية الإضافة ===== -->
+
+<script>
+/* ===== إعدادات نافذة الإعلان المشتركة بين أقسام المكتبة ===== */
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+var SETTINGS_PATH='ad-settings.json', settingsSha=null;
+function adStatus(msg,kind){$('adStatus').textContent=msg;$('adStatus').className='status'+(kind?' '+kind:'')}
+function adForm(){
+ return {
+  enabled:$('adEnabled').value==='true',
+  url:$('adUrl').value.trim()||'https://omg10.com/4/7060393',
+  duration:Math.max(0,Math.min(60,parseInt($('adDuration').value,10)||0)),
+  title:$('adTitle').value.trim()||'إعلان قبل تشغيل الحلقة',
+  accent:$('adAccent').value||'#7c5cff',
+  background:$('adBackground').value||'#11111b',
+  counterStyle:$('adCounterStyle').value||'pill',
+  canCancel:$('adCanCancel').value==='true'
+ };
+}
+function putAdForm(o){
+ $('adEnabled').value=String(o.enabled!==false);
+ $('adUrl').value=o.url||'https://omg10.com/4/7060393';
+ $('adDuration').value=Math.max(0,Math.min(60,Number(o.duration==null?5:o.duration)||0));
+ $('adTitle').value=o.title||'إعلان قبل تشغيل الحلقة';
+ $('adAccent').value=o.accent||'#7c5cff';
+ $('adBackground').value=o.background||'#11111b';
+ $('adCounterStyle').value=o.counterStyle||'pill';
+ $('adCanCancel').value=String(o.canCancel!==false);
+}
+function adApiUrl(){var c=config();return repoUrl(c,'/contents/'+SETTINGS_PATH+'?ref='+encodeURIComponent(c.branch))}
+async function loadAdSettings(){
+ if(!token){adStatus('اتصل بـ GitHub أولًا باستخدام التوكن.','bad');return}
+ $('adLoad').disabled=true;
+ try{
+  var r=await fetch(adApiUrl(),{headers:headers(),cache:'no-store'});
+  if(r.status===404){settingsSha=null;putAdForm({});adStatus('ملف الإعدادات غير موجود بعد. اضغط «حفظ إعدادات الإعلان» لإنشائه.','')}
+  else{
+   var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));
+   settingsSha=j.sha;
+   var o=JSON.parse(fromB64(j.content||''));putAdForm(o);
+   adStatus('تم تحميل إعدادات الإعلان بنجاح.','ok');
+  }
+  renderAdPreview();
+ }catch(e){adStatus('تعذر تحميل الإعدادات: '+e.message,'bad')}
+ $('adLoad').disabled=false;
+}
+async function saveAdSettings(){
+ if(!token){adStatus('اتصل بـ GitHub أولًا باستخدام التوكن.','bad');return}
+ var o=adForm();if(o.enabled&&!o.url){adStatus('اكتب رابط الإعلان أو أوقف الإعلان.','bad');return}
+ $('adSave').disabled=true;
+ try{
+  if(settingsSha===null){
+   var chk=await fetch(adApiUrl(),{headers:headers(),cache:'no-store'});
+   if(chk.ok){var ex=await chk.json();settingsSha=ex.sha}
+   else if(chk.status!==404){var ce=await chk.json();throw new Error(ce.message||('HTTP '+chk.status))}
+  }
+  var c=config(),body={message:'Update ad display settings',content:toB64(JSON.stringify(o,null,2)+'\n'),branch:c.branch};
+  if(settingsSha)body.sha=settingsSha;
+  var r=await fetch(repoUrl(c,'/contents/'+SETTINGS_PATH),{method:'PUT',headers:headers(),body:JSON.stringify(body)});
+  var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));
+  settingsSha=j.content&&j.content.sha||null;
+  adStatus('تم حفظ إعدادات الإعلان في GitHub. قد تحتاج المكتبة بضع لحظات حتى تقرأ الإعدادات الجديدة.','ok');
+  renderAdPreview();
+ }catch(e){adStatus('فشل حفظ الإعدادات: '+e.message,'bad')}
+ $('adSave').disabled=false;
+}
+function renderAdPreview(){
+ var o=adForm(),box=$('adPreviewBox'),counter=$('adPreviewCounter');
+ box.style.background=o.background;box.style.borderColor=o.accent;
+ $('adPreviewTitle').textContent=o.title;
+ $('adPreviewHead').style.color=o.accent;
+ counter.style.color=o.accent;counter.style.border='1px solid '+o.accent;
+ counter.style.borderRadius=o.counterStyle==='circle'?'999px':(o.counterStyle==='bar'?'4px':'999px');
+ counter.style.display=o.counterStyle==='circle'?'inline-block':'block';
+ counter.style.minWidth=o.counterStyle==='circle'?'110px':'0';
+ counter.style.padding=o.counterStyle==='circle'?'35px 15px':'10px';
+ counter.style.margin=o.counterStyle==='circle'?'0 auto':'0';
+ counter.textContent=o.enabled?('تشغيل الحلقة خلال '+o.duration+' ثوانٍ'):'الإعلان متوقف — تشغيل مباشر';
+}
+$('adLoad').addEventListener('click',loadAdSettings);
+$('adSave').addEventListener('click',saveAdSettings);
+$('adPreview').addEventListener('click',function(){renderAdPreview();$('adPreviewBox').hidden=!$('adPreviewBox').hidden});
+['adEnabled','adUrl','adDuration','adTitle','adAccent','adBackground','adCounterStyle','adCanCancel'].forEach(function(id){$(id).addEventListener('input',renderAdPreview);$(id).addEventListener('change',renderAdPreview)});
+document.getElementById('connect').addEventListener('click',function(){setTimeout(function(){if(token)loadAdSettings()},1800)});
+document.getElementById('path').addEventListener('change',function(){/* إعدادات الإعلان مشتركة ولا تتغير بتغيير القسم */});
+})();
+</script>
+
 </body></html>
