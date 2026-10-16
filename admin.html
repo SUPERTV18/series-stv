@@ -1059,6 +1059,9 @@ document.getElementById('path').addEventListener('change',function(){/* إعدا
 (function(){
 'use strict';
 function el(id){return document.getElementById(id)}
+/* ضع الأدوات الإضافية داخل قسم «أدوات متقدمة» حتى تتبع التنقل ولا تبقى ظاهرة في كل الصفحات. */
+var _extraTools=el('adminToolsNew'),_toolsPanel=el('pTools');
+if(_extraTools&&_toolsPanel)_toolsPanel.appendChild(_extraTools);
 function show(id,text,cls){var n=el(id);n.hidden=false;n.className='tool-result'+(cls?' '+cls:'');n.textContent=text}
 function getEditorStats(){
  var seasons=Array.from(el('seasonsEditor').querySelectorAll('.season-box'));
