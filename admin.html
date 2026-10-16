@@ -893,7 +893,7 @@ async function loadTop(){
   await Promise.all([w(),w(),w(),w()]);
   btn.disabled=false;
   var rows=series.map(function(x,idx){return {t:x.t,n:sums[idx]}}).filter(function(r){return r.n>0}).sort(function(a,b){return b.n-a.n}).slice(0,10),mx=rows.length?rows[0].n:1;
-  g('dTopB').innerHTML=rows.length?'<h3 style="font-size:1rem;margin:16px 0 4px">الأكثر مشاهدة</h3>'+rows.map(function(r){return '<div class="vrow"><div class="nm">'+escapeHtml(r.t)+'</div><div class="num">'+fmtNum(r.n)+'</div><div class="vbar"><i style="width:'+Math.max(2,r.n/mx*100)+'%"></i></div></div>'}).join(''):'<p class="hint">مفيش مشاهدات مسجّلة للمسلسلات في الفترة دي.</p>';
+  g('dTopB').innerHTML=rows.length?'<h3 style="font-size:1rem;margin:16px 0 4px">الأكثر مشاهدة</h3>'+rows.map(function(r){return '<div class="vrow"><div class="nm">'+escapeHtml(r.t)+'</div><div class="num">'+fmtNum(r.n)+'</div><div class="vbar"><i style="width:'+Math.max(2,r.n/mx*100)+'%"></i></div></div>'}).join(''):'<p class="hint">مفيش مشاهدات للمسلسلات في الفترة دي.</p>';
   g('dInfo').textContent='تم.';
 }
 g('dRef').onclick=loadDaily;g('dTop').onclick=loadTop;
@@ -1015,5 +1015,168 @@ document.getElementById('path').addEventListener('change',function(){/* إعدا
 })();
 </script>
 
+<!-- ===== إضافة: معاينة المسلسل + حماية التعديلات + مسودة تلقائية + تحقق قبل الحفظ + Ctrl+S ===== -->
+<style>
+.pvm{position:fixed;inset:0;z-index:9000;background:rgba(4,6,16,.82);display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:20px 12px}
+.pvm.on{display:flex}
+.pvbox{width:100%;max-width:440px;background:#0d1433;border:1px solid var(--line);border-radius:20px;padding:14px;transition:max-width .2s}
+.pvbox.wide{max-width:820px}
+.pvbar{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap}
+.pvbar .tabs{display:flex;gap:6px}
+.pvhero{position:relative;display:flex;gap:14px;border-radius:16px;padding:14px;overflow:hidden;border:1px solid var(--line)}
+.pvbox:not(.wide) .pvhero{flex-direction:column}
+.pvposter{width:130px;aspect-ratio:2/3;flex:none;border-radius:12px;background:#303047 center/cover no-repeat;display:grid;place-items:center;color:var(--mut);font-size:.8rem;text-align:center;box-shadow:0 8px 24px #0008}
+.pvbox:not(.wide) .pvposter{width:150px;margin:auto}
+.pvinfo{min-width:0;flex:1;position:relative}
+.pvinfo h3{margin:0 0 6px;font-size:1.3rem}
+.pvmeta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.82rem;color:var(--mut)}
+.pvchip{padding:1px 10px;border-radius:999px;border:1px solid #ffffff2a;background:#ffffff10;font-size:.75rem}
+.pvrate{color:#ffd166;font-weight:800}
+.pvdesc{margin:10px 0 0;font-size:.9rem;color:#dedbee;white-space:pre-wrap}
+.pvseasons{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 8px}
+.pvseasons .mini-btn.on{background:var(--ac);border-color:var(--ac)}
+.pvep{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line);background:#10163a;border-radius:10px;margin-top:6px;font-size:.88rem}
+.pvep .n{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#ffffff14;font-weight:800;font-size:.78rem;flex:none}
+.pvep .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pvep.miss{border-color:var(--bad);background:#c0394f14}
+.pvep small{color:var(--mut)}
+.pvw{margin-top:12px}
+#pvOpen{margin-inline-start:0}
+.draftbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid var(--ac);background:#7c5cff1c;border-radius:10px;padding:8px 12px;margin-bottom:12px;font-size:.88rem}
+</style>
+<script>
+(function(){
+'use strict';
+var g=function(i){return document.getElementById(i)};
+var STATUS_LBL={ongoing:'مستمر',done:'مكتمل',soon:'قريبًا'};
+
+/* ---------- قراءة النموذج الحالي بشكل متساهل (بدون رمي أخطاء) ---------- */
+function readForm(full){
+  var ss=[];
+  document.querySelectorAll('#seasonsEditor .season-box').forEach(function(sb){
+    var eps=[];
+    sb.querySelectorAll('.episode-box').forEach(function(eb,i){
+      var f=eb._fields,o={t:f.t.value.trim()||('الحلقة '+(i+1)),u:f.u.value.trim(),key:eb._xk?eb._xk.value.trim():''};
+      if(full){o.ua=f.ua.value.trim();o.ref=f.ref.value.trim();o.cookie=f.cookie.value.trim();o.rawT=f.t.value}
+      eps.push(o);
+    });
+    ss.push(eps);
+  });
+  return {t:g('title').value.trim(),y:g('year').value,g:g('genre').value.trim(),r:g('rating').value.trim(),img:g('image').value.trim(),ac:g('color').value||'#7c5cff',d:g('description').value.trim(),vis:g('vis').value,showAt:g('showAt').value,st:g('xStatus')?g('xStatus').value:'',ss:ss};
+}
+
+/* ---------- (14) المعاينة ---------- */
+var modal=document.createElement('div');modal.className='pvm';modal.id='pvModal';
+modal.innerHTML='<div class="pvbox" id="pvBox"><div class="pvbar"><b>معاينة المسلسل (كما سيظهر للمستخدم)</b><div class="tabs"><button type="button" class="mini-btn on" data-pvm="m">جوال</button><button type="button" class="mini-btn" data-pvm="d">حاسوب</button><button type="button" class="mini-btn danger" id="pvClose">إغلاق</button></div></div><div id="pvBody"></div></div>';
+document.body.appendChild(modal);
+var curSeason=0;
+function hex2rgba(h,a){var m=/^#?([0-9a-f]{6})$/i.exec(h||'');if(!m)return 'rgba(124,92,255,'+a+')';var n=parseInt(m[1],16);return 'rgba('+(n>>16)+','+((n>>8)&255)+','+(n&255)+','+a+')'}
+function drawPreview(){
+  var d=readForm(false),body=g('pvBody'),warn=[];
+  if(curSeason>=d.ss.length)curSeason=0;
+  var hid=d.vis==='hide',sch=d.vis==='sched'&&d.showAt;
+  var tags='';
+  if(d.st&&STATUS_LBL[d.st])tags+='<span class="pvchip" style="border-color:'+d.ac+'">'+STATUS_LBL[d.st]+'</span>';
+  var genres=d.g?d.g.split(/[،,]/).map(function(s){return s.trim()}).filter(Boolean):[];
+  var total=0,nolink=0;d.ss.forEach(function(s){s.forEach(function(e){total++;if(!e.u)nolink++})});
+  if(!d.t)warn.push('اسم المسلسل فارغ.');
+  if(!d.img)warn.push('لا يوجد بوستر.');
+  if(!d.d)warn.push('لا يوجد وصف.');
+  if(nolink)warn.push(nolink+' حلقة بدون رابط فيديو (لن يمكن حفظها).');
+  var h='';
+  if(hid)h+='<p class="warning">هذا المسلسل «مخفي» ولن يظهر للمستخدمين.</p>';
+  if(sch)h+='<p class="warning">مجدول: سيظهر في '+escapeHtml(new Date(d.showAt).toLocaleString('ar-EG',{dateStyle:'medium',timeStyle:'short'}))+'.</p>';
+  h+='<div class="pvhero" style="background:linear-gradient(135deg,'+hex2rgba(d.ac,.38)+',#10163a 70%)">'+
+     '<div class="pvposter"'+(d.img?' style="background-image:url(\''+escapeHtml(d.img).replace(/'/g,'%27')+'\')"':'')+'>'+(d.img?'':'بدون بوستر')+'</div>'+
+     '<div class="pvinfo"><h3>'+escapeHtml(d.t||'اسم المسلسل')+'</h3><div class="pvmeta"><span>'+escapeHtml(d.y||'—')+'</span><span>·</span><span>'+d.ss.length+' موسم</span><span>·</span><span>'+total+' حلقة</span><span class="pvrate">★ '+escapeHtml(d.r||'—')+'</span>'+tags+'</div>'+
+     '<div class="pvmeta" style="margin-top:8px">'+genres.map(function(x){return '<span class="pvchip">'+escapeHtml(x)+'</span>'}).join('')+'</div>'+
+     '<p class="pvdesc">'+escapeHtml(d.d||'لا يوجد وصف.')+'</p></div></div>';
+  h+='<div class="pvseasons">'+d.ss.map(function(s,i){return '<button type="button" class="mini-btn'+(i===curSeason?' on':'')+'" data-pvs="'+i+'">الموسم '+(i+1)+'</button>'}).join('')+'</div>';
+  var eps=d.ss[curSeason]||[];
+  h+=eps.map(function(e,i){
+    var b='';if(e.key)b+=' <span class="pvchip">DRM</span>';if(/\.mpd(\?|$)/i.test(e.u))b+=' <span class="pvchip">MPD</span>';else if(/\.m3u8(\?|$)/i.test(e.u))b+=' <span class="pvchip">HLS</span>';
+    return '<div class="pvep'+(e.u?'':' miss')+'"><span class="n">'+(i+1)+'</span><span class="t">'+escapeHtml(e.t)+'</span>'+(e.u?b:'<small>بدون رابط</small>')+'</div>';
+  }).join('')||'<p class="hint">لا توجد حلقات.</p>';
+  if(warn.length)h+='<div class="pvw warning">'+warn.map(escapeHtml).join('<br>')+'</div>';
+  body.innerHTML=h;
+  body.querySelectorAll('[data-pvs]').forEach(function(b){b.onclick=function(){curSeason=+b.dataset.pvs;drawPreview()}});
+}
+function openPreview(){curSeason=0;drawPreview();modal.classList.add('on')}
+g('pvClose').onclick=function(){modal.classList.remove('on')};
+modal.addEventListener('click',function(e){if(e.target===modal)modal.classList.remove('on')});
+modal.querySelectorAll('[data-pvm]').forEach(function(b){b.onclick=function(){
+  g('pvBox').classList.toggle('wide',b.dataset.pvm==='d');
+  modal.querySelectorAll('[data-pvm]').forEach(function(x){x.classList.toggle('on',x===b)});
+}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')modal.classList.remove('on')});
+var pvBtn=document.createElement('button');pvBtn.type='button';pvBtn.id='pvOpen';pvBtn.className='btn secondary';pvBtn.textContent='معاينة قبل الحفظ';pvBtn.onclick=openPreview;
+var saveBtn=g('saveSeries');saveBtn.parentNode.insertBefore(pvBtn,saveBtn.nextSibling);
+
+/* ---------- (13) تحذير مغادرة الصفحة بتعديلات غير محفوظة ---------- */
+var dirty=false;
+function markDirty(){dirty=true}
+g('form').addEventListener('input',markDirty);g('form').addEventListener('change',markDirty);
+g('seasonsEditor').addEventListener('click',function(e){if(e.target.closest&&e.target.closest('button'))markDirty()});
+window.addEventListener('beforeunload',function(e){if(dirty){e.preventDefault();e.returnValue='';return ''}});
+
+/* ---------- مسودة تلقائية ---------- */
+var DKEY='seriesAdminDraft',dt=null;
+function hasContent(d){return !!(d.t||d.ss.some(function(s){return s.some(function(e){return e.u})}))}
+function saveDraft(){
+  if(editingIndex>=0)return;
+  var d=readForm(true);
+  try{if(hasContent(d))localStorage.setItem(DKEY,JSON.stringify(d));else localStorage.removeItem(DKEY)}catch(e){}
+}
+function clearDraft(){try{localStorage.removeItem(DKEY)}catch(e){}}
+g('form').addEventListener('input',function(){clearTimeout(dt);dt=setTimeout(saveDraft,800)});
+function restoreDraft(d){
+  g('title').value=d.t||'';g('year').value=d.y||new Date().getFullYear();g('genre').value=d.g||'';g('rating').value=d.r||'0.0';
+  g('image').value=d.img||'';g('color').value=d.ac||'#7c5cff';g('description').value=d.d||'';g('vis').value=d.vis||'show';g('showAt').value=d.showAt||'';
+  if(g('xStatus'))g('xStatus').value=d.st||'';
+  try{toggleShowAt()}catch(e){}
+  renderSeasonEditor((d.ss||[]).map(function(s){return s.map(function(e){return {t:e.rawT!=null?e.rawT:e.t,u:e.u,ua:e.ua,ref:e.ref,cookie:e.cookie,key:e.key}})}));
+  dirty=true;
+}
+(function(){
+  var raw;try{raw=localStorage.getItem(DKEY)}catch(e){}
+  if(!raw)return;var d;try{d=JSON.parse(raw)}catch(e){return}
+  if(!d||!d.ss||!hasContent(d))return;
+  var bar=document.createElement('div');bar.className='draftbar';
+  bar.innerHTML='<span>فيه مسودة غير محفوظة: <b>'+escapeHtml(d.t||'بدون اسم')+'</b></span><div class="actions" style="margin:0"><button type="button" class="mini-btn" id="dfRestore">استعادة</button><button type="button" class="mini-btn danger" id="dfDrop">تجاهل</button></div>';
+  g('form').parentNode.insertBefore(bar,g('form'));
+  g('dfRestore').onclick=function(){restoreDraft(d);bar.remove()};
+  g('dfDrop').onclick=function(){clearDraft();bar.remove()};
+})();
+/* بعد الحفظ الناجح أو الإلغاء، النموذج بيتصفّر فنمسح المسودة ونفك حالة التعديل */
+var _rf=window.resetForm;
+window.resetForm=function(){_rf.apply(this,arguments);dirty=false;clearDraft()};
+
+/* ---------- تحقق قبل الحفظ ---------- */
+var _sub=g('form').onsubmit;
+g('form').onsubmit=function(e){
+  e.preventDefault();
+  var d=readForm(false),w=[],cy=new Date().getFullYear(),y=+d.y;
+  if(y&&(y<1950||y>cy+2))w.push('سنة العرض ('+y+') تبدو غير منطقية.');
+  if(!d.img)w.push('لا يوجد بوستر.');
+  if(!d.d)w.push('لا يوجد وصف.');
+  if(!d.r||d.r==='0.0')w.push('التقييم غير محدد.');
+  if(d.t&&series.some(function(x,i){return i!==editingIndex&&String(x.t).trim().toLowerCase()===d.t.toLowerCase()}))w.push('يوجد مسلسل بنفس الاسم في هذا القسم.');
+  var seen={},dups=0;
+  d.ss.forEach(function(s){s.forEach(function(x){if(!x.u)return;if(seen[x.u])dups++;else seen[x.u]=1})});
+  if(dups)w.push(dups+' رابط حلقة مكرر داخل المسلسل.');
+  if(w.length&&!confirm('ملاحظات قبل الحفظ:\n\n- '+w.join('\n- ')+'\n\nتكمل الحفظ؟'))return;
+  return _sub.call(this,e);
+};
+
+/* ---------- اختصار Ctrl+S ---------- */
+document.addEventListener('keydown',function(e){
+  if((e.ctrlKey||e.metaKey)&&String(e.key).toLowerCase()==='s'){
+    var p=g('pForm');
+    if(p&&p.style.display!=='none'){e.preventDefault();if(typeof g('form').requestSubmit==='function')g('form').requestSubmit();else g('saveSeries').click()}
+  }
+});
+})();
+</script>
+<!-- ===== نهاية الإضافة ===== -->
 
 </body></html>
