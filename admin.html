@@ -1399,4 +1399,335 @@ document.addEventListener('xsync',function(){gsCache=null});
 </script>
 <!-- ===== نهاية إضافة 2 ===== -->
 
+<!-- ===== إضافة 3: أسماء حلقات TMDB + ترتيب الحلقات بالسحب + إعادة ترقيم + تحليلات مسلسل + فحص البلاغات =====
+     تُلصق قبل </body> وبعد إضافة 2. لا تغيّر أي كود موجود. -->
+<style>
+.xgrip{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;color:var(--mut);cursor:grab;touch-action:none;user-select:none;flex:none;margin-inline-end:6px}
+.xgrip svg{width:16px;height:16px;fill:currentColor}
+.episode-head{justify-content:flex-start}
+.episode-head .episode-title{flex:1}
+.episode-box.xdragging{opacity:.5;border-color:var(--ac)}
+.xdrop{height:0;border-top:2px dashed var(--ac);margin:4px 0}
+.sab{display:flex;align-items:flex-end;gap:10px;height:150px;margin-top:12px}
+.sab>div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.sab .pair{display:flex;align-items:flex-end;gap:3px;width:100%;flex:1}
+.sab .pair i{display:block;flex:1;border-radius:4px 4px 0 0;min-height:3px}
+.sab .p{background:var(--line)}
+.sab .c{background:var(--ac)}
+.sab small{color:var(--mut);font-size:.7rem;margin-top:4px;white-space:nowrap}
+.saleg{display:flex;gap:14px;font-size:.8rem;color:var(--mut);margin-top:8px}
+.saleg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:5px;vertical-align:middle}
+.rep .rres{font-weight:700}
+</style>
+<script>
+(function(){
+'use strict';
+var g=function(i){return document.getElementById(i)};
+var se=g('seasonsEditor');
+function fire(el){try{el.dispatchEvent(new Event('input',{bubbles:true}))}catch(e){}}
+function epBoxes(host){return Array.prototype.filter.call(host.children,function(c){return c.classList&&c.classList.contains('episode-box')})}
+
+/* ================= أسماء الحلقات من TMDB لموسم ================= */
+var tvCache={};
+async function findTvId(title){
+  var k=title.toLowerCase();
+  if(tvCache[k])return tvCache[k];
+  var j=await tmdbGet('/search/tv','&query='+enc(title)),r=(j.results||[])[0];
+  if(!r)return null;
+  tvCache[k]={id:r.id,name:r.name||r.original_name||''};return tvCache[k];
+}
+function decorateSeason(box){
+  if(box._x3)return;
+  var head=box.querySelector('.season-head'),tools=head&&head.querySelector('.actions');
+  if(!tools)return;box._x3=1;
+  var bt=document.createElement('button');bt.type='button';bt.className='mini-btn';bt.textContent='أسماء وصور من TMDB';
+  var br=document.createElement('button');br.type='button';br.className='mini-btn';br.textContent='إعادة ترقيم الأسماء';
+  tools.insertBefore(br,tools.firstChild);tools.insertBefore(bt,tools.firstChild);
+  bt.onclick=async function(){
+    if(!tmdbKey()){status('أدخل مفتاح TMDB في صفحة الإعدادات أولًا.','bad');return}
+    var title=g('title').value.trim();
+    if(!title){status('اكتب اسم المسلسل أولًا.','bad');return}
+    var num=Array.prototype.indexOf.call(se.querySelectorAll('.season-box'),box)+1;
+    bt.disabled=true;
+    try{
+      var tv=await findTvId(title);
+      if(!tv){status('مفيش نتائج في TMDB للاسم «'+title+'».','bad');bt.disabled=false;return}
+      var j=await tmdbGet('/tv/'+tv.id+'/season/'+num),list=j.episodes||[];
+      if(!list.length){status('TMDB مالوش حلقات للموسم '+num+' في «'+tv.name+'».','bad');bt.disabled=false;return}
+      var host=box.querySelector('.episodes-host'),boxes=epBoxes(host),filled=0,kept=0,imgs=0,rts=0;
+      boxes.forEach(function(eb,i){
+        var ep=list[i];if(!ep)return;
+        if(ep.name){
+          var cur=eb._fields.t.value.trim();
+          if(!cur||/^(الحلقة|حلقة|episode)\s*\d+$/i.test(cur)){eb._fields.t.value=(ep.episode_number||i+1)+' · '+ep.name;filled++}else kept++;
+        }
+        /* صورة الحلقة (im) ومدتها بالدقايق (rt): بتتحفظ مع الحلقة وبتظهر في صفحة المكتبة. مش بنكتب فوق قيمة موجودة */
+        var ex=Object.assign({},eb._extra||{}),ch=false;
+        if(ep.still_path&&!ex.im){ex.im='https://image.tmdb.org/t/p/w300'+ep.still_path;imgs++;ch=true}
+        if(ep.runtime>0&&!ex.rt){ex.rt=Math.round(ep.runtime);rts++;ch=true}
+        if(ch)eb._extra=ex;
+      });
+      fire(host);
+      status('«'+tv.name+'» · الموسم '+num+': TMDB فيه '+list.length+' حلقة. تم ملء '+filled+' اسم و'+imgs+' صورة و'+rts+' مدة'+(kept?(' وتُرك '+kept+' اسم مكتوب يدويًا'):'')+(boxes.length<list.length?(' . عندك '+boxes.length+' حلقة فقط، أضف روابط الباقي أولًا.'):'.'),'ok');
+    }catch(e){status('تعذر الجلب من TMDB: '+e.message,'bad')}
+    bt.disabled=false;
+  };
+  br.onclick=function(){
+    var tpl=prompt('قالب الاسم (اكتب {n} مكان الرقم):','الحلقة {n}');
+    if(!tpl)return;
+    if(tpl.indexOf('{n}')<0){status('القالب لازم يحتوي {n}.','bad');return}
+    var host=box.querySelector('.episodes-host'),boxes=epBoxes(host);
+    boxes.forEach(function(eb,i){eb._fields.t.value=tpl.split('{n}').join(i+1)});
+    fire(host);status('تمت إعادة تسمية '+boxes.length+' حلقة.','ok');
+  };
+}
+
+/* ================= ترتيب الحلقات بالسحب ================= */
+var GRIP='<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="5" cy="3" r="1.4"/><circle cx="11" cy="3" r="1.4"/><circle cx="5" cy="8" r="1.4"/><circle cx="11" cy="8" r="1.4"/><circle cx="5" cy="13" r="1.4"/><circle cx="11" cy="13" r="1.4"/></svg>';
+function decorateEp(box){
+  if(box._x3d)return;
+  var head=box.querySelector('.episode-head');if(!head)return;box._x3d=1;
+  var grip=document.createElement('span');grip.className='xgrip';grip.title='اسحب لتغيير ترتيب الحلقة';grip.innerHTML=GRIP;
+  head.insertBefore(grip,head.firstChild);
+  grip.addEventListener('pointerdown',function(e){
+    e.preventDefault();
+    var host=box.parentNode,items=epBoxes(host),from=items.indexOf(box),p=from,line=document.createElement('div');
+    if(from<0)return;
+    line.className='xdrop';box.classList.add('xdragging');
+    try{grip.setPointerCapture(e.pointerId)}catch(x){}
+    function pos(y){var n=0;items.forEach(function(it){var r=it.getBoundingClientRect();if(r.top+r.height/2<y)n++});return n}
+    function show(){if(line.parentNode)line.parentNode.removeChild(line);if(p<items.length)host.insertBefore(line,items[p]);else host.appendChild(line)}
+    grip.onpointermove=function(ev){
+      p=pos(ev.clientY);show();
+      if(ev.clientY<70)window.scrollBy(0,-14);else if(ev.clientY>window.innerHeight-70)window.scrollBy(0,14);
+    };
+    grip.onpointerup=grip.onpointercancel=function(){
+      grip.onpointermove=grip.onpointerup=grip.onpointercancel=null;
+      if(line.parentNode)line.parentNode.removeChild(line);
+      box.classList.remove('xdragging');
+      var final=p>from?p-1:p;
+      if(final!==from){
+        var others=items.filter(function(it){return it!==box});
+        if(final>=others.length)host.appendChild(box);else host.insertBefore(box,others[final]);
+        window.renumberEpisodes(host);fire(host);
+      }
+    };
+  });
+}
+function decorateAll(){
+  se.querySelectorAll('.season-box').forEach(decorateSeason);
+  se.querySelectorAll('.episode-box').forEach(decorateEp);
+}
+new MutationObserver(decorateAll).observe(se,{childList:true,subtree:true});
+decorateAll();
+/* نعيد بناء النموذج الفاضي عشان الأزرار تظهر في الحلقات الحالية */
+try{if(!g('title').value.trim()&&typeof editingIndex!=='undefined'&&editingIndex<0)window.renderSeasonEditor()}catch(e){}
+
+/* ================= تحليلات مسلسل (أسبوعان) ================= */
+var daily=g('pDaily');
+if(daily){
+  var box=document.createElement('div');
+  box.style.marginTop='20px';box.style.borderTop='1px dashed var(--line)';box.style.paddingTop='14px';
+  box.innerHTML='<h2 style="font-size:1.05rem;margin:0 0 4px">تحليلات مسلسل واحد (أسبوعان)</h2><p class="hint" style="margin:0 0 8px">مقارنة آخر 7 أيام بالأسبوع اللي قبله لمسلسل من القسم الحالي. الأيام بتوقيت UTC، وبتعتمد على العدّادات اليومية.</p><div class="actions" style="margin-top:0"><select id="saSel" style="flex:1;min-width:180px"></select><button class="btn secondary" id="saGo" type="button">عرض</button></div><div id="saOut"></div>';
+  daily.appendChild(box);
+}
+function fillSel(){
+  var s=g('saSel');if(!s)return;
+  var cur=s.value;
+  s.innerHTML=series.length?series.map(function(x,i){return '<option value="'+i+'">'+escapeHtml(x.t)+'</option>'}).join(''):'<option value="">حمّل بيانات القسم أولًا</option>';
+  if(cur&&s.querySelector('option[value="'+cur+'"]'))s.value=cur;
+}
+function dk(d){return d.toISOString().slice(0,10).replace(/-/g,'')}
+var saBusy=false;
+async function showSA(){
+  var out=g('saOut'),i=+g('saSel').value,x=series[i],ns=COUNTER_NS[g('path').value];
+  if(!x){out.innerHTML='<p class="hint">اختر مسلسلًا.</p>';return}
+  if(!ns){out.innerHTML='<p class="hint">لا يوجد اسم عدّاد لهذا القسم.</p>';return}
+  if(saBusy)return;saBusy=true;g('saGo').disabled=true;out.innerHTML='<p class="hint">جاري التحميل…</p>';
+  var days=[],vals=new Array(14),n=0;
+  for(var k=13;k>=0;k--){var d=new Date(Date.now()-k*864e5);days.push({k:dk(d),l:d.toLocaleDateString('ar-EG',{weekday:'short',day:'numeric',timeZone:'UTC'})})}
+  var w=async function(){while(n<14){var j=n++;vals[j]=await getCount(COUNTER_BASE+'get/'+ns+'/sd-'+ckey(x)+'-'+days[j].k)}};
+  await Promise.all([w(),w(),w()]);
+  saBusy=false;g('saGo').disabled=false;
+  if(+g('saSel').value!==i)return;
+  var prev=vals.slice(0,7).map(function(v){return v||0}),cur=vals.slice(7).map(function(v){return v||0});
+  var pt=prev.reduce(function(a,b){return a+b},0),ct=cur.reduce(function(a,b){return a+b},0);
+  var mx=Math.max.apply(null,prev.concat(cur).concat([1]));
+  var pct=pt>0?Math.round((ct-pt)/pt*100):null;
+  var pctTxt=pct===null?(ct>0?'جديد':'—'):((pct>0?'+':'')+pct+'%');
+  out.innerHTML='<div class="vstats"><div class="vst"><small>هذا الأسبوع</small><b>'+fmtNum(ct)+'</b></div><div class="vst"><small>الأسبوع السابق</small><b>'+fmtNum(pt)+'</b></div><div class="vst"><small>التغيير</small><b style="color:'+(pct===null?'inherit':(pct>=0?'#8ff0bf':'#ff9fb0'))+'">'+pctTxt+'</b></div></div>'+
+    '<div class="sab">'+cur.map(function(v,j){return '<div><div class="pair"><i class="p" style="height:'+Math.max(2,prev[j]/mx*100)+'%" title="'+fmtNum(prev[j])+'"></i><i class="c" style="height:'+Math.max(2,v/mx*100)+'%" title="'+fmtNum(v)+'"></i></div><small>'+escapeHtml(days[7+j].l)+'</small></div>'}).join('')+'</div>'+
+    '<div class="saleg"><span><i style="background:var(--ac)"></i>هذا الأسبوع</span><span><i style="background:var(--line)"></i>السابق</span></div>';
+}
+if(g('saGo')){
+  g('saGo').onclick=showSA;
+  fillSel();
+  document.addEventListener('xsync',fillSel);
+  g('path').addEventListener('change',function(){setTimeout(fillSel,300);g('saOut').innerHTML=''});
+  g('connect').addEventListener('click',function(){setTimeout(fillSel,2500)});
+  document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('[data-pg="stats"]'))setTimeout(fillSel,100)});
+}
+
+/* ================= فحص تلقائي للحلقات المُبلَّغ عنها ================= */
+var rp=g('pReports'),rbtn=g('repRefresh');
+if(rp&&rbtn){
+  var lab=document.createElement('label');lab.className='remember-row';lab.style.marginTop='0';lab.style.padding='6px 12px';
+  lab.innerHTML='<input type="checkbox" id="repAuto" checked><span>فحص تلقائي للحلقات اللي وصلها 3 بلاغات أو أكثر</span>';
+  rbtn.parentNode.appendChild(lab);
+  var chkAllBtn=document.createElement('button');chkAllBtn.type='button';chkAllBtn.className='btn secondary';chkAllBtn.textContent='فحص كل المُبلَّغ عنها';
+  rbtn.parentNode.insertBefore(chkAllBtn,lab);
+  var busyR=false;
+  async function checkReported(onlyHot){
+    if(busyR)return;
+    var idxs=[];
+    repData.forEach(function(r,idx){if(!onlyHot||r.active>=3)idxs.push(idx)});
+    if(!idxs.length)return;
+    busyR=true;var j=0;
+    var w=async function(){
+      while(j<idxs.length){
+        var idx=idxs[j++],r=repData[idx];if(!r||!series[r.i])continue;
+        var el=g('rpc-'+idx),ep=series[r.i].ss[r.s][r.k];
+        if(el)el.textContent='جاري الفحص…';
+        var res=await checkEp(ep);
+        if(el){
+          var txt=chkText(res);
+          el.textContent=res.s==='bad'?(txt+' · العطل مؤكد'):(res.s==='slow'?(txt+' · بطيء، يحتاج متابعة'):(txt+' · الرابط يعمل من الـ Worker، ممكن البلاغ من مشكلة عند المستخدم'));
+          el.style.color=res.s==='bad'?'#ff9fb0':(res.s==='slow'?'#f0d9a5':'#8ff0bf');
+        }
+      }
+    };
+    await Promise.all([w(),w(),w()]);
+    busyR=false;
+  }
+  chkAllBtn.onclick=async function(){
+    if(!repData.length){status('اضغط «تحديث البلاغات» الأول.','bad');return}
+    chkAllBtn.disabled=true;await checkReported(false);chkAllBtn.disabled=false;
+    status('تم فحص الحلقات المُبلَّغ عنها.','ok');
+  };
+  rbtn.onclick=async function(){
+    await refreshReports();
+    if(g('repAuto').checked)checkReported(true);
+  };
+}
+})();
+</script>
+<!-- ===== نهاية إضافة 3 ===== -->
+
+<!-- ===== إضافة 4: لوحة إحصاءات الإعلان (ظهور / نقر / نسبة النقر) =====
+     تُلصق قبل </body> وبعد إضافة 3. تقرأ عدّادات الإعلان اللي صفحة المكتبة الجديدة بتسجّلها:
+     ad-imp / ad-clk (إجمالي)، ad-imp-YYYYMMDD / ad-clk-YYYYMMDD (يومي UTC)، adi-<مسلسل> / adc-<مسلسل>. -->
+<style>
+.astb{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:10px}
+.astb th,.astb td{padding:7px 8px;text-align:right;border-bottom:1px solid var(--line)}
+.astb th{color:var(--mut);font-weight:600}
+.astb tr.tot td{font-weight:800;border-top:2px solid var(--line)}
+.asd{display:flex;align-items:flex-end;gap:8px;height:140px;margin-top:12px}
+.asd>div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;min-width:0}
+.asd i{display:block;width:100%;background:var(--ac);border-radius:6px 6px 0 0;min-height:3px}
+.asd b{font-size:.75rem;margin-bottom:3px}
+.asd small{color:var(--mut);font-size:.68rem;margin-top:4px;white-space:nowrap}
+.asd em{font-style:normal;color:#ffd166;font-size:.68rem}
+</style>
+<script>
+(function(){
+'use strict';
+var g=function(i){return document.getElementById(i)};
+var host=g('pAdSettings');
+if(!host)return;
+var SEC=[['series-arabic.json','العربية'],['series-foreign.json','الأجنبية'],['series-turkish.json','التركية'],['series-korean.json','الكورية']];
+
+var box=document.createElement('div');
+box.id='adStatsBox';box.style.cssText='margin-top:22px;border-top:1px dashed var(--line);padding-top:16px';
+box.innerHTML='<h2 style="font-size:1.05rem;margin:0 0 4px">إحصاءات الإعلان</h2>'+
+  '<p class="hint">عدد مرات ظهور نافذة الإعلان، والنقر على رابط «فتح الإعلان». الضغط جوه الإعلان نفسه (الـ iframe) مش بيظهر للصفحة، فالنقرات المسجّلة أقل من الفعلية. الأرقام بتبدأ من وقت نشر صفحة المكتبة الجديدة.</p>'+
+  '<div class="actions" style="margin-top:0"><button class="btn secondary" id="asRef" type="button">تحديث</button><button class="btn secondary" id="asTop" type="button">أكثر مسلسلات القسم الحالي</button><span class="hint" id="asInfo" style="margin:0;align-self:center"></span></div>'+
+  '<div id="asTot"></div><div id="asDayH"></div><div id="asDay"></div><div id="asTopB"></div>';
+host.appendChild(box);
+
+function pct(c,i){return (typeof c==='number'&&typeof i==='number'&&i>0)?(c/i*100).toFixed(1)+'%':'—'}
+function num(v){return typeof v==='number'?fmtNum(v):'تعذر'}
+function url(ns,key){return COUNTER_BASE+'get/'+ns+'/'+key}
+async function pool(jobs,n){
+  var i=0;
+  async function w(){while(i<jobs.length){var j=jobs[i++];await j()}}
+  var ws=[];for(var k=0;k<n;k++)ws.push(w());
+  await Promise.all(ws);
+}
+function ymd(d){return d.toISOString().slice(0,10).replace(/-/g,'')}
+
+var busy=false,lastAt=0;
+
+async function loadTotals(){
+  var rows=SEC.map(function(s){return {file:s[0],l:s[1],ns:COUNTER_NS[s[0]],imp:null,clk:null}}),jobs=[];
+  rows.forEach(function(r){
+    if(!r.ns)return;
+    jobs.push(async function(){r.imp=await getCount(url(r.ns,'ad-imp'))});
+    jobs.push(async function(){r.clk=await getCount(url(r.ns,'ad-clk'))});
+  });
+  await pool(jobs,3);
+  var ti=0,tc=0;rows.forEach(function(r){if(typeof r.imp==='number')ti+=r.imp;if(typeof r.clk==='number')tc+=r.clk});
+  g('asTot').innerHTML='<div class="vstats"><div class="vst"><small>إجمالي الظهور</small><b>'+fmtNum(ti)+'</b></div><div class="vst"><small>إجمالي النقر</small><b>'+fmtNum(tc)+'</b></div><div class="vst"><small>نسبة النقر</small><b>'+pct(tc,ti)+'</b></div></div>'+
+    '<table class="astb"><tr><th>القسم</th><th>الظهور</th><th>النقر</th><th>نسبة النقر</th></tr>'+
+    rows.map(function(r){return '<tr><td>'+escapeHtml(r.l)+'</td><td>'+num(r.imp)+'</td><td>'+num(r.clk)+'</td><td>'+pct(r.clk,r.imp)+'</td></tr>'}).join('')+
+    '<tr class="tot"><td>الكل</td><td>'+fmtNum(ti)+'</td><td>'+fmtNum(tc)+'</td><td>'+pct(tc,ti)+'</td></tr></table>';
+}
+
+async function loadDaily(){
+  var ns=COUNTER_NS[g('path').value],days=[],imp=new Array(7),clk=new Array(7);
+  if(!ns){g('asDay').innerHTML='';g('asDayH').innerHTML='';return}
+  for(var k=6;k>=0;k--){var d=new Date(Date.now()-k*864e5);days.push({k:ymd(d),l:d.toLocaleDateString('ar-EG',{weekday:'short',day:'numeric',timeZone:'UTC'})})}
+  var jobs=[];
+  days.forEach(function(d,i){
+    jobs.push(async function(){imp[i]=await getCount(url(ns,'ad-imp-'+d.k))});
+    jobs.push(async function(){clk[i]=await getCount(url(ns,'ad-clk-'+d.k))});
+  });
+  await pool(jobs,3);
+  var mx=Math.max.apply(null,imp.map(function(v){return v||0}).concat([1])),ti=0,tc=0;
+  imp.forEach(function(v){ti+=v||0});clk.forEach(function(v){tc+=v||0});
+  var sel=g('path'),name=sel.options[sel.selectedIndex].text;
+  g('asDayH').innerHTML='<h3 style="font-size:.98rem;margin:18px 0 0">آخر 7 أيام · '+escapeHtml(name)+' <small style="color:var(--mut)">(الظهور '+fmtNum(ti)+' · النقر '+fmtNum(tc)+' · '+pct(tc,ti)+')</small></h3>';
+  g('asDay').innerHTML='<div class="asd">'+days.map(function(d,i){
+    var v=imp[i];
+    return '<div><b>'+(v===null?'تعذر':fmtNum(v))+'</b><i style="height:'+(v?Math.max(3,v/mx*100):3)+'%"></i><small>'+escapeHtml(d.l)+'</small><em>نقر '+(clk[i]===null?'—':fmtNum(clk[i]))+'</em></div>';
+  }).join('')+'</div>';
+}
+
+async function refresh(){
+  if(busy)return;
+  busy=true;g('asRef').disabled=true;g('asInfo').textContent='جاري التحميل…';
+  try{await loadTotals();await loadDaily();lastAt=Date.now();g('asInfo').textContent='آخر تحديث: '+new Date().toLocaleTimeString('ar-EG')}
+  catch(e){g('asInfo').textContent='تعذر التحميل: '+e.message}
+  g('asRef').disabled=false;busy=false;
+}
+
+async function loadTop(){
+  var ns=COUNTER_NS[g('path').value];
+  if(!ns){g('asTopB').innerHTML='<p class="hint">لا يوجد اسم عدّاد لهذا القسم.</p>';return}
+  if(!series.length){g('asTopB').innerHTML='<p class="hint">حمّل بيانات القسم الأول (اتصال / تحميل البيانات).</p>';return}
+  if(series.length>150&&!confirm('هيتعمل '+(series.length*2)+' طلب لخدمة العدّاد وممكن ياخد دقايق. تكمل؟'))return;
+  var btn=g('asTop'),res=series.map(function(x){return {t:x.t,imp:null,clk:null}}),jobs=[],done=0,total=series.length*2;
+  btn.disabled=true;
+  series.forEach(function(x,i){
+    jobs.push(async function(){res[i].imp=await getCount(url(ns,'adi-'+ckey(x)));done++;g('asInfo').textContent='تم '+done+' من '+total});
+    jobs.push(async function(){res[i].clk=await getCount(url(ns,'adc-'+ckey(x)));done++;g('asInfo').textContent='تم '+done+' من '+total});
+  });
+  await pool(jobs,3);
+  btn.disabled=false;
+  var rows=res.filter(function(r){return (r.imp||0)>0||(r.clk||0)>0}).sort(function(a,b){return (b.imp||0)-(a.imp||0)||(b.clk||0)-(a.clk||0)}).slice(0,10),mx=rows.length?(rows[0].imp||1):1;
+  g('asTopB').innerHTML=rows.length?'<h3 style="font-size:.98rem;margin:18px 0 0">أكثر المسلسلات ظهورًا للإعلان</h3>'+rows.map(function(r){
+    return '<div class="vrow"><div class="nm">'+escapeHtml(r.t)+'</div><div class="num">'+num(r.imp)+'</div><div class="vbar"><i style="width:'+Math.max(2,(r.imp||0)/mx*100)+'%"></i></div><div class="vkey" style="direction:rtl">نقر '+num(r.clk)+' · نسبة النقر '+pct(r.clk,r.imp)+'</div></div>';
+  }).join(''):'<p class="hint">لسه مفيش ظهور مسجّل لمسلسلات القسم ده.</p>';
+  g('asInfo').textContent='تم.';
+}
+
+g('asRef').onclick=refresh;
+g('asTop').onclick=loadTop;
+document.addEventListener('click',function(e){
+  if(e.target.closest&&e.target.closest('[data-pg="ads"]')&&Date.now()-lastAt>60000)setTimeout(refresh,100);
+});
+g('path').addEventListener('change',function(){g('asDay').innerHTML='';g('asDayH').innerHTML='';g('asTopB').innerHTML='';lastAt=0});
+})();
+</script>
+<!-- ===== نهاية إضافة 4 ===== -->
+
 </body></html>
