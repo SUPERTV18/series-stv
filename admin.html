@@ -1018,14 +1018,21 @@ document.getElementById('path').addEventListener('change',function(){/* إعدا
 
 <!-- إضافات مساعدة للإدارة فقط؛ لا تغيّر شكل أو وظائف المكتبة -->
 <style>
-#adminToolsNew{border:1px solid var(--line);background:linear-gradient(145deg,#171725,#11111b);border-radius:16px;padding:16px;margin:18px 0}
-#adminToolsNew .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));gap:12px;align-items:start;align-content:start}#adminToolsNew .tool-card{align-self:start;height:auto;min-height:0}#adminToolsNew .tool-card h3{margin-top:4px}#adminToolsNew .tool-card .hint{line-height:1.7}#adminToolsNew #newAdminBulkInput{min-height:110px;height:110px}
-#adminToolsNew .tool-card{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:13px;min-width:0}
-#adminToolsNew textarea{width:100%;min-height:135px;background:#0c0c15;color:var(--fg);border:1px solid var(--line);border-radius:9px;padding:10px;resize:vertical;font:inherit}
-#adminToolsNew .tool-result{white-space:pre-wrap;overflow-wrap:anywhere;background:#0b0b13;border:1px solid var(--line);border-radius:9px;padding:10px;margin-top:10px;font-size:13px;line-height:1.8}
+/* تصميم مدمج يتماشى مع لوحة الإدارة الأصلية */
+#adminToolsNew{border:1px solid var(--line);background:transparent;border-radius:12px;padding:12px;margin:10px 0}
+#adminToolsNew>h2{font-size:18px;margin:0 0 5px}
+#adminToolsNew>p.hint{font-size:12px;margin:0 0 12px;line-height:1.6}
+#adminToolsNew .tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;align-items:start;align-content:start}
+#adminToolsNew .tool-card{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px;min-width:0;align-self:start;height:auto;min-height:0}
+#adminToolsNew .tool-card h3{font-size:15px;margin:0 0 6px}
+#adminToolsNew .tool-card .hint{font-size:12px;line-height:1.6;margin:0 0 9px}
+#adminToolsNew .tool-card .btn{font-size:13px;padding:9px 12px}
+#adminToolsNew textarea{box-sizing:border-box;width:100%;min-height:105px;height:105px;background:#0c0c15;color:var(--fg);border:1px solid var(--line);border-radius:8px;padding:9px;resize:vertical;font:inherit;font-size:12px;margin:0 0 8px}
+#adminToolsNew .tool-result{white-space:pre-wrap;overflow-wrap:anywhere;background:#0b0b13;border:1px solid var(--line);border-radius:8px;padding:9px;margin-top:9px;font-size:12px;line-height:1.7}
 #adminToolsNew .good{color:#6ee7b7}#adminToolsNew .warn{color:#ffd166}#adminToolsNew .err{color:#ff8c9b}
-#adminPreviewNew{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:start}#adminPreviewNew img{width:84px;height:120px;object-fit:cover;border-radius:9px;background:#222}
-#adminPreviewNew .muted{color:var(--mut);font-size:13px;line-height:1.7}
+#adminPreviewNew{display:grid;grid-template-columns:70px minmax(0,1fr);gap:10px;align-items:start}#adminPreviewNew img{width:70px;height:100px;object-fit:cover;border-radius:7px;background:#222}
+#adminPreviewNew .muted{color:var(--mut);font-size:12px;line-height:1.6;white-space:pre-wrap}
+@media(max-width:700px){#adminToolsNew .tool-grid{grid-template-columns:minmax(0,1fr)}}
 </style>
 <section class="panel" id="adminToolsNew">
 <h2>أدوات إضافية للإدارة</h2>
@@ -1043,7 +1050,7 @@ document.getElementById('path').addEventListener('change',function(){/* إعدا
  </div>
  <div class="tool-card">
   <h3>إضافة حلقات من قائمة</h3>
-  <p class="hint">كل سطر حلقة بالترتيب: اسم الحلقة | رابط الفيديو | User-Agent اختياري | Referer اختياري | Cookie اختياري. اكتب --- في سطر مستقل لبدء موسم جديد.</p>
+  <p class="hint">الصيغة: اسم الحلقة | الرابط | User-Agent اختياري | Referer اختياري | Cookie اختياري. اكتب --- لبدء موسم جديد.</p>
   <textarea id="newAdminBulkInput" dir="auto" placeholder="الحلقة 1 | https://example.com/1.m3u8&#10;الحلقة 2 | https://example.com/2.m3u8&#10;---&#10;الحلقة 1 | https://example.com/s2e1.m3u8"></textarea>
   <button type="button" class="btn" id="newAdminBulkBtn">إضافة القائمة إلى النموذج</button>
   <div class="tool-result" id="newAdminBulkResult" hidden></div>
