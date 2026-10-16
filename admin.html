@@ -1015,4 +1015,142 @@ document.getElementById('path').addEventListener('change',function(){/* إعدا
 })();
 </script>
 
+
+<!-- إضافات مساعدة للإدارة فقط؛ لا تغيّر شكل أو وظائف المكتبة -->
+<style>
+#adminToolsNew{border:1px solid var(--line);background:linear-gradient(145deg,#171725,#11111b);border-radius:16px;padding:16px;margin:18px 0}
+#adminToolsNew .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+#adminToolsNew .tool-card{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:13px;min-width:0}
+#adminToolsNew textarea{width:100%;min-height:135px;background:#0c0c15;color:var(--fg);border:1px solid var(--line);border-radius:9px;padding:10px;resize:vertical;font:inherit}
+#adminToolsNew .tool-result{white-space:pre-wrap;overflow-wrap:anywhere;background:#0b0b13;border:1px solid var(--line);border-radius:9px;padding:10px;margin-top:10px;font-size:13px;line-height:1.8}
+#adminToolsNew .good{color:#6ee7b7}#adminToolsNew .warn{color:#ffd166}#adminToolsNew .err{color:#ff8c9b}
+#adminPreviewNew{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:start}#adminPreviewNew img{width:84px;height:120px;object-fit:cover;border-radius:9px;background:#222}
+#adminPreviewNew .muted{color:var(--mut);font-size:13px;line-height:1.7}
+</style>
+<section class="panel" id="adminToolsNew">
+<h2>أدوات إضافية للإدارة</h2>
+<p class="hint">أدوات مساعدة قبل الحفظ. لا تغيّر بيانات GitHub إلا عند الضغط على زر الحفظ الأصلي.</p>
+<div class="tool-grid">
+ <div class="tool-card">
+  <h3>معاينة بيانات المسلسل</h3><p class="hint">راجع العنوان والبوستر والوصف وعدد المواسم والحلقات قبل الحفظ.</p>
+  <button type="button" class="btn secondary" id="newAdminPreviewBtn">معاينة المسلسل</button>
+  <div class="tool-result" id="newAdminPreview" hidden></div>
+ </div>
+ <div class="tool-card">
+  <h3>فحص الحلقات والروابط</h3><p class="hint">يكشف الروابط الناقصة والمكررة، وينبّه إلى الروابط التي لا تبدو كرابط URL صحيح.</p>
+  <button type="button" class="btn secondary" id="newAdminCheckBtn">فحص قبل الحفظ</button>
+  <div class="tool-result" id="newAdminCheckResult" hidden></div>
+ </div>
+ <div class="tool-card">
+  <h3>إضافة حلقات من قائمة</h3>
+  <p class="hint">كل سطر حلقة بالترتيب: اسم الحلقة | رابط الفيديو | User-Agent اختياري | Referer اختياري | Cookie اختياري. اكتب --- في سطر مستقل لبدء موسم جديد.</p>
+  <textarea id="newAdminBulkInput" dir="auto" placeholder="الحلقة 1 | https://example.com/1.m3u8&#10;الحلقة 2 | https://example.com/2.m3u8&#10;---&#10;الحلقة 1 | https://example.com/s2e1.m3u8"></textarea>
+  <button type="button" class="btn" id="newAdminBulkBtn">إضافة القائمة إلى النموذج</button>
+  <div class="tool-result" id="newAdminBulkResult" hidden></div>
+ </div>
+ <div class="tool-card">
+  <h3>ملخص قبل الحفظ</h3><p class="hint">يعرض ملخص البيانات الحالية ويؤكد عدد المواسم والحلقات التي ستُحفظ من النموذج.</p>
+  <button type="button" class="btn secondary" id="newAdminReportBtn">إنشاء الملخص</button>
+  <div class="tool-result" id="newAdminReportResult" hidden></div>
+ </div>
+</div>
+</section>
+<script>
+(function(){
+'use strict';
+function el(id){return document.getElementById(id)}
+function show(id,text,cls){var n=el(id);n.hidden=false;n.className='tool-result'+(cls?' '+cls:'');n.textContent=text}
+function getEditorStats(){
+ var seasons=Array.from(el('seasonsEditor').querySelectorAll('.season-box'));
+ var all=[],missing=[],bad=[];
+ seasons.forEach(function(season,si){
+  Array.from(season.querySelectorAll('.episode-box')).forEach(function(box,ei){
+   var f=box._fields||{},t=(f.t&&f.t.value||'').trim(),u=(f.u&&f.u.value||'').trim();
+   if(!u){if(t)missing.push('الموسم '+(si+1)+'، الحلقة '+(ei+1)+' (اسم بدون رابط)');return}
+   all.push({url:u,season:si+1,episode:ei+1,title:t||('الحلقة '+(ei+1))});
+   try{new URL(u)}catch(e){bad.push('الموسم '+(si+1)+'، الحلقة '+(ei+1)+': الرابط غير صالح — '+u)}
+  });
+ });
+ var seen={},dups=[];
+ all.forEach(function(ep){var k=ep.url.trim();if(seen[k])dups.push('رابط مكرر: '+k+' (الموسم '+seen[k].season+' الحلقة '+seen[k].episode+' والموسم '+ep.season+' الحلقة '+ep.episode+')');else seen[k]=ep});
+ return {seasons:seasons.length,episodes:all.length,all:all,missing:missing,bad:bad,dups:dups};
+}
+function buildReport(){
+ var title=(el('title').value||'').trim()||'بدون عنوان';
+ var st=getEditorStats();
+ return 'المسلسل: '+title+'\nالسنة: '+(el('year').value||'غير محددة')+'\nعدد المواسم في النموذج: '+st.seasons+'\nعدد الحلقات ذات الروابط: '+st.episodes+'\nالبوستر: '+(el('image').value.trim()?'موجود':'غير محدد')+'\nالوصف: '+(el('description').value.trim()?'موجود':'غير محدد')+'\n\nملاحظة: هذا ملخص للنموذج الحالي، وليس مقارنة مع نسخة GitHub المحفوظة.';
+}
+el('newAdminPreviewBtn').addEventListener('click',function(){
+ var st=getEditorStats(),wrap=el('newAdminPreview');
+ wrap.hidden=false;wrap.className='tool-result';
+ var img=(el('image').value||'').trim(),title=(el('title').value||'').trim()||'اسم المسلسل';
+ wrap.innerHTML='';
+ var layout=document.createElement('div');layout.id='adminPreviewNew';
+ var pic=document.createElement('img');pic.alt='بوستر المسلسل';pic.src=img||'';
+ pic.onerror=function(){this.style.display='none'};
+ var details=document.createElement('div');
+ var h=document.createElement('strong');h.textContent=title;details.appendChild(h);
+ var p=document.createElement('p');p.className='muted';p.textContent='السنة: '+(el('year').value||'—')+' • التصنيف: '+(el('genre').value||'—')+' • التقييم: '+(el('rating').value||'—')+'\n'+(el('description').value||'لا يوجد وصف');details.appendChild(p);
+ var count=document.createElement('p');count.className='muted';count.textContent='المواسم: '+st.seasons+' • الحلقات ذات الروابط: '+st.episodes;details.appendChild(count);
+ layout.appendChild(pic);layout.appendChild(details);wrap.appendChild(layout);
+});
+el('newAdminCheckBtn').addEventListener('click',function(){
+ var s=getEditorStats(),lines=[];
+ lines.push('المواسم: '+s.seasons+' | الحلقات ذات الروابط: '+s.episodes);
+ if(!s.episodes)lines.push('لم يتم العثور على روابط حلقات.');
+ if(s.missing.length)lines.push('\nحقول تحتاج مراجعة:\n• '+s.missing.join('\n• '));
+ if(s.bad.length)lines.push('\nروابط غير صالحة شكليًا:\n• '+s.bad.join('\n• '));
+ if(s.dups.length)lines.push('\nروابط مكررة:\n• '+s.dups.join('\n• '));
+ if(!s.missing.length&&!s.bad.length&&!s.dups.length&&s.episodes)lines.push('\nالفحص الأولي سليم: لم تظهر روابط ناقصة أو مكررة.');
+ show('newAdminCheckResult',lines.join('\n'),(s.missing.length||s.bad.length||s.dups.length||!s.episodes)?'warn':'good');
+});
+el('newAdminBulkBtn').addEventListener('click',function(){
+ var raw=el('newAdminBulkInput').value.trim();
+ if(!raw){show('newAdminBulkResult','الصق قائمة الحلقات أولًا.','warn');return}
+ var groups=[[]],errors=[];
+ raw.split(/\r?\n/).forEach(function(line,idx){
+  var v=line.trim();if(!v)return;
+  if(v==='---'){if(groups[groups.length-1].length)groups.push([]);return}
+  var parts=v.split('|').map(function(x){return x.trim()});
+  if(parts.length<2||!parts[1]){errors.push('السطر '+(idx+1)+': اكتب اسم الحلقة | رابط الفيديو');return}
+  try{new URL(parts[1])}catch(e){errors.push('السطر '+(idx+1)+': الرابط غير صالح');return}
+  groups[groups.length-1].push({t:parts[0],u:parts[1],ua:parts[2]||'',ref:parts[3]||'',cookie:parts[4]||''});
+ });
+ groups=groups.filter(function(g){return g.length});
+ if(!groups.length){show('newAdminBulkResult','لم تتم إضافة شيء.\n'+errors.join('\n'),'err');return}
+ var host=el('seasonsEditor');
+ groups.forEach(function(eps,gi){
+  var season;
+  if(gi===0&&host.querySelector('.season-box'))season=host.querySelector('.season-box');
+  else{
+   var before=host.querySelectorAll('.season-box').length;
+   if(typeof addSeasonEditor==='function')addSeasonEditor();
+   else{var btn=el('addSeason');if(btn)btn.click()}
+   season=host.querySelectorAll('.season-box')[before];
+  }
+  if(!season){errors.push('تعذر إنشاء موسم رقم '+(gi+1));return}
+  var epsHost=season.querySelector('.episodes-host');
+  if(!epsHost){errors.push('تعذر العثور على محرر حلقات الموسم '+(gi+1));return}
+  var existing=Array.from(epsHost.querySelectorAll('.episode-box'));
+  if(existing.length===1){
+   var f=existing[0]._fields;
+   if(f&&!f.t.value.trim()&&!f.u.value.trim()&&!f.ua.value.trim()&&!f.ref.value.trim()&&!f.cookie.value.trim())existing[0].remove();
+  }
+  eps.forEach(function(ep){if(typeof addEpisodeEditor==='function')addEpisodeEditor(epsHost,ep)});
+ });
+ var msg='تمت إضافة '+groups.reduce(function(n,g){return n+g.length},0)+' حلقة إلى النموذج في '+groups.length+' موسم/مواسم. لم يتم الحفظ على GitHub بعد.';
+ if(errors.length)msg+='\n\nملاحظات:\n• '+errors.join('\n• ');
+ show('newAdminBulkResult',msg,errors.length?'warn':'good');
+});
+el('newAdminReportBtn').addEventListener('click',function(){show('newAdminReportResult',buildReport())});
+// تأكيد إضافي قبل حذف حلقة من المحرر، دون تغيير منطق الحذف الأصلي.
+document.addEventListener('click',function(e){
+ var b=e.target.closest&&e.target.closest('.episode-box .danger');
+ if(b&&/حذف الحلقة/.test(b.textContent||'')){
+  if(!window.confirm('هل تريد حذف هذه الحلقة من النموذج؟ لن يُحفظ التغيير إلا عند حفظ المسلسل.')){e.preventDefault();e.stopImmediatePropagation()}
+ }
+},true);
+})();
+</script>
+
 </body></html>
