@@ -77,6 +77,7 @@
 <label class="field">عرض النافذة<select id="adWidth"><option value="compact">صغير</option><option value="normal" selected>متوسط</option><option value="wide">عريض</option></select></label>
 <label class="field">نص زر المتابعة<input id="adButtonText" maxlength="45" value="جارٍ تجهيز الحلقة..."></label>
 <label class="field">شفافية الخلفية الخارجية<select id="adOverlay"><option value="0.65">خفيفة</option><option value="0.82" selected>متوسطة</option><option value="0.94">داكنة</option></select></label>
+<label class="field">حد تكرار الإعلان (بالدقائق)<input id="adFreq" type="number" min="0" max="240" value="0"><span class="hint" style="margin:4px 0 0">0 = قبل كل حلقة. لو كتبت 20 مثلًا، المشاهد اللي شاف الإعلان ما يظهرلوش تاني قبل 20 دقيقة.</span></label>
 <label class="field">زر الإلغاء<select id="adCanCancel"><option value="true">إظهار زر الإلغاء</option><option value="false">إخفاء زر الإلغاء</option></select></label>
 <div class="field full"><span class="hint">غيّر أي إعداد لمشاهدة المعاينة مباشرة، ثم احفظ الإعدادات. هذه المعاينة توضح إطار النافذة وعناصرها، وليست بثًا حقيقيًا للإعلان.</span></div>
 </div>
@@ -926,7 +927,8 @@ function adForm(){
   shape:$('adShape').value||'rounded',
   width:$('adWidth').value||'normal',
   buttonText:$('adButtonText').value.trim()||'جارٍ تجهيز الحلقة...',
-  overlay:parseFloat($('adOverlay').value)||0.82
+  overlay:parseFloat($('adOverlay').value)||0.82,
+  frequency:Math.max(0,Math.min(240,parseInt($('adFreq').value,10)||0))
  };
 }
 function putAdForm(o){
@@ -942,6 +944,7 @@ function putAdForm(o){
  $('adWidth').value=o.width||'normal';
  $('adButtonText').value=o.buttonText||'جارٍ تجهيز الحلقة...';
  $('adOverlay').value=String(o.overlay==null?0.82:o.overlay);
+ $('adFreq').value=Math.max(0,Math.min(240,parseInt(o.frequency,10)||0));
 }
 function adApiUrl(){var c=config();return repoUrl(c,'/contents/'+SETTINGS_PATH+'?ref='+encodeURIComponent(c.branch))}
 async function loadAdSettings(){
@@ -1009,7 +1012,7 @@ function renderAdPreview(){
 $('adLoad').addEventListener('click',loadAdSettings);
 $('adSave').addEventListener('click',saveAdSettings);
 $('adPreview').addEventListener('click',function(){renderAdPreview();$('adPreviewBox').hidden=!$('adPreviewBox').hidden});
-['adEnabled','adUrl','adDuration','adTitle','adAccent','adBackground','adCounterStyle','adCanCancel','adShape','adWidth','adButtonText','adOverlay'].forEach(function(id){$(id).addEventListener('input',renderAdPreview);$(id).addEventListener('change',renderAdPreview)});
+['adEnabled','adUrl','adDuration','adTitle','adAccent','adBackground','adCounterStyle','adCanCancel','adShape','adWidth','adButtonText','adOverlay','adFreq'].forEach(function(id){$(id).addEventListener('input',renderAdPreview);$(id).addEventListener('change',renderAdPreview)});
 document.getElementById('connect').addEventListener('click',function(){setTimeout(function(){if(token)loadAdSettings()},1800)});
 document.getElementById('path').addEventListener('change',function(){/* إعدادات الإعلان مشتركة ولا تتغير بتغيير القسم */});
 })();
@@ -1729,5 +1732,208 @@ g('path').addEventListener('change',function(){g('asDay').innerHTML='';g('asDayH
 })();
 </script>
 <!-- ===== نهاية إضافة 4 ===== -->
+
+<!-- ===== إضافة 5: مراجعة جودة البيانات + حلقات ناقصة من TMDB + تنبيه الروابط المنتهية =====
+     تُلصق قبل </body> وبعد إضافة 4. بتظهر في صفحة «أدوات متقدمة». لا تغيّر أي كود موجود. -->
+<style>
+.qbox{margin-top:22px;border-top:1px dashed var(--line);padding-top:16px}
+.qchips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.qchip{border:1px solid var(--line);background:var(--card2);color:var(--fg);border-radius:999px;padding:4px 11px;font-size:.8rem;cursor:pointer}
+.qchip.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.qrow{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--line);background:var(--card2);border-radius:10px;margin-top:6px;font-size:.86rem}
+.qrow .tx{flex:1;min-width:0}
+.qrow .tx small{display:block;color:var(--mut);margin-top:2px;line-height:1.5}
+.qrow b.f{color:#ffd166}
+</style>
+<script>
+(function(){
+'use strict';
+var g=function(i){return document.getElementById(i)};
+var host=g('pTools');
+if(!host)return;
+var GF=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري']];
+function fl(p){var f=GF.filter(function(x){return x[0]===p})[0];return f?f[1]:p}
+function eps(x){return (x.ss||[]).reduce(function(n,s){return n+((s&&s.length)||0)},0)}
+
+var box=document.createElement('div');
+box.id='qBox';box.className='qbox';
+box.innerHTML='<h2 style="font-size:1.05rem;margin:0 0 4px">مراجعة جودة البيانات</h2>'+
+ '<p class="hint">بيفحص الأقسام الأربعة: بوستر ووصف وسنة وتقييم ونوع ناقص، وموسم فاضي، وحلقة بدون رابط، وترقيم غير متسلسل، ورابط مكرر، ورابط فيه وقت انتهاء قرّب أو عدّى.</p>'+
+ '<div class="actions" style="margin-top:0"><button class="btn secondary" id="qRun" type="button">فحص كل الأقسام</button><span class="hint" id="qInfo" style="margin:0;align-self:center"></span></div>'+
+ '<div id="qSum"></div><div class="qchips" id="qChips"></div><div id="qOut"></div>'+
+ '<h2 style="font-size:1.05rem;margin:26px 0 4px">حلقات ناقصة (مقارنة مع TMDB)</h2>'+
+ '<p class="hint">بيقارن عدد الحلقات اللي عندك بالحلقات اللي اتعرضت فعلًا في TMDB للقسم المحمَّل حاليًا، ويقولك الناقص. لازم مفتاح TMDB في صفحة الإعدادات. مطابقة الاسم تلقائية، فراجع اسم TMDB المعروض قبل ما تعتمد على النتيجة.</p>'+
+ '<div class="actions" style="margin-top:0"><button class="btn secondary" id="mRun" type="button">فحص الحلقات الناقصة (القسم الحالي)</button><span class="hint" id="mInfo" style="margin:0;align-self:center"></span></div>'+
+ '<div id="mOut"></div>';
+host.appendChild(box);
+
+function rawH(){return {'Accept':'application/vnd.github.raw+json','Authorization':'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28'}}
+async function fetchRaw(path){
+  var c=config(),r=await fetch(repoUrl(c,'/contents/'+path+'?ref='+encodeURIComponent(c.branch)),{headers:rawH(),cache:'no-store'});
+  if(r.status===404)return [];
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  var a=await r.json();return Array.isArray(a)?a:[];
+}
+async function pool(jobs,n){var i=0;async function w(){while(i<jobs.length){var j=jobs[i++];await j()}}var ws=[];for(var k=0;k<n;k++)ws.push(w());await Promise.all(ws)}
+
+/* ---------- فتح مسلسل للتعديل ---------- */
+function openSeries(file,key){
+  if(g('title').value.trim()&&editingIndex<0&&!confirm('النموذج فيه بيانات غير محفوظة وهتتبدل. تكمل؟'))return;
+  var sel=g('path');
+  if(sel.value!==file){sel.value=file;sel.dispatchEvent(new Event('change'))}
+  else if(!series.length&&token){loadData()}
+  var n=0,iv=setInterval(function(){
+    n++;var idx=-1;
+    for(var i=0;i<series.length;i++){if((series[i].k||series[i].t)===key){idx=i;break}}
+    if(idx>-1){clearInterval(iv);editSeries(idx)}
+    else if(n>40){clearInterval(iv);status('تعذر فتح المسلسل. اتصل وحمّل بيانات القسم ثم حاول مرة أخرى.','bad')}
+  },250);
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('[data-qf]');if(!b)return;
+  openSeries(b.getAttribute('data-qf'),b.getAttribute('data-qk'));
+  var nav=document.querySelector('[data-pg="add"]');if(nav&&!b.hasAttribute('data-pg'))nav.click();
+});
+
+/* ---------- قواعد الفحص ---------- */
+var KINDS={
+  img:'بدون بوستر',d:'بدون وصف',y:'بدون سنة',r:'بدون تقييم',g:'بدون نوع',
+  emptyS:'موسم فاضي',noUrl:'حلقة بدون رابط',gap:'ترقيم غير متسلسل',dup:'رابط مكرر',exp:'رابط ينتهي/منتهي'
+};
+function epNum(t){
+  t=String(t||'');
+  var m=t.match(/^\s*(\d{1,4})\s*(?:[·\-–.:)|]|$)/)||t.match(/(?:الحلقة|حلقة|episode|ep\.?)\s*(\d{1,4})/i);
+  return m?parseInt(m[1],10):null;
+}
+function expiry(u){
+  var m=String(u).match(/[?&;](?:expires|expire|exp|expiry|e)=(\d{10,13})(?:[&;#]|$)/i);
+  if(!m)return null;
+  var v=parseInt(m[1],10);if(m[1].length===13)v=Math.floor(v/1000);
+  if(v<1e9||v>4.2e9)return null;
+  return v*1000;
+}
+function analyze(data){
+  var out=[],seen={};
+  // أول مرور: عدّ تكرار الروابط عبر كل الأقسام
+  GF.forEach(function(f){(data[f[0]]||[]).forEach(function(x){(x.ss||[]).forEach(function(s,si){(s||[]).forEach(function(ep,ei){
+    var u=String(ep&&ep.u||'').trim();if(!/^https?:\/\//i.test(u))return;
+    (seen[u]=seen[u]||[]).push((x.k||x.t)+'|'+si+'|'+ei);
+  })})})});
+  var now=Date.now();
+  GF.forEach(function(f){(data[f[0]]||[]).forEach(function(x){
+    var is={};function add(k,msg){(is[k]=is[k]||[]).push(msg)}
+    if(!String(x.img||'').trim())add('img','');
+    if(!String(x.d||'').trim())add('d','');
+    if(!(parseInt(x.y,10)>0))add('y','');
+    if(!(parseFloat(x.r)>0))add('r','');
+    if(!String(x.g||'').trim())add('g','');
+    (x.ss||[]).forEach(function(s,si){
+      s=s||[];
+      if(!s.length){add('emptyS','موسم '+(si+1));return}
+      var nums=s.map(function(ep){return epNum(ep&&ep.t)}),have=nums.filter(function(n){return n!==null});
+      if(have.length>=Math.ceil(s.length*0.7)&&s.length>1){
+        var ok=nums.every(function(n,i){return n===null||n===i+1});
+        if(!ok)add('gap','موسم '+(si+1));
+      }
+      s.forEach(function(ep,ei){
+        var u=String(ep&&ep.u||'').trim();
+        if(!u){add('noUrl','م'+(si+1)+' ح'+(ei+1));return}
+        if(seen[u]&&seen[u].length>1)add('dup','م'+(si+1)+' ح'+(ei+1));
+        var ex=expiry(u);
+        if(ex!==null){
+          var h=(ex-now)/36e5;
+          if(h<48)add('exp','م'+(si+1)+' ح'+(ei+1)+(h<=0?' (منتهي)':' (ينتهي خلال '+Math.max(1,Math.round(h))+' ساعة)'));
+        }
+      });
+    });
+    var ks=Object.keys(is);
+    if(ks.length)out.push({f:f[0],key:x.k||x.t,t:x.t,hide:!!x.hide,is:is});
+  })});
+  return out;
+}
+var res=[],total=0,filt='';
+function sample(a){return a.slice(0,4).join('، ')+(a.length>4?' و'+(a.length-4)+' كمان':'')}
+function draw(){
+  var cnt={};res.forEach(function(r){Object.keys(r.is).forEach(function(k){cnt[k]=(cnt[k]||0)+1})});
+  var clean=total-res.length,pc=total?Math.round(clean/total*100):100;
+  g('qSum').innerHTML='<div class="xb" style="margin-top:8px"><b>'+pc+'%</b> مسلسلات بدون أي ملاحظة ('+clean+' من '+total+')</div>';
+  g('qChips').innerHTML='<button type="button" class="qchip'+(filt===''?' on':'')+'" data-q="">الكل ('+res.length+')</button>'+
+    Object.keys(KINDS).filter(function(k){return cnt[k]}).map(function(k){return '<button type="button" class="qchip'+(filt===k?' on':'')+'" data-q="'+k+'">'+KINDS[k]+' ('+cnt[k]+')</button>'}).join('');
+  var rows=res.filter(function(r){return !filt||r.is[filt]});
+  g('qOut').innerHTML=rows.length?rows.slice(0,60).map(function(r){
+    var parts=Object.keys(r.is).filter(function(k){return !filt||k===filt}).map(function(k){
+      var d=r.is[k].filter(Boolean);return '<b class="f">'+KINDS[k]+'</b>'+(d.length?': '+escapeHtml(sample(d)):'');
+    });
+    return '<div class="qrow"><span class="tx"><b>'+escapeHtml(r.t)+'</b> <small style="display:inline">'+escapeHtml(fl(r.f))+(r.hide?' · مخفي':'')+'</small><small>'+parts.join(' · ')+'</small></span><button type="button" class="mini-btn" data-qf="'+escapeHtml(r.f)+'" data-qk="'+escapeHtml(r.key)+'">فتح وتعديل</button></div>';
+  }).join('')+(rows.length>60?'<p class="hint">و'+(rows.length-60)+' مسلسل كمان. اختر نوع ملاحظة من الأزرار لتضييق القائمة.</p>':''):'<p class="hint">مفيش ملاحظات من النوع ده. 👌</p>';
+}
+g('qChips').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-q]');if(!b)return;filt=b.getAttribute('data-q');draw()});
+g('qRun').onclick=async function(){
+  if(!token){g('qInfo').textContent='اتصل بـ GitHub أولًا.';return}
+  var b=g('qRun');b.disabled=true;g('qInfo').textContent='جاري تحميل الأقسام…';
+  try{
+    var data={};total=0;
+    for(var i=0;i<GF.length;i++){data[GF[i][0]]=await fetchRaw(GF[i][0]);total+=data[GF[i][0]].length}
+    res=analyze(data);filt='';draw();
+    g('qInfo').textContent='تم فحص '+total+' مسلسل.';
+  }catch(e){g('qInfo').textContent='تعذر الفحص: '+e.message}
+  b.disabled=false;
+};
+
+/* ---------- حلقات ناقصة من TMDB ---------- */
+var tvMap={};
+async function matchTv(x){
+  var k=(x.t||'')+'|'+(x.y||'');
+  if(tvMap[k]!==undefined)return tvMap[k];
+  var j=await tmdbGet('/search/tv','&query='+enc(x.t)),list=j.results||[],pick=null,y=String(parseInt(x.y,10)||'');
+  if(y)pick=list.filter(function(r){return String(r.first_air_date||'').slice(0,4)===y})[0]||null;
+  if(!pick)pick=list[0]||null;
+  tvMap[k]=pick;return pick;
+}
+function expectedBySeason(tv){
+  var last=tv.last_episode_to_air,out={};
+  (tv.seasons||[]).forEach(function(s){
+    var n=s.season_number;if(!(n>=1))return;
+    var exp=s.episode_count||0;
+    if(last&&last.season_number){
+      if(n===last.season_number)exp=Math.min(exp||last.episode_number,last.episode_number);
+      else if(n>last.season_number)exp=0;
+    }
+    out[n]=exp;
+  });
+  return out;
+}
+g('mRun').onclick=async function(){
+  if(!tmdbKey()){g('mInfo').textContent='أدخل مفتاح TMDB في صفحة الإعدادات.';return}
+  if(!series.length){g('mInfo').textContent='حمّل بيانات القسم أولًا (اتصال / تحميل البيانات).';return}
+  if(series.length>100&&!confirm('هيتعمل حوالي '+(series.length*2)+' طلب على TMDB وممكن ياخد دقايق. تكمل؟'))return;
+  var file=g('path').value,b=g('mRun'),done=0,rows=[],jobs=[],list=series.slice();
+  b.disabled=true;g('mOut').innerHTML='';
+  list.forEach(function(x){jobs.push(async function(){
+    try{
+      var m=await matchTv(x);
+      if(!m){rows.push({x:x,none:true});return}
+      var tv=await tmdbGet('/tv/'+m.id),exp=expectedBySeason(tv),miss=[],ss=x.ss||[];
+      Object.keys(exp).forEach(function(n){
+        var have=(ss[n-1]||[]).length,e=exp[n];
+        if(e>have&&e>0)miss.push({n:+n,have:have,exp:e});
+      });
+      if(miss.length)rows.push({x:x,tvName:tv.name||m.name||'',miss:miss});
+    }catch(e){rows.push({x:x,err:e.message})}
+    done++;g('mInfo').textContent='تم '+done+' من '+list.length;
+  })});
+  await pool(jobs,3);
+  var bad=rows.filter(function(r){return r.miss}).sort(function(a,b){return b.miss.length-a.miss.length});
+  var other=rows.filter(function(r){return !r.miss});
+  g('mOut').innerHTML=(bad.length?bad.slice(0,80).map(function(r){
+    return '<div class="qrow"><span class="tx"><b>'+escapeHtml(r.x.t)+'</b> <small style="display:inline">TMDB: '+escapeHtml(r.tvName)+'</small><small>'+r.miss.map(function(m){return '<b class="f">موسم '+m.n+'</b>: عندك '+m.have+' من '+m.exp+' (ناقص '+(m.exp-m.have)+')'}).join(' · ')+'</small></span><button type="button" class="mini-btn" data-qf="'+escapeHtml(file)+'" data-qk="'+escapeHtml(r.x.k||r.x.t)+'">فتح وتعديل</button></div>';
+  }).join(''):'<p class="hint">كل المسلسلات اللي اتطابقت مع TMDB حلقاتها كاملة. 👌</p>')+
+  (other.length?'<p class="hint">'+other.filter(function(r){return r.none}).length+' مسلسل ما اتلقاش في TMDB'+(other.some(function(r){return r.err})?' و'+other.filter(function(r){return r.err}).length+' فشل طلبه':'')+' (جرّب اسم مختلف أو بالإنجليزي).</p>':'');
+  g('mInfo').textContent='تم. '+bad.length+' مسلسل فيه حلقات ناقصة.';
+  b.disabled=false;
+};
+})();
+</script>
+<!-- ===== نهاية إضافة 5 ===== -->
 
 </body></html>
