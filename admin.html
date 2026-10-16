@@ -1462,7 +1462,7 @@ function decorateSeason(box){
         var ep=list[i];if(!ep)return;
         if(ep.name){
           var cur=eb._fields.t.value.trim();
-          if(!cur||/^(الحلقة|حلقة|episode)\s*\d+$/i.test(cur)){eb._fields.t.value=(ep.episode_number||i+1)+' · '+ep.name;filled++}else kept++;
+          if(!cur||/^(\d+\s*·\s*)?(الحلقة|حلقة|episode)\s*\d+$/i.test(cur)){eb._fields.t.value=ep.name;filled++}else kept++;
         }
         /* صورة الحلقة (im) ومدتها بالدقايق (rt): بتتحفظ مع الحلقة وبتظهر في صفحة المكتبة. مش بنكتب فوق قيمة موجودة */
         var ex=Object.assign({},eb._extra||{}),ch=false;
@@ -1935,5 +1935,41 @@ g('mRun').onclick=async function(){
 })();
 </script>
 <!-- ===== نهاية إضافة 5 ===== -->
+
+<!-- ===== إضافة 6: تسجيل «آخر حلقة نزلت» تلقائيًا (upAt) =====
+     تُلصق قبل </body> وبعد إضافة 5. لما عدد حلقات مسلسل يزيد وقت الحفظ (أو يتضاف مسلسل جديد) بيتسجّل فيه upAt،
+     والمكتبة بتعرضه أول بطاقة بشارة «حلقة جديدة». لا تغيّر أي كود موجود. -->
+<script>
+(function(){
+'use strict';
+var snap=null,snapPath='',snapSha=null;
+function cnt(x){return (x.ss||[]).reduce(function(n,s){return n+((s&&s.length)||0)},0)}
+function key(x){return x.k||x.t}
+function takeSnap(){
+  snap={};snapPath=document.getElementById('path').value;snapSha=currentSha;
+  series.forEach(function(x){snap[key(x)]={n:cnt(x),up:x.upAt||0}});
+}
+/* لقطة العدد بعد كل تحميل: بنلاحظ تغيّر currentSha لأن زر الاتصال بيستخدم loadData الأصلية مباشرة */
+setInterval(function(){
+  if(currentSha&&(currentSha!==snapSha||snapPath!==document.getElementById('path').value))takeSnap();
+},300);
+var _sd=window.saveData;
+window.saveData=async function(){
+  if(snap&&snapPath===document.getElementById('path').value){
+    series.forEach(function(x){
+      var o=snap[key(x)],n=cnt(x);
+      if(o){
+        if(n>o.n)x.upAt=Date.now();
+        else if(o.up&&!x.upAt)x.upAt=o.up;
+      }else if(n>0)x.upAt=Date.now();
+    });
+  }
+  var ok=await _sd.apply(this,arguments);
+  if(ok)takeSnap();
+  return ok;
+};
+})();
+</script>
+<!-- ===== نهاية إضافة 6 ===== -->
 
 </body></html>
