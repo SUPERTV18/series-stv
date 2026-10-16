@@ -1179,4 +1179,224 @@ document.addEventListener('keydown',function(e){
 </script>
 <!-- ===== نهاية الإضافة ===== -->
 
+<!-- ===== إضافة 2: استيراد جماعي + قوالب المصادر + بحث شامل + سلة المحذوفات =====
+     تُلصق قبل </body> وبعد إضافة المعاينة. لا تغيّر أي كود موجود. -->
+<style>
+.imp{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;background:#10101a}
+.imp textarea{min-height:110px;direction:ltr;text-align:left;font-size:.85rem}
+.xtpl-sel{width:auto;max-width:150px;padding:5px 8px;font-size:.78rem;border-radius:8px;background:var(--card2);border:1px solid var(--line);color:var(--fg)}
+.gsbox{margin:0 0 14px}
+.gs-res{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--line);background:var(--card2);border-radius:10px;margin-top:6px;font-size:.88rem}
+.gs-res .tx{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gs-res small{color:var(--mut)}
+.trashbox{margin-top:16px;border-top:1px dashed var(--line);padding-top:12px}
+.trashbox summary{cursor:pointer;font-weight:700}
+</style>
+<script>
+(function(){
+'use strict';
+var g=function(i){return document.getElementById(i)};
+var GF=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري']];
+function fileLabel(p){var f=GF.filter(function(x){return x[0]===p})[0];return f?f[1]:p}
+function epCount(x){return (x.ss||[]).reduce(function(n,s){return n+s.length},0)}
+function fire(el){try{el.dispatchEvent(new Event('input',{bubbles:true}))}catch(e){}}
+
+/* ================= قوالب المصادر (User-Agent + Referer) ================= */
+var TKEY='seriesAdminTpl',tpls=[];
+function loadT(){try{var v=JSON.parse(localStorage.getItem(TKEY)||'[]');tpls=Array.isArray(v)?v:[]}catch(e){tpls=[]}}
+function saveT(){try{localStorage.setItem(TKEY,JSON.stringify(tpls))}catch(e){}}
+loadT();
+function fillTplSel(sel){sel.innerHTML='<option value="">قالب مصدر…</option>'+tpls.map(function(t,i){return '<option value="'+i+'">'+escapeHtml(t.name)+'</option>'}).join('');sel.disabled=!tpls.length}
+var tplMgr=document.createElement('div');tplMgr.style.marginTop='14px';
+var presetsPanel=g('pPresets');
+if(presetsPanel)presetsPanel.appendChild(tplMgr);
+function renderTplMgr(){
+  tplMgr.innerHTML='<h2 style="font-size:1rem;margin:0 0 6px">قوالب المصادر</h2><p class="hint" style="margin:0 0 6px">اضغط «حفظ قالب» داخل أي موسم لحفظ User-Agent وReferer كقالب باسم، ثم طبّقه على أي موسم من قائمة «قالب مصدر». الـ Cookie والمفتاح لا يُحفظان في القوالب.</p>'+
+    (tpls.length?tpls.map(function(t,i){return '<div class="pset"><span class="tx" style="direction:rtl;text-align:right"><b>'+escapeHtml(t.name)+'</b> · '+escapeHtml(t.ref||'—')+'</span><button type="button" class="mini-btn danger" data-tpldel="'+i+'">حذف</button></div>'}).join(''):'<p class="hint" style="margin:6px 0 0">لسه مفيش قوالب.</p>');
+  tplMgr.querySelectorAll('[data-tpldel]').forEach(function(b){b.onclick=function(){tpls.splice(+b.dataset.tpldel,1);saveT();refreshTplSels()}});
+}
+function refreshTplSels(){document.querySelectorAll('.xtpl-sel').forEach(fillTplSel);renderTplMgr()}
+
+/* ================= استيراد جماعي ================= */
+function parseImport(text){
+  var lines=String(text||'').split(/\r?\n/),items=[],invalid=0,pend=null;
+  for(var i=0;i<lines.length&&items.length<500;i++){
+    var ln=lines[i].trim();if(!ln)continue;
+    if(/^#EXTINF/i.test(ln)){var ci=ln.lastIndexOf(',');pend=ci>-1?ln.slice(ci+1).trim():null;continue}
+    if(ln.charAt(0)==='#')continue;
+    var parts=ln.split(/\s*\|\s*|\t+/).map(function(s){return s.trim()}).filter(Boolean),u='',t='';
+    parts.forEach(function(p){if(!u&&/^https?:\/\//i.test(p))u=p;else if(!t)t=p});
+    if(!u){invalid++;pend=null;continue}
+    if(!t&&pend)t=pend;
+    pend=null;items.push({t:t,u:u});
+  }
+  return {items:items,invalid:invalid};
+}
+function decorate(box){
+  if(box._xi)return;
+  var head=box.querySelector('.season-head'),tools=head&&head.querySelector('.actions');
+  if(!tools)return;box._xi=1;
+  var bi=document.createElement('button');bi.type='button';bi.className='mini-btn';bi.textContent='استيراد جماعي';
+  var bs=document.createElement('button');bs.type='button';bs.className='mini-btn';bs.textContent='حفظ قالب';
+  var sel=document.createElement('select');sel.className='xtpl-sel';fillTplSel(sel);
+  tools.insertBefore(sel,tools.firstChild);tools.insertBefore(bs,tools.firstChild);tools.insertBefore(bi,tools.firstChild);
+  var p=document.createElement('div');p.className='imp';p.hidden=true;
+  p.innerHTML='<label class="field full">الصق الحلقات (سطر لكل حلقة): <code>اسم | رابط</code> أو رابط فقط أو ملف M3U<textarea class="i-txt" placeholder="الحلقة 1 | https://site.com/1.mp4&#10;https://site.com/2.mp4"></textarea></label><label class="remember-row"><input type="checkbox" class="i-rep"><span>استبدال حلقات الموسم الحالية</span></label><p class="hint i-info" style="margin:8px 0 0"></p><div class="actions"><button type="button" class="btn i-ok">استيراد</button><button type="button" class="btn secondary i-no">إغلاق</button></div>';
+  head.parentNode.insertBefore(p,head.nextSibling);
+  var q=function(c){return p.querySelector(c)};
+  function info(){var r=parseImport(q('.i-txt').value);q('.i-info').textContent=r.items.length?('سيتم استيراد '+r.items.length+' رابط'+(r.invalid?(' · تجاهل '+r.invalid+' سطر غير صالح'):'')+'.'):''}
+  q('.i-txt').addEventListener('input',info);
+  bi.onclick=function(){p.hidden=!p.hidden};
+  q('.i-no').onclick=function(){p.hidden=true};
+  q('.i-ok').onclick=function(){
+    var r=parseImport(q('.i-txt').value);
+    if(!r.items.length){status('مفيش روابط صالحة (لازم تبدأ بـ http أو https).','bad');return}
+    var host=box.querySelector('.episodes-host');
+    if(q('.i-rep').checked){host.innerHTML=''}
+    else Array.prototype.forEach.call(host.querySelectorAll('.episode-box'),function(eb){
+      var fl=eb._fields;if(!fl.t.value.trim()&&!fl.u.value.trim()&&!fl.ua.value.trim()&&!fl.ref.value.trim()&&!fl.cookie.value.trim()&&!(eb._xk&&eb._xk.value.trim()))eb.remove();
+    });
+    var existing={};
+    host.querySelectorAll('.episode-box').forEach(function(eb){var u=eb._fields.u.value.trim();if(u)existing[u]=1});
+    var n=host.querySelectorAll('.episode-box').length,added=0,dup=0;
+    r.items.forEach(function(it){
+      if(existing[it.u]){dup++;return}
+      existing[it.u]=1;added++;
+      window.addEpisodeEditor(host,{t:it.t||('الحلقة '+(n+added)),u:it.u});
+    });
+    if(!host.querySelector('.episode-box'))window.addEpisodeEditor(host,{});
+    window.renumberEpisodes(host);fire(host);
+    status('تم استيراد '+added+' حلقة'+(dup?(' وتجاهل '+dup+' رابط مكرر'):'')+'. راجعها واحفظ المسلسل.','ok');
+    q('.i-txt').value='';q('.i-info').textContent='';p.hidden=true;
+  };
+  sel.onchange=function(){
+    if(sel.value==='')return;var t=tpls[+sel.value];if(!t)return;
+    box.querySelectorAll('.episode-box').forEach(function(eb){if(t.ua)eb._fields.ua.value=t.ua;if(t.ref)eb._fields.ref.value=t.ref});
+    sel.value='';fire(box);status('تم تطبيق قالب «'+t.name+'» على حلقات الموسم.','ok');
+  };
+  bs.onclick=function(){
+    var first=null;
+    box.querySelectorAll('.episode-box').forEach(function(eb){if(!first&&(eb._fields.ua.value.trim()||eb._fields.ref.value.trim()))first=eb});
+    if(!first){status('اكتب User-Agent أو Referer في حلقة من الموسم الأول.','bad');return}
+    var name=prompt('اسم القالب (مثال: سيرفر X):');if(!name||!name.trim())return;
+    name=name.trim().slice(0,40);
+    var o={name:name,ua:first._fields.ua.value.trim(),ref:first._fields.ref.value.trim()},k=-1;
+    tpls.forEach(function(t,i){if(t.name===name)k=i});
+    if(k>-1)tpls[k]=o;else tpls.unshift(o);
+    tpls=tpls.slice(0,30);saveT();refreshTplSels();
+    status('تم حفظ القالب «'+name+'».','ok');
+  };
+}
+var se=g('seasonsEditor');
+new MutationObserver(function(){se.querySelectorAll('.season-box').forEach(decorate)}).observe(se,{childList:true});
+se.querySelectorAll('.season-box').forEach(decorate);
+renderTplMgr();
+
+/* ================= بحث شامل في كل الأقسام ================= */
+var gsCache=null,gsAt=0,gsTimer=null;
+function rawHeaders(){return {'Accept':'application/vnd.github.raw+json','Authorization':'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28'}}
+async function fetchRaw(path){
+  var c=config(),r=await fetch(repoUrl(c,'/contents/'+path+'?ref='+encodeURIComponent(c.branch)),{headers:rawHeaders(),cache:'no-store'});
+  if(r.status===404)return [];
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  var a=await r.json();return Array.isArray(a)?a:[];
+}
+async function gsLoad(){
+  if(gsCache&&Date.now()-gsAt<60000)return gsCache;
+  var out={};
+  for(var i=0;i<GF.length;i++)out[GF[i][0]]=await fetchRaw(GF[i][0]);
+  gsCache=out;gsAt=Date.now();return out;
+}
+var gs=document.createElement('div');gs.className='gsbox';
+gs.innerHTML='<input id="gsIn" type="search" placeholder="ابحث في كل الأقسام (الاسم أو التصنيف)…" autocomplete="off"><div id="gsOut"></div>';
+var listHint=g('pList')&&g('pList').querySelector('p.hint');
+if(listHint)listHint.parentNode.insertBefore(gs,listHint.nextSibling);
+async function gsRun(){
+  var v=g('gsIn').value.trim().toLowerCase(),box=g('gsOut');
+  if(v.length<2){box.innerHTML='';return}
+  if(!token){box.innerHTML='<p class="hint">اتصل بـ GitHub الأول.</p>';return}
+  box.innerHTML='<p class="hint">جاري البحث في كل الأقسام…</p>';
+  try{
+    var d=await gsLoad();
+    if(g('gsIn').value.trim().toLowerCase()!==v)return;
+    var rows=[];
+    GF.forEach(function(f){(d[f[0]]||[]).forEach(function(x){if(String(x.t).toLowerCase().indexOf(v)>-1||String(x.g||'').toLowerCase().indexOf(v)>-1)rows.push({f:f,x:x})})});
+    box.innerHTML=rows.length?rows.slice(0,30).map(function(r){
+      return '<div class="gs-res"><span class="tx"><b>'+escapeHtml(r.x.t)+'</b> <small>'+escapeHtml(r.f[1])+' · '+epCount(r.x)+' حلقة'+(r.x.hide?' · مخفي':'')+'</small></span><button type="button" class="mini-btn" data-pg="add" data-gsf="'+escapeHtml(r.f[0])+'" data-gsk="'+escapeHtml(r.x.k||r.x.t)+'">فتح وتعديل</button></div>';
+    }).join('')+(rows.length>30?'<p class="hint">و'+(rows.length-30)+' نتيجة كمان، حدّد البحث أكثر.</p>':''):'<p class="hint">مفيش نتائج.</p>';
+  }catch(e){box.innerHTML='<p class="hint">تعذر البحث: '+escapeHtml(e.message)+'</p>'}
+}
+g('gsIn').addEventListener('input',function(){clearTimeout(gsTimer);gsTimer=setTimeout(gsRun,350)});
+g('gsOut').addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('[data-gsf]');if(!b)return;
+  var file=b.getAttribute('data-gsf'),key=b.getAttribute('data-gsk');
+  if(g('title').value.trim()&&editingIndex<0&&!confirm('النموذج فيه بيانات غير محفوظة وهتتبدل. تكمل؟'))return;
+  var sel=g('path');
+  if(sel.value!==file){sel.value=file;sel.dispatchEvent(new Event('change'))}
+  else if(!series.length&&token){loadData()}
+  var n=0,iv=setInterval(function(){
+    n++;var idx=-1;
+    for(var i=0;i<series.length;i++){if((series[i].k||series[i].t)===key){idx=i;break}}
+    if(idx>-1){clearInterval(iv);editSeries(idx)}
+    else if(n>40){clearInterval(iv);status('تعذر فتح المسلسل. اتصل وحمّل بيانات القسم ثم حاول مرة أخرى.','bad')}
+  },250);
+});
+
+/* ================= سلة المحذوفات ================= */
+var XKEY='seriesAdminTrash';
+function readTrash(){try{var v=JSON.parse(localStorage.getItem(XKEY)||'[]');return Array.isArray(v)?v:[]}catch(e){return []}}
+function writeTrash(a){try{localStorage.setItem(XKEY,JSON.stringify(a.slice(0,40)))}catch(e){}}
+var tb=document.createElement('details');tb.className='trashbox';
+tb.innerHTML='<summary>سلة المحذوفات (<span id="trashCnt">0</span>)</summary><p class="hint" style="margin:6px 0">أي مسلسل تحذفه بيتحفظ هنا على المتصفح ده، وتقدر ترجّعه. السلة محلية ومش بتتحفظ على GitHub.</p><div id="trashBody"></div><div class="actions"><button type="button" class="mini-btn danger" id="trashClear">تفريغ السلة</button></div>';
+if(g('pList'))g('pList').appendChild(tb);
+function renderTrash(){
+  var tr=readTrash();g('trashCnt').textContent=tr.length;
+  g('trashBody').innerHTML=tr.length?tr.map(function(e,i){
+    var cur=e.path===g('path').value;
+    return '<div class="gs-res"><span class="tx"><b>'+escapeHtml(e.item.t)+'</b> <small>'+escapeHtml(fileLabel(e.path))+' · '+epCount(e.item)+' حلقة · '+escapeHtml(ago(e.at))+'</small></span>'+(cur?'<button type="button" class="mini-btn" data-trs="'+i+'">استرجاع</button>':'<small>افتح قسم '+escapeHtml(fileLabel(e.path))+'</small>')+'<button type="button" class="mini-btn danger" data-trd="'+i+'">حذف نهائي</button></div>';
+  }).join(''):'<p class="hint">السلة فاضية.</p>';
+  g('trashBody').querySelectorAll('[data-trd]').forEach(function(b){b.onclick=function(){var a=readTrash();a.splice(+b.dataset.trd,1);writeTrash(a);renderTrash()}});
+  g('trashBody').querySelectorAll('[data-trs]').forEach(function(b){b.onclick=async function(){
+    var a=readTrash(),idx=+b.dataset.trs,e=a[idx];if(!e)return;
+    if(!token||!series){status('اتصل وحمّل بيانات القسم أولًا.','bad');return}
+    var item=JSON.parse(JSON.stringify(e.item));delete item.pin;
+    var key=item.k||item.t;
+    if(series.some(function(x){return (x.k||x.t)===key})){
+      if(!confirm('فيه مسلسل بنفس المفتاح في القسم. هيتسترجع كنسخة جديدة. تكمل؟'))return;
+      item.k='remote-'+Date.now();
+    }
+    var ok=await mutate('Restore from trash: '+item.t,function(){series.unshift(item)});
+    if(ok){var a2=readTrash();a2.splice(idx,1);writeTrash(a2);renderTrash();status('تم استرجاع «'+item.t+'».','ok')}
+  }});
+}
+g('trashClear').onclick=function(){if(readTrash().length&&confirm('تفريغ السلة نهائيًا؟')){writeTrash([]);renderTrash()}};
+g('path').addEventListener('change',renderTrash);
+renderTrash();
+/* نلتقط المحذوف قبل الحفظ: بنقارن النسخة اللي على GitHub بالحالية، ونخزّنه في السلة لو الحفظ نجح */
+var _sd=window.saveData;
+window.saveData=async function(msg){
+  var removed=[],path=g('path').value;
+  if(/^Delete (selected )?series/.test(String(msg))&&token){
+    try{
+      var remote=await fetchRaw(path),cur={};
+      series.forEach(function(x){cur[x.k||x.t]=1});
+      removed=remote.filter(function(x){return !cur[x.k||x.t]});
+    }catch(e){removed=[]}
+  }
+  var ok=await _sd.apply(this,arguments);
+  if(ok){
+    gsCache=null;
+    if(removed.length){
+      var a=readTrash(),now=Date.now();
+      removed.forEach(function(x){a.unshift({path:path,at:now,item:x})});
+      writeTrash(a);renderTrash();
+    }
+  }
+  return ok;
+};
+document.addEventListener('xsync',function(){gsCache=null});
+})();
+</script>
+<!-- ===== نهاية إضافة 2 ===== -->
+
 </body></html>
