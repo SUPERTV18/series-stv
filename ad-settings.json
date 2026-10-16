@@ -6,7 +6,7 @@
   "accent": "#7c5cff",
   "background": "#11111b",
   "counterStyle": "bar",
-  "canCancel": false,
+  "canCancel": true,
   "shape": "rounded",
   "width": "wide",
   "buttonText": "جارٍ تجهيز الحلقة...",
