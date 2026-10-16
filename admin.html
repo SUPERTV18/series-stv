@@ -1936,36 +1936,58 @@ g('mRun').onclick=async function(){
 </script>
 <!-- ===== نهاية إضافة 5 ===== -->
 
-<!-- ===== إضافة 6: تسجيل «آخر حلقة نزلت» تلقائيًا (upAt) =====
-     تُلصق قبل </body> وبعد إضافة 5. لما عدد حلقات مسلسل يزيد وقت الحفظ (أو يتضاف مسلسل جديد) بيتسجّل فيه upAt،
-     والمكتبة بتعرضه أول بطاقة بشارة «حلقة جديدة». لا تغيّر أي كود موجود. -->
+<!-- ===== إضافة 6: تسجيل «آخر حلقة نزلت» (upAt) بقواعد محافظة + تحكم يدوي =====
+     تُلصق قبل </body> وبعد إضافة 5. بيتسجّل upAt تلقائيًا فقط لما:
+       • المسلسل موجود قبل كده (مش مضاف جديد)، وحالته مش «مكتمل»، وزادت حلقاته من 1 لـ 5 حلقات في حفظة واحدة.
+     وفي الفورم قائمة «شارة حلقة جديدة» للتحكم اليدوي (إظهار الآن / إخفاء). لا تغيّر أي كود موجود. -->
 <script>
 (function(){
 'use strict';
-var snap=null,snapPath='',snapSha=null;
+var g=function(i){return document.getElementById(i)};
+var snap=null,snapPath='',snapSha=null,MAXADD=5;
 function cnt(x){return (x.ss||[]).reduce(function(n,s){return n+((s&&s.length)||0)},0)}
 function key(x){return x.k||x.t}
 function takeSnap(){
-  snap={};snapPath=document.getElementById('path').value;snapSha=currentSha;
+  snap={};snapPath=g('path').value;snapSha=currentSha;
   series.forEach(function(x){snap[key(x)]={n:cnt(x),up:x.upAt||0}});
 }
-/* لقطة العدد بعد كل تحميل: بنلاحظ تغيّر currentSha لأن زر الاتصال بيستخدم loadData الأصلية مباشرة */
 setInterval(function(){
-  if(currentSha&&(currentSha!==snapSha||snapPath!==document.getElementById('path').value))takeSnap();
+  if(currentSha&&(currentSha!==snapSha||snapPath!==g('path').value))takeSnap();
 },300);
+
+var vis=g('vis'),lab=vis&&vis.closest('label');
+if(lab){
+  var f=document.createElement('label');f.className='field';
+  f.innerHTML='شارة «حلقة جديدة»<select id="newEpMode"><option value="auto">تلقائي</option><option value="force">إظهارها الآن</option><option value="off">إخفاؤها</option></select><span class="hint" style="margin:4px 0 0">التلقائي: بتظهر لما تضيف 1–5 حلقات لمسلسل موجود وحالته مش «مكتمل». مسلسل جديد أو مكتمل ما بياخدهاش إلا لو اخترت «إظهارها الآن».</span>';
+  lab.parentNode.insertBefore(f,lab.nextSibling);
+}
+function mode(){var m=g('newEpMode');return m?m.value:'auto'}
+function resetMode(){var m=g('newEpMode');if(m)m.value='auto'}
+var _ed=window.editSeries;
+if(typeof _ed==='function')window.editSeries=function(){resetMode();return _ed.apply(this,arguments)};
+
 var _sd=window.saveData;
 window.saveData=async function(){
-  if(snap&&snapPath===document.getElementById('path').value){
+  var m=mode();
+  if(snap&&snapPath===g('path').value){
     series.forEach(function(x){
       var o=snap[key(x)],n=cnt(x);
       if(o){
-        if(n>o.n)x.upAt=Date.now();
+        var add=n-o.n;
+        if(add>=1&&add<=MAXADD&&x.st!=='done')x.upAt=Date.now();
         else if(o.up&&!x.upAt)x.upAt=o.up;
-      }else if(n>0)x.upAt=Date.now();
+      }
     });
   }
+  /* التحكم اليدوي بيتطبّق على المسلسل اللي بيتحفظ من الفورم */
+  var tgt=null;
+  if(m!=='auto'){
+    if(editingK!==null)tgt=series.filter(function(x){return key(x)===editingK})[0]||null;
+    else if(series[0]&&series[0].t===g('title').value.trim())tgt=series[0];
+    if(tgt){if(m==='force')tgt.upAt=Date.now();else delete tgt.upAt}
+  }
   var ok=await _sd.apply(this,arguments);
-  if(ok)takeSnap();
+  if(ok){takeSnap();resetMode()}
   return ok;
 };
 })();
