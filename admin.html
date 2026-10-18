@@ -163,7 +163,7 @@ function drawList(){var host=$('seriesList');if(!series.length){host.innerHTML='
   host.querySelectorAll('[data-schclear]').forEach(function(b){b.onclick=function(){var i=+b.dataset.schclear;mutate('Unschedule series: '+series[i].t,function(){delete series[i].showAt})}});
   host.querySelectorAll('[data-dup]').forEach(function(b){b.onclick=function(){var i=+b.dataset.dup;mutate('Duplicate series: '+series[i].t,function(){var c=JSON.parse(JSON.stringify(series[i]));c.t=c.t+' (نسخة)';c.k='remote-'+Date.now();c.addedAt=new Date().toISOString();c.hide=true;delete c.pin;delete c.showAt;series.splice(i+1,0,c)}).then(function(ok){if(ok)status('تم إنشاء نسخة مخفية من المسلسل. عدّلها وأظهرها لما تجهز.','ok')})}});
   host.querySelectorAll('[data-del]').forEach(function(b){b.onclick=async function(){var i=+b.dataset.del;if(!confirm('حذف مسلسل «'+series[i].t+'» من ملف GitHub؟'))return;var old=series[i];series.splice(i,1);if(await saveData('Delete series: '+old.t)){if(editingIndex===i)resetForm();else syncEditing()}else{series.splice(i,0,old);drawList()}}})}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'\x26amp;','<':'\x26lt;','>':'\x26gt;','"':'\x26quot;',"'":'\x26#39;'}[c]})}
 /* ===== المشاهدات (خدمة Abacus): COUNTER_NS لازم يطابق اللي في صفحة كل قسم (3 حروف على الأقل) ===== */
 var COUNTER_BASE='https://abacus.jasoncameron.dev/';
 var COUNTER_NS={'series-arabic.json':'seties-arabic','series-foreign.json':'seties-foreign','series-turkish.json':'seties-turkish','series-korean.json':'seties-korean'};
@@ -1244,7 +1244,7 @@ function decorate(box){
   var sel=document.createElement('select');sel.className='xtpl-sel';fillTplSel(sel);
   tools.insertBefore(sel,tools.firstChild);tools.insertBefore(bs,tools.firstChild);tools.insertBefore(bi,tools.firstChild);
   var p=document.createElement('div');p.className='imp';p.hidden=true;
-  p.innerHTML='<label class="field full">الصق الحلقات (سطر لكل حلقة): <code>اسم | رابط</code> أو رابط فقط أو ملف M3U<textarea class="i-txt" placeholder="الحلقة 1 | https://site.com/1.mp4&#10;https://site.com/2.mp4"></textarea></label><label class="remember-row"><input type="checkbox" class="i-rep"><span>استبدال حلقات الموسم الحالية</span></label><p class="hint i-info" style="margin:8px 0 0"></p><div class="actions"><button type="button" class="btn i-ok">استيراد</button><button type="button" class="btn secondary i-no">إغلاق</button></div>';
+  p.innerHTML='<label class="field full">الصق الحلقات (سطر لكل حلقة): <code>اسم | رابط</code> أو رابط فقط أو ملف M3U<textarea class="i-txt" placeholder="الحلقة 1 | https://site.com/1.mp4\x26#10;https://site.com/2.mp4"></textarea></label><label class="remember-row"><input type="checkbox" class="i-rep"><span>استبدال حلقات الموسم الحالية</span></label><p class="hint i-info" style="margin:8px 0 0"></p><div class="actions"><button type="button" class="btn i-ok">استيراد</button><button type="button" class="btn secondary i-no">إغلاق</button></div>';
   head.parentNode.insertBefore(p,head.nextSibling);
   var q=function(c){return p.querySelector(c)};
   function info(){var r=parseImport(q('.i-txt').value);q('.i-info').textContent=r.items.length?('سيتم استيراد '+r.items.length+' رابط'+(r.invalid?(' · تجاهل '+r.invalid+' سطر غير صالح'):'')+'.'):''}
@@ -1945,7 +1945,7 @@ g('mRun').onclick=async function(){
 'use strict';
 var g=function(i){return document.getElementById(i)};
 var snap=null,snapPath='',snapSha=null,MAXADD=5;
-function cnt(x){return (x.ss||[]).reduce(function(n,s){return n+((s&&s.length)||0)},0)}
+function cnt(x){return (x.ss||[]).reduce(function(n,s){return n+((s||[]).filter(function(e){return !e.at}).length)},0)}  /* الحلقات المجدولة (at) ما بتتحسبش، شارة «جديد» بتيجي من المكتبة وقت نزولها */
 function key(x){return x.k||x.t}
 function takeSnap(){
   snap={};snapPath=g('path').value;snapSha=currentSha;
@@ -1993,5 +1993,121 @@ window.saveData=async function(){
 })();
 </script>
 <!-- ===== نهاية إضافة 6 ===== -->
+
+<!-- ===== إضافة 7: جدولة نزول الحلقات (at) =====
+     تُلصق قبل </body> وبعد إضافة 6. في كل حلقة حقل «تنزل في»، وفي كل موسم زر «جدولة الحلقات» لتوزيع المواعيد دفعة واحدة،
+     وفي «أدوات متقدمة» قائمة بالحلقات المجدولة. صفحة المكتبة بتخبّي الحلقة (بعدّاد) لحد ميعادها وتفتحها لوحدها.
+     تنبيه: الحلقة المجدولة موجودة في ملف JSON العام، فالإخفاء من الصفحة فقط (مش سرّي). لا تغيّر أي كود موجود. -->
+<style>
+.atf input{direction:ltr;text-align:left}
+.x7m{position:fixed;inset:0;z-index:9999;background:rgba(5,5,12,.7);display:flex;align-items:center;justify-content:center;padding:16px}
+.x7b{width:min(440px,100%);background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;max-height:92vh;overflow:auto}
+.x7b h3{margin:0 0 4px;font-size:1.05rem}
+.x7b .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.x7l .qrow{margin-top:6px}
+</style>
+<script>
+(function(){
+'use strict';
+var g=function(i){return document.getElementById(i)};
+var se=g('seasonsEditor');
+if(!se)return;
+function pad(n){return String(n).padStart(2,'0')}
+function toLocal(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes())}
+function epBoxes(host){return Array.prototype.filter.call(host.querySelectorAll('.episode-box'),function(b){return b._fields})}
+function setAt(box,d){
+  box._extra=Object.assign({},box._extra||{});
+  if(d){box._extra.at=d.toISOString()}else delete box._extra.at;
+  if(box._atIn)box._atIn.value=d?toLocal(d):'';
+}
+function fire(el){try{el.dispatchEvent(new Event('input',{bubbles:true}))}catch(e){}}
+
+/* ---------- حقل «تنزل في» في كل حلقة ---------- */
+function decorateEp(box){
+  if(box._x7||!box._fields)return;box._x7=1;
+  var grid=box.querySelector('.episode-grid');if(!grid)return;
+  var lb=document.createElement('label');lb.className='field atf';
+  lb.innerHTML='تنزل في (اختياري)<input type="datetime-local"><span class="hint" style="margin:4px 0 0">الحلقة بتتخفي تمامًا من المكتبة لحد الميعاد وبتظهر لوحدها.</span>';
+  var inp=lb.querySelector('input');box._atIn=inp;
+  var cur=box._extra&&box._extra.at?new Date(box._extra.at):null;
+  if(cur&&!isNaN(cur))inp.value=toLocal(cur);
+  inp.addEventListener('input',function(){
+    var v=inp.value,d=v?new Date(v):null;
+    box._extra=Object.assign({},box._extra||{});
+    if(d&&!isNaN(d))box._extra.at=d.toISOString();else delete box._extra.at;
+  });
+  grid.appendChild(lb);
+}
+/* ---------- نافذة جدولة موسم كامل ---------- */
+function openSched(seasonBox){
+  var host=seasonBox.querySelector('.episodes-host'),boxes=epBoxes(host);
+  if(!boxes.length)return;
+  var firstFree=1;for(var i=0;i<boxes.length;i++){if(!(boxes[i]._extra&&boxes[i]._extra.at)){firstFree=i+1;break}}
+  var d0=new Date();d0.setDate(d0.getDate()+1);d0.setHours(21,0,0,0);
+  var m=document.createElement('div');m.className='x7m';
+  m.innerHTML='<div class="x7b" role="dialog" aria-modal="true"><h3>جدولة حلقات الموسم</h3><p class="hint" style="margin:0 0 10px">بتوزّع مواعيد نزول متتابعة على مجموعة حلقات. المواعيد بتوقيت جهازك.</p>'+
+   '<div class="row2"><label class="field">من الحلقة رقم<input type="number" id="x7f" min="1" max="'+boxes.length+'" value="'+firstFree+'"></label><label class="field">إلى الحلقة رقم<input type="number" id="x7t" min="1" max="'+boxes.length+'" value="'+boxes.length+'"></label></div>'+
+   '<label class="field atf">أول حلقة تنزل في<input type="datetime-local" id="x7s" value="'+toLocal(d0)+'"></label>'+
+   '<label class="field">كل كام يوم بين حلقة والتانية<input type="number" id="x7i" min="0" max="60" value="7"></label>'+
+   '<div class="actions"><button class="btn" type="button" id="x7ok">تطبيق</button><button class="btn secondary" type="button" id="x7clr">مسح الجدولة للمحدد</button><button class="btn secondary" type="button" id="x7x">إلغاء</button></div><p class="hint" id="x7m" style="margin:6px 0 0"></p></div>';
+  document.body.appendChild(m);
+  function range(){var a=Math.max(1,parseInt(g('x7f').value,10)||1),b=Math.min(boxes.length,parseInt(g('x7t').value,10)||boxes.length);return a<=b?[a,b]:null}
+  function close(){m.remove()}
+  g('x7x').onclick=close;m.addEventListener('click',function(e){if(e.target===m)close()});
+  g('x7clr').onclick=function(){var r=range();if(!r){g('x7m').textContent='المدى غير صحيح.';return}for(var k=r[0]-1;k<r[1];k++)setAt(boxes[k],null);fire(host);close();status('تم مسح جدولة '+(r[1]-r[0]+1)+' حلقة. احفظ المسلسل لتثبيت التغيير.','ok')};
+  g('x7ok').onclick=function(){
+    var r=range(),s=new Date(g('x7s').value),step=Math.max(0,parseInt(g('x7i').value,10)||0);
+    if(!r){g('x7m').textContent='المدى غير صحيح.';return}
+    if(isNaN(s)){g('x7m').textContent='اختر تاريخ ووقت أول حلقة.';return}
+    for(var k=r[0]-1;k<r[1];k++){var d=new Date(s.getTime());d.setDate(d.getDate()+(k-(r[0]-1))*step);setAt(boxes[k],d)}
+    fire(host);close();
+    status('تمت جدولة '+(r[1]-r[0]+1)+' حلقة، من '+s.toLocaleString('ar-EG',{day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})+'. احفظ المسلسل لتثبيت الجدولة.','ok');
+  };
+}
+function decorateSeason(sb){
+  if(sb._x7)return;
+  var tools=sb.querySelector('.season-head .actions');if(!tools)return;sb._x7=1;
+  var b=document.createElement('button');b.type='button';b.className='mini-btn';b.textContent='جدولة الحلقات';
+  b.onclick=function(){openSched(sb)};
+  tools.insertBefore(b,tools.firstChild);
+}
+function scan(){
+  se.querySelectorAll('.season-box').forEach(decorateSeason);
+  se.querySelectorAll('.episode-box').forEach(decorateEp);
+}
+new MutationObserver(scan).observe(se,{childList:true,subtree:true});
+scan();
+
+/* ---------- قائمة الحلقات المجدولة (القسم الحالي) ---------- */
+var host=g('pTools');
+if(host){
+  var box=document.createElement('div');box.className='qbox x7l';
+  box.innerHTML='<h2 style="font-size:1.05rem;margin:0 0 4px">الحلقات المجدولة</h2><p class="hint">كل الحلقات اللي ميعادها لسه ما جاش في القسم المحمَّل حاليًا.</p><div class="actions" style="margin-top:0"><button class="btn secondary" id="x7r" type="button">تحديث القائمة</button></div><div id="x7out"></div>';
+  host.appendChild(box);
+  function openSeries(key){
+    if(g('title').value.trim()&&editingIndex<0&&!confirm('النموذج فيه بيانات غير محفوظة وهتتبدل. تكمل؟'))return;
+    var n=0,iv=setInterval(function(){
+      n++;var idx=-1;for(var i=0;i<series.length;i++){if((series[i].k||series[i].t)===key){idx=i;break}}
+      if(idx>-1){clearInterval(iv);editSeries(idx);var nav=document.querySelector('[data-pg="add"]');if(nav)nav.click()}
+      else if(n>20){clearInterval(iv)}
+    },200);
+  }
+  function list(){
+    var rows=[],now=Date.now();
+    series.forEach(function(x){(x.ss||[]).forEach(function(s,si){(s||[]).forEach(function(ep,ei){
+      var t=ep&&ep.at?new Date(ep.at).getTime():0;if(t>now)rows.push({x:x,si:si,ei:ei,t:t});
+    })})});
+    rows.sort(function(a,b){return a.t-b.t});
+    g('x7out').innerHTML=rows.length?rows.slice(0,60).map(function(r){
+      return '<div class="qrow"><span class="tx"><b>'+escapeHtml(r.x.t)+'</b> <small style="display:inline">م'+(r.si+1)+' ح'+(r.ei+1)+'</small><small>تنزل '+escapeHtml(new Date(r.t).toLocaleString('ar-EG',{weekday:'long',day:'numeric',month:'long',hour:'numeric',minute:'2-digit'}))+'</small></span><button type="button" class="mini-btn" data-x7k="'+escapeHtml(r.x.k||r.x.t)+'">فتح وتعديل</button></div>';
+    }).join('')+(rows.length>60?'<p class="hint">و'+(rows.length-60)+' حلقة كمان.</p>':''):'<p class="hint">'+(series.length?'مفيش حلقات مجدولة في القسم ده.':'حمّل بيانات القسم أولًا (اتصال / تحميل البيانات).')+'</p>';
+  }
+  g('x7r').onclick=list;
+  g('x7out').addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-x7k]');if(b)openSeries(b.getAttribute('data-x7k'))});
+  document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('[data-pg="tools"]'))setTimeout(list,120)});
+}
+})();
+</script>
+<!-- ===== نهاية إضافة 7 ===== -->
 
 </body></html>
