@@ -27,7 +27,7 @@
 <h1>إدارة مكتبة المسلسلات</h1><p class="sub">إدارة كل أقسام المكتبة من صفحة واحدة، مع ملف JSON مستقل لكل قسم.</p>
 <section class="panel" id="pConnect"><h2>1) الاتصال بمستودع GitHub</h2>
 <p class="hint">أدخل بيانات مستودع المسلسلات الجديد. اختر القسم الذي تريد إدارته؛ كل قسم يُحفظ في ملف مستقل. أنشئ Fine-grained Personal Access Token بصلاحية Contents: Read and write لهذا المستودع فقط. الرمز لا يُحفظ داخل الصفحة أو على GitHub.</p>
-<div class="grid"><label class="field">اسم مستخدم GitHub<input id="owner" value="SUPERTV18" placeholder="اسم حسابك" autocomplete="off"></label><label class="field">اسم المستودع<input id="repo" value="series-stv" autocomplete="off"></label><label class="field">الفرع<input id="branch" value="main" autocomplete="off"></label><label class="field">القسم / ملف JSON<select id="path"><option value="series-arabic.json">المسلسلات العربية</option><option value="series-foreign.json">المسلسلات الأجنبية</option><option value="series-turkish.json">المسلسلات التركية</option><option value="series-korean.json">المسلسلات الكورية</option></select></label><label class="field full">GitHub Token (لا تشاركه مع أحد)<input id="token" type="password" autocomplete="off" placeholder="github_pat_…"><label class="remember-row" for="rememberToken"><input id="rememberToken" type="checkbox"><span>حفظ التوكن على هذا الجهاز والمتصفح</span></label><small style="color:var(--mut)">فعّل علامة الصح لو الجهاز خاص بيك فقط. التوكن المحفوظ قد يتمكن أي شخص يستخدم نفس المتصفح من الوصول إليه.</small></label><label class="field full">مفتاح TMDB (اختياري، لملء بيانات المسلسل تلقائيًا)<input id="tmdbKey" type="password" autocomplete="off" placeholder="API key (v3)"></label></div>
+<div class="grid"><label class="field">اسم مستخدم GitHub<input id="owner" value="SUPERTV18" placeholder="اسم حسابك" autocomplete="off"></label><label class="field">اسم المستودع<input id="repo" value="series-stv" autocomplete="off"></label><label class="field">الفرع<input id="branch" value="main" autocomplete="off"></label><label class="field">القسم / ملف JSON<select id="path"><option value="series-arabic.json">المسلسلات العربية</option><option value="series-foreign.json">المسلسلات الأجنبية</option><option value="series-turkish.json">المسلسلات التركية</option><option value="series-korean.json">المسلسلات الكورية</option><option value="series-ramadan.json">مسلسلات رمضان</option><option value="movies-arabic.json">أفلام عربي</option><option value="movies-foreign.json">أفلام أجنبي</option><option value="movies-anime.json">أنمي وكرتون</option><option value="movies-asian.json">أفلام هندي · تركي · كوري</option></select></label><label class="field full">GitHub Token (لا تشاركه مع أحد)<input id="token" type="password" autocomplete="off" placeholder="github_pat_…"><label class="remember-row" for="rememberToken"><input id="rememberToken" type="checkbox"><span>حفظ التوكن على هذا الجهاز والمتصفح</span></label><small style="color:var(--mut)">فعّل علامة الصح لو الجهاز خاص بيك فقط. التوكن المحفوظ قد يتمكن أي شخص يستخدم نفس المتصفح من الوصول إليه.</small></label><label class="field full">مفتاح TMDB (اختياري، لملء بيانات المسلسل تلقائيًا)<input id="tmdbKey" type="password" autocomplete="off" placeholder="API key (v3)"></label></div>
 <div class="actions"><button class="btn" id="connect">اتصال / تحميل البيانات</button><button class="btn secondary" id="clearToken">مسح الرمز من الصفحة</button></div>
 <div id="status" class="status" role="status">غير متصل. أدخل الرمز واضغط اتصال.</div>
 </section>
@@ -166,7 +166,7 @@ function drawList(){var host=$('seriesList');if(!series.length){host.innerHTML='
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'\x26amp;','<':'\x26lt;','>':'\x26gt;','"':'\x26quot;',"'":'\x26#39;'}[c]})}
 /* ===== المشاهدات (خدمة Abacus): COUNTER_NS لازم يطابق اللي في صفحة كل قسم (3 حروف على الأقل) ===== */
 var COUNTER_BASE='https://abacus.jasoncameron.dev/';
-var COUNTER_NS={'series-arabic.json':'seties-arabic','series-foreign.json':'seties-foreign','series-turkish.json':'seties-turkish','series-korean.json':'seties-korean'};
+var COUNTER_NS={'series-arabic.json':'seties-arabic','series-foreign.json':'seties-foreign','series-turkish.json':'seties-turkish','series-korean.json':'seties-korean','series-ramadan.json':'seties-ramadan','movies-arabic.json':'movies-arabic','movies-foreign.json':'movies-foreign','movies-anime.json':'movies-anime','movies-asian.json':'movies-asian'};
 var viewsBusy=false;
 function hash36(t){var h=5381;for(var i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i))>>>0;return h.toString(36)}
 function ckey(x){var k=x.k?String(x.k).toLowerCase().replace(/[^a-z0-9_-]+/g,'-').replace(/^-+|-+$/g,''):'';return (k||('h'+hash36(String(x.t)))).slice(0,40)}
@@ -528,7 +528,7 @@ body{display:flex;align-items:stretch;background:radial-gradient(60% 30% at 70% 
 <script>
 (function(){
 'use strict';
-var F=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري']],D={},loaded=false;
+var F=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-asian.json','أفلام آسيوي']],D={},loaded=false;
 var main=document.querySelector('.wrap'),g=function(i){return document.getElementById(i)};
 /* الهيدر: ننقل العنوان الأصلي بدل حذفه */
 var h1=main.querySelector('h1'),sub=main.querySelector('.sub'),hd0=document.createElement('div');hd0.className='xhead';
@@ -679,7 +679,7 @@ if(token)setTimeout(load,600);
 (function(){
 'use strict';
 var main=document.querySelector('.wrap'),g=function(i){return document.getElementById(i)};
-var FILES=[['series-arabic.json','المسلسلات العربية'],['series-foreign.json','المسلسلات الأجنبية'],['series-turkish.json','المسلسلات التركية'],['series-korean.json','المسلسلات الكورية']];
+var FILES=[['series-arabic.json','المسلسلات العربية'],['series-foreign.json','المسلسلات الأجنبية'],['series-turkish.json','المسلسلات التركية'],['series-korean.json','المسلسلات الكورية'],['series-ramadan.json','مسلسلات رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي وكرتون'],['movies-asian.json','أفلام هندي · تركي · كوري']];
 var sec=document.createElement('section');sec.id='pTools';sec.style.display='none';
 sec.innerHTML='<h2 style="margin:0 0 4px">أدوات متقدمة</h2><p class="hint" id="tCur"></p><div class="xgrid" style="grid-template-columns:repeat(2,minmax(0,1fr))">'+
 '<div class="xc"><h3><span class="xn">1</span>نقل مسلسل بين الأقسام</h3><p>بينقل المسلسل لقسم تاني ويحذفه من القسم الحالي. عدّادات المشاهدة والبلاغات بتبدأ من صفر في القسم الجديد.</p><select id="tMvS"></select><select id="tMvT"></select><div class="actions"><button class="btn" id="tMvB" type="button">نقل المسلسل</button></div></div>'+
@@ -1199,7 +1199,7 @@ document.addEventListener('keydown',function(e){
 (function(){
 'use strict';
 var g=function(i){return document.getElementById(i)};
-var GF=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري']];
+var GF=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-asian.json','أفلام آسيوي']];
 function fileLabel(p){var f=GF.filter(function(x){return x[0]===p})[0];return f?f[1]:p}
 function epCount(x){return (x.ss||[]).reduce(function(n,s){return n+s.length},0)}
 function fire(el){try{el.dispatchEvent(new Event('input',{bubbles:true}))}catch(e){}}
@@ -1637,7 +1637,7 @@ if(rp&&rbtn){
 var g=function(i){return document.getElementById(i)};
 var host=g('pAdSettings');
 if(!host)return;
-var SEC=[['series-arabic.json','العربية'],['series-foreign.json','الأجنبية'],['series-turkish.json','التركية'],['series-korean.json','الكورية']];
+var SEC=[['series-arabic.json','العربية'],['series-foreign.json','الأجنبية'],['series-turkish.json','التركية'],['series-korean.json','الكورية'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-asian.json','أفلام آسيوي']];
 
 var box=document.createElement('div');
 box.id='adStatsBox';box.style.cssText='margin-top:22px;border-top:1px dashed var(--line);padding-top:16px';
@@ -1751,7 +1751,7 @@ g('path').addEventListener('change',function(){g('asDay').innerHTML='';g('asDayH
 var g=function(i){return document.getElementById(i)};
 var host=g('pTools');
 if(!host)return;
-var GF=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري']];
+var GF=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-asian.json','أفلام آسيوي']];
 function fl(p){var f=GF.filter(function(x){return x[0]===p})[0];return f?f[1]:p}
 function eps(x){return (x.ss||[]).reduce(function(n,s){return n+((s&&s.length)||0)},0)}
 
@@ -2109,5 +2109,143 @@ if(host){
 })();
 </script>
 <!-- ===== نهاية إضافة 7 ===== -->
+
+<script>
+/* ===== إضافة 8: قسم رمضان (سنة الموسم ry) + أقسام الأفلام (فيلم = حلقة واحدة + بيانات إضافية) ===== */
+(function(){
+var $=function(id){return document.getElementById(id)};
+function isMovie(){return String($('path').value||'').indexOf('movies-')===0}
+function isRam(){return $('path').value==='series-ramadan.json'}
+var form=$('form');if(!form)return;
+var host=form.querySelector('.grid')||form;
+var css=document.createElement('style');
+css.textContent='#x8m,#x8r{display:none;grid-column:1/-1}#x8m.on,#x8r.on{display:grid}#x8m .g8{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.x8tag{display:inline-block;margin-inline-start:8px;padding:1px 10px;border-radius:999px;background:#7c5cff;color:#fff;font-size:.72rem;font-weight:700;vertical-align:middle}#x8tm{display:flex;gap:8px;flex-wrap:wrap;align-items:center}#x8sg{display:flex;gap:8px;overflow-x:auto;padding:6px 0}#x8sg button{flex:0 0 auto;display:flex;gap:8px;align-items:center;padding:6px 10px;border-radius:12px;border:1px solid var(--line,#333);background:var(--card2,#1e1e2e);color:inherit;cursor:pointer;font:inherit;text-align:right}#x8sg img{width:38px;height:56px;object-fit:cover;border-radius:6px}';
+document.head.appendChild(css);
+/* حقول الفيلم */
+var m=document.createElement('div');m.id='x8m';m.className='field full';
+m.innerHTML='<span>بيانات الفيلم <b class="x8tag">فيلم</b></span><p class="hint" style="margin:0 0 6px">الفيلم بيتخزّن كحلقة واحدة، فكل الإحصاءات والعدّادات وفحص الروابط بتشتغل عليه عادي. صورة الخلفية العريضة (backdrop) هي اللي بتظهر في بانر الصفحة الرئيسية.</p>'+
+ '<div class="field full" style="margin:0 0 10px"><div id="x8tm"><input id="x8tq" placeholder="ابحث عن الفيلم في TMDB" style="flex:1;min-width:180px"><button class="btn secondary" id="x8ts" type="button">بحث TMDB</button></div><div id="x8sg"></div><p class="hint" id="x8ti" style="margin:0"></p></div>'+
+ '<div class="g8">'+
+ '<label class="field full" style="grid-column:1/-1">رابط الفيلم *<input id="x8u" type="url" placeholder="https://.../movie.mp4 أو .m3u8" style="direction:ltr"></label>'+
+ '<label class="field">User-Agent (اختياري)<input id="x8ua" list="uaList" style="direction:ltr"></label>'+
+ '<label class="field">Referer (اختياري)<input id="x8ref" list="refList" style="direction:ltr"></label>'+
+ '<label class="field">مفتاح MPD (kid:key)<input id="x8key" style="direction:ltr"></label>'+
+ '<label class="field">المدة بالدقائق<input id="x8dur" type="number" min="1" max="600" placeholder="120"></label>'+
+ '<label class="field">الجودة<select id="x8q"><option value="">بدون</option><option>HD</option><option>FHD</option><option>4K</option><option>CAM</option></select></label>'+
+ '<label class="field">البلد<input id="x8co" placeholder="مصر / أمريكا / كوريا"></label>'+
+ '<label class="field">صورة خلفية عريضة (اختياري)<input id="x8bg" type="url" placeholder="https://..." style="direction:ltr"></label>'+
+ '<label class="field">رابط الإعلان التشويقي (اختياري)<input id="x8tr" type="url" placeholder="https://youtube.com/..." style="direction:ltr"></label>'+
+ '</div>';
+host.appendChild(m);
+/* سنة رمضان */
+var r=document.createElement('label');r.id='x8r';r.className='field';
+r.innerHTML='موسم رمضان (السنة)<input id="x8ry" type="number" min="2000" max="2100" placeholder="مثال: 2026"><small style="color:var(--mut)">بيحدد التبويب اللي المسلسل يظهر فيه في صفحة رمضان. لو فاضي بنستخدم سنة العرض.</small>';
+host.appendChild(r);
+var seasonsField=$('seasonsEditor').closest('.field');
+function esc8(s){return String(s==null?'':s).replace(/[<>"]/g,function(c){return {'<':'\x26lt;','>':'\x26gt;','"':'\x26quot;'}[c]})}
+function sync(){
+  var mv=isMovie();
+  m.classList.toggle('on',mv);r.classList.toggle('on',isRam());
+  if(seasonsField)seasonsField.style.display=mv?'none':'';
+  form.noValidate=mv;
+  ['xStatus','newEpMode','elUrl'].forEach(function(id){var el=$(id),f=el&&(el.closest('.field')||el.parentNode);if(f){f.style.display=mv?'none':'';var nx=f.nextElementSibling;if(id==='newEpMode'&&nx&&nx.classList.contains('hint'))nx.style.display=mv?'none':''}});
+  var d=$('description');if(d)d.placeholder=mv?'نبذة قصيرة عن الفيلم':'نبذة قصيرة عن المسلسل';
+  var tt=$('title');if(tt)tt.placeholder=mv?'مثال: اسم الفيلم':'مثال: مسلسل جديد';
+  var cl=$('color');if(cl&&cl.parentNode.firstChild)cl.parentNode.firstChild.nodeValue=mv?'لون الفيلم':'لون المسلسل';
+  var l=$('x8lbl');
+  if($('saveSeries')&&!/تعديلات/.test($('saveSeries').textContent))$('saveSeries').textContent=mv?'حفظ الفيلم على GitHub':'حفظ المسلسل على GitHub';
+  var t=$('title');if(t&&t.previousSibling)0;
+  if(mv&&!$('ry8')){}
+}
+$('path').addEventListener('change',sync);
+/* بعد الاتصال/التحميل */
+var _oldSha=null;setInterval(function(){if(typeof currentSha!=='undefined'&&currentSha!==_oldSha){_oldSha=currentSha;sync()}},400);
+sync();
+/* formToSeries */
+var _f2s=window.formToSeries;
+window.formToSeries=function(){
+  var o;
+  if(isMovie()){
+    var u=$('x8u').value.trim();if(!u)throw new Error('اكتب رابط الفيلم.');
+    var ep={t:$('title').value.trim(),u:u};
+    if($('x8ua').value.trim())ep.ua=$('x8ua').value.trim();
+    if($('x8ref').value.trim())ep.ref=$('x8ref').value.trim();
+    if($('x8key').value.trim())ep.key=$('x8key').value.trim();
+    var keep=null;if(typeof editingIndex!=='undefined'&&editingIndex>=0&&series[editingIndex]){var e0=(series[editingIndex].ss&&series[editingIndex].ss[0]&&series[editingIndex].ss[0][0])||{};['cookie','im','rt'].forEach(function(k){if(e0[k]!=null)ep[k]=e0[k]})}
+    o={k:'movie-'+Date.now(),addedAt:new Date().toISOString(),img:$('image').value.trim(),t:ep.t,y:+$('year').value||new Date().getFullYear(),g:$('genre').value.trim()||'فيلم',r:$('rating').value.trim()||'—',ac:$('color').value||'#7c5cff',s:1,d:$('description').value.trim(),ss:[[ep]]};
+    var dur=+$('x8dur').value;if(dur>0)o.dur=Math.round(dur);
+    if($('x8q').value)o.q=$('x8q').value;
+    if($('x8co').value.trim())o.co=$('x8co').value.trim();
+    var bg=$('x8bg').value.trim();if(bg)o.bg=bg;
+    var tr=$('x8tr').value.trim();if(tr)o.tr=tr;
+    var vis=$('vis').value;var sl=(typeof srcString==='function')?srcString():'';if(sl)o.src=sl;
+    if(vis==='hide')o.hide=true;
+    if(vis==='sched'){var v=$('showAt').value;if(!v)throw new Error('اختر تاريخ ووقت الظهور.');o.showAt=v}
+    return o;
+  }
+  o=_f2s();
+  if(isRam()){var ry=+$('x8ry').value;if(ry>=2000&&ry<=2100)o.ry=ry}
+  return o;
+};
+/* editSeries: نملأ حقول الفيلم/الموسم */
+var _es=window.editSeries;
+window.editSeries=function(i){
+  var x=series[i];_es(i);
+  if(isMovie()){
+    var e=(x.ss&&x.ss[0]&&x.ss[0][0])||{};
+    $('x8u').value=e.u||'';$('x8ua').value=e.ua||'';$('x8ref').value=e.ref||'';$('x8key').value=e.key||'';
+    $('x8dur').value=x.dur||'';$('x8q').value=x.q||'';$('x8co').value=x.co||'';$('x8bg').value=x.bg||'';$('x8tr').value=x.tr||'';
+    $('saveSeries').textContent='حفظ تعديلات الفيلم';
+  }
+  if(isRam())$('x8ry').value=x.ry||'';
+  sync();
+};
+/* resetForm */
+var _rf=window.resetForm;
+window.resetForm=function(){_rf();['x8u','x8ua','x8ref','x8key','x8dur','x8q','x8co','x8bg','x8tr','x8ry','x8tq'].forEach(function(id){var el=$(id);if(el)el.value=''});$('x8sg').innerHTML='';$('x8ti').textContent='';sync()};
+$('cancelEdit')&&$('cancelEdit').addEventListener('click',function(){setTimeout(sync,0)});
+/* TMDB للأفلام */
+var found=[];
+async function search(){
+  var key=($('tmdbKey').value||'').trim(),qv=$('x8tq').value.trim()||$('title').value.trim();
+  if(!key){$('x8ti').textContent='أدخل مفتاح TMDB في الإعدادات أولًا.';return}
+  if(qv.length<2){$('x8ti').textContent='اكتب اسم الفيلم.';return}
+  $('x8ti').textContent='جارٍ البحث…';
+  try{
+    var j=await tmdbGet('/search/movie','\x26query='+encodeURIComponent(qv));
+    found=(j.results||[]).slice(0,8);
+    $('x8sg').innerHTML=found.map(function(f,n){return '<button type="button" data-n="'+n+'">'+(f.poster_path?'<img alt="" src="https://image.tmdb.org/t/p/w92'+f.poster_path+'">':'')+'<span><b>'+esc8(f.title)+'</b><br><small>'+esc8((f.release_date||'').slice(0,4))+' · ★ '+(f.vote_average||0).toFixed(1)+'</small></span></button>'}).join('');
+    $('x8ti').textContent=found.length?'اختر الفيلم الصح:':'مفيش نتائج.';
+    [].forEach.call($('x8sg').querySelectorAll('button'),function(b){b.onclick=function(){pick(found[+b.getAttribute('data-n')])}});
+  }catch(e){$('x8ti').textContent='فشل البحث: '+e.message}
+}
+async function pick(f){
+  $('x8ti').textContent='جارٍ جلب التفاصيل…';
+  try{
+    var d=await tmdbGet('/movie/'+f.id);
+    $('title').value=d.title||f.title||$('title').value;
+    $('year').value=(d.release_date||'').slice(0,4)||$('year').value;
+    $('genre').value=(d.genres||[]).map(function(g){return g.name}).join('، ')||$('genre').value;
+    $('rating').value=d.vote_average?d.vote_average.toFixed(1):$('rating').value;
+    if(d.overview)$('description').value=d.overview;
+    if(d.poster_path)$('image').value='https://image.tmdb.org/t/p/w500'+d.poster_path;
+    if(d.backdrop_path)$('x8bg').value='https://image.tmdb.org/t/p/w1280'+d.backdrop_path;
+    if(d.runtime)$('x8dur').value=d.runtime;
+    var pc=(d.production_countries||[])[0];if(pc&&!$('x8co').value)$('x8co').value=pc.name;
+    $('x8sg').innerHTML='';$('x8ti').textContent='تم ملء البيانات. راجعها وأضف رابط الفيلم.';
+  }catch(e){$('x8ti').textContent='فشل الجلب: '+e.message}
+}
+$('x8ts').onclick=search;
+$('x8tq').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();search()}});
+/* كلمة «مسلسل» → «فيلم» في عناوين اللوحات */
+function rename(){
+  var mv=isMovie();
+  var h=$('pList')&&$('pList').querySelector('h2');if(h)h.textContent=mv?'3) الأفلام الموجودة في ملف JSON':'3) المسلسلات الموجودة في ملف JSON';
+  var ls=$('listSearch');if(ls)ls.placeholder=mv?'ابحث في الأفلام…':'ابحث في المسلسلات…';
+  var tl=document.querySelector('label.field input#title');if(tl&&tl.parentNode.firstChild)tl.parentNode.firstChild.nodeValue=mv?'اسم الفيلم *':'اسم المسلسل *';
+}
+$('path').addEventListener('change',rename);rename();
+})();
+</script>
 
 </body></html>
