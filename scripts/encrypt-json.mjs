@@ -2,6 +2,7 @@
 // Pages: Build command = node scripts/encrypt-json.mjs   |   Build output directory = dist   |   متغير البيئة DATA_KEY = نفس المفتاح اللي في الصفحات
 import fs from 'node:fs';
 import crypto from 'node:crypto';
+import zlib from 'node:zlib';
 
 const KEY = process.env.DATA_KEY;
 if (!KEY) { console.error('DATA_KEY مش متظبط في Environment variables'); process.exit(1); }
@@ -18,13 +19,14 @@ fs.mkdirSync('dist', { recursive: true });
 
 for (const f of ENCRYPT) {
   if (!fs.existsSync(f)) continue;
-  const raw = fs.readFileSync(f);
-  JSON.parse(raw.toString('utf8'));            // نتأكد إنه JSON سليم قبل التشفير
+  const src = fs.readFileSync(f);
+  JSON.parse(src.toString('utf8'));            // نتأكد إنه JSON سليم قبل التشفير
+  const raw = zlib.deflateRawSync(src, { level: 9 });   // نضغط الأول عشان الملف يفضل صغير
   const nonce = crypto.randomBytes(6).toString('hex');
   const ks = keystream(KEY, nonce), out = Buffer.alloc(raw.length);
   for (let i = 0; i < raw.length; i++) out[i] = raw[i] ^ ks();
-  fs.writeFileSync('dist/' + f, JSON.stringify({ v: 1, n: nonce, d: out.toString('base64') }));
-  console.log('مشفّر:', f, raw.length, 'بايت');
+  fs.writeFileSync('dist/' + f, JSON.stringify({ v: 2, n: nonce, d: out.toString('base64') }));
+  console.log('مشفّر:', f, src.length, '→', out.length, 'بايت (قبل base64)');
 }
 for (const f of PLAIN) if (fs.existsSync(f)) { fs.copyFileSync(f, 'dist/' + f); console.log('منسوخ:', f); }
 if (fs.existsSync('_headers')) fs.copyFileSync('_headers', 'dist/_headers');
