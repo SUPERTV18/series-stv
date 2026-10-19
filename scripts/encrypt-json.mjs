@@ -31,4 +31,24 @@ for (const f of ENCRYPT) {
 for (const f of PLAIN) if (fs.existsSync(f)) { fs.copyFileSync(f, 'dist/' + f); console.log('منسوخ:', f); }
 if (fs.existsSync('_headers')) fs.copyFileSync('_headers', 'dist/_headers');
 else fs.writeFileSync('dist/_headers', '/*.json\n  Access-Control-Allow-Origin: *\n  Cache-Control: public, max-age=60, must-revalidate\n');
-fs.writeFileSync('dist/index.html', '<!doctype html><meta charset="utf-8"><title>.</title>');
+// ملفات HTML في جذر المستودع (صفحة الإدارة وأي صفحة مكتبة مرفوعة هناك) بتتنسخ زي ما هي عشان تفضل شغالة على نفس الروابط
+let hasIndex = false;
+for (const f of fs.readdirSync('.')) {
+  if (!/\.html?$/i.test(f) || !fs.statSync(f).isFile()) continue;
+  let html = fs.readFileSync(f, 'utf8');
+  if (/admin/i.test(f) && !/name=["']robots["']/i.test(html)) html = html.replace(/<head>/i, '<head>\n<meta name="robots" content="noindex,nofollow">');
+  fs.writeFileSync('dist/' + f, html);
+  if (f.toLowerCase() === 'index.html') hasIndex = true;
+  console.log('صفحة:', f);
+}
+// مسار سرّي اختياري للإدارة: اضبط ADMIN_PATH (مثال: panel-x7k2/index.html) وهتتنسخ هناك بدل الاسم العادي
+const AP = process.env.ADMIN_PATH;
+if (AP && fs.existsSync('admin.html')) {
+  const dir = AP.split('/').slice(0, -1).join('/');
+  if (dir) fs.mkdirSync('dist/' + dir, { recursive: true });
+  fs.copyFileSync('dist/admin.html', 'dist/' + AP);
+  fs.rmSync('dist/admin.html');
+  console.log('الإدارة على المسار السرّي:', AP);
+}
+if (!hasIndex) fs.writeFileSync('dist/index.html', '<!doctype html><meta charset="utf-8"><title>.</title>');
+fs.appendFileSync('dist/_headers', '\n/' + (AP || 'admin.html') + '\n  X-Robots-Tag: noindex\n');
