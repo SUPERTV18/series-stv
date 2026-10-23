@@ -784,6 +784,13 @@ if (PROXY && kk) {
     (rf ? '&ref=' + encodeURIComponent(rf) : '');
 }
 
+// بعض مصادر الفيديو تستخدم امتداد .jpg رغم أن المحتوى فيديو؛ مرّرها عبر مسار الفيديو في Worker بدل فتحها كصورة داخل WebView.
+if (PROXY && /\.jpg(?:$|\?)/i.test(u)) {
+  fin = PROXY.replace(/\/?$/, '/') + 'proxy.mp4?url=' + encodeURIComponent(u) +
+    (ua ? '&ua=' + encodeURIComponent(ua) : '') +
+    (rf ? '&ref=' + encodeURIComponent(rf) : '');
+}
+
 // إرسال الرابط إلى مشغل AppCreator24
 if (counted) {
   setTimeout(function(){ window.location.href = fin; }, 180);
