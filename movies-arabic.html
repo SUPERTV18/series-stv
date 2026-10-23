@@ -737,7 +737,7 @@ async function runWithAd(play,x){
   if(adSettings.canCancel)document.getElementById('adcancel').focus({preventScroll:true});
 }
 document.getElementById('adcancel').onclick=function(){closeAdGate(false)};
-document.getElementById('adlink').addEventListener('click',function(){adHit('clk',adCurrent)});
+document.getElementById('adlink').addEventListener('click',function(){adHit('clk',adCurrent);closeAdGate(true)});
 refreshAdSettings().then(applyAdSettings);
 /* صورة ومدة الحلقة (اختياريتين): im = رابط صورة، rt = المدة بالدقايق */
 function imOf(ep){var u=String(ep&&ep.im||'').trim();return /^https?:\/\/[^\s"'()\\]+$/i.test(u)?u:''}
