@@ -996,7 +996,11 @@ function playNow(x){
   var counted=countPlay(x,0,0);
   var fin=u;
   var isRes=/[?&]action=stream(?:&|$)/i.test(u)||/[?&]realid=/i.test(u);
-  if(PROXY&&isRes){
+  // بعض مصادر الأفلام ترسل فيديو رغم أن الرابط ينتهي بـ .jpg؛ وجّهها لمسار الفيديو في الـ Worker.
+  var isVideoJpg=/\\.jpg(?:$|\\?)/i.test(u);
+  if(PROXY&&isVideoJpg){
+    fin=PROXY.replace(/\\/?$/,'/')+'proxy.mp4?url='+encodeURIComponent(u)+(ua?'&ua='+encodeURIComponent(ua):'')+(rf?'&ref='+encodeURIComponent(rf):'');
+  }else if(PROXY&&isRes){
     fin=PROXY.replace(/\/?$/,'/')+'proxy.m3u8?url='+encodeURIComponent(u)+(ua?'&ua='+encodeURIComponent(ua):'')+(rf?'&ref='+encodeURIComponent(rf):'');
   }else if(PROXY&&(ua||rf)){
     var path=/\.m3u8(?:$|\?)/i.test(u)?'proxy.m3u8':(/\.mp4(?:$|\?)/i.test(u)?'proxy.mp4':'proxy');
