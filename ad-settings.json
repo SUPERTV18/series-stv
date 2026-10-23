@@ -9,7 +9,7 @@
   "canCancel": true,
   "shape": "rounded",
   "width": "wide",
-  "buttonText": "جارٍ تجهيز الحلقة...",
+  "buttonText": "اضغط هنا لفتح الإعلان ومتابعة المشاهدة",
   "overlay": 0.82,
   "frequency": 0
 }
