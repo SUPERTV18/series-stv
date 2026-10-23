@@ -1,5 +1,28 @@
 [
   {
+    "k": "movie-1792786427278",
+    "addedAt": "2026-10-23T20:13:47.278Z",
+    "img": "https://image.tmdb.org/t/p/w500/7GTNxTIgeZpHoauWcLLNvPDbPXc.jpg",
+    "t": "فضل و نعمة",
+    "y": 2022,
+    "g": "كوميديا",
+    "r": "5.9",
+    "ac": "#7c5cff",
+    "s": 1,
+    "d": "في إطار كوميدي، تدور الأحداث حول أسرة مصرية، تمر بأزمة مالية، يقرر رب الأسرة تخطي الأزمة بافتتاح مطعم يُطلق عليه اسم (فضل ونعمة) يمر بالعديد من المواقف الكوميدية والمفارقات خلال إدارته لهذا المطعم.",
+    "ss": [
+      [
+        {
+          "t": "فضل و نعمة",
+          "u": "https://vid5.zvde-dsn-01.site/file/wp-alooytv/uploads/2023/Fadl.Wa.Neama/01.jpg"
+        }
+      ]
+    ],
+    "dur": 101,
+    "co": "Egypt",
+    "bg": "https://image.tmdb.org/t/p/w1280/5oeKCByT2eOaX18jdJR1lOOmt0h.jpg"
+  },
+  {
     "k": "movie-1792409071761",
     "addedAt": "2026-10-19T11:24:31.761Z",
     "img": "https://image.tmdb.org/t/p/w500/2V2CvncmHamx9cvYnXSWFzY1kqb.jpg",
