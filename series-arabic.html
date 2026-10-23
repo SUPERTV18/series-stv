@@ -197,7 +197,7 @@ h2.ht{font-weight:800;font-size:clamp(1.15rem,3vw,1.65rem);line-height:1.2;margi
     <div class="adhead"><strong id="adtitle">إعلان قبل تشغيل الحلقة</strong><span class="adlabel">إعلان</span></div>
     <iframe class="adframe" id="adframe" title="الإعلان" src="about:blank" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay"></iframe>
     <p class="adhint">سيتم تشغيل الحلقة بعد انتهاء العدّاد. إذا لم يظهر الإعلان داخل النافذة، يمكنك فتحه من الرابط أدناه.</p>
-    <a id="adlink" href="https://omg10.com/4/7060393" target="_blank" rel="noopener noreferrer" style="color:#22d3ee;font-size:.85rem">فتح رابط الإعلان</a>
+    <a id="adlink" href="https://omg10.com/4/7060393" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;margin:10px auto;padding:12px 20px;border-radius:12px;background:var(--ad-accent,#7c5cff);color:#fff!important;font-size:.95rem;font-weight:800;text-decoration:none;cursor:pointer;min-height:44px">اضغط هنا لفتح الإعلان ومتابعة المشاهدة</a>
     <div class="adcount"><span>تشغيل الحلقة خلال</span><span class="adnum" id="adnum">5</span><span>ثوانٍ</span></div>
     <div class="adprogress" id="adprogress"><i id="adprogressFill"></i></div>
     <button type="button" class="adcancel" id="adcancel">إلغاء والعودة</button>
@@ -505,7 +505,7 @@ loadSeries();
 /* ===== إعلان قبل تشغيل الحلقة (على مستوى الصفحة عشان زر الرجوع يقدر يقفله) ===== */
 var AD_URL='https://omg10.com/4/7060393';
 var AD_SETTINGS_URL=DATA_BASE+'ad-settings.json';
-var adSettings={enabled:true,url:AD_URL,duration:5,title:'إعلان قبل تشغيل الحلقة',accent:'#7c5cff',background:'#11111b',counterStyle:'pill',canCancel:true,shape:'rounded',width:'normal',buttonText:'جارٍ تجهيز الحلقة...',overlay:0.82,frequency:0};
+var adSettings={enabled:true,url:AD_URL,duration:5,title:'إعلان قبل تشغيل الحلقة',accent:'#7c5cff',background:'#11111b',counterStyle:'pill',canCancel:true,shape:'rounded',width:'normal',buttonText:'اضغط هنا لفتح الإعلان ومتابعة المشاهدة',overlay:0.82,frequency:0};
 var adGate=document.getElementById('adgate'),adFrame=document.getElementById('adframe'),adNum=document.getElementById('adnum');
 var adTimer=null,adPending=null,adRemaining=5,adDuration=5,adCurrent=null;
 function stopAdTimer(){if(adTimer){clearInterval(adTimer);adTimer=null}}
@@ -525,7 +525,7 @@ async function refreshAdSettings(){
       canCancel:o.canCancel!==false,
       shape:['rounded','square','soft'].indexOf(o.shape)>=0?o.shape:'rounded',
       width:['compact','normal','wide'].indexOf(o.width)>=0?o.width:'normal',
-      buttonText:typeof o.buttonText==='string'&&o.buttonText.trim()?o.buttonText.trim():'جارٍ تجهيز الحلقة...',
+      buttonText:typeof o.buttonText==='string'&&o.buttonText.trim()?o.buttonText.trim():'اضغط هنا لفتح الإعلان ومتابعة المشاهدة',
       overlay:Math.max(0.4,Math.min(0.98,Number(o.overlay==null?0.82:o.overlay)||0.82)),
       frequency:Math.max(0,Math.min(240,parseInt(o.frequency,10)||0))
     };
@@ -613,7 +613,7 @@ async function runWithAd(play,x){
   if(adSettings.canCancel)document.getElementById('adcancel').focus({preventScroll:true});
 }
 document.getElementById('adcancel').onclick=function(){closeAdGate(false)};
-document.getElementById('adlink').addEventListener('click',function(){adHit('clk',adCurrent)});
+document.getElementById('adlink').addEventListener('click',function(){adHit('clk',adCurrent);closeAdGate(true)});
 refreshAdSettings().then(applyAdSettings);
 /* صورة ومدة الحلقة (اختياريتين): im = رابط صورة، rt = المدة بالدقايق */
 function imOf(ep){var u=String(ep&&ep.im||'').trim();return /^https?:\/\/[^\s"'()\\]+$/i.test(u)?u:''}
