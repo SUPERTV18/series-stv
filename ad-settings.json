@@ -1,5 +1,5 @@
 {
-  "enabled": true,
+  "enabled": false,
   "url": "https://omg10.com/4/7060393",
   "duration": 8,
   "title": "إعلان قبل تشغيل الحلقة",
@@ -10,5 +10,6 @@
   "shape": "rounded",
   "width": "wide",
   "buttonText": "جارٍ تجهيز الحلقة...",
-  "overlay": 0.82
+  "overlay": 0.82,
+  "frequency": 0
 }
