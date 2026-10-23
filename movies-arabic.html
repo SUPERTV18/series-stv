@@ -316,9 +316,13 @@ body.indet .search-toggle{display:none}
 <div class="adgate" id="adgate" aria-hidden="true">
   <div class="adbox" role="dialog" aria-modal="true" aria-labelledby="adtitle">
     <div class="adhead"><strong id="adtitle">إعلان قبل تشغيل الفيلم</strong><span class="adlabel">إعلان</span></div>
-    <iframe class="adframe" id="adframe" title="الإعلان" src="about:blank" loading="eager" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-forms allow-same-origin" style="display:block"></iframe>
-    <p class="adhint">الإعلان معروض داخل التطبيق، وسيبدأ الفيلم بعد انتهاء العدّ التنازلي.</p>
-    <a id="adlink" href="https://omg10.com/4/7060393" target="_self" rel="noopener noreferrer" style="color:#22d3ee;font-size:.85rem">إعادة تحميل الإعلان داخل النافذة</a>
+    <div class="adplaceholder" id="adplaceholder" role="status" style="width:100%;height:min(42vh,330px);min-height:220px;border:1px solid var(--line);border-radius:14px;padding:20px">
+      <div class="adplaceholder-play" aria-hidden="true">▶</div>
+      <span>جارٍ تجهيز الفيلم</span>
+      <span style="font-size:.78rem;color:var(--mut);font-weight:400">سيبدأ التشغيل تلقائيًا بعد انتهاء العدّ التنازلي</span>
+    </div>
+    <p class="adhint">تم إيقاف تحميل صفحة الإعلان الخارجية لتجنب إغلاق التطبيق. يمكنك ضبط الإعلان لاحقًا عبر صفحة الإدارة إذا توفر رابط يدعم العرض المضمّن.</p>
+    <a id="adlink" href="#" style="display:none">الإعلان</a>
     <div class="adcount"><span>تشغيل الفيلم خلال</span><span class="adnum" id="adnum">5</span><span>ثوانٍ</span></div>
     <div class="adprogress" id="adprogress"><i id="adprogressFill"></i></div>
     <button type="button" class="adcancel" id="adcancel">إلغاء والعودة</button>
@@ -627,7 +631,7 @@ async function loadSeries(){
 var AD_URL='https://omg10.com/4/7060393';
 var AD_SETTINGS_URL=DATA_BASE+'ad-settings.json';
 var adSettings={enabled:true,url:AD_URL,duration:5,title:'إعلان قبل تشغيل الفيلم',accent:'#7c5cff',background:'#11111b',counterStyle:'pill',canCancel:true,shape:'rounded',width:'normal',buttonText:'جارٍ تجهيز الفيلم...',overlay:0.82,frequency:0};
-var adGate=document.getElementById('adgate'),adNum=document.getElementById('adnum'),adFrame=document.getElementById('adframe');
+var adGate=document.getElementById('adgate'),adNum=document.getElementById('adnum'),adFrame=null;
 var adTimer=null,adPending=null,adRemaining=5,adDuration=5,adCurrent=null;
 function stopAdTimer(){if(adTimer){clearInterval(adTimer);adTimer=null}}
 async function refreshAdSettings(){
@@ -676,8 +680,7 @@ function applyAdSettings(){
 function closeAdGate(continueEpisode){
   stopAdTimer();
   adGate.classList.remove('show');adGate.setAttribute('aria-hidden','true');
-  /* أوقف صفحة الإعلان عند إغلاق النافذة لتقليل احتمال تعليق WebView. */
-  if(adFrame){try{adFrame.src='about:blank'}catch(e){}}
+  /* لا توجد صفحة إعلان خارجية محمّلة داخل WebView. */
   var next=adPending;adPending=null;
   if(continueEpisode&&typeof next==='function')next();
 }
@@ -706,13 +709,9 @@ async function runWithAd(play,x){
   var progress=document.getElementById('adprogress'),fill=document.getElementById('adprogressFill');
   progress.hidden=adSettings.counterStyle!=='bar';fill.style.transform='scaleX(1)';
   adGate.classList.add('show');adGate.setAttribute('aria-hidden','false');
-  /* عرض الإعلان داخل نافذة المكتبة مع sandbox لمنع النوافذ المنبثقة والتنقل خارج التطبيق. */
-  if(adFrame){
-    try{adFrame.src='about:blank';setTimeout(function(){if(adGate.classList.contains('show'))adFrame.src=adSettings.url},80)}catch(e){}
-  }
+  /* لا تحمّل صفحة إعلان خارجية داخل WebView؛ بعض صفحات الإعلان تغلق التطبيق أو تعطل المشغّل. */
   adHit('imp',adCurrent);
-  document.getElementById('adlink').textContent='إعادة تحميل الإعلان داخل النافذة';
-  document.getElementById('adlink').onclick=function(e){e.preventDefault();if(adFrame)adFrame.src=adSettings.url;};
+  document.getElementById('adlink').onclick=function(e){e.preventDefault();};
   if(adDuration<=0){closeAdGate(true);return}
   var started=Date.now();
   adTimer=setInterval(function(){
