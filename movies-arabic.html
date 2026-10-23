@@ -603,7 +603,7 @@ function applyRows(payload){
   lockSig=lockedTotal();
   loadViews();
 }
-async async function loadSeries(){
+async function loadSeries(){
   var payload=null,cachedTxt=null,shown=false;
   try{cachedTxt=localStorage.getItem(DATA_CACHE_KEY)}catch(e){}
   if(cachedTxt){try{applyRows(JSON.parse(cachedTxt));shown=true}catch(e){shown=false}}
