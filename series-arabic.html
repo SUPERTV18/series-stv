@@ -569,15 +569,28 @@ function adHit(kind,x){
     if(x)new Image().src=cHit((kind==='imp'?'adi-':'adc-')+ckey(x));
   }catch(e){}
 }
+/* SHARED_AD_GATE_V1: عداد موحد بين صفحات المكتبة على نفس النطاق */
+var SHARED_AD_GATE_V1=true;
+var SHARED_AD_COUNT_KEY='superstv_shared_ad_nav_count_v1';
+var SHARED_AD_FIRST_KEY='superstv_shared_ad_first_play_done_v1';
+function sharedAdRead(key){try{return localStorage.getItem(key)}catch(e){return null}}
+function sharedAdWrite(key,value){try{localStorage.setItem(key,String(value))}catch(e){}}
+function trackAdNavigation(){
+  var n=parseInt(sharedAdRead(SHARED_AD_COUNT_KEY)||'0',10);
+  if(!isFinite(n)||n<0)n=0;
+  sharedAdWrite(SHARED_AD_COUNT_KEY,n+1);
+}
 async function runWithAd(play,x){
   stopAdTimer();
   await refreshAdSettings();
   if(!adSettings.enabled){play();return}
-  /* حد التكرار: لو الإعلان اتعرض للمشاهد من أقل من adSettings.frequency دقيقة، نشغّل الحلقة مباشرة */
-  if(adSettings.frequency>0){
-    var lastAd=0;try{lastAd=parseInt(localStorage.getItem('adLastShown'),10)||0}catch(e){}
-    if(lastAd&&Date.now()-lastAd<adSettings.frequency*6e4&&Date.now()>=lastAd){play();return}
-  }
+  /* أول تشغيل يحتاج إعلانًا؛ بعده إعلان كل خمس مرات فتح تفاصيل محتوى عبر جميع المكتبات */
+  var firstDone=sharedAdRead(SHARED_AD_FIRST_KEY)==='1';
+  var navCount=parseInt(sharedAdRead(SHARED_AD_COUNT_KEY)||'0',10);
+  if(!isFinite(navCount)||navCount<0)navCount=0;
+  if(firstDone&&navCount<5){play();return}
+  sharedAdWrite(SHARED_AD_COUNT_KEY,0);
+  sharedAdWrite(SHARED_AD_FIRST_KEY,'1');
   try{localStorage.setItem('adLastShown',String(Date.now()))}catch(e){}
   adPending=play;adCurrent=x||null;
   adDuration=adSettings.duration;adRemaining=adDuration;adNum.textContent=String(adRemaining);
@@ -609,7 +622,7 @@ function seasonsOf(x){return x.ss||[x.e]}
 function cnt(i,s){var d=done[i][s]||{};return Object.keys(d).filter(function(k){return d[k]}).length}
 var tt;
 function toast(m){var t=document.getElementById('toast');t.textContent=m;t.style.opacity=1;clearTimeout(tt);tt=setTimeout(function(){t.style.opacity=0},2200)}
-function show(i){
+function show(i){trackAdNavigation();
   var x=S[i],SS=seasonsOf(x),cs=0;syncDoneFromStore(i);done[i]=done[i]||{};
   var last=lastEpisode(x);if(last&&SS[last.s]&&SS[last.s][last.k])cs=last.s;
   SS.forEach(function(_,j){done[i][j]=done[i][j]||{}});
