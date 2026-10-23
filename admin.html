@@ -926,7 +926,7 @@ function adForm(){
   canCancel:$('adCanCancel').value==='true',
   shape:$('adShape').value||'rounded',
   width:$('adWidth').value||'normal',
-  buttonText:$('adButtonText').value.trim()||'جارٍ تجهيز الحلقة...',
+  buttonText:$('adButtonText').value.trim()||'اضغط هنا لفتح الإعلان ومتابعة المشاهدة',
   overlay:parseFloat($('adOverlay').value)||0.82,
   frequency:Math.max(0,Math.min(240,parseInt($('adFreq').value,10)||0))
  };
@@ -942,7 +942,7 @@ function putAdForm(o){
  $('adCanCancel').value=String(o.canCancel!==false);
  $('adShape').value=o.shape||'rounded';
  $('adWidth').value=o.width||'normal';
- $('adButtonText').value=o.buttonText||'جارٍ تجهيز الحلقة...';
+ $('adButtonText').value=o.buttonText||'اضغط هنا لفتح الإعلان ومتابعة المشاهدة';
  $('adOverlay').value=String(o.overlay==null?0.82:o.overlay);
  $('adFreq').value=Math.max(0,Math.min(240,parseInt(o.frequency,10)||0));
 }
