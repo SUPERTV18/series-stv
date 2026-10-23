@@ -1,5 +1,29 @@
 [
   {
+    "k": "movie-1792786188295",
+    "addedAt": "2026-10-23T20:09:48.295Z",
+    "img": "https://image.tmdb.org/t/p/w500/c2s9KtPxMZbX83zlQfsDylQ0HjU.jpg",
+    "t": "مش أنا",
+    "y": 2021,
+    "g": "كوميديا، دراما",
+    "r": "5.8",
+    "ac": "#7c5cff",
+    "s": 1,
+    "d": "يُصاب حسن بحالة غريبة تفقده السيطرة على يده، فيصبح مع مرور الوقت ضحية العديد من الموقف الصعبة والمحرجة، بينما يرفض كل من حوله تصديق حالته.",
+    "ss": [
+      [
+        {
+          "t": "مش أنا",
+          "u": "https://mbc-aws-ksa.mncdn.com/out/v1/6e08bd89da714517bb7e4b02ae2dc524/ad8fa5701f074eeea3ba16afa067a2a6/760159159f3346818154e9bf14f9728b/manifest.mpd?aws.manifestfilter=video_height:144-720;video_codec:H264&video_height=144-720&video_codec=H264",
+          "key": "https://clkey.vercel.app/api/results.php?keyid=063a8b70a99f4c88b257fc3aac711b0b&key=af752a37a0595ffc6ae5dcf9617513b8"
+        }
+      ]
+    ],
+    "dur": 93,
+    "co": "Egypt",
+    "bg": "https://image.tmdb.org/t/p/w1280/5epmQjwWTY1el7b5i8HGXwUv2yJ.jpg"
+  },
+  {
     "k": "movie-1792409071761",
     "addedAt": "2026-10-19T11:24:31.761Z",
     "img": "https://image.tmdb.org/t/p/w500/2V2CvncmHamx9cvYnXSWFzY1kqb.jpg",
