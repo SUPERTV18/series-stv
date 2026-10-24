@@ -318,12 +318,14 @@ body.indet .search-toggle{display:none}
     <div class="adhead"><strong id="adtitle">إعلان قبل تشغيل الفيلم</strong><span class="adlabel">إعلان</span></div>
     <div class="adplaceholder" id="adplaceholder" role="status" style="width:100%;height:min(42vh,330px);min-height:220px;border:1px solid var(--line);border-radius:14px;padding:20px">
       <div class="adplaceholder-play" aria-hidden="true">▶</div>
-      <span>جارٍ تجهيز الفيلم</span>
-      <span style="font-size:.78rem;color:var(--mut);font-weight:400">سيبدأ التشغيل تلقائيًا بعد انتهاء العدّ التنازلي</span>
+      <span id="adPrompt">اضغط على الإعلان مرة واحدة للمتابعة</span>
+      <span id="adSubPrompt" style="font-size:.78rem;color:var(--mut);font-weight:400">سيظهر الإعلان في نافذة داخل الصفحة، ثم يبدأ الفيلم تلقائيًا</span>
+      <iframe id="adframe" title="الإعلان" class="adframe" src="about:blank" style="display:none;height:100%;min-height:180px" loading="eager" referrerpolicy="no-referrer" allow="autoplay"></iframe>
     </div>
-    <p class="adhint">تم إيقاف تحميل صفحة الإعلان الخارجية لتجنب إغلاق التطبيق. يمكنك ضبط الإعلان لاحقًا عبر صفحة الإدارة إذا توفر رابط يدعم العرض المضمّن.</p>
+    <button type="button" class="btn" id="adOpen" style="width:100%;justify-content:center;margin-top:12px">اضغط هنا لفتح الإعلان ومتابعة المشاهدة</button>
+    <p class="adhint" id="adHint">اضغط مرة واحدة؛ سيُعرض الإعلان داخل النافذة إن كان الموقع يسمح بالتضمين.</p>
     <a id="adlink" href="#" style="display:none">الإعلان</a>
-    <div class="adcount"><span>تشغيل الفيلم خلال</span><span class="adnum" id="adnum">5</span><span>ثوانٍ</span></div>
+    <div class="adcount" id="adcount" hidden><span>تشغيل الفيلم خلال</span><span class="adnum" id="adnum">5</span><span>ثوانٍ</span></div>
     <div class="adprogress" id="adprogress"><i id="adprogressFill"></i></div>
     <button type="button" class="adcancel" id="adcancel">إلغاء والعودة</button>
   </div>
@@ -631,7 +633,7 @@ async function loadSeries(){
 var AD_URL='https://omg10.com/4/7060393';
 var AD_SETTINGS_URL=DATA_BASE+'ad-settings.json';
 var adSettings={enabled:true,url:AD_URL,duration:5,title:'إعلان قبل تشغيل الفيلم',accent:'#7c5cff',background:'#11111b',counterStyle:'pill',canCancel:true,shape:'rounded',width:'normal',buttonText:'جارٍ تجهيز الفيلم...',overlay:0.82,frequency:0};
-var adGate=document.getElementById('adgate'),adNum=document.getElementById('adnum'),adFrame=null;
+var adGate=document.getElementById('adgate'),adNum=document.getElementById('adnum'),adFrame=document.getElementById('adframe'),adStarted=false;
 var adTimer=null,adPending=null,adRemaining=5,adDuration=5,adCurrent=null;
 function stopAdTimer(){if(adTimer){clearInterval(adTimer);adTimer=null}}
 async function refreshAdSettings(){
@@ -680,7 +682,13 @@ function applyAdSettings(){
 function closeAdGate(continueEpisode){
   stopAdTimer();
   adGate.classList.remove('show');adGate.setAttribute('aria-hidden','true');
-  /* لا توجد صفحة إعلان خارجية محمّلة داخل WebView. */
+  if(adFrame)adFrame.src='about:blank';
+  adStarted=false;
+  document.getElementById('adOpen').hidden=false;
+  document.getElementById('adcount').hidden=true;
+  document.getElementById('adplaceholder').style.display='flex';
+  document.getElementById('adPrompt').textContent='اضغط على الإعلان مرة واحدة للمتابعة';
+  document.getElementById('adSubPrompt').textContent='سيظهر الإعلان في نافذة داخل الصفحة، ثم يبدأ الفيلم تلقائيًا';
   var next=adPending;adPending=null;
   if(continueEpisode&&typeof next==='function')next();
 }
@@ -714,17 +722,33 @@ async function runWithAd(play,x){
   if(!isFinite(navCount)||navCount<0)navCount=0;
   if(firstDone&&navCount<5){play();return}
   sharedAdWrite(SHARED_AD_COUNT_KEY,0);
-  sharedAdWrite(SHARED_AD_FIRST_KEY,'1');
-  try{localStorage.setItem('adLastShown',String(Date.now()))}catch(e){}
   adPending=play;adCurrent=x||null;
   adDuration=adSettings.duration;adRemaining=adDuration;adNum.textContent=String(adRemaining);
   applyAdSettings();
+  document.getElementById('adOpen').hidden=false;
+  document.getElementById('adcount').hidden=true;
+  document.getElementById('adplaceholder').style.display='flex';
+  adFrame.src='about:blank';
+  var progress=document.getElementById('adprogress'),fill=document.getElementById('adprogressFill');
+  progress.hidden=true;fill.style.transform='scaleX(1)';
+  adGate.classList.add('show');adGate.setAttribute('aria-hidden','false');
+  if(adSettings.canCancel)document.getElementById('adcancel').focus({preventScroll:true});
+}
+document.getElementById('adOpen').onclick=function(){
+  if(adStarted)return;
+  adStarted=true;
+  adHit('imp',adCurrent);adHit('clk',adCurrent);
+  sharedAdWrite(SHARED_AD_FIRST_KEY,'1');
+  try{localStorage.setItem('adLastShown',String(Date.now()))}catch(e){}
+  document.getElementById('adOpen').hidden=true;
+  document.getElementById('adcount').hidden=false;
+  document.getElementById('adplaceholder').style.display='block';
+  document.getElementById('adPrompt').textContent='الإعلان مفتوح داخل النافذة';
+  document.getElementById('adSubPrompt').textContent='سيبدأ الفيلم تلقائيًا بعد انتهاء العدّ التنازلي';
+  adFrame.style.display='block';adFrame.src=adSettings.url;
+  adDuration=adSettings.duration;adRemaining=adDuration;adNum.textContent=String(adRemaining);
   var progress=document.getElementById('adprogress'),fill=document.getElementById('adprogressFill');
   progress.hidden=adSettings.counterStyle!=='bar';fill.style.transform='scaleX(1)';
-  adGate.classList.add('show');adGate.setAttribute('aria-hidden','false');
-  /* لا تحمّل صفحة إعلان خارجية داخل WebView؛ بعض صفحات الإعلان تغلق التطبيق أو تعطل المشغّل. */
-  adHit('imp',adCurrent);
-  document.getElementById('adlink').onclick=function(e){e.preventDefault();};
   if(adDuration<=0){closeAdGate(true);return}
   var started=Date.now();
   adTimer=setInterval(function(){
@@ -734,10 +758,9 @@ async function runWithAd(play,x){
     fill.style.transform='scaleX('+Math.max(0,1-elapsed/adDuration)+')';
     if(adRemaining<=0)closeAdGate(true);
   },200);
-  if(adSettings.canCancel)document.getElementById('adcancel').focus({preventScroll:true});
-}
+};
 document.getElementById('adcancel').onclick=function(){closeAdGate(false)};
-document.getElementById('adlink').addEventListener('click',function(){adHit('clk',adCurrent);closeAdGate(true)});
+document.getElementById('adlink').addEventListener('click',function(){adHit('clk',adCurrent)});
 refreshAdSettings().then(applyAdSettings);
 /* صورة ومدة الحلقة (اختياريتين): im = رابط صورة، rt = المدة بالدقايق */
 function imOf(ep){var u=String(ep&&ep.im||'').trim();return /^https?:\/\/[^\s"'()\\]+$/i.test(u)?u:''}
