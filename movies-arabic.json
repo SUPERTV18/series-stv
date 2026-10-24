@@ -87,7 +87,7 @@
       [
         {
           "t": "مش أنا",
-          "u": "https://mbc-aws-ksa.mncdn.com/out/v1/6e08bd89da714517bb7e4b02ae2dc524/ad8fa5701f074eeea3ba16afa067a2a6/760159159f3346818154e9bf14f9728b/manifest.mpd?aws.manifestfilter=video_height:144-720;video_codec:H264&video_height=144-720&video_codec=H264",
+          "u": "https://mbc-aws-ksa.mncdn.com/out/v1/6e08bd89da714517bb7e4b02ae2dc524/ad8fa5701f074eeea3ba16afa067a2a6/760159159f3346818154e9bf14f9728b/manifest.mpd",
           "key": "https://clkey.vercel.app/api/results.php?keyid=063a8b70a99f4c88b257fc3aac711b0b&key=af752a37a0595ffc6ae5dcf9617513b8"
         }
       ]
