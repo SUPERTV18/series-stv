@@ -27,7 +27,7 @@
 <h1>إدارة مكتبة المسلسلات</h1><p class="sub">إدارة كل أقسام المكتبة من صفحة واحدة، مع ملف JSON مستقل لكل قسم.</p>
 <section class="panel" id="pConnect"><h2>1) الاتصال بمستودع GitHub</h2>
 <p class="hint">أدخل بيانات مستودع المسلسلات الجديد. اختر القسم الذي تريد إدارته؛ كل قسم يُحفظ في ملف مستقل. أنشئ Fine-grained Personal Access Token بصلاحية Contents: Read and write لهذا المستودع فقط. الرمز لا يُحفظ داخل الصفحة أو على GitHub.</p>
-<div class="grid"><label class="field">اسم مستخدم GitHub<input id="owner" value="SUPERTV18" placeholder="اسم حسابك" autocomplete="off"></label><label class="field">اسم المستودع<input id="repo" value="series-stv" autocomplete="off"></label><label class="field">الفرع<input id="branch" value="main" autocomplete="off"></label><label class="field">القسم / ملف JSON<select id="path"><option value="series-arabic.json">المسلسلات العربية</option><option value="series-foreign.json">المسلسلات الأجنبية</option><option value="series-turkish.json">المسلسلات التركية</option><option value="series-korean.json">المسلسلات الكورية</option><option value="series-ramadan.json">مسلسلات رمضان</option><option value="movies-arabic.json">أفلام عربي</option><option value="movies-foreign.json">أفلام أجنبي</option><option value="movies-anime.json">أنمي وكرتون</option><option value="movies-asian.json">أفلام هندي · تركي · كوري</option><option value="programs.json">البرامج</option><option value="wrestling.json">المصارعة</option></select></label><label class="field full">GitHub Token (لا تشاركه مع أحد)<input id="token" type="password" autocomplete="off" placeholder="github_pat_…"><label class="remember-row" for="rememberToken"><input id="rememberToken" type="checkbox"><span>حفظ التوكن على هذا الجهاز والمتصفح</span></label><small style="color:var(--mut)">فعّل علامة الصح لو الجهاز خاص بيك فقط. التوكن المحفوظ قد يتمكن أي شخص يستخدم نفس المتصفح من الوصول إليه.</small></label><label class="field full">مفتاح TMDB (اختياري، لملء بيانات المسلسل تلقائيًا)<input id="tmdbKey" type="password" autocomplete="off" placeholder="API key (v3)"></label></div>
+<div class="grid"><label class="field">اسم مستخدم GitHub<input id="owner" value="SUPERTV18" placeholder="اسم حسابك" autocomplete="off"></label><label class="field">اسم المستودع<input id="repo" value="series-stv" autocomplete="off"></label><label class="field">الفرع<input id="branch" value="main" autocomplete="off"></label><label class="field">القسم / ملف JSON<select id="path"><option value="series-arabic.json">المسلسلات العربية</option><option value="series-foreign.json">المسلسلات الأجنبية</option><option value="series-turkish.json">المسلسلات التركية</option><option value="series-korean.json">المسلسلات الكورية</option><option value="series-indian.json">المسلسلات الهندية</option><option value="series-ramadan.json">مسلسلات رمضان</option><option value="movies-arabic.json">أفلام عربي</option><option value="movies-foreign.json">أفلام أجنبي</option><option value="movies-anime.json">أنمي وكرتون</option><option value="movies-indian.json">أفلام هندية</option><option value="movies-turkish.json">أفلام تركية</option><option value="movies-korean.json">أفلام كورية</option><option value="programs.json">البرامج</option><option value="wrestling.json">المصارعة</option></select></label><label class="field full">GitHub Token (لا تشاركه مع أحد)<input id="token" type="password" autocomplete="off" placeholder="github_pat_…"><label class="remember-row" for="rememberToken"><input id="rememberToken" type="checkbox"><span>حفظ التوكن على هذا الجهاز والمتصفح</span></label><small style="color:var(--mut)">فعّل علامة الصح لو الجهاز خاص بيك فقط. التوكن المحفوظ قد يتمكن أي شخص يستخدم نفس المتصفح من الوصول إليه.</small></label><label class="field full">مفتاح TMDB (اختياري، لملء بيانات المسلسل تلقائيًا)<input id="tmdbKey" type="password" autocomplete="off" placeholder="API key (v3)"></label></div>
 <div class="actions"><button class="btn" id="connect">اتصال / تحميل البيانات</button><button class="btn secondary" id="clearToken">مسح الرمز من الصفحة</button></div>
 <div id="status" class="status" role="status">غير متصل. أدخل الرمز واضغط اتصال.</div>
 </section>
@@ -166,7 +166,7 @@ function drawList(){var host=$('seriesList');if(!series.length){host.innerHTML='
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'\x26amp;','<':'\x26lt;','>':'\x26gt;','"':'\x26quot;',"'":'\x26#39;'}[c]})}
 /* ===== المشاهدات (خدمة Abacus): COUNTER_NS لازم يطابق اللي في صفحة كل قسم (3 حروف على الأقل) ===== */
 var COUNTER_BASE='https://abacus.jasoncameron.dev/';
-var COUNTER_NS={'series-arabic.json':'seties-arabic','series-foreign.json':'seties-foreign','series-turkish.json':'seties-turkish','series-korean.json':'seties-korean','series-ramadan.json':'seties-ramadan','movies-arabic.json':'movies-arabic','movies-foreign.json':'movies-foreign','movies-anime.json':'movies-anime','movies-asian.json':'movies-asian','programs.json':'seties-programs','wrestling.json':'movies-wrestling'};
+var COUNTER_NS={'series-arabic.json':'seties-arabic','series-foreign.json':'seties-foreign','series-turkish.json':'seties-turkish','series-korean.json':'seties-korean','series-ramadan.json':'seties-ramadan','series-indian.json':'seties-indian','movies-arabic.json':'movies-arabic','movies-foreign.json':'movies-foreign','movies-anime.json':'movies-anime','movies-indian.json':'movies-indian','movies-turkish.json':'movies-turkish','movies-korean.json':'movies-korean','programs.json':'seties-programs','wrestling.json':'movies-wrestling'};
 var viewsBusy=false;
 function hash36(t){var h=5381;for(var i=0;i<t.length;i++)h=((h<<5)+h+t.charCodeAt(i))>>>0;return h.toString(36)}
 function ckey(x){var k=x.k?String(x.k).toLowerCase().replace(/[^a-z0-9_-]+/g,'-').replace(/^-+|-+$/g,''):'';return (k||('h'+hash36(String(x.t)))).slice(0,40)}
@@ -528,7 +528,7 @@ body{display:flex;align-items:stretch;background:radial-gradient(60% 30% at 70% 
 <script>
 (function(){
 'use strict';
-var F=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-asian.json','أفلام آسيوي'],['programs.json','البرامج'],['wrestling.json','المصارعة']],D={},loaded=false;
+var F=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري'],['series-indian.json','هندي'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-indian.json','أفلام هندية'],['movies-turkish.json','أفلام تركية'],['movies-korean.json','أفلام كورية'],['programs.json','البرامج'],['wrestling.json','المصارعة']],D={},loaded=false;
 var main=document.querySelector('.wrap'),g=function(i){return document.getElementById(i)};
 /* الهيدر: ننقل العنوان الأصلي بدل حذفه */
 var h1=main.querySelector('h1'),sub=main.querySelector('.sub'),hd0=document.createElement('div');hd0.className='xhead';
@@ -679,7 +679,7 @@ if(token)setTimeout(load,600);
 (function(){
 'use strict';
 var main=document.querySelector('.wrap'),g=function(i){return document.getElementById(i)};
-var FILES=[['series-arabic.json','المسلسلات العربية'],['series-foreign.json','المسلسلات الأجنبية'],['series-turkish.json','المسلسلات التركية'],['series-korean.json','المسلسلات الكورية'],['series-ramadan.json','مسلسلات رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي وكرتون'],['movies-asian.json','أفلام هندي · تركي · كوري'],['programs.json','البرامج'],['wrestling.json','المصارعة']];
+var FILES=[['series-arabic.json','المسلسلات العربية'],['series-foreign.json','المسلسلات الأجنبية'],['series-turkish.json','المسلسلات التركية'],['series-korean.json','المسلسلات الكورية'],['series-indian.json','المسلسلات الهندية'],['series-ramadan.json','مسلسلات رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي وكرتون'],['movies-indian.json','أفلام هندية'],['movies-turkish.json','أفلام تركية'],['movies-korean.json','أفلام كورية'],['programs.json','البرامج'],['wrestling.json','المصارعة']];
 var sec=document.createElement('section');sec.id='pTools';sec.style.display='none';
 sec.innerHTML='<h2 style="margin:0 0 4px">أدوات متقدمة</h2><p class="hint" id="tCur"></p><div class="xgrid" style="grid-template-columns:repeat(2,minmax(0,1fr))">'+
 '<div class="xc"><h3><span class="xn">1</span>نقل مسلسل بين الأقسام</h3><p>بينقل المسلسل لقسم تاني ويحذفه من القسم الحالي. عدّادات المشاهدة والبلاغات بتبدأ من صفر في القسم الجديد.</p><select id="tMvS"></select><select id="tMvT"></select><div class="actions"><button class="btn" id="tMvB" type="button">نقل المسلسل</button></div></div>'+
@@ -1199,7 +1199,7 @@ document.addEventListener('keydown',function(e){
 (function(){
 'use strict';
 var g=function(i){return document.getElementById(i)};
-var GF=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-asian.json','أفلام آسيوي'],['programs.json','البرامج'],['wrestling.json','المصارعة']];
+var GF=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري'],['series-indian.json','هندي'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-indian.json','أفلام هندية'],['movies-turkish.json','أفلام تركية'],['movies-korean.json','أفلام كورية'],['programs.json','البرامج'],['wrestling.json','المصارعة']];
 function fileLabel(p){var f=GF.filter(function(x){return x[0]===p})[0];return f?f[1]:p}
 function epCount(x){return (x.ss||[]).reduce(function(n,s){return n+s.length},0)}
 function fire(el){try{el.dispatchEvent(new Event('input',{bubbles:true}))}catch(e){}}
@@ -1637,7 +1637,7 @@ if(rp&&rbtn){
 var g=function(i){return document.getElementById(i)};
 var host=g('pAdSettings');
 if(!host)return;
-var SEC=[['series-arabic.json','العربية'],['series-foreign.json','الأجنبية'],['series-turkish.json','التركية'],['series-korean.json','الكورية'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-asian.json','أفلام آسيوي'],['programs.json','البرامج'],['wrestling.json','المصارعة']];
+var SEC=[['series-arabic.json','العربية'],['series-foreign.json','الأجنبية'],['series-turkish.json','التركية'],['series-korean.json','الكورية'],['series-indian.json','هندي'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-indian.json','أفلام هندية'],['movies-turkish.json','أفلام تركية'],['movies-korean.json','أفلام كورية'],['programs.json','البرامج'],['wrestling.json','المصارعة']];
 
 var box=document.createElement('div');
 box.id='adStatsBox';box.style.cssText='margin-top:22px;border-top:1px dashed var(--line);padding-top:16px';
@@ -1751,7 +1751,7 @@ g('path').addEventListener('change',function(){g('asDay').innerHTML='';g('asDayH
 var g=function(i){return document.getElementById(i)};
 var host=g('pTools');
 if(!host)return;
-var GF=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-asian.json','أفلام آسيوي'],['programs.json','البرامج'],['wrestling.json','المصارعة']];
+var GF=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['series-turkish.json','تركي'],['series-korean.json','كوري'],['series-indian.json','هندي'],['series-ramadan.json','رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-indian.json','أفلام هندية'],['movies-turkish.json','أفلام تركية'],['movies-korean.json','أفلام كورية'],['programs.json','البرامج'],['wrestling.json','المصارعة']];
 function fl(p){var f=GF.filter(function(x){return x[0]===p})[0];return f?f[1]:p}
 function eps(x){return (x.ss||[]).reduce(function(n,s){return n+((s&&s.length)||0)},0)}
 
