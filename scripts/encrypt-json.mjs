@@ -12,7 +12,8 @@ function sfc32(a,b,c,d){return function(){a>>>=0;b>>>=0;c>>>=0;d>>>=0;var t=(a+b
 function keystream(key,nonce){var s=xmur3(key+':'+nonce),g=sfc32(s(),s(),s(),s()),buf=0,left=0;for(var i=0;i<12;i++)g();return function(){if(!left){buf=g();left=4}left--;var b=buf&255;buf>>>=8;return b}}
 
 const ENCRYPT = ['series-arabic.json','series-foreign.json','series-turkish.json','series-korean.json','series-ramadan.json',
-                 'movies-arabic.json','movies-foreign.json','movies-anime.json','movies-asian.json'];
+                 'movies-arabic.json','movies-foreign.json','movies-anime.json','movies-asian.json',
+                 'programs.json','wrestling.json','series-indian.json','movies-indian.json','movies-turkish.json','movies-korean.json'];
 const PLAIN = ['ad-settings.json'];            // بتتنسخ زي ما هي
 fs.rmSync('dist', { recursive: true, force: true });
 fs.mkdirSync('dist', { recursive: true });
