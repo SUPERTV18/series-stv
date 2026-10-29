@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0a0a12"><title>إدارة مكتبة المسلسلات</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:dark;--bg:#0a0a12;--card:#14141f;--card2:#1e1e2e;--line:#303047;--fg:#f5f4fa;--mut:#aaa7bf;--ac:#7c5cff;--bad:#9e3047;--ok:#237f60}*{box-sizing:border-box}body{margin:0;background:radial-gradient(70% 35% at 50% 0, #31205f 0, transparent 70%),var(--bg);color:var(--fg);font:16px/1.7 Cairo,Tahoma,sans-serif}.wrap{max-width:950px;margin:auto;padding:24px 14px 60px}h1{font-size:1.7rem;margin:0 0 4px}h2{font-size:1.15rem;margin:0 0 10px}.sub,.hint{color:var(--mut);font-size:.9rem;margin:0 0 16px}.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:5px;font-size:.9rem;min-width:0}.full{grid-column:1/-1}.remember-row{display:flex;flex-direction:row;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card2);cursor:pointer}.remember-row input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:20px;height:20px;flex:none;margin:0;accent-color:var(--ac);cursor:pointer}.remember-row span{display:block}input,textarea,select{width:100%;background:#0d0d17;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:11px;font:inherit;min-width:0}textarea{min-height:135px;resize:vertical}input:focus,textarea:focus{outline:2px solid #7c5cff66;border-color:var(--ac)}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.btn{border:0;border-radius:10px;background:var(--ac);color:white;padding:9px 16px;font:700 .9rem Cairo;cursor:pointer}.btn.secondary{background:var(--card2);border:1px solid var(--line)}.btn.danger{background:var(--bad)}.btn:disabled{opacity:.5;cursor:wait}.status{white-space:pre-wrap;overflow-wrap:anywhere;border-radius:10px;padding:10px 12px;background:#0d0d17;border:1px solid var(--line);font-size:.9rem}.status.ok{border-color:var(--ok)}.status.bad{border-color:var(--bad)}.series{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.series:last-child{border-bottom:0}.series small{display:block;color:var(--mut)}.series .btn{flex:none}.warning{border-right:3px solid #d6a23a;padding:8px 12px;background:#d6a23a12;border-radius:8px;font-size:.88rem;color:#f0d9a5}.season-box{border:1px solid var(--line);background:#10101a;border-radius:12px;padding:12px;margin-top:12px}.season-head,.episode-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.season-title{font-weight:800}.episode-box{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;background:var(--card)}.episode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.episode-grid .field{font-size:.85rem}.episode-grid input{font-size:.9rem}.mini-btn{border:1px solid var(--line);background:var(--card2);color:var(--fg);border-radius:8px;padding:6px 10px;font:600 .85rem Cairo;cursor:pointer}.mini-btn.danger{background:var(--bad)}code{direction:ltr;unicode-bidi:embed;overflow-wrap:anywhere}@media(max-width:620px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.panel{padding:14px}.episode-grid{grid-template-columns:1fr}}
+:root{color-scheme:dark;--bg:#080808;--card:#111111;--card2:#191919;--line:#393126;--fg:#f7f2e7;--mut:#b6ad9b;--ac:#d7b15a;--bad:#a33c42;--ok:#45896b}*{box-sizing:border-box}body{margin:0;background:radial-gradient(70% 35% at 50% 0, #31205f 0, transparent 70%),var(--bg);color:var(--fg);font:16px/1.7 Cairo,Tahoma,sans-serif}.wrap{max-width:950px;margin:auto;padding:24px 14px 60px}h1{font-size:1.7rem;margin:0 0 4px}h2{font-size:1.15rem;margin:0 0 10px}.sub,.hint{color:var(--mut);font-size:.9rem;margin:0 0 16px}.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:5px;font-size:.9rem;min-width:0}.full{grid-column:1/-1}.remember-row{display:flex;flex-direction:row;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card2);cursor:pointer}.remember-row input[type=checkbox]{appearance:auto;-webkit-appearance:checkbox;width:20px;height:20px;flex:none;margin:0;accent-color:var(--ac);cursor:pointer}.remember-row span{display:block}input,textarea,select{width:100%;background:#0d0d17;color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:11px;font:inherit;min-width:0}textarea{min-height:135px;resize:vertical}input:focus,textarea:focus{outline:2px solid #7c5cff66;border-color:var(--ac)}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}.btn{border:0;border-radius:10px;background:var(--ac);color:white;padding:9px 16px;font:700 .9rem Cairo;cursor:pointer}.btn.secondary{background:var(--card2);border:1px solid var(--line)}.btn.danger{background:var(--bad)}.btn:disabled{opacity:.5;cursor:wait}.status{white-space:pre-wrap;overflow-wrap:anywhere;border-radius:10px;padding:10px 12px;background:#0d0d17;border:1px solid var(--line);font-size:.9rem}.status.ok{border-color:var(--ok)}.status.bad{border-color:var(--bad)}.series{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.series:last-child{border-bottom:0}.series small{display:block;color:var(--mut)}.series .btn{flex:none}.warning{border-right:3px solid #d6a23a;padding:8px 12px;background:#d6a23a12;border-radius:8px;font-size:.88rem;color:#f0d9a5}.season-box{border:1px solid var(--line);background:#10101a;border-radius:12px;padding:12px;margin-top:12px}.season-head,.episode-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.season-title{font-weight:800}.episode-box{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;background:var(--card)}.episode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}.episode-grid .field{font-size:.85rem}.episode-grid input{font-size:.9rem}.mini-btn{border:1px solid var(--line);background:var(--card2);color:var(--fg);border-radius:8px;padding:6px 10px;font:600 .85rem Cairo;cursor:pointer}.mini-btn.danger{background:var(--bad)}code{direction:ltr;unicode-bidi:embed;overflow-wrap:anywhere}@media(max-width:620px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.panel{padding:14px}.episode-grid{grid-template-columns:1fr}}
 .vstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0}.vst{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}.vst small{display:block;color:var(--mut);font-size:.8rem}.vst b{display:block;font-size:1.25rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vrow{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.vrow:last-child{border-bottom:0}.vrow .nm{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.vrow .num{font-weight:800;color:#ffd166}.vbar{grid-column:1/-1;height:5px;background:var(--line);border-radius:3px;overflow:hidden}.vbar i{display:block;height:100%;background:var(--ac)}.vkey{grid-column:1/-1;color:var(--mut);font-size:.75rem;direction:ltr;text-align:right}.vep{grid-column:1/-1;margin-top:4px;border-top:1px dashed var(--line);padding-top:6px}.vep h4{margin:8px 0 4px;font-size:.85rem;color:var(--mut)}.vepr{display:flex;justify-content:space-between;gap:10px;font-size:.85rem;padding:2px 0}.vepr span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:left}.vepr b{color:#ffd166}.vep[hidden]{display:none}@media(max-width:620px){.vstats{grid-template-columns:1fr}}
 .sitem{border-bottom:1px solid var(--line);padding:8px 0}.sitem:last-child{border-bottom:0}.srow{display:flex;align-items:center;gap:8px;border-radius:12px;padding:6px 8px;border:1px solid transparent}.srow.pinned{border-color:var(--ac);background:#7c5cff10}.srow.dim .stt{opacity:.55}.srow.dragging{opacity:.5;border-color:var(--ac)}.stt{flex:1;min-width:0}.stt strong{display:inline-block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:middle}.stt small{display:block;color:var(--mut)}.grip{width:22px;flex:none;display:flex;justify-content:center;color:var(--mut);cursor:grab;touch-action:none;user-select:none;padding:8px 0}.grip svg{width:16px;height:16px;fill:currentColor}.ib{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--card2);color:var(--fg);display:inline-flex;align-items:center;justify-content:center;flex:none;cursor:pointer;padding:0}.ib svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.ib.on{background:var(--ac);border-color:var(--ac)}.tg{display:inline-block;font-size:.7rem;padding:0 8px;border-radius:999px;margin-inline-start:6px;vertical-align:middle;font-weight:600}.tp{background:#7c5cff33;color:#c9bcff}.th{background:#9e304755;color:#ffb3c0}.ts{background:#d6a23a30;color:#f0d9a5}.sitem .actions{margin-top:0;justify-content:flex-end}.sched{margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#10101a}.sched[hidden]{display:none}.dropline{height:0;border-top:2px dashed var(--ac);margin:2px 4px}.bkcmp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}.bkcmp div{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.85rem;color:var(--mut)}.bkcmp b{display:block;color:var(--fg);font-size:1.1rem}
 .undo{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid #d6a23a;background:#d6a23a12;border-radius:10px;padding:8px 12px;margin-bottom:10px;font-size:.88rem;color:#f0d9a5}.bulk{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;border:1px solid var(--ac);background:#7c5cff1c;border-radius:10px;padding:8px 12px;margin-bottom:10px}[hidden]{display:none!important}.sel{width:20px;height:20px;flex:none;margin:0;accent-color:var(--ac);cursor:pointer}.sugg{border:1px solid var(--line);background:var(--card2);border-radius:12px;padding:6px}.sg{display:flex;gap:10px;align-items:center;padding:6px;border-radius:10px;border:1px solid transparent;cursor:pointer}.sg.sel{background:#7c5cff26;border-color:var(--ac)}.sg b{display:block;font-size:.92rem;direction:ltr;text-align:right}.sg small{color:var(--mut)}.sgp{width:34px;height:48px;border-radius:6px;background:#303047 center/cover no-repeat;flex:none}.chk{border:1px solid var(--line);background:var(--card2);border-radius:12px;padding:10px 12px;margin-top:10px}.chkh{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px}.chkh .mini-btn{margin-inline-start:auto}.chkr{display:flex;align-items:center;gap:8px;padding:6px 8px;border:1px solid var(--line);background:#10101a;border-radius:8px;margin-top:6px;font-size:.88rem}.chkr .dot{width:10px;height:10px;border-radius:50%;flex:none}.chkr .tx{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chkr small{color:var(--mut)}.pgb{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:6px 0 10px}.pgb i{display:block;height:100%;background:var(--ac);width:0;transition:width .2s}.rep{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border:1px solid var(--line);background:var(--card2);border-radius:12px;padding:10px 12px;margin-top:8px}.rep .rt{flex:1;min-width:160px}.rep .rt small{display:block;color:var(--mut)}
@@ -22,7 +22,92 @@
 .ad-mock-footer{font-size:11px;text-align:center;margin-top:10px;opacity:.75}
 .ad-preview-caption{font-size:12px;color:var(--mut);margin-top:10px}
 @media(max-width:800px){.ad-editor-grid{grid-template-columns:1fr}.ad-design-preview{position:static}}
-</style></head>
+</style>
+<style id="superTvCriticalBoot">
+html{background:#080808}
+body:not(.st-ready){visibility:hidden!important}
+body.st-ready{visibility:visible!important}
+</style>
+
+<style id="superTvProStyles">
+/* SUPER TV ADMIN — full structural redesign */
+#superTvProStyles{display:none}
+:root{--bg:#07090d;--card:#10151d;--card2:#151c26;--line:#273342;--fg:#f4f6fa;--mut:#9aa8b9;--ac:#e0b95e;--ac2:#fff0b8;--nav:#0b1017}
+html,body{min-height:100%;background:#07090d!important}
+body{background:radial-gradient(ellipse at 82% -10%,#302610 0,transparent 34%),radial-gradient(ellipse at 8% 25%,#102538 0,transparent 32%),#07090d!important}
+.super-shell{display:grid;grid-template-columns:252px minmax(0,1fr);min-height:100vh;direction:rtl}
+.super-sidebar{position:sticky;top:0;height:100vh;padding:24px 15px;background:rgba(9,13,19,.96);border-left:1px solid #273342;display:flex;flex-direction:column;gap:22px;z-index:20}
+.super-brand{display:flex;align-items:center;gap:12px;padding:6px 8px 20px;border-bottom:1px solid #273342}
+.super-logo{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,#ffe9a1,#bd8b2d);color:#111;font-weight:900;font-size:19px;box-shadow:0 8px 28px #d8ad4b25}
+.super-brand strong{display:block;font-size:17px;letter-spacing:1px;color:#fff}
+.super-brand small{color:#9ba9b9;font-size:11px;letter-spacing:1.5px}
+.super-nav-label{font-size:10px;letter-spacing:1.7px;color:#647386;padding:0 12px;margin-bottom:-12px}
+.super-nav{display:grid;gap:6px}
+.super-nav button{display:flex;align-items:center;gap:12px;width:100%;padding:12px 13px;border:1px solid transparent;border-radius:12px;background:transparent;color:#a9b5c4;font:700 13px Cairo,Tahoma,sans-serif;text-align:right;cursor:pointer;transition:.18s}
+.super-nav button .nav-ico{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#17202b;color:#c6d1df;font-size:15px}
+.super-nav button:hover{background:#141c26;color:#fff}
+.super-nav button.active{background:linear-gradient(100deg,#d8b15b20,#d8b15b08);border-color:#b88f3e70;color:#ffe5a0}
+.super-nav button.active .nav-ico{background:#d8b15b;color:#14110a}
+.super-side-foot{margin-top:auto;border:1px solid #263442;background:#101721;border-radius:14px;padding:13px;color:#9aa9b8;font-size:11px}
+.super-side-foot b{display:block;color:#e4c878;font-size:12px;margin-bottom:4px}
+.super-main{min-width:0;padding:28px clamp(14px,3vw,42px) 60px}
+.super-topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:25px}
+.super-breadcrumb{font-size:12px;color:#8291a2}.super-breadcrumb b{color:#f0d18a}
+.super-topright{display:flex;align-items:center;gap:9px}
+.super-live-dot{width:8px;height:8px;background:#55d49b;border-radius:50%;box-shadow:0 0 12px #55d49b80;display:inline-block;margin-left:7px}
+.super-version{border:1px solid #293847;background:#111923;border-radius:9px;padding:7px 11px;color:#aab7c7;font-size:11px}
+.super-content{max-width:1500px;margin:auto}
+.super-page{display:none;animation:superFade .22s ease}.super-page.active{display:block}
+@keyframes superFade{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}
+.super-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(190px,.7fr);gap:20px;align-items:center;padding:clamp(22px,3vw,38px);margin:0 0 22px;border:1px solid #6d572b;border-radius:24px;background:linear-gradient(110deg,#171811 0%,#17150e 45%,#111923 100%);box-shadow:0 18px 60px #0004}
+.super-hero:after{content:"";position:absolute;width:310px;height:310px;border:1px solid #e0b95e24;border-radius:50%;left:-70px;top:-170px;box-shadow:0 0 0 32px #e0b95e08,0 0 0 65px #e0b95e05}
+.super-kicker{color:#e1bd66;font-size:11px;letter-spacing:2.3px;font-weight:800}
+.super-hero h1{font-size:clamp(25px,3vw,39px);line-height:1.3;margin:8px 0 10px;color:#fff}
+.super-hero p{color:#a9b3c0;margin:0;max-width:590px;font-size:13px}
+.super-hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}
+.super-hero-art{position:relative;z-index:1;justify-self:center;width:min(100%,270px);aspect-ratio:1;display:grid;place-items:center}
+.super-ring{position:absolute;width:90%;height:90%;border-radius:50%;border:1px solid #d9b45a65;box-shadow:inset 0 0 40px #d9b45a0c,0 0 55px #d9b45a0d}
+.super-ring:before,.super-ring:after{content:"";position:absolute;border:1px solid #d9b45a35;border-radius:50%;inset:12%}
+.super-ring:after{inset:25%;border-style:dashed}
+.super-monogram{width:42%;aspect-ratio:1;border-radius:25%;display:grid;place-items:center;background:linear-gradient(145deg,#ffe9a4,#bb8b31);color:#111;font-size:clamp(28px,4vw,46px);font-weight:900;transform:rotate(-8deg);box-shadow:0 20px 50px #0008}
+.super-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:23px}
+.super-stat{position:relative;overflow:hidden;border:1px solid #273544;background:linear-gradient(145deg,#131b25,#0e141c);border-radius:17px;padding:17px}
+.super-stat:after{content:"";position:absolute;left:-20px;bottom:-42px;width:90px;height:90px;border-radius:50%;background:#d8b15b0b}
+.super-stat-head{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#9caaba;font-size:11px}
+.super-stat-ico{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#d8b15b18;color:#e5c878;font-size:17px}
+.super-stat strong{display:block;font-size:27px;line-height:1.3;margin-top:13px;color:#fff;letter-spacing:.3px}
+.super-stat small{display:block;margin-top:5px;color:#77879a;font-size:10px}
+.super-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:25px 0 12px}
+.super-section-head h2{font-size:17px;margin:0;color:#f3f5f8}
+.super-section-head p{font-size:11px;color:#8796a7;margin:3px 0 0}
+.super-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.super-shortcut{border:1px solid #293746;background:#101721;border-radius:15px;padding:17px;cursor:pointer;color:#f3f5f8;text-align:right;font:inherit;transition:.18s}
+.super-shortcut:hover{border-color:#c5a24f;transform:translateY(-2px);background:#151d27}
+.super-shortcut .shortcut-ico{display:grid;place-items:center;width:39px;height:39px;border-radius:12px;background:#d8b15b18;color:#e5c878;font-size:18px;margin-bottom:13px}
+.super-shortcut b{display:block;font-size:13px}.super-shortcut small{display:block;color:#8796a7;font-size:11px;margin-top:5px}
+.super-page-title{margin:0 0 5px;font-size:25px!important;color:#fff}.super-page-desc{margin:0 0 22px;color:#93a1b2;font-size:12px}
+.super-page .panel{background:linear-gradient(145deg,#121923,#0e141c);border:1px solid #293746;border-radius:17px;padding:22px;margin:0 0 16px;box-shadow:0 10px 35px #0002}
+.super-page .panel h2{color:#f0d28a;font-size:15px;margin:0 0 8px}
+.super-page .hint,.super-page .sub{color:#93a1b2}
+.super-page input,.super-page textarea,.super-page select{background:#090f16;border-color:#2b3948;border-radius:10px}
+.super-page input:focus,.super-page textarea:focus,.super-page select:focus{outline:2px solid #d8b15b33;border-color:#d8b15b}
+.super-page .btn{background:linear-gradient(135deg,#f0d78e,#c99b3c);color:#17130a;font-weight:800;border-radius:10px}
+.super-page .btn.secondary,.super-page .mini-btn{background:#17212c;color:#dce3eb;border:1px solid #344354}
+.super-page .btn.danger,.super-page .mini-btn.danger{background:#642b33;color:#ffe0e3;border-color:#88434b}
+.super-page .status{background:#09111a;border-color:#2a3949}
+.super-page .vst,.super-page .season-box,.super-page .episode-box,.super-page .sched,.super-page .chk,.super-page .rep{background:#111a24;border-color:#2b3a49}
+.super-page .srow.pinned{border-color:#d8b15b;background:#d8b15b12}
+.super-page .vrow .num,.super-page .vepr b{color:#e5c878}
+.super-page .vbar i,.super-page .pgb i{background:#d8b15b}
+.super-page .warning{border-right-color:#d8b15b;background:#d8b15b12;color:#f0d9a5}
+.super-page .tg.tp{background:#d8b15b20;color:#f0d28a}
+.super-page .ad-design-preview{background:#0a1119;border-color:#344354}
+.super-mobile-menu{display:none}
+@media(max-width:1000px){.super-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.super-hero-art{width:200px}}
+@media(max-width:720px){.super-shell{grid-template-columns:1fr}.super-sidebar{position:fixed;top:0;right:0;width:270px;max-width:85vw;height:100dvh;transform:translateX(105%);transition:transform .22s ease;box-shadow:-25px 0 60px #0008}.super-sidebar.open{transform:translateX(0)}.super-mobile-menu{display:inline-flex;align-items:center;justify-content:center;width:39px;height:39px;border:1px solid #344354;border-radius:11px;background:#111923;color:#f5d88e;font-size:20px}.super-main{padding:15px 12px 42px}.super-topbar{margin-bottom:16px}.super-hero{grid-template-columns:1fr;padding:22px;border-radius:18px}.super-hero-art{display:none}.super-hero h1{font-size:27px}.super-stat-grid{gap:9px}.super-stat{padding:13px}.super-stat strong{font-size:23px}.super-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.super-shortcut{padding:13px}.super-page .panel{padding:15px}.super-page-title{font-size:22px!important}}
+@media(max-width:380px){.super-stat-grid{grid-template-columns:1fr 1fr}.super-shortcuts{grid-template-columns:1fr}.super-version{display:none}}
+</style>
+</head>
 <body><main class="wrap">
 <h1>إدارة مكتبة المسلسلات</h1><p class="sub">إدارة كل أقسام المكتبة من صفحة واحدة، مع ملف JSON مستقل لكل قسم.</p>
 <section class="panel" id="pConnect"><h2>1) الاتصال بمستودع GitHub</h2>
@@ -70,7 +155,7 @@
 <label class="field full">رابط الإعلان<input id="adUrl" type="url" dir="ltr" value="https://omg10.com/4/7060393" placeholder="https://example.com/ad"></label>
 <label class="field">مدة العداد بالثواني<input id="adDuration" type="number" min="0" max="60" value="5"></label>
 <label class="field">عنوان النافذة<input id="adTitle" maxlength="100" value="إعلان قبل تشغيل الحلقة"></label>
-<label class="field">لون التصميم الأساسي<input id="adAccent" type="color" value="#7c5cff" style="height:48px;padding:4px"></label>
+<label class="field">لون التصميم الأساسي<input id="adAccent" type="color" value="#d7b15a" style="height:48px;padding:4px"></label>
 <label class="field">لون خلفية النافذة<input id="adBackground" type="color" value="#11111b" style="height:48px;padding:4px"></label>
 <label class="field">شكل العداد<select id="adCounterStyle"><option value="pill">رقمي داخل كبسولة</option><option value="circle">دائري</option><option value="bar">شريط تقدم</option></select></label>
 <label class="field">شكل النافذة<select id="adShape"><option value="rounded">حواف دائرية</option><option value="square">حواف مستقيمة</option><option value="soft">حواف ناعمة</option></select></label>
@@ -532,12 +617,12 @@ var F=[['series-arabic.json','عربي'],['series-foreign.json','أجنبي'],['
 var main=document.querySelector('.wrap'),g=function(i){return document.getElementById(i)};
 /* الهيدر: ننقل العنوان الأصلي بدل حذفه */
 var h1=main.querySelector('h1'),sub=main.querySelector('.sub'),hd0=document.createElement('div');hd0.className='xhead';
-hd0.innerHTML='<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="12" fill="#1b2459"/><path d="M15 11l20 11-20 11z" fill="#8a63ff"/></svg><div id="xt"></div>';
+hd0.innerHTML='<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="12" fill="#211b0e"/><path d="M15 11l20 11-20 11z" fill="#e0bd68"/></svg><div id="xt"></div>';
 main.insertBefore(hd0,main.firstChild);g('xt').appendChild(h1);g('xt').appendChild(sub);
 /* القائمة الجانبية */
 var NAV=[['home','الرئيسية','⌂'],['add','إضافة مسلسل','＋'],['list','قائمة المسلسلات','☰'],['log','سجل التغييرات','↺'],['stats','الإحصائيات','▥'],['ads','إعدادات الإعلان','◉'],['tools','أدوات متقدمة','✦'],['set','الإعدادات','⚙']];
 var side=document.createElement('aside');side.className='xside';
-side.innerHTML='<div class="xbrand">لوحة الإدارة</div><h4>إدارة المسلسلات</h4>'+NAV.map(function(n){return '<button type="button" data-pg="'+n[0]+'"><i>'+n[2]+'</i>'+n[1]+'</button>'}).join('')+'<div class="xgap"></div><button type="button" id="xOut"><i>⏻</i>تسجيل الخروج</button>';
+side.innerHTML='<div class="xbrand">SUPER TV</div><h4>إدارة المسلسلات</h4>'+NAV.map(function(n){return '<button type="button" data-pg="'+n[0]+'"><i>'+n[2]+'</i>'+n[1]+'</button>'}).join('')+'<div class="xgap"></div><button type="button" id="xOut"><i>⏻</i>تسجيل الخروج</button>';
 document.body.insertBefore(side,main);
 /* لوحة الكروت */
 function card(n,t,d,b,c){return '<div class="xc '+(c||'')+'"><h3><span class="xn">'+n+'</span>'+t+'</h3><p>'+d+'</p>'+b+'</div>'}
@@ -552,10 +637,11 @@ dsh.innerHTML=
  card(6,'تصدير CSV','ملف Excel بقائمة المسلسلات من كل الأقسام.','<div class="xck">'+COLS.map(function(c,i){return '<label><input type="checkbox" data-col="'+i+'" checked>'+c+'</label>'}).join('')+'</div><div class="actions"><button class="btn" id="xCsv" type="button" disabled>تصدير ملف CSV</button></div>')+
  card(7,'عرض سجل التغييرات واستعادة نسخة','تراجع عن آخر تغيير بسهولة من القائمة.','<div class="xb" id="xLast">لا توجد بيانات بعد.</div><div class="actions"><button class="btn secondary" type="button" data-pg="list">فتح شريط التراجع</button></div>','xlog')+
  card(8,'اكتمال البيانات','نقص البيانات في كل الأقسام.','<div id="xQual"><p class="hint">حمّل البيانات أولًا.</p></div><div class="actions"><button class="mini-btn" type="button" data-pg="tools">فتح أدوات متقدمة</button></div>');
+dsh.innerHTML="\n<div class=\"xwelcome\">\n  <div class=\"xwelcome-copy\">\n    <div class=\"xeyebrow\"><span class=\"xlive-dot\"></span> SUPER TV · CONTROL CENTER</div>\n    <h2>إدارة مكتبتك، <span>بشكل أذكى.</span></h2>\n    <p>تحكّم في مكتبة المسلسلات والأفلام، راقب المشاهدات، واضبط تجربة الإعلان من مكان واحد.</p>\n    <div class=\"xwelcome-actions\">\n      <button type=\"button\" class=\"xprimary\" data-pg=\"add\"><span>＋</span> إضافة محتوى</button>\n      <button type=\"button\" class=\"xsecondary\" data-pg=\"set\">ربط GitHub <span>↗</span></button>\n    </div>\n  </div>\n  <div class=\"xwelcome-art\" aria-hidden=\"true\">\n    <div class=\"xorb xorb-a\"></div><div class=\"xorb xorb-b\"></div>\n    <div class=\"xart-ring\"></div><div class=\"xart-core\"><span>STV</span><small>ADMIN</small></div>\n    <div class=\"xart-chip\">LIVE LIBRARY <i></i></div>\n  </div>\n</div>\n<div class=\"xsection-head\"><div><span class=\"xeyebrow\">OVERVIEW</span><h2>نظرة عامة</h2></div><span class=\"xsecure\"><i></i> لوحة الإدارة</span></div>\n"+dsh.innerHTML;
 main.insertBefore(dsh,hd0.nextSibling);
 /* الصفحات: كل قسم له معرّف ثابت. أي قسم جديد مش مذكور هنا بيظهر في «الإعدادات» تلقائيًا */
 var ALL=['pConnect','pForm','pPresets','pList','pDaily','pViews','pBackup','pCheck','pReports','pSecurity','pTools','pAdSettings'];
-var IDS={home:['pConnect'],add:['pForm','pPresets'],list:['pList'],log:['pBackup'],stats:['pDaily','pViews','pCheck','pReports'],ads:['pAdSettings'],set:['pConnect','pSecurity'],tools:['pConnect','pTools']};
+var IDS={home:[],add:['pForm','pPresets'],list:['pList'],log:['pBackup'],stats:['pDaily','pViews','pCheck','pReports'],ads:['pAdSettings'],set:['pConnect','pSecurity'],tools:['pConnect','pTools']};
 function show(pg){
   var on=IDS[pg]||IDS.home;
   ALL.forEach(function(id){var e=g(id);if(e)e.style.display=on.indexOf(id)>-1?'':'none'});
@@ -595,7 +681,7 @@ async function load(){
   busy=false;
   if(pending){pending=false;load()}
 }
-function redraw(){window.__xD=D;draw();drawSort();drawQual();try{document.dispatchEvent(new Event('xdraw'))}catch(e){}}
+function redraw(){draw();drawSort();drawQual()}
 function draw(){
   var a=all(),E=0,NL=0,H=0;a.forEach(function(r){E+=eps(r.x);NL+=noLink(r.x);if(r.x.hide)H++});
   var k=[['إجمالي المسلسلات',a.length,'#2f6bff'],['إجمالي الحلقات',E,'#14a36f'],['حلقات بدون رابط',NL,'#e08a1e'],['مسلسلات مخفية',H,'#9b3fe0']];
@@ -670,6 +756,7 @@ window.saveData=async function(){var ok=await _sd.apply(this,arguments);if(ok)sy
 document.addEventListener('xreload',function(){loaded=false;load()});
 g('connect').addEventListener('click',function(){setTimeout(function(){loaded=false;load()},1500)});
 show('home');
+window.addEventListener('load',function(){document.body.classList.add('st-ready')},{once:true});
 if(token)setTimeout(load,600);
 })();
 </script>
@@ -920,7 +1007,7 @@ function adForm(){
   url:$('adUrl').value.trim()||'https://omg10.com/4/7060393',
   duration:Math.max(0,Math.min(60,parseInt($('adDuration').value,10)||0)),
   title:$('adTitle').value.trim()||'إعلان قبل تشغيل الحلقة',
-  accent:$('adAccent').value||'#7c5cff',
+  accent:$('adAccent').value||'#d7b15a',
   background:$('adBackground').value||'#11111b',
   counterStyle:$('adCounterStyle').value||'pill',
   canCancel:$('adCanCancel').value==='true',
@@ -1183,7 +1270,267 @@ document.addEventListener('keydown',function(e){
 <!-- ===== نهاية الإضافة ===== -->
 
 <!-- ===== إضافة 2: استيراد جماعي + قوالب المصادر + بحث شامل + سلة المحذوفات =====
-     تُلصق قبل </body> وبعد إضافة المعاينة. لا تغيّر أي كود موجود. -->
+     تُلصق قبل 
+<!-- SUPER TV FUTURE GOLD UI — visual layer only; existing data and actions stay intact -->
+<style id="superTvGoldDesign">
+:root{
+ color-scheme:dark;
+ --bg:#080808;--card:#111111;--card2:#191919;--line:#3a3020;
+ --fg:#f8f3e8;--mut:#b9ae98;--ac:#d7b15a;--bad:#b84b4b;--ok:#4b9b75;
+ --gold-hi:#f5d98a;--gold-low:#8e6b2d;
+}
+html{scroll-behavior:smooth}
+body{
+ background:
+  radial-gradient(900px 420px at 75% -12%,#8e6b2d1f,transparent 70%),
+  radial-gradient(650px 300px at 0% 35%,#d7b15a08,transparent 72%),#080808!important;
+ color:var(--fg)
+}
+.wrap{padding:24px clamp(12px,2.4vw,34px) 70px!important}
+.xside{
+ background:linear-gradient(180deg,#11100d 0%,#090909 72%)!important;
+ border-left:1px solid #4a3b21!important;box-shadow:-16px 0 55px #0007;
+ padding:18px 13px!important;gap:7px!important
+}
+.xbrand{
+ color:#f8e4a7!important;background:linear-gradient(135deg,#292112,#17130c)!important;
+ border:1px solid #8d6d32!important;border-radius:14px!important;
+ letter-spacing:2px;font-size:1.18rem!important;box-shadow:inset 0 1px #ffffff0c,0 8px 25px #0005;
+}
+.xbrand:after{content:"CONTROL CENTER";display:block;font:600 .62rem/1.5 Cairo,sans-serif;letter-spacing:2.4px;color:#bda15e}
+.xside h4{color:#9e8a5b!important;font-size:.78rem!important;letter-spacing:.6px}
+.xside button{
+ color:#d6cdbb!important;border:1px solid transparent!important;
+ transition:background .18s,border-color .18s,transform .18s;
+}
+.xside button i{color:#c6a654!important}
+.xside button:hover{background:#d7b15a0d!important;border-color:#6d542b55!important;transform:translateX(-2px)}
+.xside button.on{
+ color:#ffe8a5!important;background:linear-gradient(100deg,#d7b15a24,#d7b15a08)!important;
+ border-color:#9c793b!important;box-shadow:inset -3px 0 #d7b15a,0 5px 18px #0004
+}
+.xhead{
+ position:relative;overflow:hidden;isolation:isolate;
+ background:linear-gradient(110deg,#17140e,#101010 62%,#1b160b)!important;
+ border:1px solid #6c542c!important;border-radius:18px!important;
+ padding:17px 20px!important;margin-bottom:20px!important;
+ box-shadow:0 14px 38px #0005,inset 0 1px #ffffff0a
+}
+.xhead:after{content:"";position:absolute;z-index:-1;inset:auto -5% -70% 45%;height:150%;background:radial-gradient(ellipse,#d7b15a12,transparent 65%);pointer-events:none}
+.xhead svg{filter:drop-shadow(0 0 14px #d7b15a22)}
+.xhead svg rect{fill:#211b0e!important;stroke:#a9843c;stroke-width:1}
+.xhead svg path{fill:#e4c36c!important}
+.xhead #xt:before{content:"SUPER TV  /  ADMINISTRATOR";display:block;color:#d7b15a;font-size:.68rem;letter-spacing:2px;font-weight:800;line-height:1.4}
+.xhead h1{font-size:clamp(1.25rem,2vw,1.7rem)!important;letter-spacing:.1px}
+.xhead .sub{color:#b9ae98!important}
+.panel,.xc{
+ background:linear-gradient(155deg,#15130f 0%,#101010 48%,#0d0d0d 100%)!important;
+ border:1px solid #3b3121!important;border-radius:17px!important;
+ box-shadow:0 12px 34px #0003,inset 0 1px #ffffff05;
+}
+.panel{padding:clamp(13px,1.7vw,22px)!important;margin:16px 0!important}
+.panel h2,.xc h3{color:#f4e5bc}
+.panel h2{display:flex;align-items:center;gap:9px}
+.panel h2:before{content:"";display:inline-block;width:4px;height:20px;border-radius:4px;background:linear-gradient(#f5d98a,#9c742c);box-shadow:0 0 14px #d7b15a30}
+.hint,.sub,.panel p{color:var(--mut)}
+.xgrid{gap:16px!important}
+.xc{border-color:#40331e!important}
+.xc h3{font-size:1rem!important}
+.xn{color:#171109!important;background:linear-gradient(145deg,#f5d98a,#b58b3d)!important;box-shadow:0 0 18px #d7b15a20}
+.xb,.vst,.season-box,.episode-box,.sched,.chk,.rep,.sugg,.bkcmp div,.undo,.bulk,.qbox{
+ background:linear-gradient(145deg,#1b1812,#121212)!important;border-color:#403521!important
+}
+.xst .xt{background:linear-gradient(145deg,#3a2c14,#211b11)!important;border:1px solid #70562a}
+.xdn:after{background:#17140e!important}
+input,textarea,select{
+ background:#0b0b0b!important;color:var(--fg)!important;border-color:#423722!important;
+ border-radius:10px!important;transition:border-color .15s,box-shadow .15s
+}
+input:hover,textarea:hover,select:hover{border-color:#796039!important}
+input:focus,textarea:focus,select:focus{
+ outline:none!important;border-color:#d7b15a!important;box-shadow:0 0 0 3px #d7b15a20!important
+}
+input[type=checkbox],input[type=radio]{accent-color:#d7b15a}
+.btn{
+ color:#171109!important;background:linear-gradient(135deg,#f0d382,#bd913d)!important;
+ border:1px solid #f1d78e!important;border-radius:10px!important;
+ box-shadow:0 5px 15px #d7b15a12;font-weight:800!important;transition:filter .15s,transform .15s
+}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn.secondary,.mini-btn,.ib{
+ color:#e7d8b5!important;background:#201b12!important;border:1px solid #594626!important
+}
+.btn.secondary:hover,.mini-btn:hover,.ib:hover{background:#2b2416!important;border-color:#b38b43!important}
+.btn.danger,.mini-btn.danger{color:#ffe4e4!important;background:#381818!important;border-color:#7e3535!important}
+.btn:disabled{filter:grayscale(.5);transform:none}
+.status{background:#0a0a0a!important;border-color:#423722!important}
+.status.ok{border-color:#45896b!important}.status.bad{border-color:#a33c42!important}
+.warning{border-right-color:#d7b15a!important;background:#d7b15a12!important;color:#f0dfb5!important}
+.vrow .num,.vepr b,.vst b{color:#e7c66e!important}
+.vbar i,.pgb i,.asd i{background:linear-gradient(90deg,#9a742e,#f1d27b)!important}
+.srow.pinned,.sg.sel{border-color:#c6a14d!important;background:#d7b15a12!important}
+.tg.tp{background:#d7b15a24!important;color:#f3d98d!important}
+.tg.ts{background:#d7b15a22!important;color:#f3d98d!important}
+.tg.th{background:#9e304733!important}
+.ib.on,.qchip.on{background:#8b682b!important;border-color:#d7b15a!important;color:#fff5d8!important}
+.xdup{background:#8f2e2e18!important}
+.xtoast{background:#17130c!important;border-color:#8a6b35!important}
+.ad-design-preview{background:#0d0c0a!important;border-color:#594626!important}
+.ad-mock-window{border-color:#6d542b!important}
+.ad-mock-video{background:linear-gradient(135deg,#302716,#171510 65%,#3a2b12)!important}
+.ad-mock-action{background:linear-gradient(135deg,#f0d382,#bd913d)!important;color:#171109!important}
+code{color:#e7c66e}
+a{color:#e7c66e}
+@media(max-width:700px){
+ body{flex-direction:column}
+ .xside{
+  position:sticky!important;top:0;z-index:100;height:auto!important;width:100%!important;
+  border-left:0!important;border-bottom:1px solid #4a3b21!important;
+  background:#0b0b0bfa!important;backdrop-filter:blur(14px);
+  padding:8px!important;gap:6px!important;box-shadow:0 10px 24px #0005
+ }
+ .xside button{flex:0 0 auto;padding:9px 12px!important;font-size:.82rem!important}
+ .xside button:hover{transform:none}
+ .xbrand,.xside h4,.xside .xgap{display:none!important}
+ .wrap{padding:12px 10px 42px!important}
+ .xhead{padding:13px!important;gap:10px!important}
+ .xhead svg{width:36px;height:36px}
+ .panel{border-radius:13px!important}
+ .grid,.episode-grid,.bkcmp{grid-template-columns:1fr!important}
+ .full{grid-column:auto!important}
+ .vstats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .ad-editor-grid{grid-template-columns:1fr!important}
+ .ad-design-preview{position:static!important}
+}
+@media(max-width:390px){
+ .xside{gap:4px!important}
+ .xside button{padding:8px 10px!important;font-size:.76rem!important}
+ .xhead svg{display:none}
+ .vstats{grid-template-columns:1fr!important}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+</style>
+
+
+<style id="superTvDashboardLayout">
+/* Structural dashboard layer: the old forms remain available on their own pages. */
+body{display:flex;align-items:stretch;background:#080808!important}
+.wrap{max-width:none!important;margin:0!important;flex:1;min-width:0;padding:24px clamp(12px,2.5vw,38px) 64px!important}
+.xside{width:252px!important;min-width:252px;flex:none!important;position:sticky!important;top:0;height:100vh!important}
+.xgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:17px!important;align-content:start}
+.xwelcome{
+ grid-column:1/-1;position:relative;isolation:isolate;overflow:hidden;display:flex;
+ align-items:center;justify-content:space-between;gap:22px;min-height:260px;
+ padding:clamp(20px,3.2vw,38px);border-radius:23px;
+ border:1px solid #70572d;background:linear-gradient(112deg,#17140d 0%,#11100d 52%,#211a0d 100%);
+ box-shadow:0 20px 55px #0006,inset 0 1px #ffffff0a
+}
+.xwelcome:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,transparent 35%,#d7b15a0c 100%);pointer-events:none}
+.xwelcome-copy{max-width:650px;position:relative;z-index:2}
+.xeyebrow{display:flex;align-items:center;gap:8px;color:#c6a75d;font-size:.72rem;font-weight:800;letter-spacing:2px}
+.xlive-dot{width:7px;height:7px;border-radius:50%;background:#e5c76f;box-shadow:0 0 12px #e5c76f}
+.xwelcome h2{font-size:clamp(1.65rem,3.1vw,2.7rem);line-height:1.25;margin:14px 0 10px;color:#fff4d6}
+.xwelcome h2 span{color:#e0bd68}
+.xwelcome p{max-width:540px;color:#b9ae98;margin:0;line-height:1.9;font-size:.95rem}
+.xwelcome-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.xprimary,.xsecondary{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:11px 17px;border-radius:11px;font:800 .88rem Cairo,sans-serif;cursor:pointer;transition:transform .18s,filter .18s}
+.xprimary{border:1px solid #f0d88d;background:linear-gradient(135deg,#f2d987,#b88a35);color:#171108;box-shadow:0 8px 22px #d7b15a18}
+.xsecondary{border:1px solid #65502d;background:#201a10;color:#f0dcae}
+.xprimary:hover,.xsecondary:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.xprimary span{font-size:1.2rem;line-height:1}
+.xwelcome-art{position:relative;flex:0 0 230px;width:230px;height:210px;display:grid;place-items:center}
+.xart-ring{position:absolute;width:185px;height:185px;border:1px solid #d7b15a38;border-radius:50%;box-shadow:0 0 55px #d7b15a0c,inset 0 0 45px #d7b15a0a}
+.xart-ring:before,.xart-ring:after{content:"";position:absolute;border:1px solid #d7b15a25;border-radius:50%;inset:15px}
+.xart-ring:after{inset:31px;border-style:dashed;animation:xspin 36s linear infinite}
+.xart-core{width:102px;height:102px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:28px;transform:rotate(-8deg);border:1px solid #e0bd6870;background:linear-gradient(145deg,#332817,#11100c);box-shadow:0 0 40px #d7b15a18,inset 0 1px #fff2}
+.xart-core span{font-size:1.75rem;font-weight:900;letter-spacing:2px;color:#f2d987;line-height:1.2}
+.xart-core small{font-size:.58rem;letter-spacing:3px;color:#bda15e}
+.xorb{position:absolute;border-radius:50%;filter:blur(1px)}
+.xorb-a{width:13px;height:13px;top:18px;right:38px;background:#f0d382;box-shadow:0 0 24px #f0d382}
+.xorb-b{width:8px;height:8px;bottom:24px;left:32px;background:#9a742e;box-shadow:0 0 20px #d7b15a}
+.xart-chip{position:absolute;bottom:4px;right:0;background:#11100de8;border:1px solid #594626;border-radius:9px;padding:7px 10px;color:#d9c18a;font:700 .61rem Cairo;letter-spacing:1.2px}
+.xart-chip i,.xsecure i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#78b987;margin-inline-start:6px;box-shadow:0 0 9px #78b987}
+.xsection-head{grid-column:1/-1;display:flex;align-items:end;justify-content:space-between;margin:4px 2px -2px}
+.xsection-head h2{margin:3px 0 0;font-size:1.25rem;color:#f5e7c2}
+.xsecure{display:inline-flex;align-items:center;gap:6px;color:#b9ae98;font-size:.78rem;border:1px solid #393126;border-radius:999px;padding:5px 10px}
+.xsecure i{margin:0}
+.xc{min-width:0;align-self:stretch}
+#xDash > .xc:nth-of-type(3){grid-column:1/-1}
+.xc h3{display:flex;align-items:center;gap:10px;padding-bottom:11px;border-bottom:1px solid #3a3020}
+.xn{border-radius:9px!important;width:32px!important;height:32px!important}
+.xst{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.xb{padding:13px!important}
+.xside{border-left:1px solid #4a3b21!important}
+#pConnect,#pForm,#pPresets,#pList,#pDaily,#pViews,#pBackup,#pCheck,#pReports,#pSecurity,#pTools,#pAdSettings{scroll-margin-top:18px}
+@keyframes xspin{to{transform:rotate(360deg)}}
+@media(max-width:1050px){.xside{width:218px!important;min-width:218px}.xwelcome-art{flex-basis:180px;width:180px}.xart-ring{width:160px;height:160px}.xst{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:760px){
+ body{flex-direction:column!important}
+ .xside{width:100%!important;min-width:0;height:auto!important;position:sticky!important;top:0;z-index:100;flex-direction:row!important;overflow-x:auto;gap:5px!important;padding:8px!important;border-left:0!important;border-bottom:1px solid #4a3b21!important;background:#0b0b0bf5!important;backdrop-filter:blur(14px)}
+ .xside .xbrand,.xside h4,.xside .xgap{display:none!important}
+ .xside button{flex:none!important;white-space:nowrap;padding:9px 11px!important;font-size:.79rem!important}
+ .wrap{padding:12px 10px 42px!important}
+ .xgrid{grid-template-columns:1fr!important;gap:12px!important}
+ .xwelcome{grid-column:1;padding:22px 17px;min-height:0}
+ .xwelcome-art{display:none}
+ .xsection-head{grid-column:1}
+ #xDash > .xc:nth-of-type(3){grid-column:auto}
+ .xst{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .xhead{padding:13px!important;margin-bottom:13px!important}
+}
+@media(max-width:390px){.xside button{padding:8px 9px!important;font-size:.73rem!important}.xwelcome h2{font-size:1.55rem}.xwelcome p{font-size:.86rem}}
+</style>
+
+
+<script id="superTvProApp">
+(function(){
+ if(document.getElementById('superTvProMounted')) return;
+ var wrap=document.querySelector('main.wrap'); if(!wrap)return;
+ var ids=['pConnect','pForm','pPresets','pList','pViews','pBackup','pCheck','pReports','pAdSettings','pSecurity'];
+ var panels=ids.map(function(id){return document.getElementById(id)}).filter(Boolean);
+ var shell=document.createElement('div');shell.className='super-shell';shell.id='superTvProMounted';
+ var sidebar=document.createElement('aside');sidebar.className='super-sidebar';sidebar.id='superSidebar';
+ sidebar.innerHTML='<div class="super-brand"><div class="super-logo">STV</div><div><strong>SUPER TV</strong><small>ADMIN CONTROL</small></div></div><div class="super-nav-label">مساحة الإدارة</div><nav class="super-nav" aria-label="القائمة الرئيسية">'+
+ '<button class="active" data-page="home"><span class="nav-ico">⌂</span>الرئيسية</button>'+
+ '<button data-page="add"><span class="nav-ico">＋</span>إضافة محتوى</button>'+
+ '<button data-page="list"><span class="nav-ico">▤</span>إدارة المكتبة</button>'+
+ '<button data-page="stats"><span class="nav-ico">▥</span>الإحصائيات والتقارير</button>'+
+ '<button data-page="ads"><span class="nav-ico">◈</span>الإعلانات والعداد</button>'+
+ '<button data-page="settings"><span class="nav-ico">⚙</span>الاتصال والإعدادات</button>'+
+ '</nav><div class="super-side-foot"><b><span class="super-live-dot"></span>مركز التحكم</b>إدارة مكتبتك من مكان واحد<br>SUPER TV · CONTROL CENTER</div>';
+ var main=document.createElement('div');main.className='super-main';
+ var top=document.createElement('div');top.className='super-topbar';top.innerHTML='<div style="display:flex;align-items:center;gap:11px"><button class="super-mobile-menu" id="superMenu" aria-label="فتح القائمة">☰</button><div><div class="super-breadcrumb">SUPER TV <span style="color:#536274">/</span> <b id="superCrumb">الرئيسية</b></div></div></div><div class="super-topright"><span class="super-version">ADMIN PANEL · 2026</span></div>';
+ var content=document.createElement('div');content.className='super-content';
+ var pages={};
+ ['home','add','list','stats','ads','settings'].forEach(function(k){var p=document.createElement('div');p.className='super-page'+(k==='home'?' active':'');p.dataset.pageview=k;content.appendChild(p);pages[k]=p});
+ pages.home.innerHTML='<div class="super-hero"><div><div class="super-kicker">SUPER TV · CONTROL CENTER</div><h1>كل مكتبتك، تحت سيطرتك.</h1><p>لوحة إدارة موحّدة للمسلسلات والأفلام والإعلانات والمشاهدات. اختار القسم وابدأ إدارة المحتوى من واجهة مصممة للعمل على الكمبيوتر والموبايل.</p><div class="super-hero-actions"><button class="btn" data-goto="add">＋ إضافة محتوى</button><button class="btn secondary" data-goto="settings">ربط GitHub ↗</button></div></div><div class="super-hero-art"><div class="super-ring"></div><div class="super-monogram">STV</div></div></div>'+
+ '<div class="super-stat-grid"><div class="super-stat"><div class="super-stat-head"><span>عناصر القسم المحمّل</span><span class="super-stat-ico">▤</span></div><strong id="superCount">—</strong><small>يتحدث بعد تحميل ملف JSON</small></div><div class="super-stat"><div class="super-stat-head"><span>حالة الاتصال</span><span class="super-stat-ico">⌁</span></div><strong id="superConnection" style="font-size:20px">غير متصل</strong><small>اتصل بالمستودع لبدء الإدارة</small></div><div class="super-stat"><div class="super-stat-head"><span>إعدادات الإعلان</span><span class="super-stat-ico">◈</span></div><strong style="font-size:20px">متحكم بها</strong><small>الرابط والتصميم والعداد</small></div><div class="super-stat"><div class="super-stat-head"><span>واجهة الإدارة</span><span class="super-stat-ico">✧</span></div><strong style="font-size:20px">2026</strong><small>تصميم متجاوب مع الشاشات</small></div></div>'+
+ '<div class="super-section-head"><div><h2>الوصول السريع</h2><p>انتقل مباشرة إلى المهمة التي تريدها</p></div></div><div class="super-shortcuts">'+
+ '<button class="super-shortcut" data-goto="add"><span class="shortcut-ico">＋</span><b>إضافة مسلسل أو فيلم</b><small>إدخال البيانات والروابط وحفظها</small></button>'+
+ '<button class="super-shortcut" data-goto="list"><span class="shortcut-ico">▤</span><b>إدارة المحتوى</b><small>تعديل العناصر وترتيبها وحذفها</small></button>'+
+ '<button class="super-shortcut" data-goto="ads"><span class="shortcut-ico">◈</span><b>الإعلانات والعداد</b><small>تخصيص نافذة الإعلان قبل التشغيل</small></button>'+
+ '<button class="super-shortcut" data-goto="stats"><span class="shortcut-ico">▥</span><b>المشاهدات والتقارير</b><small>عرض الأرقام وفحص الروابط والبلاغات</small></button>'+
+ '<button class="super-shortcut" data-goto="settings"><span class="shortcut-ico">⚙</span><b>إعدادات GitHub</b><small>ربط المستودع واختيار ملف JSON</small></button>'+
+ '<button class="super-shortcut" data-goto="settings"><span class="shortcut-ico">⇧</span><b>النسخ الاحتياطي</b><small>تنزيل نسخة أو استعادة ملف محفوظ</small></button></div>';
+ var headings={add:['إدارة المحتوى','أضف المحتوى وحدّث بياناته وإعداداته.'],list:['مكتبة المحتوى','استعرض العناصر الموجودة في ملف JSON وعدّلها.'],stats:['الإحصائيات والتقارير','المشاهدات، النسخ الاحتياطي، فحص الروابط وبلاغات المستخدمين.'],ads:['الإعلانات والعداد','تحكم في شكل الإعلان والرابط والوقت قبل تشغيل الحلقة.'],settings:['الاتصال والإعدادات','إعداد المستودع وبيانات الاتصال وخيارات الأمان.']};
+ Object.keys(headings).forEach(function(k){var h=document.createElement('div');h.innerHTML='<h1 class="super-page-title">'+headings[k][0]+'</h1><p class="super-page-desc">'+headings[k][1]+'</p>';pages[k].appendChild(h)});
+ var map={pForm:'add',pPresets:'add',pList:'list',pViews:'stats',pBackup:'stats',pCheck:'stats',pReports:'stats',pAdSettings:'ads',pConnect:'settings',pSecurity:'settings'};
+ panels.forEach(function(el){var pg=pages[map[el.id]||'settings'];pg.appendChild(el)});
+ document.querySelectorAll('datalist').forEach(function(el){document.body.appendChild(el)});wrap.innerHTML='';wrap.style.maxWidth='none';wrap.style.margin='0';wrap.style.padding='0';wrap.appendChild(top);wrap.appendChild(content);
+ main.appendChild(wrap);shell.appendChild(sidebar);shell.appendChild(main);document.body.insertBefore(shell,document.body.firstChild);
+ var titles={home:'الرئيسية',add:'إضافة محتوى',list:'إدارة المكتبة',stats:'الإحصائيات والتقارير',ads:'الإعلانات والعداد',settings:'الاتصال والإعدادات'};
+ function go(key){if(!pages[key])return;Object.keys(pages).forEach(function(k){pages[k].classList.toggle('active',k===key)});sidebar.querySelectorAll('[data-page]').forEach(function(b){b.classList.toggle('active',b.dataset.page===key)});document.getElementById('superCrumb').textContent=titles[key]||'الرئيسية';sidebar.classList.remove('open');window.scrollTo(0,0)}
+ sidebar.addEventListener('click',function(e){var b=e.target.closest('[data-page]');if(b)go(b.dataset.page)});
+ content.addEventListener('click',function(e){var b=e.target.closest('[data-goto]');if(b)go(b.dataset.goto)});
+ document.getElementById('superMenu').addEventListener('click',function(){sidebar.classList.toggle('open')});
+ document.addEventListener('click',function(e){if(window.innerWidth<=720&&sidebar.classList.contains('open')&&!sidebar.contains(e.target)&&!e.target.closest('#superMenu'))sidebar.classList.remove('open')});
+ function update(){var list=document.getElementById('seriesList');if(list){var n=list.querySelectorAll('.sitem').length;document.getElementById('superCount').textContent=n||'0'}var st=document.getElementById('status');if(st){var tx=st.textContent||'';if(/نجاح|تم الاتصال|تم تحميل|متصل/i.test(tx)){document.getElementById('superConnection').textContent='متصل';document.getElementById('superConnection').style.color='#64d6a1'}else if(/فشل|خطأ/i.test(tx)){document.getElementById('superConnection').textContent='تحقق من الاتصال';document.getElementById('superConnection').style.fontSize='15px'}}}
+ new MutationObserver(update).observe(wrap,{childList:true,subtree:true,characterData:true});setTimeout(update,300);setTimeout(update,1200);
+ document.body.classList.add('st-ready');
+})();
+</script>
+
+</body> وبعد إضافة المعاينة. لا تغيّر أي كود موجود. -->
 <style>
 .imp{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;background:#10101a}
 .imp textarea{min-height:110px;direction:ltr;text-align:left;font-size:.85rem}
@@ -2260,287 +2607,185 @@ $('path').addEventListener('change',rename);rename();
 })();
 </script>
 
-<style id="xv10css">
-/* ===== xv10 (aurora-glass): هوية لوحة الإدارة — طبقة تصميم فوق الموجود، لا تغيّر أي وظيفة ===== */
-:root{--ff:'IBM Plex Sans Arabic','Cairo',Tahoma,sans-serif;--bg:#0a0716;--card:#120e24;--card2:#1a1533;--line:#ffffff1a;--fg:#f1eefc;--mut:#9a93b8;--ac:#7c5cff;--ok:#1f9d74;--bad:#c2334d;--r:20px;--sbw:262px;--glass:linear-gradient(180deg,#ffffff0f,#ffffff06);color-scheme:dark}
-html{background:var(--bg)}
-body{font-family:var(--ff)!important;font-size:15px;line-height:1.75;background:var(--bg)!important;color:var(--fg);gap:14px;padding:14px;min-height:100vh}
-body:before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(900px 520px at 88% -8%,color-mix(in srgb,var(--ac) 38%,transparent),transparent 65%),radial-gradient(760px 520px at 4% 105%,#22d3ee26,transparent 65%),radial-gradient(600px 420px at 55% 55%,#ff5c8a12,transparent 70%),#090614;transition:background .5s}
-body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;background-image:radial-gradient(#ffffff40 1px,transparent 1.2px);background-size:46px 46px;mask-image:linear-gradient(180deg,#000,transparent 55%)}
-button,input,select,textarea,.btn,.mini-btn,.xside button,.xtoast{font-family:var(--ff)!important}
-h1,h2,h3,h4{font-weight:700;letter-spacing:-.01em}h2{font-size:1.1rem}
-.hint,.sub{color:var(--mut)}
-.num,.vst b,.xt b{font-variant-numeric:tabular-nums}
-/* ---- الشريط الجانبي (زجاجي عائم) ---- */
-.xside{width:var(--sbw);position:sticky;top:14px;height:calc(100vh - 28px);border:1px solid var(--line);border-radius:24px;background:linear-gradient(180deg,#ffffff12,#ffffff05)!important;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);padding:14px 12px;gap:2px;transition:width .25s ease;z-index:40;box-shadow:0 30px 60px -30px #000c,0 1px 0 #ffffff14 inset}
-.xbrand{display:flex;align-items:center;gap:11px;background:none!important;padding:6px 8px 14px;margin:0 0 4px;text-align:right;font-size:1.05rem;border-radius:0}
-.xbrand:before{content:"▶";display:grid;place-items:center;width:34px;height:34px;border-radius:11px;flex:none;font-size:12px;color:#fff;background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 40%,#22d3ee));box-shadow:0 8px 22px -6px var(--ac);transition:background .4s}
-.xbrand span{flex:1;line-height:1.2}.xbrand small{display:block;font-size:.68rem;color:var(--mut);font-weight:400}
-.xtog{margin-inline-start:auto;width:30px!important;height:30px;padding:0!important;border-radius:9px!important;display:grid!important;place-items:center;background:#ffffff0d!important;border:1px solid var(--line)!important;color:var(--mut)!important;cursor:pointer;flex:none}
-.xtog:hover{color:#fff!important;background:#ffffff1a!important}
-.xside h4,.xgt{margin:14px 12px 5px;font-size:.7rem;font-weight:600;color:#7a7396;letter-spacing:.05em}
-.xside button{font-weight:500;font-size:.9rem;padding:9px 12px;border-radius:12px;color:#c4bde0;position:relative}
-.xside button:hover{background:#ffffff0c;color:#fff}
-.xside button.on{background:linear-gradient(90deg,#ffffff1c,#ffffff0a)!important;color:#fff;box-shadow:0 1px 0 #ffffff14 inset}
-.xside button.on:before{content:"";position:absolute;inset-inline-start:3px;top:22%;bottom:20%;width:3px;border-radius:3px;background:var(--ac);box-shadow:0 0 12px var(--ac)}
-.xside button i{opacity:1;color:#8c85aa;width:22px}.xside button.on i{color:var(--ac)}
-.xsec{display:flex!important;align-items:center;gap:11px}
-.xsec b{width:9px;height:9px;border-radius:50%;flex:none;background:var(--c);margin-inline:6.5px;box-shadow:0 0 10px var(--c)}
-.xsec u{margin-inline-start:auto;text-decoration:none;font-size:.7rem;color:#7a7396}
-.xsec.cur{background:color-mix(in srgb,var(--c) 18%,transparent)!important;color:#fff}.xsec.cur:before{background:var(--c)!important;box-shadow:0 0 12px var(--c)!important}
-.xgrp{display:flex;flex-direction:column;gap:2px}.xgrp.xcol .xsec{display:none!important}
-.xgt{display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}.xgt:after{content:"⌄";margin-inline-start:auto;transition:transform .2s;font-size:.9rem}.xgrp.xcol .xgt:after{transform:rotate(90deg)}
-.xside .xgap{min-height:8px}
-.xcard{margin:6px 2px 8px;border-radius:16px;padding:12px;background:linear-gradient(145deg,color-mix(in srgb,var(--ac) 30%,#0000),#ffffff08);border:1px solid #ffffff18;font-size:.78rem;color:#d9d3f0;line-height:1.5}
-.xcard b{display:block;color:#fff;font-size:.82rem;margin-bottom:2px}.xcard code{color:#bfb6e6;font-size:.72rem}
-.xcard .dt{display:inline-block;width:7px;height:7px;border-radius:50%;background:#59627a;margin-inline-end:6px}.xcard.on .dt{background:#35d09a;box-shadow:0 0 10px #35d09a}
-body.xsc{--sbw:76px}
-body.xsc .xl,body.xsc .xgt,body.xsc .xside h4,body.xsc .xsec u,body.xsc .xbrand span,body.xsc .xcard{display:none}
-body.xsc .xside{padding:14px 8px}.xsc .xside button{justify-content:center;padding:11px 0}.xsc .xbrand{justify-content:center;flex-direction:column;padding-bottom:10px;gap:8px}.xsc .xtog{margin:0}
-.xsc .xside button.on:before{inset-inline-start:2px}
-body.xsc .xsec b{margin:0}body.xsc .xgrp{border-top:1px solid var(--line);padding-top:6px;margin-top:6px}body.xsc .xgrp.xcol .xsec{display:flex!important}
-/* ---- الهيدر (شريط علوي زجاجي) ---- */
-.wrap{padding:0 0 80px!important;min-width:0}
-.xhead{position:sticky;top:14px;z-index:30;margin:0 0 18px!important;border:1px solid var(--line)!important;border-radius:22px!important;background:linear-gradient(180deg,#ffffff12,#ffffff06)!important;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);padding:14px 20px!important;gap:14px;box-shadow:0 20px 40px -26px #000c;transition:padding .2s;flex-wrap:wrap}
-.xhead svg{display:none}
-.xhead:before{content:"▶";display:grid;place-items:center;width:46px;height:46px;border-radius:15px;flex:none;color:#fff;font-size:15px;background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 40%,#22d3ee));box-shadow:0 10px 26px -8px var(--ac);transition:all .3s}
-.xhead h1{font-size:1.45rem;font-weight:700;line-height:1.3}
-.xcrumb{font-size:.76rem;color:var(--mut);display:flex;gap:7px;align-items:center;margin-bottom:1px}.xcrumb b{color:var(--ac);font-weight:600}.xcrumb i{font-style:normal;opacity:.5}
-#xt{flex:1;min-width:200px}
-.xsrch{display:flex;align-items:center;gap:8px;width:min(300px,100%);background:#ffffff0c;border:1px solid var(--line);border-radius:13px;padding:0 12px;height:42px}
-.xsrch:focus-within{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 25%,transparent)}
-.xsrch input{background:none!important;border:0!important;box-shadow:none!important;padding:0!important;height:100%;flex:1;font-size:.88rem}.xsrch kbd{font:inherit;font-size:.68rem;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
-.xhtog{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#ffffff0c;color:var(--mut);cursor:pointer;font-size:1rem;flex:none;display:grid;place-items:center}.xhtog:hover{color:#fff;background:#ffffff1a}
-.xpill{border:1px solid var(--line);border-radius:99px;padding:7px 14px;font-size:.78rem;color:var(--mut);display:flex;align-items:center;gap:8px;white-space:nowrap;background:#ffffff08}.xpill:before{content:"";width:7px;height:7px;border-radius:50%;background:#6b6488}
-.xpill.on{color:#7ff0c1;border-color:#1f5a47;background:#0f2a21aa}.xpill.on:before{background:#35d09a;box-shadow:0 0 10px #35d09a}
-.xuser{display:flex;align-items:center;gap:10px;padding:4px 6px 4px 14px;border:1px solid var(--line);border-radius:99px;background:#ffffff08;font-size:.8rem}.xuser i{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;background:linear-gradient(135deg,var(--ac),#22d3ee);color:#fff}.xuser small{display:block;color:var(--mut);font-size:.68rem;line-height:1.2}.xuser span{line-height:1.25}
-body.xhc .xhead{padding:8px 16px!important;border-radius:16px!important}body.xhc .xhead .sub,body.xhc .xhead:before,body.xhc .xuser,body.xhc .xcrumb{display:none}body.xhc .xhead h1{font-size:1.02rem}body.xhc .xsrch{height:36px}
-/* ---- اللوحات والبطاقات ---- */
-.panel,.xc{background:var(--glass)!important;border:1px solid var(--line)!important;border-radius:var(--r)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 1px 0 #ffffff12 inset,0 24px 44px -30px #000}
-.panel{padding:22px 24px}
-.xc{position:relative;overflow:hidden}.xc:before{content:"";position:absolute;inset:0 0 auto 0;height:90px;background:radial-gradient(240px 90px at 100% 0,color-mix(in srgb,var(--ac) 22%,transparent),transparent);pointer-events:none}
-.panel>h2:first-child,.xc>h3:first-child{cursor:pointer;display:flex;align-items:center;gap:10px;user-select:none;position:relative}
-.panel>h2:first-child:after,.xc>h3:first-child:after{content:"⌄";margin-inline-start:auto;color:var(--mut);transition:transform .2s;font-size:1.05rem}
-.panel.xcol>h2:first-child:after,.xc.xcol>h3:first-child:after{transform:rotate(90deg)}
-.panel.xcol>*:not(h2:first-child),.xc.xcol>*:not(h3:first-child){display:none!important}
-.panel.xcol>h2:first-child,.xc.xcol>h3:first-child{margin-bottom:0}
-.xn{background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 45%,#22d3ee))!important;color:#fff;width:28px;height:28px;font-size:.8rem;box-shadow:0 6px 14px -6px var(--ac)}
-.xb,.season-box,.episode-box,.pset,.vst,.status,.remember-row,.xit,.ad-design-preview{background:#0a071a99!important;border-color:var(--line)!important}
-.xdn:after{background:#150f2a!important}
-.xtoast{background:#16112c!important;backdrop-filter:blur(12px)}
-.xt{box-shadow:0 10px 22px -14px #000}
-/* ---- الحقول والأزرار ---- */
-input,textarea,select{background:#0a071acc!important;border:1px solid var(--line)!important;border-radius:12px!important;padding:10px 13px!important;font-size:.93rem}
-input:focus,textarea:focus,select:focus{outline:0!important;border-color:var(--ac)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 25%,transparent)}
-label.field{font-weight:500;color:#cfc8e8;font-size:.85rem}
-.btn{background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 55%,#22d3ee))!important;color:#fff;font-weight:600;border-radius:12px;padding:9px 18px;box-shadow:0 10px 22px -12px var(--ac);transition:transform .12s,filter .15s}
-.btn:hover{filter:brightness(1.1)}.btn:active{transform:translateY(1px)}
-.btn.secondary,.mini-btn{background:#ffffff0d!important;border:1px solid var(--line)!important;color:var(--fg);box-shadow:none;font-weight:500}
-.btn.secondary:hover,.mini-btn:hover{background:#ffffff18!important}
-.btn.danger,.mini-btn.danger{background:var(--bad)!important;border:0!important;box-shadow:none}
-.warning{border-right-color:#e0a82e;background:#e0a82e14}
-.srow{border-radius:14px;transition:background .15s}.srow:hover{background:#ffffff08}.sitem{border-color:var(--line)}
-table th{color:#8c85aa;font-weight:600;font-size:.76rem}
-::selection{background:color-mix(in srgb,var(--ac) 45%,transparent)}
-*{scrollbar-width:thin;scrollbar-color:#3a3160 transparent}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+<!-- ===== تصميم غرفة العرض (طبقة CSS فقط) ===== -->
+<style>
+/* ==========================================================
+   تصميم "غرفة العرض" للوحة إدارة المكتبة
+   الألوان: حبر بترولي + عنبر (ضوء البروجكتور)
+   الاستخدام: الصق الملف كله داخل <style> … </style> في آخر الصفحة
+   قبل </body> (بعد آخر <script>). مفيش أي JS أو ID اتغيّر.
+   ========================================================== */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
 
-.xmenu,.xbn,.xbd{display:none}
-@media(max-width:900px){.xsrch{order:9;width:100%}.xuser{display:none}}
-@media(max-width:820px){
- body{display:block!important;padding:8px 8px 96px!important}
- .wrap{padding:0 0 20px!important}
- body .xside{position:fixed!important;top:8px;bottom:8px;right:8px;left:auto;width:min(86vw,320px)!important;height:auto!important;flex-direction:column!important;overflow-y:auto!important;overflow-x:hidden!important;padding:14px 12px!important;transform:translateX(118%);transition:transform .28s cubic-bezier(.3,.8,.3,1);z-index:90;background:linear-gradient(180deg,#1c1438f2,#120c26f7)!important;border-radius:24px!important}
- body.xdr .xside{transform:none}
- body .xside h4,body .xside .xgap{display:block!important}body .xside .xgap{flex:1}
- body .xside button{width:100%!important;white-space:normal!important}
- body .xbrand{display:flex!important}body .xcard{display:block!important}body .xgrp,body .xgt{display:flex!important}body .xgrp{display:flex!important;flex-direction:column}
- .xtog{display:none!important}
- .xbd{display:block;position:fixed;inset:0;z-index:80;background:#05030ecc;backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .25s}body.xdr .xbd{opacity:1;pointer-events:auto}
- .xbn{display:flex;position:fixed;bottom:10px;inset-inline:10px;z-index:70;justify-content:space-around;gap:2px;padding:6px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(180deg,#241a45e6,#140d2ae6);backdrop-filter:blur(20px);box-shadow:0 20px 40px -10px #000}
- .xbn button{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;padding:7px 2px;border:0;border-radius:18px;background:none;color:#a39cc4;font:500 .64rem var(--ff);cursor:pointer}
- .xbn button i{font-style:normal;font-size:1.15rem;line-height:1.2}
- .xbn button.on{background:color-mix(in srgb,var(--ac) 24%,transparent);color:#fff}.xbn button.on i{color:var(--ac)}
- .xmenu{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;border:1px solid var(--line);background:#ffffff0d;color:#fff;font-size:1.1rem;cursor:pointer;flex:none}
- .xhead{top:8px!important;padding:10px 12px!important;border-radius:18px!important;flex-wrap:nowrap!important;gap:10px!important;margin-bottom:12px!important}
- .xhead:before,.xhtog,.xsrch,.xuser,.xcrumb,.xhead .sub{display:none!important}
- .xhead h1{font-size:1.1rem}.xpill{font-size:.7rem;padding:5px 10px}#xt{min-width:0}
- .panel{padding:16px!important;border-radius:18px!important}
- .xc{border-radius:18px!important}
+:root{
+  --bg:#0a171b; --card:#102329; --card2:#16313a; --line:#23454f;
+  --fg:#eef4f2; --mut:#8fb0b0; --ac:#ffb547; --ok:#2fae8f; --bad:#c2455a;
+  --ink:#1a1203; --r:16px;
 }
+body{
+  font-family:'IBM Plex Sans Arabic',Cairo,Tahoma,sans-serif !important;
+  background:var(--bg) !important; color:var(--fg);
+  gap:0;
+}
+body *{font-family:inherit}
+code{font-family:ui-monospace,Menlo,monospace !important}
 
-/* ===== لوحة النظرة العامة (الرئيسية) ===== */
-#xOv{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-bottom:16px}
-#xOv .oc{background:var(--glass);border:1px solid var(--line);border-radius:22px;padding:18px 20px;position:relative;overflow:hidden;backdrop-filter:blur(14px);box-shadow:0 1px 0 #ffffff12 inset,0 28px 50px -34px #000;min-width:0}
-#xOv .oc h3{margin:0;font-size:.98rem;display:flex;align-items:center;gap:9px}#xOv .oc h3 i{font-style:normal;display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:#ffffff10;font-size:.85rem;color:var(--ac)}
-#xOv .oc h3 small{margin-inline-start:auto;color:var(--mut);font-weight:400;font-size:.72rem}
-#xOv .oc .sub2{color:var(--mut);font-size:.76rem;margin:2px 0 14px}
-.kpi{grid-column:span 3}.kpi:before{content:"";position:absolute;inset:auto auto -60px -40px;width:170px;height:170px;border-radius:50%;background:var(--k);opacity:.2;filter:blur(40px);pointer-events:none}
-.kpi .kh{display:flex;align-items:center;gap:10px;color:#cfc8e8;font-size:.84rem}
-.kpi .kh i{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-style:normal;color:#fff;background:linear-gradient(135deg,var(--k),color-mix(in srgb,var(--k) 50%,#000));box-shadow:0 8px 18px -8px var(--k)}
-.kpi .kv{font-size:2.35rem;font-weight:700;line-height:1.15;margin:12px 0 8px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.kpi .kf{display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
-.chipx{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:3px 10px;font-size:.72rem;background:#ffffff10;color:#d8d2ee;white-space:nowrap}
-.chipx.g{background:#13382d;color:#6fe3b4}.chipx.w{background:#3d2d10;color:#f2c261}.chipx.r{background:#40141f;color:#ff8da1}
-.kpi svg{width:108px;height:40px;flex:none;overflow:visible}
-.cA{grid-column:span 8}.cB{grid-column:span 4}.cC{grid-column:span 5}.cD{grid-column:span 4}.cE{grid-column:span 3}
-.hb{display:grid;grid-template-columns:104px 1fr 112px;align-items:center;gap:12px;padding:6px 0;font-size:.82rem}
-.hb .bn{display:flex;align-items:center;gap:8px;color:#d6d0ec;white-space:nowrap}.hb .bn b{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}
-.hb .tr{height:10px;border-radius:99px;background:#ffffff0d;overflow:hidden}.hb .tr i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--c),color-mix(in srgb,var(--c) 45%,#fff));min-width:3px}
-.hb .bv{font-variant-numeric:tabular-nums;color:#fff;font-weight:600;display:flex;gap:8px;align-items:baseline;white-space:nowrap}.hb .bv small{color:var(--mut);font-weight:400;font-size:.7rem}
-.dn{display:flex;gap:18px;align-items:center;flex-wrap:wrap}.dn .ring{width:132px;height:132px;border-radius:50%;position:relative;flex:none}.dn .ring:after{content:"";position:absolute;inset:26px;border-radius:50%;background:#150f2c}
-.dn .ring span{position:absolute;inset:0;display:grid;place-items:center;z-index:1;font-size:1.25rem;font-weight:700;text-align:center;line-height:1.2}.dn .ring span small{display:block;font-size:.66rem;color:var(--mut);font-weight:400}
-.dn .lg{flex:1;min-width:130px;font-size:.8rem}.dn .lg div{display:flex;align-items:center;gap:8px;padding:3px 0}.dn .lg i{width:10px;height:10px;border-radius:3px;flex:none}.dn .lg span{margin-inline-start:auto;color:var(--mut)}
-.cols{display:flex;align-items:flex-end;gap:7px;height:150px;padding-top:10px}
-.cols div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%;min-width:0}
-.cols i{display:block;width:100%;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--ac),color-mix(in srgb,var(--ac) 30%,#22d3ee));min-height:4px;position:relative}
-.cols i.z{background:#ffffff12}.cols small{font-size:.62rem;color:var(--mut);white-space:nowrap}.cols b{font-size:.68rem;font-weight:600}
-.lt{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #ffffff0d}.lt:last-child{border:0}
-.lt img{width:38px;height:54px;border-radius:8px;object-fit:cover;background:#2a2248;flex:none}.lt .ph{width:38px;height:54px;border-radius:8px;flex:none;display:grid;place-items:center;font-weight:700;color:#fff;background:linear-gradient(160deg,var(--c),#1b1233)}
-.lt div{min-width:0;flex:1}.lt b{display:block;font-size:.86rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lt small{color:var(--mut);font-size:.72rem}
-.hl{padding:7px 0}.hl .hr{display:flex;justify-content:space-between;font-size:.78rem;color:#d6d0ec;margin-bottom:5px}.hl .hr b{font-variant-numeric:tabular-nums}
-.hl .tr{height:7px;border-radius:99px;background:#ffffff0d;overflow:hidden}.hl .tr i{display:block;height:100%;border-radius:99px;background:var(--c)}
-.ovmsg{grid-column:1/-1;text-align:center;color:var(--mut);padding:26px;border:1px dashed var(--line);border-radius:20px;font-size:.9rem}
-#xDash .xhide{display:none!important}
-[data-mode=log] #xOv{display:none}
-@media(max-width:1180px){.kpi{grid-column:span 6}.cA,.cB,.cC,.cD,.cE{grid-column:span 12}}
-@media(max-width:560px){#xOv{gap:10px}.kpi{grid-column:span 6;padding:14px}.kpi .kv{font-size:1.7rem}.kpi svg{display:none}.kpi .kh span{font-size:.74rem}.hb{grid-template-columns:104px 1fr 78px}.hb .bn b{display:none}.hb .bv small{display:none}.xtoast{bottom:100px!important}}
+/* ---------- القائمة الجانبية: شريط فيلم عائم ---------- */
+body .xside{
+  width:250px; margin:14px; height:calc(100vh - 28px);
+  background:var(--card); border:1px solid var(--line); border-radius:24px;
+  padding:18px 14px 18px 26px; gap:4px;
+}
+/* ثقوب شريط الفيلم على الحافة الداخلية: عنصر التصميم المميز الوحيد */
+body .xside::after{
+  content:""; position:absolute; left:8px; top:18px; bottom:18px; width:6px;
+  background:repeating-linear-gradient(to bottom,var(--bg) 0 9px,transparent 9px 19px);
+  border-radius:3px; pointer-events:none;
+}
+body .xbrand{
+  background:var(--ac); color:var(--ink); border-radius:14px;
+  font-weight:700; font-size:1.05rem; padding:14px; margin-bottom:12px;
+}
+body .xside h4{color:var(--mut);font-weight:500;font-size:.8rem;margin:8px 10px 6px}
+body .xside button{
+  color:var(--mut); font-weight:500; padding:11px 14px; border-radius:12px;
+  transition:background .15s,color .15s;
+}
+body .xside button:hover{background:var(--card2);color:var(--fg)}
+body .xside button.on{
+  background:var(--card2); color:var(--ac); font-weight:700;
+  box-shadow:inset -3px 0 0 var(--ac);
+}
+body .xside i{opacity:1}
 
-#xDash>#xOv{grid-column:1/-1}
+/* ---------- المحتوى والهيدر ---------- */
+body .wrap{padding:22px 24px 80px; max-width:1240px; margin-inline:auto}
+body .xhead{
+  background:none; border:0; border-bottom:1px solid var(--line);
+  border-radius:0; padding:6px 0 18px; margin-bottom:22px;
+}
+body .xhead svg{display:none}
+body .xhead h1{font-size:1.9rem; font-weight:700; letter-spacing:-.01em}
+body .xhead .sub{color:var(--mut)}
+
+/* ---------- لوحة الملخص: شبكة 12 عمود غير متساوية ---------- */
+body .xgrid{grid-template-columns:repeat(12,minmax(0,1fr)); gap:16px}
+body .xgrid>.xc{grid-column:span 4}
+body .xgrid>.xc:nth-child(1){grid-column:span 8}
+body .xgrid>.xc:nth-child(2){grid-column:span 4}
+body .xgrid>.xc:nth-child(6),
+body .xgrid>.xc:nth-child(7){grid-column:span 6}
+body .xgrid>.xc:nth-child(8){grid-column:span 12}
+body [data-mode=log].xgrid{grid-template-columns:1fr}
+body [data-mode=log].xgrid>.xc{grid-column:auto}
+body #pTools .xgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+body #pTools .xgrid>.xc{grid-column:auto}
+
+body .xc{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--r);
+  padding:18px;
+}
+body .xc h3{font-size:1.05rem;font-weight:700}
+body .xn{display:none}              /* الأرقام مش ترتيب فعلي، فشلناها */
+body .xc>p{color:var(--mut)}
+body .xst{grid-template-columns:repeat(4,minmax(0,1fr))}
+body .xgrid>.xc:not(:nth-child(1)) .xst{grid-template-columns:1fr 1fr}
+body .xt{
+  background:var(--card2) !important; color:var(--fg);
+  border:1px solid var(--line); border-radius:12px; padding:12px 14px;
+}
+body .xt small{color:var(--mut)}
+body .xt b{font-size:1.9rem; font-weight:700; color:var(--ac)}
+body .xb,body .xit,body .chk,body .rep,body .gs-res,body .qrow{
+  background:var(--card2) !important; border-color:var(--line) !important; border-radius:12px;
+}
+body .xdn:after{background:var(--card2)}
+body .xr{border-color:var(--line)}
+
+/* ---------- اللوحات (النماذج والأقسام) ---------- */
+body .panel{
+  background:var(--card); border:1px solid var(--line); border-radius:20px;
+  padding:24px; margin:0 0 18px;
+}
+body .panel>h2{
+  font-size:1.15rem; font-weight:700; padding-bottom:12px; margin-bottom:14px;
+  border-bottom:1px solid var(--line);
+}
+body .hint,body .sub{color:var(--mut)}
+body .season-box{background:var(--bg) !important;border-radius:14px;border-color:var(--line)}
+body .episode-box{background:var(--card);border-radius:12px}
+body .season-title{color:var(--ac)}
+body .sched,body .xgen,body .imp,body .sugg{background:var(--bg) !important;border-color:var(--line)}
+
+/* ---------- الحقول ---------- */
+body input,body textarea,body select{
+  background:var(--bg) !important; border:1px solid var(--line); border-radius:10px;
+  color:var(--fg); padding:11px 12px;
+  transition:border-color .15s,box-shadow .15s;
+}
+body input:focus,body textarea:focus,body select:focus{
+  outline:0; border-color:var(--ac); box-shadow:0 0 0 3px #ffb54733;
+}
+body input[type=checkbox]{accent-color:var(--ac)}
+body .remember-row{background:var(--card2);border-color:var(--line)}
+body .status{background:var(--bg);border-color:var(--line);border-radius:12px}
+
+/* ---------- الأزرار ---------- */
+body .btn{
+  background:var(--ac); color:var(--ink); border-radius:11px; font-weight:700;
+  padding:10px 18px; transition:filter .15s,transform .1s;
+}
+body .btn:hover{filter:brightness(1.08)}
+body .btn:active{transform:translateY(1px)}
+body .btn.secondary{background:transparent;color:var(--fg);border:1px solid var(--line)}
+body .btn.secondary:hover{background:var(--card2);filter:none}
+body .btn.danger,body .mini-btn.danger{background:var(--bad);color:#fff;border-color:transparent}
+body .mini-btn{background:var(--card2);border-color:var(--line);border-radius:9px}
+body .mini-btn:hover{border-color:var(--ac)}
+body .ib{background:var(--card2);border-color:var(--line);border-radius:10px}
+body .ib.on{background:var(--ac);border-color:var(--ac);color:var(--ink)}
+body :focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+
+/* ---------- قائمة المسلسلات ---------- */
+body .sitem{border-color:var(--line);padding:6px 0}
+body .srow{border-radius:14px;padding:8px 10px;transition:background .15s}
+body .srow:hover{background:var(--card2)}
+body .srow.pinned{background:#ffb5471a;border-color:var(--ac)}
+body .stt strong{font-weight:600}
+body .tg{border-radius:8px;font-weight:600}
+body .tp{background:#ffb54733;color:var(--ac)}
+body .undo,body .bulk,body .draftbar{background:var(--card2);border-color:var(--ac);color:var(--fg)}
+
+/* ---------- المعاينات والنوافذ ---------- */
+body .pvbox,body .x7b{background:var(--card);border-color:var(--line);border-radius:22px}
+body .pvep{background:var(--card2)}
+body .ad-design-preview{background:var(--bg);border-color:var(--line)}
+body .xtoast{background:var(--card);border-color:var(--line);border-radius:14px}
+
+/* ---------- شاشات أصغر ---------- */
+@media(max-width:1000px){
+  body .xgrid>.xc,body .xgrid>.xc:nth-child(n){grid-column:span 6}
+  body .xgrid>.xc:nth-child(1),body .xgrid>.xc:nth-child(8){grid-column:span 12}
+}
+@media(max-width:700px){
+  body{padding-bottom:84px}
+  body .wrap{padding:16px 14px 100px}
+  body .xgrid{grid-template-columns:1fr}
+  body .xgrid>.xc,body .xgrid>.xc:nth-child(n){grid-column:auto}
+  body #pTools .xgrid{grid-template-columns:1fr}
+  /* القائمة تتحول لشريط تنقل سفلي */
+  body .xside{
+    position:fixed; inset:auto 8px 8px 8px; top:auto; width:auto; height:auto; margin:0;
+    flex-direction:row; padding:6px; border-radius:20px; z-index:50; gap:2px;
+    box-shadow:0 10px 30px #000a;
+  }
+  body .xside::after{display:none}
+  body .xside button{flex:0 0 auto;flex-direction:column;gap:2px;font-size:.7rem;padding:8px 10px;white-space:nowrap}
+  body .xside button.on{box-shadow:inset 0 -3px 0 var(--ac)}
+  body .xst{grid-template-columns:1fr 1fr !important}
+  body .panel{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){body *{transition:none !important}}
+
 </style>
-<script id="xv10js">
-/* xv10: سلوك الطيّ + مبدّل الأقسام + مسار التنقل (لا يغيّر أي وظيفة قائمة) */
-(function(){
-try{
-var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
-var COL={'series-arabic.json':'#7c5cff','series-foreign.json':'#4da3ff','series-turkish.json':'#ef4458','series-korean.json':'#35d0a5','series-indian.json':'#ff9a2e','series-ramadan.json':'#e0a82e','movies-arabic.json':'#e0a82e','movies-foreign.json':'#6c8cff','movies-anime.json':'#ff5c8a','movies-indian.json':'#ff9a2e','movies-turkish.json':'#ef4458','movies-korean.json':'#35d0a5','programs.json':'#22d3ee','wrestling.json':'#c084fc'};
-var NAMES={'series-arabic.json':['المسلسلات','عربي'],'series-foreign.json':['المسلسلات','أجنبي'],'series-turkish.json':['المسلسلات','تركي'],'series-korean.json':['المسلسلات','كوري'],'series-indian.json':['المسلسلات','هندي'],'series-ramadan.json':['المسلسلات','رمضان'],'movies-arabic.json':['الأفلام','عربي'],'movies-foreign.json':['الأفلام','أجنبي'],'movies-anime.json':['الأفلام','أنمي'],'movies-indian.json':['الأفلام','هندية'],'movies-turkish.json':['الأفلام','تركية'],'movies-korean.json':['الأفلام','كورية'],'programs.json':['البرامج','كل البرامج'],'wrestling.json':['المصارعة','العروض']};
-var side=$('.xside'),head=$('.xhead'),pathSel=$('#path');
-if(!side||!head)return;
-/* لفّ نصوص الأزرار عشان تختفي عند الطيّ */
-$$('button',side).forEach(function(b){$$('i',b).forEach(function(){});var t=[];Array.prototype.slice.call(b.childNodes).forEach(function(n){if(n.nodeType===3&&n.textContent.trim()){var s=document.createElement('span');s.className='xl';s.textContent=n.textContent.trim();b.replaceChild(s,n)}});b.title=b.textContent.trim()});
-/* العلامة + زر طيّ الشريط */
-var br=$('.xbrand',side);var bt=br.textContent.trim();br.innerHTML='<span>'+bt+'<small>مكتبة المسلسلات والأفلام</small></span><button type="button" class="xtog" id="xSbTog" aria-label="طيّ القائمة الجانبية" title="طيّ / فتح القائمة">⇆</button>';
-function setSb(c){document.body.classList.toggle('xsc',c);store.set('xv10_sb',c?'1':'0')}
-if(store.get('xv10_sb')==='1')document.body.classList.add('xsc');
-$('#xSbTog').onclick=function(e){e.stopPropagation();setSb(!document.body.classList.contains('xsc'))};
-/* عناوين مجموعات القائمة */
-(function(){var h4=$('h4',side);if(h4)h4.textContent='عام';
- function before(pg,t){var b=$('[data-pg="'+pg+'"]',side);if(!b)return;var h=document.createElement('h4');h.textContent=t;side.insertBefore(h,b)}
- before('stats','التحليلات');before('tools','أدوات')})();
-/* مبدّل الأقسام */
-var gap=$('.xgap',side),groups={};
-var order=[['المسلسلات','series-'],['الأفلام','movies-'],['برامج ومصارعة','']];
-var secs=pathSel?$$('option',pathSel).map(function(o){return o.value}):[];
-function mkGroup(title,files){var d=document.createElement('div');d.className='xgrp';d.innerHTML='<div class="xgt">'+title+'</div>'+files.map(function(f){var nm=(NAMES[f]||[0,f])[1];return '<button type="button" class="xsec" data-f="'+f+'" style="--c:'+(COL[f]||'#7c5cff')+'" title="'+(NAMES[f]?NAMES[f][0]+' '+nm:f)+'"><b></b><span class="xl">'+nm+'</span><u></u></button>'}).join('');side.insertBefore(d,gap);$('.xgt',d).onclick=function(){d.classList.toggle('xcol')};return d}
-mkGroup('المسلسلات',secs.filter(function(f){return /^series-/.test(f)}));
-mkGroup('الأفلام',secs.filter(function(f){return /^movies-/.test(f)}));
-mkGroup('برامج ومصارعة',secs.filter(function(f){return !/^(series|movies)-/.test(f)}));
-side.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.xsec');if(!b||!pathSel)return;
- pathSel.value=b.getAttribute('data-f');pathSel.dispatchEvent(new Event('change',{bubbles:true}));
- var tk=$('#token'),cn=$('#connect');
- if(tk&&tk.value&&cn)cn.click();else{var h=$('[data-pg="home"]',side);if(h)h.click()}
-});
-/* بطاقة حالة المستودع أسفل الشريط */
-var sc=document.createElement('div');sc.className='xcard';sc.id='xRepoCard';sc.innerHTML='<b><span class="dt"></span>المستودع</b><code id="xRepoTxt">غير متصل</code>';side.insertBefore(sc,$('#xOut',side));
-/* الهيدر: مسار التنقل + زر الطيّ + حالة الاتصال */
-var xt=$('#xt'),cr=document.createElement('div');cr.className='xcrumb';cr.id='xCrumb';xt.insertBefore(cr,xt.firstChild);
-var srch=document.createElement('label');srch.className='xsrch';srch.innerHTML='<span aria-hidden="true">⌕</span><input id="xTop" type="search" placeholder="ابحث في كل الأقسام…" autocomplete="off"><kbd>/</kbd>';head.appendChild(srch);
-var topI=$('#xTop');topI.addEventListener('keydown',function(e){if(e.key!=='Enter')return;var l=$('[data-pg="list"]',side);if(l)l.click();setTimeout(function(){var gi=$('#gsIn');if(gi){gi.value=topI.value;gi.dispatchEvent(new Event('input',{bubbles:true}));gi.focus()}},200)});
-document.addEventListener('keydown',function(e){if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test((e.target.tagName||''))){e.preventDefault();topI.focus()}});
-var pill=document.createElement('div');pill.className='xpill';pill.id='xPill';head.appendChild(pill);
-var us=document.createElement('div');us.className='xuser';us.innerHTML='<span id="xUN">المدير<small>لوحة الإدارة</small></span><i id="xUI">م</i>';head.appendChild(us);
-var ht=document.createElement('button');ht.type='button';ht.className='xhtog';ht.id='xHdTog';ht.title='طيّ / فتح الهيدر';ht.setAttribute('aria-label','طيّ الهيدر');ht.textContent='⌃';head.appendChild(ht);
-function setHd(c){document.body.classList.toggle('xhc',c);ht.textContent=c?'⌄':'⌃';store.set('xv10_hd',c?'1':'0')}
-if(store.get('xv10_hd')==='1'){document.body.classList.add('xhc');ht.textContent='⌄'}
-ht.onclick=function(){setHd(!document.body.classList.contains('xhc'))};
-/* طيّ اللوحات والبطاقات بالضغط على العنوان */
-document.addEventListener('click',function(e){var h=e.target.closest&&e.target.closest('.panel>h2:first-child,.xc>h3:first-child');if(!h||e.target.closest('button,a,input,select'))return;h.parentNode.classList.toggle('xcol')});
-/* تحديث الدوري: لون القسم + المسار + العدّادات + حالة الاتصال */
-var last='';
-function tick(){
- var f=pathSel?pathSel.value:'',c=COL[f]||'#7c5cff';
- if(f!==last){last=f;document.documentElement.style.setProperty('--ac',c);var m=document.querySelector('meta[name=theme-color]');}
- $$('.xsec',side).forEach(function(b){var ff=b.getAttribute('data-f');b.classList.toggle('cur',ff===f);var u=$('u',b),d=window.D&&window.D[ff];u.textContent=Array.isArray(d)?d.length:''});
- var on=$('.xside button.on:not(.xsec) .xl'),pg=on?on.textContent.trim():'';var n=NAMES[f]||['',''];
- cr.innerHTML='<span>'+n[0]+'</span><i>/</i><b>'+n[1]+'</b>'+(pg?'<i>/</i><span>'+pg+'</span>':'');
- var st=$('#status'),ld=!!(st&&st.classList.contains('ok')&&/نجاح|تم/.test(st.textContent));
- var ow=$('#owner'),rp=$('#repo'),ct=$('#xRepoCard'),rt=$('#xRepoTxt');if(ct){ct.classList.toggle('on',ld);rt.textContent=ld?((ow&&ow.value)||'')+'/'+((rp&&rp.value)||'')+' · '+f:'غير متصل بعد'}
- var ui=$('#xUI');if(ow&&ow.value&&ui){ui.textContent=ow.value.charAt(0).toUpperCase()}pill.className='xpill'+(ld?' on':'');pill.textContent=ld?'متصل · '+f:'غير متصل';
-}
-tick();setInterval(tick,500);
-}catch(e){try{console.error('xv10',e)}catch(_){}}
-})();
-
-/* نظرة عامة: بيانات حقيقية من كل الأقسام + قائمة الموبايل (درج + شريط سفلي) */
-(function(){
-try{
-var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-var dsh=$('#xDash'),side=$('.xside'),head=$('.xhead');if(!dsh||!side||!head)return;
-var COL={'series-arabic.json':'#7c5cff','series-foreign.json':'#4da3ff','series-turkish.json':'#ef4458','series-korean.json':'#35d0a5','series-indian.json':'#ff9a2e','series-ramadan.json':'#e0a82e','movies-arabic.json':'#f0b429','movies-foreign.json':'#6c8cff','movies-anime.json':'#ff5c8a','movies-indian.json':'#ffb34d','movies-turkish.json':'#ff6b7d','movies-korean.json':'#5eead4','programs.json':'#22d3ee','wrestling.json':'#c084fc'};
-var NM={'series-arabic.json':'مسلسلات عربي','series-foreign.json':'مسلسلات أجنبي','series-turkish.json':'مسلسلات تركي','series-korean.json':'مسلسلات كوري','series-indian.json':'مسلسلات هندي','series-ramadan.json':'مسلسلات رمضان','movies-arabic.json':'أفلام عربي','movies-foreign.json':'أفلام أجنبي','movies-anime.json':'أنمي','movies-indian.json':'أفلام هندية','movies-turkish.json':'أفلام تركية','movies-korean.json':'أفلام كورية','programs.json':'برامج','wrestling.json':'مصارعة'};
-var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
-var fmt=function(n){return Number(n||0).toLocaleString('en-US')};
-function eps(x){return (x.ss||[]).reduce(function(n,s){return n+s.length},0)}
-function noLink(x){var n=0;(x.ss||[]).forEach(function(s){s.forEach(function(e){if(!(e.u||'').trim())n++})});return n}
-function ts(x){if(x.addedAt){var t=Date.parse(x.addedAt);if(!isNaN(t))return t}var n=parseInt(String(x.k||'').replace('remote-',''),10);return (isNaN(n)||n<1e12)?0:n}
-function spark(vals,col){vals=vals.length>1?vals:[0,0];var mx=Math.max.apply(null,vals)||1,w=108,h=40,st=w/(vals.length-1);
- var pts=vals.map(function(v,i){return [(i*st).toFixed(1),(h-4-(v/mx)*(h-10)).toFixed(1)]});var line=pts.map(function(p){return p.join(',')}).join(' ');
- return '<svg viewBox="0 0 '+w+' '+h+'" aria-hidden="true"><defs><linearGradient id="sg'+col.slice(1)+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+col+'" stop-opacity=".45"/><stop offset="1" stop-color="'+col+'" stop-opacity="0"/></linearGradient></defs><polygon points="0,'+h+' '+line+' '+w+','+h+'" fill="url(#sg'+col.slice(1)+')"/><polyline points="'+line+'" fill="none" stroke="'+col+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>'}
-var ov=document.createElement('section');ov.id='xOv';dsh.insertBefore(ov,dsh.firstChild);
-['xStats','xSortB','xQual'].forEach(function(id){var e=document.getElementById(id),c=e&&e.closest('.xc');if(c)c.classList.add('xhide')});
-function render(){
- var D=window.__xD;
- if(!D){ov.innerHTML='<div class="ovmsg">اتصل بالمستودع (الإعدادات ← الاتصال) وهتظهر هنا إحصائيات كل أقسام مكتبتك لحظيًا.</div>';return}
- var files=Object.keys(D),per=[],all=[];
- files.forEach(function(f){var a=D[f]||[],E=0,NL=0,H=0;a.forEach(function(x){E+=eps(x);NL+=noLink(x);if(x.hide)H++;all.push({f:f,x:x})});per.push({f:f,n:a.length,e:E,nl:NL,h:H})});
- var T={n:0,e:0,nl:0,h:0};per.forEach(function(p){T.n+=p.n;T.e+=p.e;T.nl+=p.nl;T.h+=p.h});
- var act=per.filter(function(p){return p.n>0}).length;
- var now=Date.now(),W=7*864e5,wk=[];for(var i=11;i>=0;i--)wk.push({s:now-(i+1)*W,e:now-i*W,n:0});
- all.forEach(function(r){var t=ts(r.x);if(!t)return;wk.forEach(function(w){if(t>w.s&&t<=w.e)w.n++})});
- var added30=all.filter(function(r){var t=ts(r.x);return t&&now-t<30*864e5}).length;
- var cum=[],c=T.n-wk.reduce(function(s,w){return s+w.n},0);wk.forEach(function(w){c+=w.n;cum.push(c)});
- var sp=function(k){return per.map(function(p){return p[k]})};
- var kp=[['إجمالي الأعمال',T.n,'#7c5cff','▦',spark(cum.slice(-8),'#7c5cff'),'<span class="chipx g">+'+added30+' آخر 30 يوم</span>'],
-  ['إجمالي الحلقات',T.e,'#22d3ee','▶',spark(sp('e'),'#22d3ee'),'<span class="chipx">'+(T.n?(T.e/T.n).toFixed(1):0)+' حلقة / عمل</span>'],
-  ['حلقات بدون رابط',T.nl,'#ff9a2e','⚠',spark(sp('nl'),'#ff9a2e'),T.nl?'<span class="chipx w">تحتاج مراجعة</span>':'<span class="chipx g">كله سليم</span>'],
-  ['أعمال مخفية',T.h,'#ff5c8a','◌',spark(sp('h'),'#ff5c8a'),'<span class="chipx">'+act+' قسم فيه محتوى</span>']];
- var h=kp.map(function(k){return '<div class="oc kpi" style="--k:'+k[2]+'"><div class="kh"><i>'+k[3]+'</i><span>'+k[0]+'</span></div><div class="kv">'+fmt(k[1])+'</div><div class="kf">'+k[5]+k[4]+'</div></div>'}).join('');
- var srt=per.slice().sort(function(a,b){return b.n-a.n}),mx=Math.max(1,srt[0]?srt[0].n:1);
- h+='<div class="oc cA"><h3><i>▥</i>الأعمال حسب القسم<small>العدد · الحلقات</small></h3><p class="sub2">توزيع المحتوى على أقسام المكتبة</p>'+srt.map(function(p){return '<div class="hb" style="--c:'+(COL[p.f]||'#7c5cff')+'"><span class="bn"><b></b>'+esc(NM[p.f]||p.f)+'</span><span class="tr"><i style="width:'+Math.round(p.n/mx*100)+'%"></i></span><span class="bv">'+fmt(p.n)+'<small>'+fmt(p.e)+' حلقة</small></span></div>'}).join('')+'</div>';
- var m={};all.forEach(function(r){var s=String(r.x.g||'أخرى').split(/[،,]/)[0].trim()||'أخرى';m[s]=(m[s]||0)+1});
- var ks=Object.keys(m).sort(function(a,b){return m[b]-m[a]}),pt=ks.slice(0,5).map(function(s){return [s,m[s]]}),rest=ks.slice(5).reduce(function(n,s){return n+m[s]},0);if(rest)pt.push(['أخرى',rest]);
- var cl=['#7c5cff','#22d3ee','#ff5c8a','#ffb34d','#35d0a5','#8a84ad'],tot=T.n||1,acc=0;
- var gr=pt.map(function(z,i){var s=acc/tot*100;acc+=z[1];return cl[i]+' '+s+'% '+(acc/tot*100)+'%'}).join(',');
- h+='<div class="oc cB"><h3><i>◔</i>التصنيفات<small>حسب أول تصنيف</small></h3><p class="sub2">أكثر الأنواع حضورًا في المكتبة</p><div class="dn"><div class="ring" style="background:'+(pt.length?'conic-gradient('+gr+')':'#ffffff12')+'"><span><div>'+fmt(T.n)+'<small>عمل</small></div></span></div><div class="lg">'+pt.map(function(z,i){return '<div><i style="background:'+cl[i]+'"></i>'+esc(z[0])+'<span>'+Math.round(z[1]/tot*100)+'%</span></div>'}).join('')+'</div></div></div>';
- var mw=Math.max.apply(null,wk.map(function(w){return w.n}))||1;
- h+='<div class="oc cC"><h3><i>▂</i>نشاط الإضافة<small>آخر 12 أسبوعًا</small></h3><p class="sub2">عدد الأعمال المضافة كل أسبوع</p><div class="cols">'+wk.map(function(w){var d=new Date(w.e).toLocaleDateString('ar-EG',{day:'numeric',month:'numeric'});return '<div title="'+w.n+' عمل"><b>'+(w.n||'')+'</b><i class="'+(w.n?'':'z')+'" style="height:'+(w.n?Math.max(6,w.n/mw*100):4)+'%"></i><small>'+d+'</small></div>'}).join('')+'</div></div>';
- var lt=all.slice().sort(function(a,b){return ts(b.x)-ts(a.x)}).slice(0,5);
- h+='<div class="oc cD"><h3><i>★</i>آخر المضاف<small>الأحدث أولًا</small></h3><p class="sub2">أحدث الأعمال في كل الأقسام</p>'+(lt.map(function(r){var c=COL[r.f]||'#7c5cff',t=esc(r.x.t||'');return '<div class="lt">'+(r.x.img?'<img alt="" src="'+esc(r.x.img)+'" onerror="this.style.visibility=\'hidden\'">':'<span class="ph" style="--c:'+c+'">'+t.charAt(0)+'</span>')+'<div><b>'+t+'</b><small>'+esc(NM[r.f]||'')+' · '+(r.x.y||'—')+' · '+eps(r.x)+' حلقة</small></div></div>'}).join('')||'<p class="hint">لا توجد بيانات.</p>')+'</div>';
- var pc=function(fn){return T.n?Math.round(all.filter(fn).length/T.n*100):0};
- var hs=[['بوستر',pc(function(r){return !!r.x.img})],['وصف',pc(function(r){return !!r.x.d})],['تقييم',pc(function(r){var v=r.x.r;return v&&v!=='0.0'&&v!=='—'})],['روابط كاملة',pc(function(r){return !noLink(r.x)})]];
- var avg=Math.round(hs.reduce(function(s,z){return s+z[1]},0)/hs.length);
- h+='<div class="oc cE"><h3><i>✓</i>صحة البيانات<small>'+avg+'%</small></h3><p class="sub2">اكتمال بيانات الأعمال</p>'+hs.map(function(z){var c=z[1]>=90?'#35d09a':z[1]>=60?'#f2c261':'#ff6b7d';return '<div class="hl" style="--c:'+c+'"><div class="hr"><span>'+z[0]+'</span><b>'+z[1]+'%</b></div><div class="tr"><i style="width:'+z[1]+'%"></i></div></div>'}).join('')+'</div>';
- ov.innerHTML=h;
-}
-render();document.addEventListener('xdraw',render);
-/* ---- الموبايل: درج جانبي + شريط سفلي ---- */
-var menu=document.createElement('button');menu.type='button';menu.className='xmenu';menu.setAttribute('aria-label','فتح القائمة');menu.innerHTML='☰';head.insertBefore(menu,head.firstChild);
-var bd=document.createElement('div');bd.className='xbd';document.body.appendChild(bd);
-function dr(o){document.body.classList.toggle('xdr',o)}
-menu.onclick=function(){dr(!document.body.classList.contains('xdr'))};bd.onclick=function(){dr(false)};
-side.addEventListener('click',function(e){if(e.target.closest('.xtog'))return;if(e.target.closest('button'))dr(false)});
-var bn=document.createElement('nav');bn.className='xbn';bn.setAttribute('aria-label','التنقل السريع');
-bn.innerHTML=[['home','⌂','الرئيسية'],['add','＋','إضافة'],['list','☰','القائمة'],['stats','▥','إحصاءات']].map(function(i){return '<button type="button" data-pg="'+i[0]+'"><i>'+i[1]+'</i><span>'+i[2]+'</span></button>'}).join('')+'<button type="button" id="xBnMore"><i>⋯</i><span>المزيد</span></button>';
-document.body.appendChild(bn);$('#xBnMore').onclick=function(){dr(true)};
-/* عنوان الصفحة حسب التبويب + مزامنة التبويب السفلي */
-var TT={home:['نظرة عامة','ملخص مكتبتك وحالة الاتصال'],add:['إضافة وتعديل','أضف عملًا جديدًا أو عدّل عملًا موجودًا'],list:['قائمة الأعمال','كل الأعمال في القسم الحالي'],log:['سجل التغييرات','آخر التعديلات والنسخ الاحتياطية'],stats:['الإحصائيات','المشاهدات والتحليلات وفحص الروابط'],ads:['إعدادات الإعلان','تحكّم في الإعلان قبل التشغيل'],tools:['أدوات متقدمة','نقل واستبدال وفحص جودة'],set:['الإعدادات','الاتصال والأمان']};
-var h1=$('#xt h1'),sb=$('#xt .sub');
-setInterval(function(){var on=$('.xside button.on[data-pg]'),pg=on?on.getAttribute('data-pg'):'home',t=TT[pg]||TT.home;
- if(h1&&h1.textContent!==t[0])h1.textContent=t[0];if(sb&&sb.textContent!==t[1])sb.textContent=t[1];
- $$('.xbn [data-pg]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-pg')===pg)})},400);
-}catch(e){try{console.error('xv10-ov',e)}catch(_){}}
-})();
-</script>
 </body></html>
