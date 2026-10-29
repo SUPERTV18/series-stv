@@ -678,7 +678,7 @@ window.saveData=async function(){var ok=await _sd.apply(this,arguments);if(ok)sy
 document.addEventListener('xreload',function(){loaded=false;load()});
 g('connect').addEventListener('click',function(){setTimeout(function(){loaded=false;load()},1500)});
 show('home');
-document.body.classList.add('st-ready');
+window.addEventListener('load',function(){document.body.classList.add('st-ready')},{once:true});
 if(token)setTimeout(load,600);
 })();
 </script>
@@ -1377,7 +1377,7 @@ body{display:flex;align-items:stretch;background:#080808!important}
 .xsecure{display:inline-flex;align-items:center;gap:6px;color:#b9ae98;font-size:.78rem;border:1px solid #393126;border-radius:999px;padding:5px 10px}
 .xsecure i{margin:0}
 .xc{min-width:0;align-self:stretch}
-.xc:first-of-type{grid-column:1/-1}
+#xDash > .xc:nth-of-type(3){grid-column:1/-1}
 .xc h3{display:flex;align-items:center;gap:10px;padding-bottom:11px;border-bottom:1px solid #3a3020}
 .xn{border-radius:9px!important;width:32px!important;height:32px!important}
 .xst{grid-template-columns:repeat(4,minmax(0,1fr))!important}
@@ -1396,7 +1396,7 @@ body{display:flex;align-items:stretch;background:#080808!important}
  .xwelcome{grid-column:1;padding:22px 17px;min-height:0}
  .xwelcome-art{display:none}
  .xsection-head{grid-column:1}
- .xc:first-of-type{grid-column:auto}
+ #xDash > .xc:nth-of-type(3){grid-column:auto}
  .xst{grid-template-columns:repeat(2,minmax(0,1fr))!important}
  .xhead{padding:13px!important;margin-bottom:13px!important}
 }
