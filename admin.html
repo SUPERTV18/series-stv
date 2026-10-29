@@ -1516,7 +1516,7 @@ body{display:flex;align-items:stretch;background:#080808!important}
  Object.keys(headings).forEach(function(k){var h=document.createElement('div');h.innerHTML='<h1 class="super-page-title">'+headings[k][0]+'</h1><p class="super-page-desc">'+headings[k][1]+'</p>';pages[k].appendChild(h)});
  var map={pForm:'add',pPresets:'add',pList:'list',pViews:'stats',pBackup:'stats',pCheck:'stats',pReports:'stats',pAdSettings:'ads',pConnect:'settings',pSecurity:'settings'};
  panels.forEach(function(el){var pg=pages[map[el.id]||'settings'];pg.appendChild(el)});
- wrap.innerHTML='';wrap.style.maxWidth='none';wrap.style.margin='0';wrap.style.padding='0';wrap.appendChild(top);wrap.appendChild(content);
+ document.querySelectorAll('datalist').forEach(function(el){document.body.appendChild(el)});wrap.innerHTML='';wrap.style.maxWidth='none';wrap.style.margin='0';wrap.style.padding='0';wrap.appendChild(top);wrap.appendChild(content);
  main.appendChild(wrap);shell.appendChild(sidebar);shell.appendChild(main);document.body.insertBefore(shell,document.body.firstChild);
  var titles={home:'الرئيسية',add:'إضافة محتوى',list:'إدارة المكتبة',stats:'الإحصائيات والتقارير',ads:'الإعلانات والعداد',settings:'الاتصال والإعدادات'};
  function go(key){if(!pages[key])return;Object.keys(pages).forEach(function(k){pages[k].classList.toggle('active',k===key)});sidebar.querySelectorAll('[data-page]').forEach(function(b){b.classList.toggle('active',b.dataset.page===key)});document.getElementById('superCrumb').textContent=titles[key]||'الرئيسية';sidebar.classList.remove('open');window.scrollTo(0,0)}
