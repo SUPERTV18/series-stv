@@ -22,7 +22,14 @@
 .ad-mock-footer{font-size:11px;text-align:center;margin-top:10px;opacity:.75}
 .ad-preview-caption{font-size:12px;color:var(--mut);margin-top:10px}
 @media(max-width:800px){.ad-editor-grid{grid-template-columns:1fr}.ad-design-preview{position:static}}
-</style></head>
+</style>
+<style id="superTvCriticalBoot">
+html{background:#080808}
+body:not(.st-ready){visibility:hidden!important}
+body.st-ready{visibility:visible!important}
+</style>
+
+</head>
 <body><main class="wrap">
 <h1>إدارة مكتبة المسلسلات</h1><p class="sub">إدارة كل أقسام المكتبة من صفحة واحدة، مع ملف JSON مستقل لكل قسم.</p>
 <section class="panel" id="pConnect"><h2>1) الاتصال بمستودع GitHub</h2>
@@ -552,10 +559,11 @@ dsh.innerHTML=
  card(6,'تصدير CSV','ملف Excel بقائمة المسلسلات من كل الأقسام.','<div class="xck">'+COLS.map(function(c,i){return '<label><input type="checkbox" data-col="'+i+'" checked>'+c+'</label>'}).join('')+'</div><div class="actions"><button class="btn" id="xCsv" type="button" disabled>تصدير ملف CSV</button></div>')+
  card(7,'عرض سجل التغييرات واستعادة نسخة','تراجع عن آخر تغيير بسهولة من القائمة.','<div class="xb" id="xLast">لا توجد بيانات بعد.</div><div class="actions"><button class="btn secondary" type="button" data-pg="list">فتح شريط التراجع</button></div>','xlog')+
  card(8,'اكتمال البيانات','نقص البيانات في كل الأقسام.','<div id="xQual"><p class="hint">حمّل البيانات أولًا.</p></div><div class="actions"><button class="mini-btn" type="button" data-pg="tools">فتح أدوات متقدمة</button></div>');
+dsh.innerHTML="\n<div class=\"xwelcome\">\n  <div class=\"xwelcome-copy\">\n    <div class=\"xeyebrow\"><span class=\"xlive-dot\"></span> SUPER TV · CONTROL CENTER</div>\n    <h2>إدارة مكتبتك، <span>بشكل أذكى.</span></h2>\n    <p>تحكّم في مكتبة المسلسلات والأفلام، راقب المشاهدات، واضبط تجربة الإعلان من مكان واحد.</p>\n    <div class=\"xwelcome-actions\">\n      <button type=\"button\" class=\"xprimary\" data-pg=\"add\"><span>＋</span> إضافة محتوى</button>\n      <button type=\"button\" class=\"xsecondary\" data-pg=\"set\">ربط GitHub <span>↗</span></button>\n    </div>\n  </div>\n  <div class=\"xwelcome-art\" aria-hidden=\"true\">\n    <div class=\"xorb xorb-a\"></div><div class=\"xorb xorb-b\"></div>\n    <div class=\"xart-ring\"></div><div class=\"xart-core\"><span>STV</span><small>ADMIN</small></div>\n    <div class=\"xart-chip\">LIVE LIBRARY <i></i></div>\n  </div>\n</div>\n<div class=\"xsection-head\"><div><span class=\"xeyebrow\">OVERVIEW</span><h2>نظرة عامة</h2></div><span class=\"xsecure\"><i></i> لوحة الإدارة</span></div>\n"+dsh.innerHTML;
 main.insertBefore(dsh,hd0.nextSibling);
 /* الصفحات: كل قسم له معرّف ثابت. أي قسم جديد مش مذكور هنا بيظهر في «الإعدادات» تلقائيًا */
 var ALL=['pConnect','pForm','pPresets','pList','pDaily','pViews','pBackup','pCheck','pReports','pSecurity','pTools','pAdSettings'];
-var IDS={home:['pConnect'],add:['pForm','pPresets'],list:['pList'],log:['pBackup'],stats:['pDaily','pViews','pCheck','pReports'],ads:['pAdSettings'],set:['pConnect','pSecurity'],tools:['pConnect','pTools']};
+var IDS={home:[],add:['pForm','pPresets'],list:['pList'],log:['pBackup'],stats:['pDaily','pViews','pCheck','pReports'],ads:['pAdSettings'],set:['pConnect','pSecurity'],tools:['pConnect','pTools']};
 function show(pg){
   var on=IDS[pg]||IDS.home;
   ALL.forEach(function(id){var e=g(id);if(e)e.style.display=on.indexOf(id)>-1?'':'none'});
@@ -670,6 +678,7 @@ window.saveData=async function(){var ok=await _sd.apply(this,arguments);if(ok)sy
 document.addEventListener('xreload',function(){loaded=false;load()});
 g('connect').addEventListener('click',function(){setTimeout(function(){loaded=false;load()},1500)});
 show('home');
+document.body.classList.add('st-ready');
 if(token)setTimeout(load,600);
 })();
 </script>
@@ -1322,6 +1331,76 @@ a{color:#e7c66e}
  .vstats{grid-template-columns:1fr!important}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+</style>
+
+
+<style id="superTvDashboardLayout">
+/* Structural dashboard layer: the old forms remain available on their own pages. */
+body{display:flex;align-items:stretch;background:#080808!important}
+.wrap{max-width:none!important;margin:0!important;flex:1;min-width:0;padding:24px clamp(12px,2.5vw,38px) 64px!important}
+.xside{width:252px!important;min-width:252px;flex:none!important;position:sticky!important;top:0;height:100vh!important}
+.xgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:17px!important;align-content:start}
+.xwelcome{
+ grid-column:1/-1;position:relative;isolation:isolate;overflow:hidden;display:flex;
+ align-items:center;justify-content:space-between;gap:22px;min-height:260px;
+ padding:clamp(20px,3.2vw,38px);border-radius:23px;
+ border:1px solid #70572d;background:linear-gradient(112deg,#17140d 0%,#11100d 52%,#211a0d 100%);
+ box-shadow:0 20px 55px #0006,inset 0 1px #ffffff0a
+}
+.xwelcome:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,transparent 35%,#d7b15a0c 100%);pointer-events:none}
+.xwelcome-copy{max-width:650px;position:relative;z-index:2}
+.xeyebrow{display:flex;align-items:center;gap:8px;color:#c6a75d;font-size:.72rem;font-weight:800;letter-spacing:2px}
+.xlive-dot{width:7px;height:7px;border-radius:50%;background:#e5c76f;box-shadow:0 0 12px #e5c76f}
+.xwelcome h2{font-size:clamp(1.65rem,3.1vw,2.7rem);line-height:1.25;margin:14px 0 10px;color:#fff4d6}
+.xwelcome h2 span{color:#e0bd68}
+.xwelcome p{max-width:540px;color:#b9ae98;margin:0;line-height:1.9;font-size:.95rem}
+.xwelcome-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.xprimary,.xsecondary{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:11px 17px;border-radius:11px;font:800 .88rem Cairo,sans-serif;cursor:pointer;transition:transform .18s,filter .18s}
+.xprimary{border:1px solid #f0d88d;background:linear-gradient(135deg,#f2d987,#b88a35);color:#171108;box-shadow:0 8px 22px #d7b15a18}
+.xsecondary{border:1px solid #65502d;background:#201a10;color:#f0dcae}
+.xprimary:hover,.xsecondary:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.xprimary span{font-size:1.2rem;line-height:1}
+.xwelcome-art{position:relative;flex:0 0 230px;width:230px;height:210px;display:grid;place-items:center}
+.xart-ring{position:absolute;width:185px;height:185px;border:1px solid #d7b15a38;border-radius:50%;box-shadow:0 0 55px #d7b15a0c,inset 0 0 45px #d7b15a0a}
+.xart-ring:before,.xart-ring:after{content:"";position:absolute;border:1px solid #d7b15a25;border-radius:50%;inset:15px}
+.xart-ring:after{inset:31px;border-style:dashed;animation:xspin 36s linear infinite}
+.xart-core{width:102px;height:102px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:28px;transform:rotate(-8deg);border:1px solid #e0bd6870;background:linear-gradient(145deg,#332817,#11100c);box-shadow:0 0 40px #d7b15a18,inset 0 1px #fff2}
+.xart-core span{font-size:1.75rem;font-weight:900;letter-spacing:2px;color:#f2d987;line-height:1.2}
+.xart-core small{font-size:.58rem;letter-spacing:3px;color:#bda15e}
+.xorb{position:absolute;border-radius:50%;filter:blur(1px)}
+.xorb-a{width:13px;height:13px;top:18px;right:38px;background:#f0d382;box-shadow:0 0 24px #f0d382}
+.xorb-b{width:8px;height:8px;bottom:24px;left:32px;background:#9a742e;box-shadow:0 0 20px #d7b15a}
+.xart-chip{position:absolute;bottom:4px;right:0;background:#11100de8;border:1px solid #594626;border-radius:9px;padding:7px 10px;color:#d9c18a;font:700 .61rem Cairo;letter-spacing:1.2px}
+.xart-chip i,.xsecure i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#78b987;margin-inline-start:6px;box-shadow:0 0 9px #78b987}
+.xsection-head{grid-column:1/-1;display:flex;align-items:end;justify-content:space-between;margin:4px 2px -2px}
+.xsection-head h2{margin:3px 0 0;font-size:1.25rem;color:#f5e7c2}
+.xsecure{display:inline-flex;align-items:center;gap:6px;color:#b9ae98;font-size:.78rem;border:1px solid #393126;border-radius:999px;padding:5px 10px}
+.xsecure i{margin:0}
+.xc{min-width:0;align-self:stretch}
+.xc:first-of-type{grid-column:1/-1}
+.xc h3{display:flex;align-items:center;gap:10px;padding-bottom:11px;border-bottom:1px solid #3a3020}
+.xn{border-radius:9px!important;width:32px!important;height:32px!important}
+.xst{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+.xb{padding:13px!important}
+.xside{border-left:1px solid #4a3b21!important}
+#pConnect,#pForm,#pPresets,#pList,#pDaily,#pViews,#pBackup,#pCheck,#pReports,#pSecurity,#pTools,#pAdSettings{scroll-margin-top:18px}
+@keyframes xspin{to{transform:rotate(360deg)}}
+@media(max-width:1050px){.xside{width:218px!important;min-width:218px}.xwelcome-art{flex-basis:180px;width:180px}.xart-ring{width:160px;height:160px}.xst{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:760px){
+ body{flex-direction:column!important}
+ .xside{width:100%!important;min-width:0;height:auto!important;position:sticky!important;top:0;z-index:100;flex-direction:row!important;overflow-x:auto;gap:5px!important;padding:8px!important;border-left:0!important;border-bottom:1px solid #4a3b21!important;background:#0b0b0bf5!important;backdrop-filter:blur(14px)}
+ .xside .xbrand,.xside h4,.xside .xgap{display:none!important}
+ .xside button{flex:none!important;white-space:nowrap;padding:9px 11px!important;font-size:.79rem!important}
+ .wrap{padding:12px 10px 42px!important}
+ .xgrid{grid-template-columns:1fr!important;gap:12px!important}
+ .xwelcome{grid-column:1;padding:22px 17px;min-height:0}
+ .xwelcome-art{display:none}
+ .xsection-head{grid-column:1}
+ .xc:first-of-type{grid-column:auto}
+ .xst{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .xhead{padding:13px!important;margin-bottom:13px!important}
+}
+@media(max-width:390px){.xside button{padding:8px 9px!important;font-size:.73rem!important}.xwelcome h2{font-size:1.55rem}.xwelcome p{font-size:.86rem}}
 </style>
 
 </body> وبعد إضافة المعاينة. لا تغيّر أي كود موجود. -->
