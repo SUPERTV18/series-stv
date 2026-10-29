@@ -862,7 +862,7 @@
     "t": "القصة الكاملة",
     "y": 2026,
     "g": "تشويق وإثارة، جريمة، غموض",
-    "r": "0.0",
+    "r": "7.2",
     "ac": "#e1bc05",
     "s": 1,
     "d": "في إطار درامي تشويقي يعتمد على أحداث واقعية. تتناول الأحداث مجموعة من قصص منفصلة، تكشف تفاصيل وأسرار قضايا شهيرة. ويتناول العمل حكايات بارزة مثل \"لعبة جهنم\" و\"ما لم يُحكَ عن بني ...اقرأ المزيد مزار\" و\"سفاح المرج\" و\"ريا وسكينة\" برؤية جديدة.",
@@ -871,36 +871,64 @@
         {
           "t": "قصة لعبة جهنم",
           "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla/01.mp4",
-          "ref": "https://et.alooytv16.xyz/"
+          "ref": "https://et.alooytv16.xyz/",
+          "im": "https://image.tmdb.org/t/p/w300/A8XbycNTHOqH6R2wlq42UnXQY6P.jpg",
+          "rt": 55
         },
         {
           "t": "قصة لعبة جهنم",
           "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla/02.mp4",
-          "ref": "https://et.alooytv16.xyz/"
+          "ref": "https://et.alooytv16.xyz/",
+          "im": "https://image.tmdb.org/t/p/w300/tDBzcTm68rnBoqNuABDyBSlJI5O.jpg",
+          "rt": 49
         },
         {
           "t": "قصة لعبة جهنم",
           "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla/03.mp4",
-          "ref": "https://et.alooytv16.xyz/"
+          "ref": "https://et.alooytv16.xyz/",
+          "im": "https://image.tmdb.org/t/p/w300/35hXCv7W4RpaiD2DQkkGXxkwt6A.jpg",
+          "rt": 59
         },
         {
           "t": "قصة ما لم يُحكَ عن بني مزار",
           "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla-Drama-Ma-Lam-Yohka-An-Bani-Mazar/01.mp4",
-          "ref": "https://et.alooytv16.xyz/"
+          "ref": "https://et.alooytv16.xyz/",
+          "im": "https://image.tmdb.org/t/p/w300/eEDfJBUcbhWmS8wBR5LSg0NSYow.jpg",
+          "rt": 51
         },
         {
           "t": "قصة ما لم يُحكَ عن بني مزار",
           "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla-Drama-Ma-Lam-Yohka-An-Bani-Mazar/02.mp4",
-          "ref": "https://et.alooytv16.xyz/"
+          "ref": "https://et.alooytv16.xyz/",
+          "im": "https://image.tmdb.org/t/p/w300/aC8Irl8JK2cUIADyFp3WjIAPjRZ.jpg",
+          "rt": 42
         },
         {
           "t": "قصة ما لم يُحكَ عن بني مزار",
           "u": "https://vid8.ujeklsj.site/El-Qessa-El-Kamla-Drama-Ma-Lam-Yohka-An-Bani-Mazar/03.mp4",
+          "ref": "https://et.alooytv16.xyz/",
+          "im": "https://image.tmdb.org/t/p/w300/tA897CmSLU8VztSK3cbmTnHE5GD.jpg",
+          "rt": 43
+        },
+        {
+          "t": "جريمة في الزمالك : الحلقة 1",
+          "u": "https://vid5.ujeklsj.site/El-Qessa-El-Kamla-Gareema-Fi-Al-Zamalek/01.mp4",
+          "ref": "https://et.alooytv16.xyz/"
+        },
+        {
+          "t": "الحلقة 8",
+          "u": "https://vid5.ujeklsj.site/El-Qessa-El-Kamla-Gareema-Fi-Al-Zamalek/02.mp4",
+          "ref": "https://et.alooytv16.xyz/"
+        },
+        {
+          "t": "الحلقة 9",
+          "u": "https://vid5.ujeklsj.site/El-Qessa-El-Kamla-Gareema-Fi-Al-Zamalek/03.mp4",
           "ref": "https://et.alooytv16.xyz/"
         }
       ]
     ],
-    "src": "elCinema"
+    "src": "elCinema",
+    "upAt": 1793310973852
   },
   {
     "k": "remote-1791759032752",
