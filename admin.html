@@ -29,6 +29,84 @@ body:not(.st-ready){visibility:hidden!important}
 body.st-ready{visibility:visible!important}
 </style>
 
+<style id="superTvProStyles">
+/* SUPER TV ADMIN — full structural redesign */
+#superTvProStyles{display:none}
+:root{--bg:#07090d;--card:#10151d;--card2:#151c26;--line:#273342;--fg:#f4f6fa;--mut:#9aa8b9;--ac:#e0b95e;--ac2:#fff0b8;--nav:#0b1017}
+html,body{min-height:100%;background:#07090d!important}
+body{background:radial-gradient(ellipse at 82% -10%,#302610 0,transparent 34%),radial-gradient(ellipse at 8% 25%,#102538 0,transparent 32%),#07090d!important}
+.super-shell{display:grid;grid-template-columns:252px minmax(0,1fr);min-height:100vh;direction:rtl}
+.super-sidebar{position:sticky;top:0;height:100vh;padding:24px 15px;background:rgba(9,13,19,.96);border-left:1px solid #273342;display:flex;flex-direction:column;gap:22px;z-index:20}
+.super-brand{display:flex;align-items:center;gap:12px;padding:6px 8px 20px;border-bottom:1px solid #273342}
+.super-logo{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,#ffe9a1,#bd8b2d);color:#111;font-weight:900;font-size:19px;box-shadow:0 8px 28px #d8ad4b25}
+.super-brand strong{display:block;font-size:17px;letter-spacing:1px;color:#fff}
+.super-brand small{color:#9ba9b9;font-size:11px;letter-spacing:1.5px}
+.super-nav-label{font-size:10px;letter-spacing:1.7px;color:#647386;padding:0 12px;margin-bottom:-12px}
+.super-nav{display:grid;gap:6px}
+.super-nav button{display:flex;align-items:center;gap:12px;width:100%;padding:12px 13px;border:1px solid transparent;border-radius:12px;background:transparent;color:#a9b5c4;font:700 13px Cairo,Tahoma,sans-serif;text-align:right;cursor:pointer;transition:.18s}
+.super-nav button .nav-ico{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:#17202b;color:#c6d1df;font-size:15px}
+.super-nav button:hover{background:#141c26;color:#fff}
+.super-nav button.active{background:linear-gradient(100deg,#d8b15b20,#d8b15b08);border-color:#b88f3e70;color:#ffe5a0}
+.super-nav button.active .nav-ico{background:#d8b15b;color:#14110a}
+.super-side-foot{margin-top:auto;border:1px solid #263442;background:#101721;border-radius:14px;padding:13px;color:#9aa9b8;font-size:11px}
+.super-side-foot b{display:block;color:#e4c878;font-size:12px;margin-bottom:4px}
+.super-main{min-width:0;padding:28px clamp(14px,3vw,42px) 60px}
+.super-topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:25px}
+.super-breadcrumb{font-size:12px;color:#8291a2}.super-breadcrumb b{color:#f0d18a}
+.super-topright{display:flex;align-items:center;gap:9px}
+.super-live-dot{width:8px;height:8px;background:#55d49b;border-radius:50%;box-shadow:0 0 12px #55d49b80;display:inline-block;margin-left:7px}
+.super-version{border:1px solid #293847;background:#111923;border-radius:9px;padding:7px 11px;color:#aab7c7;font-size:11px}
+.super-content{max-width:1500px;margin:auto}
+.super-page{display:none;animation:superFade .22s ease}.super-page.active{display:block}
+@keyframes superFade{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}
+.super-hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(190px,.7fr);gap:20px;align-items:center;padding:clamp(22px,3vw,38px);margin:0 0 22px;border:1px solid #6d572b;border-radius:24px;background:linear-gradient(110deg,#171811 0%,#17150e 45%,#111923 100%);box-shadow:0 18px 60px #0004}
+.super-hero:after{content:"";position:absolute;width:310px;height:310px;border:1px solid #e0b95e24;border-radius:50%;left:-70px;top:-170px;box-shadow:0 0 0 32px #e0b95e08,0 0 0 65px #e0b95e05}
+.super-kicker{color:#e1bd66;font-size:11px;letter-spacing:2.3px;font-weight:800}
+.super-hero h1{font-size:clamp(25px,3vw,39px);line-height:1.3;margin:8px 0 10px;color:#fff}
+.super-hero p{color:#a9b3c0;margin:0;max-width:590px;font-size:13px}
+.super-hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}
+.super-hero-art{position:relative;z-index:1;justify-self:center;width:min(100%,270px);aspect-ratio:1;display:grid;place-items:center}
+.super-ring{position:absolute;width:90%;height:90%;border-radius:50%;border:1px solid #d9b45a65;box-shadow:inset 0 0 40px #d9b45a0c,0 0 55px #d9b45a0d}
+.super-ring:before,.super-ring:after{content:"";position:absolute;border:1px solid #d9b45a35;border-radius:50%;inset:12%}
+.super-ring:after{inset:25%;border-style:dashed}
+.super-monogram{width:42%;aspect-ratio:1;border-radius:25%;display:grid;place-items:center;background:linear-gradient(145deg,#ffe9a4,#bb8b31);color:#111;font-size:clamp(28px,4vw,46px);font-weight:900;transform:rotate(-8deg);box-shadow:0 20px 50px #0008}
+.super-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:23px}
+.super-stat{position:relative;overflow:hidden;border:1px solid #273544;background:linear-gradient(145deg,#131b25,#0e141c);border-radius:17px;padding:17px}
+.super-stat:after{content:"";position:absolute;left:-20px;bottom:-42px;width:90px;height:90px;border-radius:50%;background:#d8b15b0b}
+.super-stat-head{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#9caaba;font-size:11px}
+.super-stat-ico{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:#d8b15b18;color:#e5c878;font-size:17px}
+.super-stat strong{display:block;font-size:27px;line-height:1.3;margin-top:13px;color:#fff;letter-spacing:.3px}
+.super-stat small{display:block;margin-top:5px;color:#77879a;font-size:10px}
+.super-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:25px 0 12px}
+.super-section-head h2{font-size:17px;margin:0;color:#f3f5f8}
+.super-section-head p{font-size:11px;color:#8796a7;margin:3px 0 0}
+.super-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.super-shortcut{border:1px solid #293746;background:#101721;border-radius:15px;padding:17px;cursor:pointer;color:#f3f5f8;text-align:right;font:inherit;transition:.18s}
+.super-shortcut:hover{border-color:#c5a24f;transform:translateY(-2px);background:#151d27}
+.super-shortcut .shortcut-ico{display:grid;place-items:center;width:39px;height:39px;border-radius:12px;background:#d8b15b18;color:#e5c878;font-size:18px;margin-bottom:13px}
+.super-shortcut b{display:block;font-size:13px}.super-shortcut small{display:block;color:#8796a7;font-size:11px;margin-top:5px}
+.super-page-title{margin:0 0 5px;font-size:25px!important;color:#fff}.super-page-desc{margin:0 0 22px;color:#93a1b2;font-size:12px}
+.super-page .panel{background:linear-gradient(145deg,#121923,#0e141c);border:1px solid #293746;border-radius:17px;padding:22px;margin:0 0 16px;box-shadow:0 10px 35px #0002}
+.super-page .panel h2{color:#f0d28a;font-size:15px;margin:0 0 8px}
+.super-page .hint,.super-page .sub{color:#93a1b2}
+.super-page input,.super-page textarea,.super-page select{background:#090f16;border-color:#2b3948;border-radius:10px}
+.super-page input:focus,.super-page textarea:focus,.super-page select:focus{outline:2px solid #d8b15b33;border-color:#d8b15b}
+.super-page .btn{background:linear-gradient(135deg,#f0d78e,#c99b3c);color:#17130a;font-weight:800;border-radius:10px}
+.super-page .btn.secondary,.super-page .mini-btn{background:#17212c;color:#dce3eb;border:1px solid #344354}
+.super-page .btn.danger,.super-page .mini-btn.danger{background:#642b33;color:#ffe0e3;border-color:#88434b}
+.super-page .status{background:#09111a;border-color:#2a3949}
+.super-page .vst,.super-page .season-box,.super-page .episode-box,.super-page .sched,.super-page .chk,.super-page .rep{background:#111a24;border-color:#2b3a49}
+.super-page .srow.pinned{border-color:#d8b15b;background:#d8b15b12}
+.super-page .vrow .num,.super-page .vepr b{color:#e5c878}
+.super-page .vbar i,.super-page .pgb i{background:#d8b15b}
+.super-page .warning{border-right-color:#d8b15b;background:#d8b15b12;color:#f0d9a5}
+.super-page .tg.tp{background:#d8b15b20;color:#f0d28a}
+.super-page .ad-design-preview{background:#0a1119;border-color:#344354}
+.super-mobile-menu{display:none}
+@media(max-width:1000px){.super-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.super-hero-art{width:200px}}
+@media(max-width:720px){.super-shell{grid-template-columns:1fr}.super-sidebar{position:fixed;top:0;right:0;width:270px;max-width:85vw;height:100dvh;transform:translateX(105%);transition:transform .22s ease;box-shadow:-25px 0 60px #0008}.super-sidebar.open{transform:translateX(0)}.super-mobile-menu{display:inline-flex;align-items:center;justify-content:center;width:39px;height:39px;border:1px solid #344354;border-radius:11px;background:#111923;color:#f5d88e;font-size:20px}.super-main{padding:15px 12px 42px}.super-topbar{margin-bottom:16px}.super-hero{grid-template-columns:1fr;padding:22px;border-radius:18px}.super-hero-art{display:none}.super-hero h1{font-size:27px}.super-stat-grid{gap:9px}.super-stat{padding:13px}.super-stat strong{font-size:23px}.super-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.super-shortcut{padding:13px}.super-page .panel{padding:15px}.super-page-title{font-size:22px!important}}
+@media(max-width:380px){.super-stat-grid{grid-template-columns:1fr 1fr}.super-shortcuts{grid-template-columns:1fr}.super-version{display:none}}
+</style>
 </head>
 <body><main class="wrap">
 <h1>إدارة مكتبة المسلسلات</h1><p class="sub">إدارة كل أقسام المكتبة من صفحة واحدة، مع ملف JSON مستقل لكل قسم.</p>
@@ -1402,6 +1480,55 @@ body{display:flex;align-items:stretch;background:#080808!important}
 }
 @media(max-width:390px){.xside button{padding:8px 9px!important;font-size:.73rem!important}.xwelcome h2{font-size:1.55rem}.xwelcome p{font-size:.86rem}}
 </style>
+
+
+<script id="superTvProApp">
+(function(){
+ if(document.getElementById('superTvProMounted')) return;
+ var wrap=document.querySelector('main.wrap'); if(!wrap)return;
+ var ids=['pConnect','pForm','pPresets','pList','pViews','pBackup','pCheck','pReports','pAdSettings','pSecurity'];
+ var panels=ids.map(function(id){return document.getElementById(id)}).filter(Boolean);
+ var shell=document.createElement('div');shell.className='super-shell';shell.id='superTvProMounted';
+ var sidebar=document.createElement('aside');sidebar.className='super-sidebar';sidebar.id='superSidebar';
+ sidebar.innerHTML='<div class="super-brand"><div class="super-logo">STV</div><div><strong>SUPER TV</strong><small>ADMIN CONTROL</small></div></div><div class="super-nav-label">مساحة الإدارة</div><nav class="super-nav" aria-label="القائمة الرئيسية">'+
+ '<button class="active" data-page="home"><span class="nav-ico">⌂</span>الرئيسية</button>'+
+ '<button data-page="add"><span class="nav-ico">＋</span>إضافة محتوى</button>'+
+ '<button data-page="list"><span class="nav-ico">▤</span>إدارة المكتبة</button>'+
+ '<button data-page="stats"><span class="nav-ico">▥</span>الإحصائيات والتقارير</button>'+
+ '<button data-page="ads"><span class="nav-ico">◈</span>الإعلانات والعداد</button>'+
+ '<button data-page="settings"><span class="nav-ico">⚙</span>الاتصال والإعدادات</button>'+
+ '</nav><div class="super-side-foot"><b><span class="super-live-dot"></span>مركز التحكم</b>إدارة مكتبتك من مكان واحد<br>SUPER TV · CONTROL CENTER</div>';
+ var main=document.createElement('div');main.className='super-main';
+ var top=document.createElement('div');top.className='super-topbar';top.innerHTML='<div style="display:flex;align-items:center;gap:11px"><button class="super-mobile-menu" id="superMenu" aria-label="فتح القائمة">☰</button><div><div class="super-breadcrumb">SUPER TV <span style="color:#536274">/</span> <b id="superCrumb">الرئيسية</b></div></div></div><div class="super-topright"><span class="super-version">ADMIN PANEL · 2026</span></div>';
+ var content=document.createElement('div');content.className='super-content';
+ var pages={};
+ ['home','add','list','stats','ads','settings'].forEach(function(k){var p=document.createElement('div');p.className='super-page'+(k==='home'?' active':'');p.dataset.pageview=k;content.appendChild(p);pages[k]=p});
+ pages.home.innerHTML='<div class="super-hero"><div><div class="super-kicker">SUPER TV · CONTROL CENTER</div><h1>كل مكتبتك، تحت سيطرتك.</h1><p>لوحة إدارة موحّدة للمسلسلات والأفلام والإعلانات والمشاهدات. اختار القسم وابدأ إدارة المحتوى من واجهة مصممة للعمل على الكمبيوتر والموبايل.</p><div class="super-hero-actions"><button class="btn" data-goto="add">＋ إضافة محتوى</button><button class="btn secondary" data-goto="settings">ربط GitHub ↗</button></div></div><div class="super-hero-art"><div class="super-ring"></div><div class="super-monogram">STV</div></div></div>'+
+ '<div class="super-stat-grid"><div class="super-stat"><div class="super-stat-head"><span>عناصر القسم المحمّل</span><span class="super-stat-ico">▤</span></div><strong id="superCount">—</strong><small>يتحدث بعد تحميل ملف JSON</small></div><div class="super-stat"><div class="super-stat-head"><span>حالة الاتصال</span><span class="super-stat-ico">⌁</span></div><strong id="superConnection" style="font-size:20px">غير متصل</strong><small>اتصل بالمستودع لبدء الإدارة</small></div><div class="super-stat"><div class="super-stat-head"><span>إعدادات الإعلان</span><span class="super-stat-ico">◈</span></div><strong style="font-size:20px">متحكم بها</strong><small>الرابط والتصميم والعداد</small></div><div class="super-stat"><div class="super-stat-head"><span>واجهة الإدارة</span><span class="super-stat-ico">✧</span></div><strong style="font-size:20px">2026</strong><small>تصميم متجاوب مع الشاشات</small></div></div>'+
+ '<div class="super-section-head"><div><h2>الوصول السريع</h2><p>انتقل مباشرة إلى المهمة التي تريدها</p></div></div><div class="super-shortcuts">'+
+ '<button class="super-shortcut" data-goto="add"><span class="shortcut-ico">＋</span><b>إضافة مسلسل أو فيلم</b><small>إدخال البيانات والروابط وحفظها</small></button>'+
+ '<button class="super-shortcut" data-goto="list"><span class="shortcut-ico">▤</span><b>إدارة المحتوى</b><small>تعديل العناصر وترتيبها وحذفها</small></button>'+
+ '<button class="super-shortcut" data-goto="ads"><span class="shortcut-ico">◈</span><b>الإعلانات والعداد</b><small>تخصيص نافذة الإعلان قبل التشغيل</small></button>'+
+ '<button class="super-shortcut" data-goto="stats"><span class="shortcut-ico">▥</span><b>المشاهدات والتقارير</b><small>عرض الأرقام وفحص الروابط والبلاغات</small></button>'+
+ '<button class="super-shortcut" data-goto="settings"><span class="shortcut-ico">⚙</span><b>إعدادات GitHub</b><small>ربط المستودع واختيار ملف JSON</small></button>'+
+ '<button class="super-shortcut" data-goto="settings"><span class="shortcut-ico">⇧</span><b>النسخ الاحتياطي</b><small>تنزيل نسخة أو استعادة ملف محفوظ</small></button></div>';
+ var headings={add:['إدارة المحتوى','أضف المحتوى وحدّث بياناته وإعداداته.'],list:['مكتبة المحتوى','استعرض العناصر الموجودة في ملف JSON وعدّلها.'],stats:['الإحصائيات والتقارير','المشاهدات، النسخ الاحتياطي، فحص الروابط وبلاغات المستخدمين.'],ads:['الإعلانات والعداد','تحكم في شكل الإعلان والرابط والوقت قبل تشغيل الحلقة.'],settings:['الاتصال والإعدادات','إعداد المستودع وبيانات الاتصال وخيارات الأمان.']};
+ Object.keys(headings).forEach(function(k){var h=document.createElement('div');h.innerHTML='<h1 class="super-page-title">'+headings[k][0]+'</h1><p class="super-page-desc">'+headings[k][1]+'</p>';pages[k].appendChild(h)});
+ var map={pForm:'add',pPresets:'add',pList:'list',pViews:'stats',pBackup:'stats',pCheck:'stats',pReports:'stats',pAdSettings:'ads',pConnect:'settings',pSecurity:'settings'};
+ panels.forEach(function(el){var pg=pages[map[el.id]||'settings'];pg.appendChild(el)});
+ wrap.innerHTML='';wrap.style.maxWidth='none';wrap.style.margin='0';wrap.style.padding='0';wrap.appendChild(top);wrap.appendChild(content);
+ main.appendChild(wrap);shell.appendChild(sidebar);shell.appendChild(main);document.body.insertBefore(shell,document.body.firstChild);
+ var titles={home:'الرئيسية',add:'إضافة محتوى',list:'إدارة المكتبة',stats:'الإحصائيات والتقارير',ads:'الإعلانات والعداد',settings:'الاتصال والإعدادات'};
+ function go(key){if(!pages[key])return;Object.keys(pages).forEach(function(k){pages[k].classList.toggle('active',k===key)});sidebar.querySelectorAll('[data-page]').forEach(function(b){b.classList.toggle('active',b.dataset.page===key)});document.getElementById('superCrumb').textContent=titles[key]||'الرئيسية';sidebar.classList.remove('open');window.scrollTo(0,0)}
+ sidebar.addEventListener('click',function(e){var b=e.target.closest('[data-page]');if(b)go(b.dataset.page)});
+ content.addEventListener('click',function(e){var b=e.target.closest('[data-goto]');if(b)go(b.dataset.goto)});
+ document.getElementById('superMenu').addEventListener('click',function(){sidebar.classList.toggle('open')});
+ document.addEventListener('click',function(e){if(window.innerWidth<=720&&sidebar.classList.contains('open')&&!sidebar.contains(e.target)&&!e.target.closest('#superMenu'))sidebar.classList.remove('open')});
+ function update(){var list=document.getElementById('seriesList');if(list){var n=list.querySelectorAll('.sitem').length;document.getElementById('superCount').textContent=n||'0'}var st=document.getElementById('status');if(st){var tx=st.textContent||'';if(/نجاح|تم الاتصال|تم تحميل|متصل/i.test(tx)){document.getElementById('superConnection').textContent='متصل';document.getElementById('superConnection').style.color='#64d6a1'}else if(/فشل|خطأ/i.test(tx)){document.getElementById('superConnection').textContent='تحقق من الاتصال';document.getElementById('superConnection').style.fontSize='15px'}}}
+ new MutationObserver(update).observe(wrap,{childList:true,subtree:true,characterData:true});setTimeout(update,300);setTimeout(update,1200);
+ document.body.classList.add('st-ready');
+})();
+</script>
 
 </body> وبعد إضافة المعاينة. لا تغيّر أي كود موجود. -->
 <style>
