@@ -2762,4 +2762,44 @@ input:focus,select:focus,textarea:focus{border-color:#e5b84d!important;box-shado
 })();
 </script>
 
+<style id="super-tv-fixed-header-sidebar">
+@media(min-width:821px){
+ html,body{overflow:visible!important}
+ body{align-items:flex-start!important}
+ body>.wrap{align-self:flex-start!important;min-height:100vh!important;overflow:visible!important}
+ body>.xside{
+  position:sticky!important;top:10px!important;align-self:flex-start!important;
+  height:calc(100vh - 20px)!important;max-height:calc(100vh - 20px)!important;
+  overflow-y:auto!important;overscroll-behavior:contain!important
+ }
+ .xbrand{
+  position:sticky!important;top:-16px!important;z-index:60!important;
+  background:linear-gradient(110deg,#17120a 0%,#080f18 85%)!important;
+  padding-top:12px!important;padding-bottom:12px!important;
+  box-shadow:0 8px 14px #0008!important
+ }
+ .xbrand .xtog,#xSbTog{
+  position:sticky!important;top:12px!important;z-index:80!important;
+  flex:0 0 32px!important;width:32px!important;height:32px!important;
+  display:grid!important;place-items:center!important;
+  border:1px solid #e0b54e!important;border-radius:9px!important;
+  background:linear-gradient(145deg,#30220b,#111923)!important;
+  color:#ffdc83!important;box-shadow:0 0 14px #d5a63b25!important
+ }
+ .xhead{
+  position:sticky!important;top:10px!important;z-index:100!important;
+  align-self:flex-start!important;width:100%!important;
+  min-height:74px!important;display:flex!important;align-items:center!important;
+  flex-wrap:nowrap!important;isolation:isolate!important;
+  background:linear-gradient(110deg,#080f18f5,#111b28f5)!important;
+  backdrop-filter:blur(20px)!important;-webkit-backdrop-filter:blur(20px)!important;
+  box-shadow:0 12px 28px #0009,0 1px 0 #e3b64c33 inset!important
+ }
+}
+@media(max-width:820px){
+ .xhead{position:sticky!important;top:0!important;z-index:100!important}
+ .xside{position:sticky!important;top:0!important;z-index:90!important}
+ .xbrand{position:sticky!important;top:0!important;z-index:95!important}
+}
+</style>
 </body></html>
