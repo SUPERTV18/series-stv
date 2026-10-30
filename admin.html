@@ -1226,7 +1226,7 @@ function syncNames(){var mv=/^movies-/.test(path.value),wr=path.value==='wrestli
 syncNames();render();$('saFile').value=path.value;
 })();
 </script>
-</body> وبعد إضافة المعاينة. لا تغيّر أي كود موجود. -->
+<!-- بعد إضافة المعاينة. لا تغيّر أي كود موجود. -->
 <style>
 .imp{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;background:#10101a}
 .imp textarea{min-height:110px;direction:ltr;text-align:left;font-size:.85rem}
@@ -1446,7 +1446,7 @@ document.addEventListener('xsync',function(){gsCache=null});
 <!-- ===== نهاية إضافة 2 ===== -->
 
 <!-- ===== إضافة 3: أسماء حلقات TMDB + ترتيب الحلقات بالسحب + إعادة ترقيم + تحليلات مسلسل + فحص البلاغات =====
-     تُلصق قبل </body> وبعد إضافة 2. لا تغيّر أي كود موجود. -->
+     تُلصق قبل <!-- بعد إضافة 2. لا تغيّر أي كود موجود. -->
 <style>
 .xgrip{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;color:var(--mut);cursor:grab;touch-action:none;user-select:none;flex:none;margin-inline-end:6px}
 .xgrip svg{width:16px;height:16px;fill:currentColor}
@@ -1660,7 +1660,7 @@ if(rp&&rbtn){
 <!-- ===== نهاية إضافة 3 ===== -->
 
 <!-- ===== إضافة 4: لوحة إحصاءات الإعلان (ظهور / نقر / نسبة النقر) =====
-     تُلصق قبل </body> وبعد إضافة 3. تقرأ عدّادات الإعلان اللي صفحة المكتبة الجديدة بتسجّلها:
+     تُلصق قبل <!-- بعد إضافة 3. تقرأ عدّادات الإعلان اللي صفحة المكتبة الجديدة بتسجّلها:
      ad-imp / ad-clk (إجمالي)، ad-imp-YYYYMMDD / ad-clk-YYYYMMDD (يومي UTC)، adi-<مسلسل> / adc-<مسلسل>. -->
 <style>
 .astb{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:10px}
@@ -1777,7 +1777,7 @@ g('path').addEventListener('change',function(){g('asDay').innerHTML='';g('asDayH
 <!-- ===== نهاية إضافة 4 ===== -->
 
 <!-- ===== إضافة 5: مراجعة جودة البيانات + حلقات ناقصة من TMDB + تنبيه الروابط المنتهية =====
-     تُلصق قبل </body> وبعد إضافة 4. بتظهر في صفحة «أدوات متقدمة». لا تغيّر أي كود موجود. -->
+     تُلصق قبل <!-- بعد إضافة 4. بتظهر في صفحة «أدوات متقدمة». لا تغيّر أي كود موجود. -->
 <style>
 .qbox{margin-top:22px;border-top:1px dashed var(--line);padding-top:16px}
 .qchips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
@@ -1980,7 +1980,7 @@ g('mRun').onclick=async function(){
 <!-- ===== نهاية إضافة 5 ===== -->
 
 <!-- ===== إضافة 6: تسجيل «آخر حلقة نزلت» (upAt) بقواعد محافظة + تحكم يدوي =====
-     تُلصق قبل </body> وبعد إضافة 5. بيتسجّل upAt تلقائيًا فقط لما:
+     تُلصق قبل <!-- بعد إضافة 5. بيتسجّل upAt تلقائيًا فقط لما:
        • المسلسل موجود قبل كده (مش مضاف جديد)، وحالته مش «مكتمل»، وزادت حلقاته من 1 لـ 5 حلقات في حفظة واحدة.
      وفي الفورم قائمة «شارة حلقة جديدة» للتحكم اليدوي (إظهار الآن / إخفاء). لا تغيّر أي كود موجود. -->
 <script>
@@ -2038,7 +2038,7 @@ window.saveData=async function(){
 <!-- ===== نهاية إضافة 6 ===== -->
 
 <!-- ===== إضافة 7: جدولة نزول الحلقات (at) =====
-     تُلصق قبل </body> وبعد إضافة 6. في كل حلقة حقل «تنزل في»، وفي كل موسم زر «جدولة الحلقات» لتوزيع المواعيد دفعة واحدة،
+     تُلصق قبل <!-- بعد إضافة 6. في كل حلقة حقل «تنزل في»، وفي كل موسم زر «جدولة الحلقات» لتوزيع المواعيد دفعة واحدة،
      وفي «أدوات متقدمة» قائمة بالحلقات المجدولة. صفحة المكتبة بتخبّي الحلقة (بعدّاد) لحد ميعادها وتفتحها لوحدها.
      تنبيه: الحلقة المجدولة موجودة في ملف JSON العام، فالإخفاء من الصفحة فقط (مش سرّي). لا تغيّر أي كود موجود. -->
 <style>
@@ -2638,6 +2638,24 @@ input:focus,select:focus,textarea:focus{border-color:#e5b84d!important;box-shado
 ::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:#765a2c;border-radius:20px}::-webkit-scrollbar-track{background:#050b12}
 @media(max-width:900px){body{display:block!important}.xside{position:relative!important;width:auto!important;height:auto!important;margin:8px!important;display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;overflow:visible!important}.xbrand{width:100%}.xside h4{display:none}.xside button{width:auto!important;flex:1 1 auto;justify-content:center;padding:9px!important}.xside .xgap{display:none}.wrap{padding:12px!important}.xhead{flex-wrap:wrap}}
 @media(max-width:620px){.xside{gap:4px!important}.xside button{font-size:.78rem!important;min-width:calc(33.333% - 6px);flex:1 1 calc(33.333% - 6px)}.xhead{padding:10px!important}.xhead h1{font-size:1.1rem!important}.xgrid{grid-template-columns:1fr!important}.kpi{grid-column:span 6!important}}
+</style>
+
+
+<style id="super-tv-layout-fix">
+@media(min-width:901px){
+ html,body{width:100%;min-height:100%;overflow-x:hidden}
+ body{display:flex!important;flex-direction:row!important;align-items:stretch!important}
+ body>.xside{flex:0 0 262px!important;width:262px!important;max-width:262px!important;margin:14px 14px 14px 0!important}
+ body>.wrap{flex:1 1 0%!important;width:calc(100% - 290px)!important;max-width:none!important;min-width:0!important;margin:0!important;padding:18px 22px 64px!important}
+ body>.wrap>*{max-width:none}
+ #xOv,#xDash{width:100%!important;max-width:none!important}
+ #xOv{grid-template-columns:repeat(12,minmax(0,1fr))!important}
+ .xhead{width:100%!important}
+}
+@media(max-width:900px){
+ body>.wrap{width:100%!important;max-width:none!important}
+ #xOv,#xDash{width:100%!important;max-width:none!important}
+}
 </style>
 
 </body></html>
