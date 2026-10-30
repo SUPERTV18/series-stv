@@ -2803,46 +2803,69 @@ input:focus,select:focus,textarea:focus{border-color:#e5b84d!important;box-shado
 }
 </style>
 
-<style id="super-tv-admin-header-pro">
-@media(min-width:821px){
- .xhead{position:sticky!important;top:10px!important;z-index:500!important;min-height:82px!important;padding:13px 18px!important;gap:14px!important;border:1px solid #d9ad50a8!important;border-radius:18px!important;background:linear-gradient(110deg,rgba(5,12,20,.97),rgba(17,27,39,.96) 58%,rgba(35,25,10,.96))!important;box-shadow:0 14px 34px #000a,0 0 22px #e8b84d18,inset 0 1px #ffe7a455!important;backdrop-filter:blur(18px)!important}
- .xhead:after{content:"";position:absolute;inset:0 auto 0 0;width:3px;border-radius:18px 0 0 18px;background:linear-gradient(#ffe39a,#b77a1b);pointer-events:none}
- #xt{min-width:0;flex:1}
- #xt h1{font-size:1.28rem!important;line-height:1.35!important;margin:0 0 3px!important;letter-spacing:.1px}
- #xt .sub{font-size:.78rem!important;margin:0!important}
- #superAdminClock{margin-inline-start:0!important;min-width:142px!important;padding:7px 12px!important;border-radius:13px!important;background:linear-gradient(145deg,#211a0d,#101923)!important;border:1px solid #d9ad5077!important;box-shadow:inset 0 1px #ffe8a522,0 5px 16px #0005!important}
- .sa-admin-chip{display:flex;align-items:center;gap:10px;flex:none;padding:7px 13px 7px 15px;border:1px solid #d9ad5077;border-radius:14px;background:linear-gradient(145deg,#211a0d,#101923);box-shadow:inset 0 1px #ffe8a51c,0 5px 16px #0005}
- .sa-admin-avatar{display:grid;place-items:center;width:39px;height:39px;border-radius:12px;background:linear-gradient(145deg,#ffe18a,#b77a1b);color:#241805;font-size:19px;font-weight:900;box-shadow:0 0 18px #e8b84d30}
- .sa-admin-meta{display:flex;flex-direction:column;line-height:1.35;white-space:nowrap}
- .sa-admin-meta b{font-size:.83rem;color:#ffe4a0}
- .sa-admin-meta small{font-size:.67rem;color:#9eacbb}
- .sa-admin-state{display:flex;align-items:center;gap:5px;font-size:.64rem;color:#62d6a7;margin-top:3px}
- .sa-admin-state i{width:6px;height:6px;border-radius:50%;background:#42d99c;box-shadow:0 0 8px #42d99c;display:inline-block}
+
+
+
+<style id="super-tv-admin-header-clean">
+/* هيدر موحد: استخدام بطاقة المدير الأصلية بدل إنشاء بطاقة مكررة */
+.xhead{
+ position:sticky!important;top:8px!important;z-index:600!important;
+ display:flex!important;align-items:center!important;gap:12px!important;
+ min-height:76px!important;padding:10px 16px!important;margin:0 0 18px!important;
+ flex-wrap:nowrap!important;overflow:visible!important;
+ border:1px solid #cda34f99!important;border-radius:17px!important;
+ background:linear-gradient(105deg,rgba(5,13,22,.98),rgba(12,25,38,.98) 68%,rgba(37,27,12,.98))!important;
+ box-shadow:0 10px 28px #0009,0 0 18px #d5a63b14,inset 0 1px #ffe5a333!important;
+ backdrop-filter:blur(16px)!important;-webkit-backdrop-filter:blur(16px)!important;
+}
+.xhead:after{content:"";position:absolute;inset:0 auto 0 0;width:3px;border-radius:17px 0 0 17px;background:linear-gradient(#ffe6a0,#a86c19);pointer-events:none}
+#xt{flex:1 1 180px!important;min-width:130px!important}
+#xt h1{font-size:1.18rem!important;line-height:1.3!important;margin:0 0 3px!important;color:#f5d17d!important}
+#xt .sub{font-size:.72rem!important;line-height:1.4!important;margin:0!important;color:#aab6c3!important}
+.xhead:before{width:42px!important;height:42px!important;border-radius:13px!important;flex:none!important}
+.xhead .xuser{
+ display:flex!important;align-items:center!important;gap:9px!important;flex:none!important;
+ padding:5px 7px 5px 13px!important;border:1px solid #c99b3d88!important;
+ border-radius:13px!important;background:linear-gradient(145deg,#211a0d,#0d1925)!important;
+ color:#ffe4a0!important;box-shadow:inset 0 1px #ffe8a51c,0 4px 13px #0005!important;
+}
+.xhead .xuser span{font-weight:800!important;color:#ffe4a0!important;font-size:.78rem!important}
+.xhead .xuser small{color:#aab6c3!important;font-size:.64rem!important}
+.xhead .xuser i{width:36px!important;height:36px!important;border-radius:11px!important;background:linear-gradient(145deg,#ffe18a,#b77a1b)!important;color:#241805!important;box-shadow:0 0 13px #e8b84d2c!important}
+#superAdminClock{flex:none!important;min-width:132px!important;margin:0!important;padding:5px 9px!important;border:1px solid #c99b3d77!important;border-radius:12px!important;background:#17170f!important;text-align:center!important}
+#superAdminClock b{font-size:1.05rem!important;color:#f5ce70!important}
+#superAdminClock small{font-size:.62rem!important;color:#aab6c3!important}
+.xhead .xhtog{flex:none!important;width:36px!important;height:36px!important;border:1px solid #a9843d!important;background:#111c28!important;color:#f6d47e!important;border-radius:10px!important}
+@media(max-width:1100px) and (min-width:821px){
+ .xhead{flex-wrap:wrap!important}
+ #xt{flex:1 1 45%!important}
+ .xhead .xsrch{order:5!important;flex:1 1 180px!important;width:auto!important}
+ .xhead .xpill{order:6!important}
 }
 @media(max-width:820px){
- .xhead{position:sticky!important;top:0!important;z-index:500!important;display:flex!important;align-items:center!important;gap:8px!important;padding:9px 10px!important;min-height:66px!important;flex-wrap:wrap!important;background:linear-gradient(110deg,#07111dF7,#18202bf5,#21190bf5)!important;border:1px solid #c99b3d88!important;box-shadow:0 9px 25px #000b,0 1px #ffe7a433 inset!important;backdrop-filter:blur(16px)!important}
- #xt{flex:1;min-width:120px}
- #xt h1{font-size:1rem!important;margin:0!important}
- #xt .sub{font-size:.66rem!important;margin:0!important}
- .sa-admin-chip{display:flex;align-items:center;gap:6px;padding:5px 8px;border:1px solid #c99b3d77;border-radius:11px;background:#17170f}
- .sa-admin-avatar{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:linear-gradient(145deg,#ffe18a,#b77a1b);color:#241805;font-weight:900}
- .sa-admin-meta{display:flex;flex-direction:column;line-height:1.2}
- .sa-admin-meta b{font-size:.7rem;color:#ffe4a0}
- .sa-admin-meta small,.sa-admin-state{display:none}
- #superAdminClock{min-width:0!important;padding:3px 7px!important}
+ .xhead{top:0!important;min-height:62px!important;padding:8px 10px!important;gap:7px!important;flex-wrap:wrap!important;border-radius:14px!important;margin-bottom:12px!important}
+ .xhead:before{width:34px!important;height:34px!important;border-radius:10px!important}
+ #xt{flex:1 1 120px!important;min-width:100px!important}
+ #xt h1{font-size:.94rem!important}
+ #xt .sub{display:none!important}
+ .xhead .xuser{display:flex!important;padding:4px 6px!important;gap:5px!important;border-radius:10px!important}
+ .xhead .xuser span{font-size:.68rem!important}
+ .xhead .xuser small{display:none!important}
+ .xhead .xuser i{width:29px!important;height:29px!important;border-radius:9px!important}
+ #superAdminClock{min-width:0!important;padding:3px 6px!important}
+ #superAdminClock b{font-size:.82rem!important}
+ #superAdminClock small{display:none!important}
+ .xhead .xhtog{width:30px!important;height:30px!important}
+ .xhead .xsrch,.xhead .xpill{display:none!important}
 }
-@media(max-width:430px){.sa-admin-chip{padding:4px 6px}.sa-admin-meta b{font-size:.64rem}#xt .sub{display:none!important}#superAdminClock{font-size:.7rem}}
+@media(max-width:430px){
+ .xhead{gap:5px!important;padding:7px!important}
+ .xhead:before{display:none!important}
+ #xt{min-width:90px!important}
+ #xt h1{font-size:.86rem!important}
+ .xhead .xuser span{font-size:.62rem!important}
+ #superAdminClock b{font-size:.74rem!important}
+}
 </style>
-<script id="super-tv-admin-header-pro-js">
-(function(){
- var h=document.querySelector('.xhead');
- if(!h||h.querySelector('.sa-admin-chip'))return;
- var chip=document.createElement('div');
- chip.className='sa-admin-chip';
- chip.innerHTML='<span class="sa-admin-avatar" aria-hidden="true">♛</span><span class="sa-admin-meta"><b>المدير</b><small>SUPER LIVE TV · لوحة التحكم</small><span class="sa-admin-state"><i></i> مسؤول النظام</span></span>';
- var clock=document.getElementById('superAdminClock');
- if(clock&&clock.parentNode===h)h.insertBefore(chip,clock);else h.appendChild(chip);
-})();
-</script>
 
 </body></html>
