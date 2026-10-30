@@ -535,7 +535,7 @@ var h1=main.querySelector('h1'),sub=main.querySelector('.sub'),hd0=document.crea
 hd0.innerHTML='<svg width="44" height="44" viewBox="0 0 44 44"><rect width="44" height="44" rx="12" fill="#1b2459"/><path d="M15 11l20 11-20 11z" fill="#8a63ff"/></svg><div id="xt"></div>';
 main.insertBefore(hd0,main.firstChild);g('xt').appendChild(h1);g('xt').appendChild(sub);
 /* القائمة الجانبية */
-var NAV=[['home','الرئيسية','⌂'],['add','إضافة مسلسل','＋'],['list','قائمة المسلسلات','☰'],['log','سجل التغييرات','↺'],['stats','الإحصائيات','▥'],['ads','إعدادات الإعلان','◉'],['tools','أدوات متقدمة','✦'],['set','الإعدادات','⚙']];
+var NAV=[['home','الرئيسية','⌂'],['add','إضافة محتوى','＋'],['list','قائمة المحتوى','☰'],['schedule','مواعيد المحتوى','◷'],['log','سجل التغييرات','↺'],['stats','الإحصائيات','▥'],['ads','إعدادات الإعلان','◉'],['tools','أدوات متقدمة','✦'],['set','الإعدادات','⚙']];
 var side=document.createElement('aside');side.className='xside';
 side.innerHTML='<div class="xbrand">لوحة الإدارة</div><h4>إدارة المسلسلات</h4>'+NAV.map(function(n){return '<button type="button" data-pg="'+n[0]+'"><i>'+n[2]+'</i>'+n[1]+'</button>'}).join('')+'<div class="xgap"></div><button type="button" id="xOut"><i>⏻</i>تسجيل الخروج</button>';
 document.body.insertBefore(side,main);
@@ -554,8 +554,8 @@ dsh.innerHTML=
  card(8,'اكتمال البيانات','نقص البيانات في كل الأقسام.','<div id="xQual"><p class="hint">حمّل البيانات أولًا.</p></div><div class="actions"><button class="mini-btn" type="button" data-pg="tools">فتح أدوات متقدمة</button></div>');
 main.insertBefore(dsh,hd0.nextSibling);
 /* الصفحات: كل قسم له معرّف ثابت. أي قسم جديد مش مذكور هنا بيظهر في «الإعدادات» تلقائيًا */
-var ALL=['pConnect','pForm','pPresets','pList','pDaily','pViews','pBackup','pCheck','pReports','pSecurity','pTools','pAdSettings'];
-var IDS={home:['pConnect'],add:['pForm','pPresets'],list:['pList'],log:['pBackup'],stats:['pDaily','pViews','pCheck','pReports'],ads:['pAdSettings'],set:['pConnect','pSecurity'],tools:['pConnect','pTools']};
+var ALL=['pConnect','pForm','pPresets','pList','pDaily','pViews','pBackup','pCheck','pReports','pSecurity','pTools','pAdSettings','pSchedule'];
+var IDS={home:['pConnect'],add:['pForm','pPresets'],list:['pList'],schedule:['pSchedule'],log:['pBackup'],stats:['pDaily','pViews','pCheck','pReports'],ads:['pAdSettings'],set:['pConnect','pSecurity'],tools:['pConnect','pTools']};
 function show(pg){
   var on=IDS[pg]||IDS.home;
   ALL.forEach(function(id){var e=g(id);if(e)e.style.display=on.indexOf(id)>-1?'':'none'});
@@ -1183,7 +1183,50 @@ document.addEventListener('keydown',function(e){
 <!-- ===== نهاية الإضافة ===== -->
 
 <!-- ===== إضافة 2: استيراد جماعي + قوالب المصادر + بحث شامل + سلة المحذوفات =====
-     تُلصق قبل </body> وبعد إضافة المعاينة. لا تغيّر أي كود موجود. -->
+     تُلصق قبل <!-- إضافات إدارية: ساعة مباشرة + جدول مواعيد محلي لا يغيّر ملفات المكتبة -->
+<script id="super-admin-clock-schedule">
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+var path=$('path'),main=document.querySelector('.wrap'),head=document.querySelector('.xhead');
+if(!path||!main||!head)return;
+var clock=document.createElement('div');clock.id='superAdminClock';
+clock.innerHTML='<b id="saClockTime">--:--:--</b><small id="saClockDate">--</small>';head.appendChild(clock);
+var tick=function(){var d=new Date();$('saClockTime').textContent=d.toLocaleTimeString('ar-EG',{hour12:false});$('saClockDate').textContent=d.toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'})};
+tick();setInterval(tick,1000);
+var style=document.createElement('style');
+style.textContent='#superAdminClock{margin-inline-start:auto;flex:none;text-align:center;padding:6px 14px;border:1px solid #d6b65d55;border-radius:12px;background:#d6b65d10;min-width:145px}#superAdminClock b{display:block;color:#f2cf75;font:800 1.25rem/1.4 Cairo,sans-serif;direction:ltr}#superAdminClock small{display:block;color:var(--mut);font-size:.72rem;white-space:nowrap}#pSchedule .sched-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#pSchedule .sched-list{margin-top:14px}#pSchedule .sched-item{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:12px;margin-top:8px;border:1px solid var(--line);border-radius:12px;background:var(--card2)}#pSchedule .sched-item small{display:block;color:var(--mut)}#pSchedule .sched-item .actions{margin:0;justify-content:flex-end}#pSchedule .sched-empty{padding:18px;text-align:center;color:var(--mut);border:1px dashed var(--line);border-radius:12px}@media(max-width:620px){#superAdminClock{min-width:0;padding:4px 8px}#superAdminClock b{font-size:1rem}#superAdminClock small{font-size:.62rem}#pSchedule .sched-form{grid-template-columns:1fr}#pSchedule .sched-item{grid-template-columns:1fr}}';
+document.head.appendChild(style);
+var panel=document.createElement('section');panel.className='panel';panel.id='pSchedule';panel.style.display='none';
+panel.innerHTML='<h2>مواعيد الأفلام والحلقات</h2><p class="hint">سجل تذكيري إداري فقط. المواعيد تُحفظ على هذا المتصفح ولا تُرسل إلى GitHub ولا تغيّر ظهور المحتوى في التطبيق.</p><form id="saScheduleForm"><div class="sched-form"><label class="field">نوع المحتوى<select id="saKind"><option value="film">فيلم</option><option value="episode">حلقة مسلسل</option></select></label><label class="field">القسم<select id="saFile"></select></label><label class="field">اسم الفيلم / المسلسل<input id="saTitle" maxlength="140" required placeholder="اكتب اسم المحتوى"></label><label class="field" id="saEpisodeWrap">اسم أو رقم الحلقة<input id="saEpisode" maxlength="100" placeholder="مثال: الحلقة 5 — الموسم الثاني"></label><label class="field">موعد النشر المخطط<input id="saWhen" type="datetime-local" required></label><label class="field">حالة الموعد<select id="saState"><option value="upcoming">قادم</option><option value="done">تم</option><option value="cancelled">ملغي</option></select></label><label class="field full" style="grid-column:1/-1">ملاحظات إدارية<textarea id="saNotes" rows="2" placeholder="ملاحظات اختيارية"></textarea></label></div><div class="actions"><button class="btn" type="submit">＋ حفظ الموعد الإداري</button><button class="btn secondary" type="button" id="saClear">تفريغ الحقول</button></div></form><div class="actions" style="justify-content:space-between;align-items:center"><b>جدول المواعيد المسجل</b><button class="mini-btn" type="button" id="saRefresh">تحديث القائمة</button></div><div id="saScheduleList" class="sched-list"></div>';
+main.appendChild(panel);
+var files=Array.prototype.map.call(path.options,function(o){return {v:o.value,t:o.textContent.trim()}});
+var fsel=$('saFile');fsel.innerHTML=files.map(function(f){return '<option value="'+f.v.replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'">'+f.t+'</option>'}).join('');
+var KEY='superTV_admin_schedule_v1';
+function get(){try{var a=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
+function put(a){try{localStorage.setItem(KEY,JSON.stringify(a));return true}catch(e){alert('تعذر الحفظ في المتصفح.');return false}}
+function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function label(file){var o=files.find(function(x){return x.v===file});return o?o.t:file}
+function render(){
+ var a=get().sort(function(x,y){return String(x.when).localeCompare(String(y.when))}),host=$('saScheduleList');
+ if(!a.length){host.innerHTML='<div class="sched-empty">لا توجد مواعيد مسجلة حتى الآن.</div>';return}
+ host.innerHTML=a.map(function(x){var state=x.state==='done'?'تم':x.state==='cancelled'?'ملغي':'قادم';var dt=x.when?new Date(x.when).toLocaleString('ar-EG'):'بدون موعد';
+ return '<div class="sched-item"><div><b>'+esc(x.title)+'</b> <span class="tg '+(x.state==='done'?'tp':x.state==='cancelled'?'th':'ts')+'">'+state+'</span><small>'+esc(x.kind==='film'?'فيلم':'حلقة مسلسل')+' · '+esc(label(x.file))+(x.episode?' · '+esc(x.episode):'')+'</small><small>الموعد: '+esc(dt)+'</small>'+(x.notes?'<small>ملاحظات: '+esc(x.notes)+'</small>':'')+'</div><div class="actions"><button class="mini-btn" type="button" data-sastate="'+esc(x.id)+'">تغيير الحالة</button><button class="mini-btn danger" type="button" data-sadel="'+esc(x.id)+'">حذف</button></div></div>'
+ }).join('');
+ host.querySelectorAll('[data-sastate]').forEach(function(b){b.onclick=function(){var a=get(),x=a.find(function(z){return z.id===b.dataset.sastate});if(!x)return;x.state=x.state==='upcoming'?'done':x.state==='done'?'cancelled':'upcoming';put(a);render()}});
+ host.querySelectorAll('[data-sadel]').forEach(function(b){b.onclick=function(){if(!confirm('حذف هذا الموعد من السجل الإداري؟'))return;put(get().filter(function(x){return x.id!==b.dataset.sadel}));render()}});
+}
+$('saKind').onchange=function(){$('saEpisodeWrap').style.display=this.value==='episode'?'':'none'};
+$('saKind').onchange();
+$('saScheduleForm').onsubmit=function(e){e.preventDefault();var x={id:'s'+Date.now()+Math.random().toString(36).slice(2,7),kind:$('saKind').value,file:$('saFile').value,title:$('saTitle').value.trim(),episode:$('saEpisode').value.trim(),when:$('saWhen').value,state:$('saState').value,notes:$('saNotes').value.trim(),createdAt:new Date().toISOString()};if(!x.title||!x.when)return;var a=get();a.push(x);if(put(a)){this.reset();$('saFile').value=path.value;$('saKind').onchange();render()}};
+$('saClear').onclick=function(){$('saScheduleForm').reset();$('saFile').value=path.value;$('saKind').onchange()};
+$('saRefresh').onclick=render;
+path.addEventListener('change',function(){if(files.some(function(f){return f.v===path.value}))$('saFile').value=path.value;syncNames()});
+function syncNames(){var mv=/^movies-/.test(path.value),wr=path.value==='wrestling.json',kind=mv?'الأفلام':wr?'العروض':'المسلسلات';var add=document.querySelector('.xside [data-pg="add"]'),list=document.querySelector('.xside [data-pg="list"]');if(add)add.innerHTML='<i>＋</i>إضافة '+(mv?'فيلم':wr?'عرض':'مسلسل');if(list)list.innerHTML='<i>☰</i>إدارة '+kind}
+syncNames();render();$('saFile').value=path.value;
+})();
+</script>
+</body> وبعد إضافة المعاينة. لا تغيّر أي كود موجود. -->
 <style>
 .imp{border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:10px;background:#10101a}
 .imp textarea{min-height:110px;direction:ltr;text-align:left;font-size:.85rem}
@@ -2535,7 +2578,7 @@ var bn=document.createElement('nav');bn.className='xbn';bn.setAttribute('aria-la
 bn.innerHTML=[['home','⌂','الرئيسية'],['add','＋','إضافة'],['list','☰','القائمة'],['stats','▥','إحصاءات']].map(function(i){return '<button type="button" data-pg="'+i[0]+'"><i>'+i[1]+'</i><span>'+i[2]+'</span></button>'}).join('')+'<button type="button" id="xBnMore"><i>⋯</i><span>المزيد</span></button>';
 document.body.appendChild(bn);$('#xBnMore').onclick=function(){dr(true)};
 /* عنوان الصفحة حسب التبويب + مزامنة التبويب السفلي */
-var TT={home:['نظرة عامة','ملخص مكتبتك وحالة الاتصال'],add:['إضافة وتعديل','أضف عملًا جديدًا أو عدّل عملًا موجودًا'],list:['قائمة الأعمال','كل الأعمال في القسم الحالي'],log:['سجل التغييرات','آخر التعديلات والنسخ الاحتياطية'],stats:['الإحصائيات','المشاهدات والتحليلات وفحص الروابط'],ads:['إعدادات الإعلان','تحكّم في الإعلان قبل التشغيل'],tools:['أدوات متقدمة','نقل واستبدال وفحص جودة'],set:['الإعدادات','الاتصال والأمان']};
+var TT={home:['نظرة عامة','ملخص مكتبتك وحالة الاتصال'],add:['إضافة وتعديل','أضف عملًا جديدًا أو عدّل عملًا موجودًا'],list:['قائمة الأعمال','كل الأعمال في القسم الحالي'],schedule:['مواعيد المحتوى','جدول إداري خاص بمواعيد الأفلام والحلقات'],log:['سجل التغييرات','آخر التعديلات والنسخ الاحتياطية'],stats:['الإحصائيات','المشاهدات والتحليلات وفحص الروابط'],ads:['إعدادات الإعلان','تحكّم في الإعلان قبل التشغيل'],tools:['أدوات متقدمة','نقل واستبدال وفحص جودة'],set:['الإعدادات','الاتصال والأمان']};
 var h1=$('#xt h1'),sb=$('#xt .sub');
 setInterval(function(){var on=$('.xside button.on[data-pg]'),pg=on?on.getAttribute('data-pg'):'home',t=TT[pg]||TT.home;
  if(h1&&h1.textContent!==t[0])h1.textContent=t[0];if(sb&&sb.textContent!==t[1])sb.textContent=t[1];
