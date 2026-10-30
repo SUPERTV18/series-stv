@@ -2659,6 +2659,14 @@ input:focus,select:focus,textarea:focus{border-color:#e5b84d!important;box-shado
 </style>
 
 
+<style id="super-tv-sidebar-direction-fix">
+@media(min-width:821px){
+ body{direction:ltr!important;flex-direction:row!important}
+ body>.xside{order:2!important;margin-left:0!important;margin-right:14px!important}
+ body>.wrap{order:1!important;direction:rtl!important}
+ body>.xside *{direction:rtl}
+}
+</style>
 <style id="super-tv-sidebar-redesign">
 @media(min-width:821px){
  :root{--sbw:238px!important}
