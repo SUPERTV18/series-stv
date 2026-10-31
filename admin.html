@@ -216,8 +216,8 @@ function syncEditing(){if(editingK!==null){editingIndex=series.findIndex(functio
 async function mutate(msg,fn){var snap=JSON.stringify(series);fn();syncEditing();var ok=await saveData(msg);if(!ok){series=JSON.parse(snap);syncEditing();drawList()}return ok}
 function rowHtml(x,i){
   var count=(x.ss||[]).reduce(function(n,s){return n+s.length},0),st=statusOf(x);
-  var tg=(x.pin?'<span class="tg tp">مثبّت</span>':'')+(st.k==='hide'?'<span class="tg th">مخفي</span>':'')+(st.k==='sched'?'<span class="tg ts">'+escapeHtml(st.label)+'</span>':'');
-  return '<div class="sitem" data-name="'+escapeHtml(String(x.t).toLowerCase())+'"><div class="srow'+(x.pin?' pinned':'')+(st.k==='hide'?' dim':'')+'"><span class="grip" data-grip="'+i+'" title="اسحب لتغيير الترتيب"><svg viewBox="0 0 16 16"><circle cx="5" cy="3" r="1.4"/><circle cx="11" cy="3" r="1.4"/><circle cx="5" cy="8" r="1.4"/><circle cx="11" cy="8" r="1.4"/><circle cx="5" cy="13" r="1.4"/><circle cx="11" cy="13" r="1.4"/></svg></span><input type="checkbox" class="sel" data-sel="'+escapeHtml(x.k||x.t)+'"'+(selKeys[x.k||x.t]?' checked':'')+'><div class="stt"><strong>'+escapeHtml(x.t)+'</strong>'+tg+'<small>'+count+' حلقة · '+(x.ss||[]).length+' موسم</small></div><div class="actions"><button type="button" class="ib'+(x.pin?' on':'')+'" data-pin="'+i+'" title="تثبيت في أول القائمة">'+IC.pin+'</button><button type="button" class="ib'+(st.k==='hide'?' on':'')+'" data-hide="'+i+'" title="إخفاء / إظهار">'+(st.k==='hide'?IC.eyeoff:IC.eye)+'</button><button type="button" class="ib'+(st.k==='sched'?' on':'')+'" data-sch="'+i+'" title="جدولة الظهور">'+IC.cal+'</button><button type="button" class="ib" data-dup="'+i+'" title="تكرار المسلسل">'+IC.copy+'</button><button class="btn secondary" data-edit="'+i+'">تعديل</button><button class="btn danger" data-del="'+i+'">حذف</button></div></div><div class="sched" id="sch-'+i+'" hidden><label class="field">تاريخ ووقت الظهور<input type="datetime-local" id="schv-'+i+'" value="'+escapeHtml(x.showAt||'')+'"></label><div class="actions"><button type="button" class="btn" data-schsave="'+i+'">حفظ الجدولة</button><button type="button" class="btn secondary" data-schclear="'+i+'">إزالة الجدولة</button></div><p class="hint" style="margin:8px 0 0">المسلسل بيظهر تلقائيًا في الوقت ده (بحسب ساعة جهاز المستخدم).</p></div></div>';
+  var tg=(st.k==='show'?'<span class="tg tok">مفعل</span>':'')+(x.pin?'<span class="tg tp">مثبّت</span>':'')+(st.k==='hide'?'<span class="tg th">مخفي</span>':'')+(st.k==='sched'?'<span class="tg ts">'+escapeHtml(st.label)+'</span>':'');
+  return '<div class="sitem" data-st="'+st.k+'" data-g="'+escapeHtml(String(x.g||'').split(/[،,]/)[0].trim())+'" data-name="'+escapeHtml(String(x.t).toLowerCase())+'"><div class="srow'+(x.pin?' pinned':'')+(st.k==='hide'?' dim':'')+'"><span class="grip" data-grip="'+i+'" title="اسحب لتغيير الترتيب"><svg viewBox="0 0 16 16"><circle cx="5" cy="3" r="1.4"/><circle cx="11" cy="3" r="1.4"/><circle cx="5" cy="8" r="1.4"/><circle cx="11" cy="8" r="1.4"/><circle cx="5" cy="13" r="1.4"/><circle cx="11" cy="13" r="1.4"/></svg></span><input type="checkbox" class="sel" data-sel="'+escapeHtml(x.k||x.t)+'"'+(selKeys[x.k||x.t]?' checked':'')+'>'+(x.img?'<img class="pst" loading="lazy" alt="" src="'+escapeHtml(x.img)+'" onerror="this.hidden=true">':'<span class="pst none">▶</span>')+'<div class="stt"><strong>'+escapeHtml(x.t)+'</strong>'+tg+'<small>'+(x.y?x.y+' · ':'')+count+' حلقة · '+(x.ss||[]).length+' موسم</small></div><div class="actions"><button type="button" class="ib'+(x.pin?' on':'')+'" data-pin="'+i+'" title="تثبيت في أول القائمة">'+IC.pin+'</button><button type="button" class="ib'+(st.k==='hide'?' on':'')+'" data-hide="'+i+'" title="إخفاء / إظهار">'+(st.k==='hide'?IC.eyeoff:IC.eye)+'</button><button type="button" class="ib'+(st.k==='sched'?' on':'')+'" data-sch="'+i+'" title="جدولة الظهور">'+IC.cal+'</button><button type="button" class="ib" data-dup="'+i+'" title="تكرار المسلسل">'+IC.copy+'</button><button class="btn secondary" data-edit="'+i+'" title="تعديل"><svg class="bi" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg><span class="tx">تعديل</span></button><button class="btn danger" data-del="'+i+'" title="حذف"><svg class="bi" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg><span class="tx">حذف</span></button></div></div><div class="sched" id="sch-'+i+'" hidden><label class="field">تاريخ ووقت الظهور<input type="datetime-local" id="schv-'+i+'" value="'+escapeHtml(x.showAt||'')+'"></label><div class="actions"><button type="button" class="btn" data-schsave="'+i+'">حفظ الجدولة</button><button type="button" class="btn secondary" data-schclear="'+i+'">إزالة الجدولة</button></div><p class="hint" style="margin:8px 0 0">المسلسل بيظهر تلقائيًا في الوقت ده (بحسب ساعة جهاز المستخدم).</p></div></div>';
 }
 function moveSeries(from,to){if(from===to||from<0||to<0||to>=series.length)return Promise.resolve(false);return mutate('Reorder series: '+series[from].t,function(){var it=series.splice(from,1)[0];series.splice(to,0,it)})}
 function initDrag(host){
@@ -238,8 +238,8 @@ function initDrag(host){
     });
   });
 }
-function drawList(){var host=$('seriesList');if(!series.length){host.innerHTML='<p class="hint">ملف JSON فارغ حاليًا. أضف أول مسلسل من النموذج أعلاه.</p>';return}
-  host.innerHTML=series.map(rowHtml).join('');
+function drawList(){var host=$('seriesList');lbarInit();if(!series.length){host.innerHTML='<p class="hint">ملف JSON فارغ حاليًا. أضف أول مسلسل من النموذج أعلاه.</p>';return}
+  host.innerHTML=series.map(rowHtml).join('');lbarFill();
   initDrag(host);bindSel(host);applyFilter();
   host.querySelectorAll('[data-edit]').forEach(function(b){b.onclick=function(){editSeries(+b.dataset.edit)}});
   host.querySelectorAll('[data-pin]').forEach(function(b){b.onclick=function(){var i=+b.dataset.pin;mutate((series[i].pin?'Unpin':'Pin')+' series: '+series[i].t,function(){var x=series[i];if(x.pin){delete x.pin}else{x.pin=true;series.splice(i,1);var q=0;while(q<series.length&&series[q].pin)q++;series.splice(q,0,x)}})}});
@@ -316,9 +316,15 @@ var selKeys={};
 function selCount(){return Object.keys(selKeys).length}
 function updateBulk(){var n=selCount();$('bulkBar').hidden=!n;$('bulkN').textContent='تم تحديد '+n}
 function bindSel(host){host.querySelectorAll('.sel').forEach(function(c){c.onchange=function(){var k=c.getAttribute('data-sel');if(c.checked)selKeys[k]=1;else delete selKeys[k];updateBulk()}});updateBulk()}
-function applyFilter(){var v=($('listSearch').value||'').trim().toLowerCase();document.querySelectorAll('#seriesList .sitem').forEach(function(el){el.style.display=(!v||(el.getAttribute('data-name')||'').indexOf(v)>-1)?'':'none'})}
+function applyFilter(){var v=($('listSearch').value||'').trim().toLowerCase(),fg=$('lfG')?$('lfG').value:'',fs=$('lfS')?$('lfS').value:'',n=0;document.querySelectorAll('#seriesList .sitem').forEach(function(el){var ok=(!v||(el.getAttribute('data-name')||'').indexOf(v)>-1)&&(!fg||el.getAttribute('data-g')===fg)&&(!fs||el.getAttribute('data-st')===fs);el.style.display=ok?'':'none';if(ok)n++});var c=$('lfN');if(c)c.textContent=n+' عمل'}
+function lbarInit(){if($('lbar'))return;var b=document.createElement('div');b.id='lbar';b.className='lbar';b.innerHTML='<select id="lfG"><option value="">كل التصنيفات</option></select><select id="lfS"><option value="">كل الحالات</option><option value="show">مفعل</option><option value="hide">مخفي</option><option value="sched">مجدول</option></select><span id="lfN" class="lfn"></span><span class="vt"><button type="button" data-v="cards" title="بطاقات">▦</button><button type="button" data-v="list" title="قائمة">☰</button></span>';$('listSearch').parentNode.insertBefore(b,$('listSearch').nextSibling);
+ var vw='cards';try{vw=localStorage.getItem('stv_view')||'cards'}catch(e){}
+ function setV(v){$('seriesList').classList.toggle('cards',v==='cards');[].forEach.call(b.querySelectorAll('.vt button'),function(x){x.classList.toggle('on',x.dataset.v===v)});try{localStorage.setItem('stv_view',v)}catch(e){}}
+ setV(vw);b.querySelector('.vt').onclick=function(e){var x=e.target.closest('button');if(x)setV(x.dataset.v)};$('lfG').onchange=$('lfS').onchange=applyFilter}
+function lbarFill(){lbarInit();var g=$('lfG'),cur=g.value,m={};series.forEach(function(x){var k=String(x.g||'').split(/[،,]/)[0].trim();if(k)m[k]=(m[k]||0)+1});g.innerHTML='<option value="">كل التصنيفات</option>'+Object.keys(m).sort().map(function(k){return '<option value="'+escapeHtml(k)+'">'+escapeHtml(k)+' ('+m[k]+')</option>'}).join('');g.value=m[cur]?cur:''}
 $('listSearch').addEventListener('input',applyFilter);
 function bulkApply(label,fn){mutate(label,fn).then(function(){selKeys={};updateBulk();drawList()})}
+window.__bulkEdit=function(g,r){return bulkApply('Bulk edit selected series',function(){series.forEach(function(x){if(selKeys[x.k||x.t]){if(g)x.g=g;if(r)x.r=r}})})};
 $('bulkHide').onclick=function(){bulkApply('Hide selected series',function(){series.forEach(function(x){if(selKeys[x.k||x.t])x.hide=true})})};
 $('bulkShow').onclick=function(){bulkApply('Show selected series',function(){series.forEach(function(x){if(selKeys[x.k||x.t])delete x.hide})})};
 $('bulkDel').onclick=function(){var n=selCount();if(!n||!confirm('حذف '+n+' مسلسل من ملف GitHub؟'))return;bulkApply('Delete selected series',function(){series=series.filter(function(x){return !selKeys[x.k||x.t]})})};
@@ -2790,6 +2796,55 @@ body.sbc .super-nav button,body.sbc .super-out{justify-content:center;padding:10
 #xEl .rw time{color:#f0d28a;font:700 11.5px Cairo,sans-serif;direction:ltr;white-space:nowrap}
 #xEl .empty{color:#7d8da0;font-size:12.5px;padding:22px 6px;text-align:center;line-height:1.8}
 @media(max-width:720px){#xVw .dbars small{font-size:9px;white-space:normal;text-align:center;line-height:1.2}}
+
+/* ===== بطاقات إدارة المكتبة ===== */
+.lbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px}
+.lbar select{flex:1;min-width:130px;max-width:240px;height:40px;border-radius:12px;border:1px solid #2f3e50;background:#0f161f;color:#e6edf5;padding:0 10px;font:600 12.5px Cairo,sans-serif}
+.lbar .lfn{color:#8a99ab;font:600 12px Cairo,sans-serif;margin-inline-start:auto}
+.lbar .vt{display:inline-flex;border:1px solid #2f3e50;border-radius:12px;overflow:hidden}
+.lbar .vt button{width:40px;height:38px;border:0;background:#0f161f;color:#8a99ab;font-size:17px;cursor:pointer}
+.lbar .vt button.on{background:#e0bd6826;color:#f5d88e}
+.tg.tok{background:#12382c;color:#4fe0a8;border:1px solid #1d6b52}
+.srow .bi{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;display:none}
+.pst{width:38px;height:54px;border-radius:7px;object-fit:cover;flex:none;background:#0d141c}
+.pst.none{display:grid;place-items:center;color:#4b5a6c;font-size:14px}
+#seriesList.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:16px}
+#seriesList.cards .sitem{border:0;padding:0;position:relative}
+#seriesList.cards .srow{flex-direction:column;align-items:stretch;gap:9px;padding:9px;height:100%;border:1px solid #2a3746;border-radius:18px;background:linear-gradient(170deg,#121b26,#0c121a);box-shadow:0 14px 30px -20px #000;transition:transform .15s,border-color .15s}
+#seriesList.cards .srow:hover{transform:translateY(-3px);border-color:#d8b15b88}
+#seriesList.cards .pst{width:100%;height:auto;aspect-ratio:2/3;border-radius:13px}
+#seriesList.cards .grip{display:none}
+#seriesList.cards .sel{position:absolute;top:16px;inset-inline-start:16px;width:20px;height:20px;z-index:2;accent-color:#d8b15b}
+#seriesList.cards .stt{display:flex;flex-direction:column;gap:5px;padding:0 3px}
+#seriesList.cards .stt strong{font-size:14px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#seriesList.cards .stt small{color:#8a99ab;font-size:11.5px}
+#seriesList.cards .stt .tg{align-self:flex-start;margin:0}
+#seriesList.cards .actions{display:flex;flex-wrap:nowrap;justify-content:space-between;gap:4px;padding:6px 2px 0;border-top:1px solid #1d2835;margin:0}
+#seriesList.cards .actions .ib,#seriesList.cards .actions .btn{width:30px;height:30px;min-width:0;padding:0;border-radius:9px;display:grid;place-items:center;flex:none}
+#seriesList.cards .actions .btn .tx{display:none}#seriesList.cards .actions .btn .bi{display:block}
+#seriesList.cards .actions [data-pin],#seriesList.cards .actions [data-dup]{display:none}
+#seriesList.cards .actions .btn.danger{background:#3a1620;color:#ff7b8f;border:1px solid #6b2433}
+#seriesList.cards .actions .btn.secondary{background:#2a2410;color:#f0d28a;border:1px solid #5a4a1c}
+#seriesList.cards .sched{margin-top:8px}
+@media(max-width:720px){#seriesList.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.lbar select{min-width:0;flex:1 1 40%;max-width:none}}
+
+/* ===== تقرير + ثيمات ===== */
+#xEl h3 .rp{margin-inline-start:auto;border:1px solid #5a4a1c;background:#2a2410;color:#f0d28a;border-radius:9px;padding:4px 10px;font:700 11px Cairo,sans-serif;cursor:pointer}
+#xEl h3 small{margin-inline-start:8px!important}
+.stv-th{width:36px;height:36px;border-radius:11px;border:1px solid #2f3e50;background:#0f161f;color:#f5d88e;font-size:16px;cursor:pointer;flex:none}
+html.stvlight{filter:invert(1) hue-rotate(180deg);background:#fff}
+html.stvlight img,html.stvlight .pst,html.stvlight video,html.stvlight .stvbn .fab{filter:invert(1) hue-rotate(180deg)}
+/* لون القسم الحالي */
+.super-main{--secc:#d8b15b}
+.super-topbar{border-bottom-color:color-mix(in srgb,var(--secc) 45%,#263241)!important}
+.super-topbar:after{content:"";position:absolute;inset-inline:0;bottom:-1px;height:2px;background:linear-gradient(90deg,transparent,var(--secc),transparent);opacity:.8}
+.super-nav .active{border-color:color-mix(in srgb,var(--secc) 70%,#263241)!important}
+.lbar .vt button.on{background:color-mix(in srgb,var(--secc) 22%,#0f161f);color:var(--secc)}
+#seriesList.cards .srow:hover{border-color:color-mix(in srgb,var(--secc) 70%,#2a3746)}
+.stvkeys{position:fixed;inset:0;z-index:120;background:#02040acc;display:none;place-items:center}.stvkeys.on{display:grid}
+.stvkeys div.bx{background:#0e141d;border:1px solid #3a4a5d;border-radius:20px;padding:20px 24px;min-width:280px;color:#e6edf5;font:600 13px/2.1 Cairo,sans-serif}
+.stvkeys h4{margin:0 0 6px;color:#d8b15b;font:800 15px Cairo,sans-serif}
+.stvkeys kbd{display:inline-block;min-width:24px;text-align:center;padding:0 7px;border-radius:7px;border:1px solid #3a4a5d;background:#161f2b;color:#f5d88e;font:700 11px monospace;margin-inline-end:6px}
 </style>
 <script id="stvExtraJs">
 (function(){
@@ -2956,6 +3011,61 @@ function drawEl(){var L=$('#xElL'),I=$('#xElI');if(!L)return;var r=rows();
 $('#xEl .tabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;rng=+b.dataset.r;[].forEach.call(this.children,function(c){c.classList.toggle('on',c===b)});drawEl()});
 document.addEventListener('xdraw',drawEl);drawEl();
 }catch(e){try{console.error('stv-home2',e)}catch(_){}}
+})();
+/* ---------- تقرير أسبوعي + تعديل جماعي + اختصارات + ثيم + PWA ---------- */
+(function(){
+try{
+var $=function(s,r){return (r||document).querySelector(s)};var go=window.__stvGo;if(!go)return;
+var topr=$('.super-topright');
+var NM={'series-arabic.json':'مسلسلات عربي','series-foreign.json':'مسلسلات أجنبي','series-turkish.json':'مسلسلات تركي','series-korean.json':'مسلسلات كوري','series-indian.json':'مسلسلات هندي','series-ramadan.json':'مسلسلات رمضان','movies-arabic.json':'أفلام عربي','movies-foreign.json':'أفلام أجنبي','movies-anime.json':'أنمي','movies-indian.json':'أفلام هندية','movies-turkish.json':'أفلام تركية','movies-korean.json':'أفلام كورية','programs.json':'برامج','wrestling.json':'مصارعة'};
+var COL={'series-arabic.json':'#d8b15b','series-foreign.json':'#6cb7ff','series-turkish.json':'#ef5a6f','series-korean.json':'#3fd9b0','series-indian.json':'#ff9a2e','series-ramadan.json':'#c9a227','movies-arabic.json':'#f0b429','movies-foreign.json':'#7d9bff','movies-anime.json':'#ff6fa0','movies-indian.json':'#ffb34d','movies-turkish.json':'#ff7a8a','movies-korean.json':'#6ff0d8','programs.json':'#38d6f0','wrestling.json':'#c792ff'};
+function toast(m){var e=$('#status');if(e){e.textContent=m;e.className='status ok'}}
+/* تقرير */
+var h3=$('#xEl h3');if(h3){var rb=document.createElement('button');rb.type='button';rb.className='rp';rb.textContent='نسخ تقرير الأسبوع';h3.insertBefore(rb,h3.querySelector('small'));
+ rb.onclick=function(){var D=window.__xD;if(!D){toast('اتصل بالمستودع أولًا.');return}
+  var lim=Date.now()-7*864e5,per={},tot=0,works={},days={};
+  Object.keys(D).forEach(function(f){(D[f]||[]).forEach(function(x){var n=0;(x.ss||[]).forEach(function(s){s.forEach(function(e){if(e&&e.at){var t=Date.parse(e.at);if(t>=lim){n++;var d=new Date(t).toLocaleDateString('ar-EG',{weekday:'long',day:'numeric',month:'long'});days[d]=(days[d]||0)+1}}})});if(n){tot+=n;per[f]=(per[f]||0)+n;works[x.t]=(works[x.t]||0)+n}})});
+  var all=0,eps=0;Object.keys(D).forEach(function(f){(D[f]||[]).forEach(function(x){all++;(x.ss||[]).forEach(function(s){eps+=s.length})})});
+  var from=new Date(lim).toLocaleDateString('ar-EG',{day:'numeric',month:'long'}),to=new Date().toLocaleDateString('ar-EG',{day:'numeric',month:'long'});
+  var L=['📊 تقرير SUPER TV الأسبوعي','من '+from+' إلى '+to,'','➕ الحلقات المضافة: '+tot];
+  Object.keys(per).sort(function(a,b){return per[b]-per[a]}).forEach(function(f){L.push('   • '+(NM[f]||f)+': '+per[f])});
+  var top=Object.keys(works).sort(function(a,b){return works[b]-works[a]}).slice(0,5);if(top.length){L.push('','⭐ أكثر الأعمال إضافة:');top.forEach(function(w){L.push('   • '+w+' ('+works[w]+' حلقة)')})}
+  var dk=Object.keys(days);if(dk.length){L.push('','📅 أيام النشاط: '+dk.join('، '))}
+  var vb=$('#xVwB .sum');if(vb){var b=vb.querySelectorAll('b');L.push('','👁 المشاهدات (القسم الحالي): '+b[0].textContent+' خلال 7 أيام، متوسط '+b[2].textContent+' يوميًا')}
+  L.push('','📚 المكتبة الآن: '+all+' عمل · '+eps+' حلقة');
+  var txt=L.join('\n');
+  (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(function(){toast('تم نسخ التقرير. الصقه في واتساب أو تيليجرام.')}).catch(function(){window.prompt('انسخ التقرير:',txt)})}}
+/* تعديل جماعي */
+var bb=$('#bulkBar .actions');if(bb&&window.__bulkEdit){var be=document.createElement('button');be.type='button';be.className='mini-btn';be.textContent='تعديل جماعي';bb.insertBefore(be,bb.firstChild);
+ be.onclick=function(){var g=prompt('التصنيف الجديد للأعمال المحددة (اتركه فاضي لو مش عايز تغيّره):','');if(g===null)return;var r=prompt('التقييم الجديد (مثال 8.5) — اتركه فاضي لو مش عايز تغيّره:','');if(r===null)return;g=g.trim();r=r.trim();if(!g&&!r)return;
+  window.__bulkEdit(g,r)}}
+/* ثيم لكل قسم */
+var pathSel=$('#path'),main=$('.super-main');
+function secTheme(){if(!pathSel||!main)return;var c=COL[pathSel.value]||'#d8b15b';main.style.setProperty('--secc',c)}
+secTheme();if(pathSel)pathSel.addEventListener('change',secTheme);setInterval(secTheme,1500);
+/* وضع فاتح/داكن */
+var th=document.createElement('button');th.type='button';th.className='stv-th';th.title='وضع فاتح / داكن';th.textContent='◐';
+function setTh(l){document.documentElement.classList.toggle('stvlight',l);try{localStorage.setItem('stv_theme',l?'light':'dark')}catch(e){}}
+try{setTh(localStorage.getItem('stv_theme')==='light')}catch(e){}
+th.onclick=function(){setTh(!document.documentElement.classList.contains('stvlight'))};
+if(topr)topr.appendChild(th);
+/* اختصارات */
+var kb=document.createElement('div');kb.className='stvkeys';kb.innerHTML='<div class="bx"><h4>اختصارات الكيبورد</h4><div><kbd>N</kbd>إضافة محتوى</div><div><kbd>G</kbd><kbd>H</kbd>الرئيسية</div><div><kbd>G</kbd><kbd>L</kbd>المكتبة</div><div><kbd>G</kbd><kbd>S</kbd>الإحصائيات</div><div><kbd>Ctrl</kbd><kbd>K</kbd>بحث وأوامر</div><div><kbd>T</kbd>وضع فاتح/داكن</div><div><kbd>?</kbd>إظهار هذه القائمة</div></div>';document.body.appendChild(kb);kb.onclick=function(){kb.classList.remove('on')};
+var gp=0;document.addEventListener('keydown',function(e){var el=e.target,tag=(el.tagName||'').toLowerCase();if(tag==='input'||tag==='textarea'||tag==='select'||el.isContentEditable||e.ctrlKey||e.metaKey||e.altKey)return;
+ var k=e.key.toLowerCase();if(e.key==='Escape'){kb.classList.remove('on');return}
+ if(gp&&Date.now()-gp<1200){gp=0;var m={h:'home',l:'list',s:'stats'}[k];if(m){e.preventDefault();go(m)}return}
+ if(k==='g'){gp=Date.now();return}if(k==='n'){e.preventDefault();go('add')}else if(k==='t'){th.click()}else if(e.key==='?'||k==='؟'){kb.classList.toggle('on')}});
+/* PWA */
+try{
+ var c=document.createElement('canvas');c.width=c.height=192;var x=c.getContext('2d'),gr=x.createLinearGradient(0,0,192,192);gr.addColorStop(0,'#f6e0a0');gr.addColorStop(1,'#c99b3c');x.fillStyle='#0a0f16';x.fillRect(0,0,192,192);x.fillStyle=gr;x.beginPath();x.roundRect?x.roundRect(20,20,152,152,36):x.rect(20,20,152,152);x.fill();x.fillStyle='#17130a';x.font='800 58px Cairo,Arial';x.textAlign='center';x.textBaseline='middle';x.fillText('STV',96,98);
+ var ic=c.toDataURL('image/png');
+ var mf={name:'SUPER TV — لوحة الإدارة',short_name:'STV Admin',display:'standalone',background_color:'#0a0f16',theme_color:'#0a0f16',dir:'rtl',lang:'ar',start_url:location.href.split('#')[0],icons:[{src:ic,sizes:'192x192',type:'image/png'},{src:ic,sizes:'512x512',type:'image/png'}]};
+ var l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(new Blob([JSON.stringify(mf)],{type:'application/manifest+json'}));document.head.appendChild(l);
+ var a=document.createElement('link');a.rel='apple-touch-icon';a.href=ic;document.head.appendChild(a);
+ [['apple-mobile-web-app-capable','yes'],['mobile-web-app-capable','yes'],['apple-mobile-web-app-status-bar-style','black-translucent'],['apple-mobile-web-app-title','STV Admin']].forEach(function(p){var m=document.createElement('meta');m.name=p[0];m.content=p[1];document.head.appendChild(m)});
+}catch(e){}
+var dip=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dip=e;window.__stvInstall=function(){dip.prompt()}});
+}catch(e){try{console.error('stv-x3',e)}catch(_){}}
 })();
 </script>
 </body></html>
