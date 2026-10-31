@@ -2845,6 +2845,9 @@ html.stvlight img,html.stvlight .pst,html.stvlight video,html.stvlight .stvbn .f
 .stvkeys div.bx{background:#0e141d;border:1px solid #3a4a5d;border-radius:20px;padding:20px 24px;min-width:280px;color:#e6edf5;font:600 13px/2.1 Cairo,sans-serif}
 .stvkeys h4{margin:0 0 6px;color:#d8b15b;font:800 15px Cairo,sans-serif}
 .stvkeys kbd{display:inline-block;min-width:24px;text-align:center;padding:0 7px;border-radius:7px;border:1px solid #3a4a5d;background:#161f2b;color:#f5d88e;font:700 11px monospace;margin-inline-end:6px}
+#pBanners .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#pBanners .grid2 .field,#pBanners>.field{margin-bottom:0}
+@media(max-width:720px){#pBanners .grid2{grid-template-columns:1fr}}
 </style>
 <script id="stvExtraJs">
 (function(){
@@ -3066,6 +3069,56 @@ try{
 }catch(e){}
 var dip=null;window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dip=e;window.__stvInstall=function(){dip.prompt()}});
 }catch(e){try{console.error('stv-x3',e)}catch(_){}}
+})();
+/* ---------- إدارة البانرات (كود شبكة إعلانات) — banners.json ---------- */
+(function(){
+try{
+var $=function(s,r){return (r||document).querySelector(s)};
+var page=$('.super-page[data-pageview="ads"]');if(!page||typeof config!=='function')return;
+var SEC=[['all','كل الأقسام'],['series-arabic.json','مسلسلات عربي'],['series-foreign.json','مسلسلات أجنبي'],['series-turkish.json','مسلسلات تركي'],['series-korean.json','مسلسلات كوري'],['series-indian.json','مسلسلات هندي'],['series-ramadan.json','مسلسلات رمضان'],['movies-arabic.json','أفلام عربي'],['movies-foreign.json','أفلام أجنبي'],['movies-anime.json','أنمي'],['movies-indian.json','أفلام هندية'],['movies-turkish.json','أفلام تركية'],['movies-korean.json','أفلام كورية'],['programs.json','برامج'],['wrestling.json','مصارعة']];
+var PL={top:'أعلى القسم',between:'بين البطاقات',watch:'داخل صفحة المشاهدة',bottom:'أسفل الصفحة'};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+var sec=document.createElement('section');sec.className='panel';sec.id='pBanners';
+sec.innerHTML='<h2>بانرات الأقسام (كود شبكة إعلانات)</h2><p class="hint">ألصق كود الإعلان من الشبكة، واختر مكان ظهوره والأقسام والجهاز والجدولة. الحفظ بيرفع ملف <b dir="ltr">banners.json</b> على GitHub.</p>'+
+'<div class="actions" style="margin-bottom:10px"><button type="button" class="btn" id="bnLoad">تحميل البانرات</button><button type="button" class="btn secondary" id="bnNew">＋ بانر جديد</button></div>'+
+'<div id="bnList"></div><div id="bnEd" hidden style="margin-top:12px;border-top:1px solid var(--line,#263241);padding-top:12px"></div><div class="status" id="bnSt"></div>';
+page.appendChild(sec);
+var items=[],sha=null,cur=-1,loaded=false;
+function st(m,k){var e=$('#bnSt');e.textContent=m;e.className='status'+(k?' '+k:'')}
+function state(b){var n=Date.now();if(b.enabled===false)return ['متوقف','off'];if(b.from&&Date.parse(b.from)>n)return ['مجدول','sc'];if(b.to&&Date.parse(b.to)<n)return ['منتهي','off'];return ['شغّال','on']}
+function draw(){var L=$('#bnList');if(!items.length){L.innerHTML='<p class="hint">'+(loaded?'مفيش بانرات لسه. اضغط «＋ بانر جديد».':'اتصل واضغط «تحميل البانرات».')+'</p>';return}
+ L.innerHTML=items.map(function(b,i){var s=state(b),sc=(b.sections&&b.sections.length&&b.sections.indexOf('all')<0)?b.sections.length+' قسم':'كل الأقسام';return '<div class="srow" style="margin-bottom:8px"><div class="stt"><strong>'+esc(b.name||'بانر')+'</strong><span class="tg '+(s[1]==='on'?'tok':s[1]==='sc'?'ts':'th')+'">'+s[0]+'</span><small>'+PL[b.place]+' · '+sc+' · '+({all:'كل الأجهزة',mobile:'موبايل',desktop:'كمبيوتر'}[b.device||'all'])+'</small></div><div class="actions"><button type="button" class="btn secondary" data-bt="'+i+'">'+(b.enabled===false?'تشغيل':'إيقاف')+'</button><button type="button" class="btn secondary" data-be="'+i+'">تعديل</button><button type="button" class="btn danger" data-bd="'+i+'">حذف</button></div></div>'}).join('')}
+function edit(i){cur=i;var b=i>=0?items[i]:{id:'b'+Date.now().toString(36),name:'',code:'',place:'top',every:12,max:3,sections:['all'],device:'all',height:100,width:728,compat:false,enabled:true};var E=$('#bnEd');E.hidden=false;
+ E.innerHTML='<div class="grid2"><label class="field">اسم داخلي<input id="bnName" value="'+esc(b.name)+'"></label><label class="field">مكان الظهور<select id="bnPlace">'+Object.keys(PL).map(function(k){return '<option value="'+k+'"'+(b.place===k?' selected':'')+'>'+PL[k]+'</option>'}).join('')+'</select></label></div>'+
+ '<label class="field">كود الإعلان (HTML / سكريبت من الشبكة)<textarea id="bnCode" rows="5" dir="ltr" style="font-family:monospace">'+esc(b.code)+'</textarea></label>'+
+ '<div class="grid2"><label class="field">الجهاز<select id="bnDev"><option value="all">كل الأجهزة</option><option value="mobile"'+(b.device==='mobile'?' selected':'')+'>موبايل فقط</option><option value="desktop"'+(b.device==='desktop'?' selected':'')+'>كمبيوتر فقط</option></select></label><label class="field">الحالة<select id="bnOn"><option value="1">شغّال</option><option value="0"'+(b.enabled===false?' selected':'')+'>متوقف</option></select></label></div>'+
+ '<div class="grid2"><label class="field">ارتفاع الإطار (px)<input id="bnH" type="number" min="40" max="600" value="'+(b.height||100)+'"></label><label class="field">أقصى عرض (px)<input id="bnW" type="number" min="120" max="1200" value="'+(b.width||728)+'"></label></div>'+
+ '<div class="grid2" id="bnBw"><label class="field">يتكرر كل كام عمل<input id="bnEv" type="number" min="3" max="60" value="'+(b.every||12)+'"></label><label class="field">أقصى عدد في الصفحة<input id="bnMx" type="number" min="1" max="10" value="'+(b.max||3)+'"></label></div>'+
+ '<div class="grid2"><label class="field">يبدأ من<input id="bnFrom" type="datetime-local" value="'+esc(b.from||'')+'"></label><label class="field">ينتهي في<input id="bnTo" type="datetime-local" value="'+esc(b.to||'')+'"></label></div>'+
+ '<label class="field">الأقسام</label><div id="bnSec" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px">'+SEC.map(function(s){var on=(b.sections||['all']).indexOf(s[0])>-1;return '<label style="display:flex;gap:6px;align-items:center;border:1px solid #2f3e50;border-radius:99px;padding:5px 11px;cursor:pointer"><input type="checkbox" value="'+s[0]+'"'+(on?' checked':'')+'>'+s[1]+'</label>'}).join('')+'</div>'+
+ '<label style="display:flex;gap:8px;align-items:center;margin-bottom:12px"><input type="checkbox" id="bnCp"'+(b.compat?' checked':'')+'> وضع التوافق (فعّله لو الإعلان مش بيظهر؛ بيعطي الكود صلاحيات أكتر)</label>'+
+ '<div class="actions"><button type="button" class="btn" id="bnSave">حفظ على GitHub</button><button type="button" class="btn secondary" id="bnCancel">إلغاء</button></div>';
+ var pl=$('#bnPlace');function tg(){$('#bnBw').style.display=pl.value==='between'?'':'none'}pl.onchange=tg;tg();
+ var all=$('#bnSec input[value=all]');$('#bnSec').onchange=function(e){var t=e.target;if(t.value==='all'&&t.checked)[].forEach.call($('#bnSec').querySelectorAll('input:not([value=all])'),function(x){x.checked=false});else if(t.value!=='all'&&t.checked)all.checked=false;if(!$('#bnSec').querySelector('input:checked'))all.checked=true};
+ $('#bnCancel').onclick=function(){E.hidden=true;cur=-1};
+ $('#bnSave').onclick=function(){var code=$('#bnCode').value.trim(),nm=$('#bnName').value.trim();if(!code){st('ألصق كود الإعلان الأول.','bad');return}if(!nm)nm='بانر '+(items.length+1);
+  var o={id:b.id,name:nm,code:code,place:pl.value,every:+$('#bnEv').value||12,max:+$('#bnMx').value||3,sections:[].map.call($('#bnSec').querySelectorAll('input:checked'),function(x){return x.value}),device:$('#bnDev').value,height:+$('#bnH').value||100,width:+$('#bnW').value||728,compat:$('#bnCp').checked,enabled:$('#bnOn').value==='1'};
+  if($('#bnFrom').value)o.from=$('#bnFrom').value;if($('#bnTo').value)o.to=$('#bnTo').value;
+  var snap=JSON.stringify(items);if(cur>=0)items[cur]=o;else items.push(o);save('Update banners: '+nm).then(function(okk){if(okk){E.hidden=true;cur=-1}else items=JSON.parse(snap);draw()})}}
+function api(){var c=config();return repoUrl(c,'/contents/banners.json?ref='+encodeURIComponent(c.branch))}
+async function load(){if(!token){st('اتصل بـ GitHub أولًا.','bad');return}$('#bnLoad').disabled=true;
+ try{var r=await fetch(api(),{headers:headers(),cache:'no-store'});if(r.status===404){sha=null;items=[];loaded=true;st('الملف مش موجود لسه، هيتعمل أول ما تحفظ أول بانر.','')}
+  else{var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));sha=j.sha;var o=JSON.parse(fromB64(j.content||''));items=Array.isArray(o.banners)?o.banners:[];loaded=true;st('تم تحميل '+items.length+' بانر.','ok')}}
+ catch(e){st('تعذر التحميل: '+e.message,'bad')}$('#bnLoad').disabled=false;draw()}
+async function save(msg){if(!token){st('اتصل بـ GitHub أولًا.','bad');return false}
+ try{if(sha===null){var chk=await fetch(api(),{headers:headers(),cache:'no-store'});if(chk.ok){sha=(await chk.json()).sha}}
+  var c=config(),body={message:msg,content:toB64(JSON.stringify({version:1,banners:items},null,2)+'\n'),branch:c.branch};if(sha)body.sha=sha;
+  var r=await fetch(repoUrl(c,'/contents/banners.json'),{method:'PUT',headers:headers(),body:JSON.stringify(body)});var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));sha=j.content&&j.content.sha||null;st('تم الحفظ على GitHub. البانرات هتظهر في الأقسام خلال دقيقة تقريبًا.','ok');return true}
+ catch(e){st('فشل الحفظ: '+e.message,'bad');return false}}
+$('#bnLoad').onclick=load;$('#bnNew').onclick=function(){edit(-1)};
+$('#bnList').addEventListener('click',function(e){var b;if(b=e.target.closest('[data-be]'))edit(+b.dataset.be);else if(b=e.target.closest('[data-bt]')){var i=+b.dataset.bt,snap=JSON.stringify(items);items[i].enabled=items[i].enabled===false;save((items[i].enabled?'Enable':'Disable')+' banner: '+items[i].name).then(function(k){if(!k)items=JSON.parse(snap);draw()})}else if(b=e.target.closest('[data-bd]')){var i=+b.dataset.bd;if(!confirm('حذف البانر «'+(items[i].name||'')+'»؟'))return;var snap=JSON.stringify(items),old=items.splice(i,1);save('Delete banner: '+old[0].name).then(function(k){if(!k)items=JSON.parse(snap);draw()})}});
+draw();
+}catch(e){try{console.error('stv-banners',e)}catch(_){}}
 })();
 </script>
 </body></html>
