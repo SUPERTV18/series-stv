@@ -14,14 +14,15 @@ function keystream(key,nonce){var s=xmur3(key+':'+nonce),g=sfc32(s(),s(),s(),s()
 const ENCRYPT = ['series-arabic.json','series-foreign.json','series-turkish.json','series-korean.json','series-ramadan.json',
                  'movies-arabic.json','movies-foreign.json','movies-anime.json','movies-asian.json',
                  'programs.json','wrestling.json','series-indian.json','movies-indian.json','movies-turkish.json','movies-korean.json'];
-const PLAIN = ['ad-settings.json'];            // بتتنسخ زي ما هي
+const PLAIN = ['ad-settings.json','banners.json'];            // بتتنسخ زي ما هي
 fs.rmSync('dist', { recursive: true, force: true });
 fs.mkdirSync('dist', { recursive: true });
 
 for (const f of ENCRYPT) {
   if (!fs.existsSync(f)) continue;
   const src = fs.readFileSync(f);
-  JSON.parse(src.toString('utf8'));            // نتأكد إنه JSON سليم قبل التشفير
+  try { JSON.parse(src.toString('utf8')); }    // نتأكد إنه JSON سليم قبل التشفير
+  catch (e) { console.error('خطأ: الملف ' + f + ' فيه JSON غير صالح (' + e.message + '). الموقع هيفضل على آخر نسخة سليمة لحد ما تصلحه.'); process.exit(1); }
   const raw = zlib.deflateRawSync(src, { level: 9 });   // نضغط الأول عشان الملف يفضل صغير
   const nonce = crypto.randomBytes(6).toString('hex');
   const ks = keystream(KEY, nonce), out = Buffer.alloc(raw.length);
@@ -34,14 +35,23 @@ if (fs.existsSync('_headers')) fs.copyFileSync('_headers', 'dist/_headers');
 else fs.writeFileSync('dist/_headers', '/*.json\n  Access-Control-Allow-Origin: *\n  Cache-Control: public, max-age=60, must-revalidate\n');
 // ملفات HTML في جذر المستودع (صفحة الإدارة وأي صفحة مكتبة مرفوعة هناك) بتتنسخ زي ما هي عشان تفضل شغالة على نفس الروابط
 let hasIndex = false;
-for (const f of fs.readdirSync('.')) {
-  if (!/\.html?$/i.test(f) || !fs.statSync(f).isFile()) continue;
-  let html = fs.readFileSync(f, 'utf8');
-  if (/admin/i.test(f) && !/name=["']robots["']/i.test(html)) html = html.replace(/<head>/i, '<head>\n<meta name="robots" content="noindex,nofollow">');
-  fs.writeFileSync('dist/' + f, html);
-  if (f.toLowerCase() === 'index.html') hasIndex = true;
-  console.log('صفحة:', f);
+const SKIP = new Set(['dist', 'node_modules', '.git', '.github', 'scripts', 'tools']);
+function walk(dir) {
+  for (const name of fs.readdirSync(dir || '.')) {
+    const p = dir ? dir + '/' + name : name;
+    const st = fs.statSync(p);
+    if (st.isDirectory()) { if (!SKIP.has(name)) walk(p); continue; }
+    if (!/\.html?$/i.test(name)) continue;
+    let html = fs.readFileSync(p, 'utf8');
+    if (/admin/i.test(name) && !/name=["']robots["']/i.test(html)) html = html.replace(/<head>/i, '<head>\n<meta name="robots" content="noindex,nofollow">');
+    const outDir = 'dist/' + (dir || '');
+    fs.mkdirSync(outDir, { recursive: true });
+    fs.writeFileSync('dist/' + p, html);
+    if (p.toLowerCase() === 'index.html') hasIndex = true;
+    console.log('صفحة:', p);
+  }
 }
+walk('');
 // مسار سرّي اختياري للإدارة: اضبط ADMIN_PATH (مثال: panel-x7k2/index.html) وهتتنسخ هناك بدل الاسم العادي
 const AP = process.env.ADMIN_PATH;
 if (AP && fs.existsSync('admin.html')) {
