@@ -16,7 +16,7 @@
       "device": "all",
       "height": 200,
       "width": 728,
-      "compat": false,
+      "compat": true,
       "enabled": true
     }
   ]
