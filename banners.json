@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "lock": false,
+  "banners": [
+    {
+      "id": "bmw6k978f",
+      "name": "اعلان بانر تجريبي",
+      "code": "<script async=\"async\" data-cfasync=\"false\" src=\"https://czernik.org/21/9c7e0208661e4c929dbaab2b4b3406bb\"></script>\n<div id=\"container-9c7e0208661e4c929dbaab2b4b3406bb\"></div>",
+      "place": "between",
+      "every": 12,
+      "max": 3,
+      "delay": 5,
+      "sections": [
+        "all"
+      ],
+      "device": "all",
+      "height": 200,
+      "width": 728,
+      "compat": false,
+      "enabled": true
+    }
+  ]
+}
