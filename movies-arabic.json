@@ -1,5 +1,30 @@
 [
   {
+    "k": "movie-1794233331233",
+    "addedAt": "2026-11-09T14:08:51.233Z",
+    "img": "https://image.tmdb.org/t/p/w500/kFPgvpB8AItJkzzhdF9BMNOUzEL.jpg",
+    "t": "الجواهرجي",
+    "y": 2026,
+    "g": "رومنسية، كوميديا",
+    "r": "3.7",
+    "ac": "#7c5cff",
+    "s": 1,
+    "d": "في إطار كوميدي، تدور الأحداث حول زوجين يقرران الذهاب لاستشاري في العلاقات الزوجية، حرصا على استمرار حياتهما الزوجية بعد أن تم الطلاق بينهما مرتين في السابق بسبب خلافات زوجية، خوفا من وقوع الطلاق للمرة الثالثة.",
+    "ss": [
+      [
+        {
+          "t": "الجواهرجي",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=228272"
+        }
+      ]
+    ],
+    "dur": 120,
+    "q": "CAM",
+    "co": "Egypt",
+    "bg": "https://image.tmdb.org/t/p/w1280/ce2tvX0efOHHjAT4o6udf3W6RsW.jpg",
+    "pin": true
+  },
+  {
     "k": "movie-1794233546890",
     "addedAt": "2026-11-09T14:12:26.890Z",
     "img": "https://t.alooytv16.com/uploads/video_thumb/2046.jpg",
@@ -23,30 +48,6 @@
     "q": "FHD",
     "co": "United Arab Emirates",
     "bg": "https://image.tmdb.org/t/p/w1280/fbzd4gV8HaE14V4a3D4WKXzc64z.jpg"
-  },
-  {
-    "k": "movie-1794233331233",
-    "addedAt": "2026-11-09T14:08:51.233Z",
-    "img": "https://image.tmdb.org/t/p/w500/kFPgvpB8AItJkzzhdF9BMNOUzEL.jpg",
-    "t": "الجواهرجي",
-    "y": 2026,
-    "g": "رومنسية، كوميديا",
-    "r": "3.7",
-    "ac": "#7c5cff",
-    "s": 1,
-    "d": "في إطار كوميدي، تدور الأحداث حول زوجين يقرران الذهاب لاستشاري في العلاقات الزوجية، حرصا على استمرار حياتهما الزوجية بعد أن تم الطلاق بينهما مرتين في السابق بسبب خلافات زوجية، خوفا من وقوع الطلاق للمرة الثالثة.",
-    "ss": [
-      [
-        {
-          "t": "الجواهرجي",
-          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=228272"
-        }
-      ]
-    ],
-    "dur": 120,
-    "q": "CAM",
-    "co": "Egypt",
-    "bg": "https://image.tmdb.org/t/p/w1280/ce2tvX0efOHHjAT4o6udf3W6RsW.jpg"
   },
   {
     "k": "movie-1794233240938",
