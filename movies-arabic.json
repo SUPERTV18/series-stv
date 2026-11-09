@@ -1,5 +1,29 @@
 [
   {
+    "k": "movie-1794233240938",
+    "addedAt": "2026-11-09T14:07:20.938Z",
+    "img": "https://image.tmdb.org/t/p/w500/e4jcGW95iqXablRqmeHoDozYSDv.jpg",
+    "t": "مطلوب عائليا",
+    "y": 2026,
+    "g": "كوميديا",
+    "r": "4.5",
+    "ac": "#7c5cff",
+    "s": 1,
+    "d": "تدور الأحداث حول (فاروق)، مدير متجر يستحوذ العمل على معظم وقته، فلا يجد مجالا للاهتمام بمنزله وزوجته (مي) وأطفاله. وتتفاقم مشكلاته مع انتقال شقيق زوجته العاطل عن العمل (جلال) للإقامة معهم، لتتحول حياته إلى سلسلة من المواقف المعقدة والمآزق التي يصعب الخروج منها.",
+    "ss": [
+      [
+        {
+          "t": "مطلوب عائليا",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=228273"
+        }
+      ]
+    ],
+    "dur": 95,
+    "q": "CAM",
+    "co": "Egypt",
+    "bg": "https://image.tmdb.org/t/p/w1280/lsvDTJrNMhsxvFo2UrLBGP74lH1.jpg"
+  },
+  {
     "k": "movie-1794233139705",
     "addedAt": "2026-11-09T14:05:39.705Z",
     "img": "https://image.tmdb.org/t/p/w500/3J93l4azESTJdsbMxerkd0H32Ff.jpg",
