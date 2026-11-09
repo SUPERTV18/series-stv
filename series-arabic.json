@@ -1,5 +1,40 @@
 [
   {
+    "k": "remote-1794225607176",
+    "addedAt": "2026-11-09T12:00:07.176Z",
+    "img": "https://image.tmdb.org/t/p/w500/d5mXwJkhCOxPspvMLDjH9PluoUD.jpg",
+    "t": "ليل البنفسج 2",
+    "y": 2026,
+    "g": "دراما",
+    "r": "7.3",
+    "ac": "#7c5cff",
+    "s": 1,
+    "d": "بعد هروبها نحو المجهول، تعود \"شمس\"؛ وهي عودةٌ تُغيّر مجرى الأحداث. يلجأ \"أبو سعدية\" إلى \"أبو نادية\" طلباً للمساعدة في قضية ثأرٍ تورط بها مع بيت \"چطان\"  وهو صراعٌ امتدّت آثاره لتخترق صفوف عائلة \"چطان\" ذاتها. فكيف ستكون نهاية هذا الثأر يا تُرى؟",
+    "ss": [
+      [
+        {
+          "t": "Episode 1",
+          "u": "https://vid8.ujeklsj.site/Lail-Al-Banafsag-2/01.mp4",
+          "ref": "https://et.alooytv16.xyz/",
+          "at": "2026-11-09T12:00:07.176Z"
+        },
+        {
+          "t": "الحلقة 2",
+          "u": "https://vid8.ujeklsj.site/Lail-Al-Banafsag-2/02.mp4",
+          "ref": "https://et.alooytv16.xyz/",
+          "at": "2026-11-09T12:00:07.176Z"
+        },
+        {
+          "t": "الحلقة 3",
+          "u": "https://vid8.ujeklsj.site/Lail-Al-Banafsag-2/03.mp4",
+          "ref": "https://et.alooytv16.xyz/",
+          "at": "2026-11-09T12:00:07.176Z"
+        }
+      ]
+    ],
+    "src": "TMDB"
+  },
+  {
     "k": "remote-1793307341989",
     "addedAt": "2026-10-29T20:55:41.989Z",
     "img": "https://image.tmdb.org/t/p/w500/zCLzJQ041XuDMdPp3sldnKHQJDH.jpg",
