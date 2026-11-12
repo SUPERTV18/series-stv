@@ -39,8 +39,7 @@
         }
       ]
     ],
-    "src": "TMDB",
-    "pin": true
+    "src": "TMDB"
   },
   {
     "k": "remote-1794443141505",
