@@ -3124,6 +3124,8 @@ draw();
 
 
 
+
+
 <style id="stats-pro-css">
 /* STATS_PRO_V1 */
 .super-page[data-pageview="stats"] #pDaily,.super-page[data-pageview="stats"] #pViews{display:none!important}
@@ -3221,22 +3223,27 @@ function body(h){Q('#spBody').innerHTML=h}
 function mini(v,h){var m=Math.max.apply(null,v.concat([1]));return '<div class="mb" style="height:'+(h||46)+'px">'+v.map(function(x,k){return '<i style="height:'+Math.max(6,x/m*100)+'%"'+(k===v.length-1?' class="t"':'')+'></i>'}).join('')+'</div>'}
 function trendOf(a,b){if(!b)return a>0?{t:'جديد',c:'up'}:{t:'—',c:'fl'};var p=(a-b)/b*100;return p>=0?{t:'▲ '+Math.round(p)+'%',c:'up'}:{t:'▼ '+Math.round(-p)+'%',c:'dn'}}
 /* ---- التحميل ---- */
+function getList(f){var X=window.__xD;if(X&&Array.isArray(X[f]))return X[f];var p=Q('#path');return (p&&p.value===f&&series.length)?series:[]}
+var runId=0;
+function buildR(ns,f,D,items,tots,secD){var rows=[];items.forEach(function(it,k){var v=D.map(function(d){return cget(ns,'sd-'+it.ck+'-'+d.k)||0}),life=(tots?tots[k]:cget(ns,'s-'+it.ck))||0,sum=v.reduce(function(a,b){return a+b},0);if(sum>0||life>0){var r={i:it.i,x:it.x,ck:it.ck,v:v,life:life,sum:sum,today:v[v.length-1],y:v.length>1?v[v.length-2]:0};r.tr=(r.today-r.y)/Math.max(1,r.y);rows.push(r)}});
+ return {ns:ns,f:f,D:D,secD:secD||D.map(function(d){return cget(ns,'d-'+d.k)||0}),rows:rows,n:items.length}}
 async function loadAll(force){
- if(busy)return;var p=Q('#path'),f=p?p.value:'',ns=COUNTER_NS[f];
+ var my=++runId;Q('#spRef').disabled=false;var p=Q('#path'),f=p?p.value:'',ns=COUNTER_NS[f],sel=Q('#spSec');if(sel&&COUNTER_NS[f])sel.value=f;
  if(!ns){body('<div class="empty">اختر قسمًا له عدّاد.</div>');return}
- if(!series.length){body('<div class="empty">لازم تتصل بـ GitHub وتحمّل بيانات القسم الأول.<br>اضغط «الاتصال والإعدادات» واتصل، وبعدين ارجع هنا.</div>');return}
- busy=true;lastPath=f;Q('#spRef').disabled=true;var D=days(range),items=series.map(function(x,i){return {i:i,x:x,ck:ckey(x)}});
- var total=D.length+items.length,done=0,tick=function(){done++;if(done%8===0||done===total)info('جاري التحميل… '+done+' من '+total)};
- var secD=await pool(D.map(function(d){return function(){return fk(ns,'d-'+d.k,d.fin)}}),4,tick);
- var tots=await pool(items.map(function(it){return function(){return fk(ns,'s-'+it.ck,false)}}),4,tick);
- var act=items.filter(function(it,k){return tots[k]===null||tots[k]>0||(cache[ns]&&D.some(function(d){return (cget(ns,'sd-'+it.ck+'-'+d.k)||0)>0}))});
- var jobs=[];act.forEach(function(it){D.forEach(function(d,di){jobs.push({it:it,di:di,d:d})})});total+=jobs.length;
- var vals=await pool(jobs.map(function(j){return function(){return fk(ns,'sd-'+j.it.ck+'-'+j.d.k,j.d.fin)}}),4,tick);
- var rows=act.map(function(it){return {i:it.i,x:it.x,ck:it.ck,v:D.map(function(){return 0}),life:tots[items.indexOf(it)]||0}});var by={};rows.forEach(function(r){by[r.i]=r});
- jobs.forEach(function(j,k){by[j.it.i].v[j.di]=vals[k]||0});
- rows.forEach(function(r){r.sum=r.v.reduce(function(a,b){return a+b},0);r.today=r.v[r.v.length-1];r.y=r.v.length>1?r.v[r.v.length-2]:0;r.tr=(r.today-r.y)/Math.max(1,r.y)});
- R={ns:ns,f:f,D:D,secD:secD.map(function(v){return v||0}),rows:rows.filter(function(r){return r.sum>0||r.life>0}),n:items.length};last=Date.now();busy=false;Q('#spRef').disabled=false;
- info('آخر تحديث: '+new Date().toLocaleTimeString('ar-EG')+' · الأيام بتوقيت UTC');render()}
+ var list=getList(f);
+ if(!list.length){body('<div class="empty">لازم تتصل بـ GitHub وتحمّل بيانات القسم الأول.<br>اضغط «الاتصال والإعدادات» واتصل، وبعدين ارجع هنا.</div>');return}
+ lastPath=f;busy=true;Q('#spRef').disabled=true;var D=days(range),items=list.map(function(x,i){return {i:i,x:x,ck:ckey(x)}});
+ /* عرض فوري من الكاش لحد ما الأرقام الجديدة توصل */
+ var R0=buildR(ns,f,D,items,null,null);if(R0.rows.length||R0.secD.some(function(v){return v>0})){R=R0;render()}else body('<div class="empty">جاري تحميل '+esc(SN[f]||'')+'…</div>');
+ var total=D.length+items.length,done=0,dead=function(){return my!==runId},tick=function(){done++;if(!dead()&&(done%10===0||done===total))info('جاري التحديث… '+done+' من '+total)};
+ var F=function(key,fin){return dead()?Promise.resolve(cget(ns,key)):fk(ns,key,fin)};
+ var secD=await pool(D.map(function(d){return function(){return F('d-'+d.k,d.fin)}}),8,tick);if(dead())return;
+ var tots=await pool(items.map(function(it){return function(){return F('s-'+it.ck,false)}}),8,tick);if(dead())return;
+ var act=items.filter(function(it,k){return tots[k]===null||tots[k]>0||D.some(function(d){return (cget(ns,'sd-'+it.ck+'-'+d.k)||0)>0})});
+ var jobs=[];act.forEach(function(it){D.forEach(function(d){if(!(d.fin&&cget(ns,'sd-'+it.ck+'-'+d.k)!=null))jobs.push({it:it,d:d})})});total+=jobs.length;
+ await pool(jobs.map(function(j){return function(){return F('sd-'+j.it.ck+'-'+j.d.k,j.d.fin)}}),8,tick);if(dead())return;
+ R=buildR(ns,f,D,items,tots.map(function(t,k){return Math.max(t||0,cget(ns,'s-'+items[k].ck)||0)}),secD.map(function(v,k){return Math.max(v||0,cget(ns,'d-'+D[k].k)||0)}));
+ last=Date.now();busy=false;Q('#spRef').disabled=false;info('آخر تحديث: '+new Date().toLocaleTimeString('ar-EG')+' · الأيام بتوقيت UTC');render()}
 /* ---- الرسم ---- */
 function sorted(){var a=R.rows.filter(function(r){return !qry||String(r.x.t).toLowerCase().indexOf(qry)>-1});var s={total:function(x,y){return y.sum-x.sum||y.life-x.life},today:function(x,y){return y.today-x.today||y.sum-x.sum},trend:function(x,y){return y.tr-x.tr||y.today-x.today},name:function(x,y){return String(x.x.t).localeCompare(String(y.x.t),'ar')}}[sortBy];return a.sort(s)}
 function render(){if(!R)return;var D=R.D,sd=R.secD,td=sd[sd.length-1],yd=sd.length>1?sd[sd.length-2]:0,sum=sd.reduce(function(a,b){return a+b},0),tr=trendOf(td,yd),mx=Math.max.apply(null,sd),bi=sd.indexOf(mx),all=R.rows.slice().sort(function(a,b){return b.sum-a.sum}),top=all[0];
@@ -3273,8 +3280,8 @@ Q('#spQ').oninput=function(){qry=this.value.trim().toLowerCase();limit=40;render
 Q('#spSort').onchange=function(){sortBy=this.value;render()};
 Q('#spRef').onclick=function(){loadAll(true)};Q('#spCsv').onclick=csv;Q('#spRep').onclick=report;Q('#spSave').onclick=saveGh;Q('#spRes').onclick=resGh;
 box.addEventListener('click',function(e){var c=e.target.closest('[data-i]');if(c){detail(+c.dataset.i);return}if(e.target.id==='spMore'){limit+=40;render()}});
-Q('#spSec').onchange=function(){var p=Q('#path');if(!p)return;p.value=this.value;p.dispatchEvent(new Event('change',{bubbles:true}));R=null;body('<div class="empty">جاري تحميل بيانات القسم…</div>');var t0=Date.now(),iv=setInterval(function(){if(series.length||Date.now()-t0>9000){clearInterval(iv);loadAll()}},400);var cn=Q('#connect');if(token&&cn&&!series.length)setTimeout(function(){if(!series.length)cn.click()},700)};
-var wasOn=false;setInterval(function(){var on=page.classList.contains('active');var p=Q('#path');if(on&&(!wasOn||(p&&p.value!==lastPath))&&!busy&&(Date.now()-last>120000||(p&&p.value!==lastPath))){var s=Q('#spSec');if(p&&COUNTER_NS[p.value])s.value=p.value;loadAll()}wasOn=on},700);
+Q('#spSec').onchange=function(){var p=Q('#path');if(!p)return;if(p.value!==this.value){p.value=this.value;p.dispatchEvent(new Event('change',{bubbles:true}))}R=null;body('<div class="empty">جاري تحميل القسم…</div>');var self=this,t0=Date.now(),iv=setInterval(function(){if(getList(self.value).length||Date.now()-t0>9000){clearInterval(iv);loadAll()}},400);var cn=Q('#connect');if(token&&cn&&!getList(self.value).length)setTimeout(function(){if(!getList(self.value).length)cn.click()},700)};
+var wasOn=false;setInterval(function(){var on=page.classList.contains('active');var p=Q('#path');if(on&&(!wasOn||(p&&p.value!==lastPath))&&(Date.now()-last>120000||(p&&p.value!==lastPath))){var s=Q('#spSec');if(p&&COUNTER_NS[p.value])s.value=p.value;loadAll()}wasOn=on},700);
 body('<div class="empty">افتح الصفحة بعد الاتصال بـ GitHub لعرض المشاهدات.</div>');
 }catch(e){try{console.error('stats-pro',e)}catch(_){}}
 })();
