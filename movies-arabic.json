@@ -71,8 +71,7 @@
     "q": "CAM",
     "co": "Egypt",
     "bg": "https://image.tmdb.org/t/p/w1280/ce2tvX0efOHHjAT4o6udf3W6RsW.jpg",
-    "pin": true,
-    "hide": true
+    "pin": true
   },
   {
     "k": "movie-1794233240938",
