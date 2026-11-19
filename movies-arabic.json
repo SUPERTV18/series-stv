@@ -281,6 +281,7 @@
     ],
     "dur": 93,
     "co": "Egypt",
-    "bg": "https://image.tmdb.org/t/p/w1280/5epmQjwWTY1el7b5i8HGXwUv2yJ.jpg"
+    "bg": "https://image.tmdb.org/t/p/w1280/5epmQjwWTY1el7b5i8HGXwUv2yJ.jpg",
+    "hide": true
   }
 ]
