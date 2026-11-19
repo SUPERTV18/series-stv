@@ -3121,4 +3121,162 @@ draw();
 }catch(e){try{console.error('stv-banners',e)}catch(_){}}
 })();
 </script>
+
+
+
+<style id="stats-pro-css">
+/* STATS_PRO_V1 */
+.super-page[data-pageview="stats"] #pDaily,.super-page[data-pageview="stats"] #pViews{display:none!important}
+#xSP{margin-bottom:20px}
+#xSP .tb{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+#xSP select,#xSP input[type=search]{height:38px;border-radius:11px;border:1px solid #2f3e50;background:#0f161f;color:#e6edf5;padding:0 11px;font:600 12.5px Cairo,Tahoma,sans-serif}
+#xSP select{width:auto!important;flex:none;max-width:100%}
+#xSP input[type=search]{flex:1 1 150px;width:auto!important;min-width:130px}
+#xSP .bt{width:auto!important;margin:0!important}
+#xSP .seg{display:inline-flex;border:1px solid #2f3e50;border-radius:11px;overflow:hidden}
+#xSP .seg button{height:36px;padding:0 13px;border:0;background:#0f161f;color:#8a99ab;font:700 12px Cairo,Tahoma,sans-serif;cursor:pointer}
+#xSP .seg button.on{background:#e0bd6826;color:#f5d88e}
+#xSP .bt{height:38px;border-radius:11px;border:1px solid #5a4a1c;background:#2a2410;color:#f0d28a;padding:0 13px;font:700 12px Cairo,Tahoma,sans-serif;cursor:pointer}
+#xSP .bt:disabled{opacity:.5;cursor:wait}
+#xSP .info{color:#8a99ab;font-size:12px;margin:-6px 0 12px;min-height:18px}
+#xSP .hero{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:16px}
+#xSP .hb{background:linear-gradient(135deg,#2a2410,#0c121a);border:1px solid #5a4a1c;border-radius:18px;padding:16px 18px;min-width:0}
+#xSP .hs{background:linear-gradient(160deg,#121b26,#0c121a);border:1px solid #263241;border-radius:18px;padding:16px 18px;min-width:0}
+#xSP .hb small,#xSP .hs small{color:#9aa8b8;display:block;font-size:12px}
+#xSP .hb b{display:block;font:800 40px/1.15 Cairo,sans-serif;color:#f5d88e;font-variant-numeric:tabular-nums}
+#xSP .hs b{display:block;font:800 20px/1.4 Cairo,sans-serif;color:#f5e7bd;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#xSP .up{color:#4fe0a8;font-size:12px}#xSP .dn{color:#ff7b8f;font-size:12px}#xSP .fl{color:#8a99ab;font-size:12px}
+#xSP .mb{display:flex;gap:4px;align-items:flex-end;height:46px;margin-top:10px}
+#xSP .mb i{flex:1;min-width:3px;background:#38d6f0aa;border-radius:3px 3px 1px 1px;display:block}
+#xSP .mb i.t{background:#d8b15b}
+#xSP .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
+#xSP .cd{background:#0d141c;border:1px solid #263241;border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .15s,border-color .15s;text-align:right;padding:0;color:inherit;font:inherit}
+#xSP .cd:hover{transform:translateY(-3px);border-color:#d8b15b88}
+#xSP .ps{height:150px;position:relative;display:flex;align-items:flex-end;padding:10px;background:linear-gradient(160deg,#1d2a3a,#0a0d14);background-size:cover;background-position:center}
+#xSP .ps:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,#05070dee)}
+#xSP .ps strong{position:relative;z-index:1;font:800 14px/1.35 Cairo,sans-serif;color:#fff;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#xSP .bd{position:absolute;z-index:2;top:8px;inset-inline-start:8px;background:#d8b15b;color:#17130a;border-radius:8px;padding:1px 8px;font:800 12px Cairo,sans-serif}
+#xSP .td{position:absolute;z-index:2;top:8px;inset-inline-end:8px;background:#000b;border-radius:8px;padding:2px 8px;font:600 11px Cairo,sans-serif;color:#e6edf5}
+#xSP .td b{color:#f5d88e}
+#xSP .in{padding:10px}
+#xSP .ft{display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:#9aa8b8}
+#xSP .wrap{overflow:auto;border:1px solid #263241;border-radius:16px}
+#xSP table{width:100%;border-collapse:separate;border-spacing:3px;min-width:640px}
+#xSP th{color:#8a99ab;font:700 11px Cairo,sans-serif;padding:6px 4px;white-space:nowrap}
+#xSP td{text-align:center;padding:8px 5px;border-radius:7px;background:#0d141c;font:600 12.5px Cairo,sans-serif;font-variant-numeric:tabular-nums}
+#xSP td.n{text-align:right;background:none;font-weight:800;cursor:pointer;color:#e6edf5;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#xSP td.n:hover{color:#f5d88e}#xSP td.s{color:#f5d88e;font-weight:800}
+#xSP .more{display:block;margin:14px auto 0}
+#xSP .empty{padding:36px 10px;text-align:center;color:#7d8da0;line-height:2}
+#xSP .sec-h{margin:20px 0 10px;color:#f5e7bd;font:800 15px Cairo,sans-serif;display:flex;gap:8px;align-items:center}
+#xSP .sec-h small{color:#7d8da0;font-weight:600;font-size:12px}
+.xspm{position:fixed;inset:0;z-index:150;display:none;align-items:center;justify-content:center;padding:16px;background:#02040acc;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.xspm.on{display:flex}
+.xspm .bx{background:#0e141d;border:1px solid #3a4a5d;border-radius:22px;width:min(720px,100%);max-height:92vh;overflow:auto;padding:18px 20px;color:#e6edf5;direction:rtl}
+.xspm h3{margin:0 0 2px;color:#f5e7bd;font:800 18px Cairo,sans-serif}
+.xspm .sub{color:#7d8da0;font-size:12px;margin-bottom:14px}
+.xspm .kp{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.xspm .kp div{background:#0f161f;border:1px solid #263241;border-radius:12px;padding:8px 10px}
+.xspm .kp small{color:#8a99ab;font-size:11px;display:block}.xspm .kp b{font:800 18px Cairo,sans-serif;color:#f5e7bd}
+.xspm .bars{display:flex;gap:6px;align-items:flex-end;height:150px;margin-bottom:6px}
+.xspm .bc{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;height:100%}
+.xspm .bc i{width:100%;max-width:44px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#38d6f0aa,#1b6f86)}
+.xspm .bc i.t{background:linear-gradient(180deg,#f6e0a0,#c99b3c)}
+.xspm .bc b{font:700 10px Cairo,sans-serif;color:#cfd8e3}.xspm .bc small{font-size:9.5px;color:#7d8da0;white-space:nowrap}
+.xspm h4{margin:16px 0 8px;color:#d8b15b;font:800 13px Cairo,sans-serif}
+.xspm .ep{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:12px}.xspm .ep span{width:84px;color:#9aa8b8;flex:none}
+.xspm .eb{flex:1;height:8px;border-radius:5px;background:#1b2531;overflow:hidden}.xspm .eb i{display:block;height:100%;background:linear-gradient(90deg,#c99b3c,#f5d88e)}
+.xspm .x{float:left;border:1px solid #2f3e50;background:#0f161f;color:#e6edf5;border-radius:10px;width:34px;height:34px;cursor:pointer;font-size:16px}
+@media(max-width:720px){#xSP .hero{grid-template-columns:1fr 1fr}#xSP .hb{grid-column:1/-1}#xSP .hb b{font-size:32px}#xSP .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.xspm{align-items:flex-end;padding:0}.xspm .bx{border-radius:24px 24px 0 0;max-height:88vh}.xspm .kp{grid-template-columns:repeat(2,1fr)}}
+</style>
+<script id="stats-pro-js">
+/* STATS_PRO_V1: إحصائيات احترافية: مشاهدات كل عمل يوميًا + نسخة احتياطية للعدّادات */
+(function(){
+try{
+var Q=function(s,r){return (r||document).querySelector(s)};
+var page=Q('.super-page[data-pageview="stats"]');if(!page||typeof COUNTER_NS==='undefined'||typeof getCount!=='function')return;
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+var fmt=function(n){return Number(n||0).toLocaleString('en-US')};
+var SN={'series-arabic.json':'مسلسلات عربي','series-foreign.json':'مسلسلات أجنبي','series-turkish.json':'مسلسلات تركي','series-korean.json':'مسلسلات كوري','series-indian.json':'مسلسلات هندي','series-ramadan.json':'مسلسلات رمضان','movies-arabic.json':'أفلام عربي','movies-foreign.json':'أفلام أجنبي','movies-anime.json':'أنمي','movies-indian.json':'أفلام هندية','movies-turkish.json':'أفلام تركية','movies-korean.json':'أفلام كورية','programs.json':'برامج','wrestling.json':'مصارعة'};
+var range=7,view='cards',sortBy='total',qry='',limit=40,busy=false,last=0,lastPath='',R=null;
+/* ---- كاش دائم: القيمة المعروضة = الأعلى بين الحي والمحفوظ، فلو العدّاد رجع صفر الأرقام ما تقلّش ---- */
+var CK='stv_cnt_v1',cache={};try{cache=JSON.parse(localStorage.getItem(CK)||'{}')||{}}catch(e){cache={}}
+var sv=null;function saveC(){clearTimeout(sv);sv=setTimeout(function(){try{localStorage.setItem(CK,JSON.stringify(cache))}catch(e){}},400)}
+function cget(ns,k){return cache[ns]&&typeof cache[ns][k]==='number'?cache[ns][k]:null}
+function cput(ns,k,v){cache[ns]=cache[ns]||{};if(typeof v==='number'&&(cache[ns][k]==null||v>cache[ns][k]))cache[ns][k]=v;saveC()}
+function dayKey(d){return d.toISOString().slice(0,10).replace(/-/g,'')}
+function days(n){var a=[];for(var i=n-1;i>=0;i--){var d=new Date(Date.now()-i*864e5);a.push({k:dayKey(d),l:d.toLocaleDateString('ar-EG',{weekday:'short',day:'numeric',timeZone:'UTC'}),fin:i>=2})}return a}
+async function fk(ns,key,fin){var c=cget(ns,key);if(fin&&c!=null)return c;var v=await getCount(COUNTER_BASE+'get/'+ns+'/'+key);if(v===null)return c;cput(ns,key,v);return Math.max(v,c||0)}
+async function pool(jobs,n,tick){var out=new Array(jobs.length),i=0;var w=async function(){while(i<jobs.length){var j=i++;out[j]=await jobs[j]();if(tick)tick()}};var a=[];for(var k=0;k<n;k++)a.push(w());await Promise.all(a);return out}
+/* ---- الهيكل ---- */
+var box=document.createElement('section');box.id='xSP';
+box.innerHTML='<div class="tb"><select id="spSec" aria-label="القسم"></select><span class="seg" id="spRg"><button data-r="7" class="on">7 أيام</button><button data-r="14">14 يوم</button><button data-r="30">30 يوم</button></span><span class="seg" id="spVw"><button data-v="cards" class="on">بطاقات</button><button data-v="table">جدول</button></span><input type="search" id="spQ" placeholder="ابحث عن عمل…"><select id="spSort"><option value="total">الأكثر مشاهدة</option><option value="today">الأعلى اليوم</option><option value="trend">الأكثر ارتفاعًا</option><option value="name">الاسم</option></select></div><div class="tb"><button class="bt" id="spRef">تحديث</button><button class="bt" id="spCsv">تصدير CSV</button><button class="bt" id="spRep">نسخ التقرير</button><button class="bt" id="spSave">حفظ نسخة على GitHub</button><button class="bt" id="spRes">استرجاع من GitHub</button></div><div class="info" id="spInfo"></div><div id="spBody"></div>';
+page.insertBefore(box,page.firstChild);
+var md=document.createElement('div');md.className='xspm';md.innerHTML='<div class="bx" role="dialog" aria-modal="true"></div>';document.body.appendChild(md);
+md.addEventListener('click',function(e){if(e.target===md||e.target.closest('.x'))md.classList.remove('on')});document.addEventListener('keydown',function(e){if(e.key==='Escape')md.classList.remove('on')});
+function secOpts(){var s=Q('#spSec');s.innerHTML=Object.keys(COUNTER_NS).map(function(f){return '<option value="'+f+'">'+esc(SN[f]||f)+'</option>'}).join('');var p=Q('#path');if(p&&COUNTER_NS[p.value])s.value=p.value}
+secOpts();
+function info(m){Q('#spInfo').textContent=m||''}
+function body(h){Q('#spBody').innerHTML=h}
+function mini(v,h){var m=Math.max.apply(null,v.concat([1]));return '<div class="mb" style="height:'+(h||46)+'px">'+v.map(function(x,k){return '<i style="height:'+Math.max(6,x/m*100)+'%"'+(k===v.length-1?' class="t"':'')+'></i>'}).join('')+'</div>'}
+function trendOf(a,b){if(!b)return a>0?{t:'جديد',c:'up'}:{t:'—',c:'fl'};var p=(a-b)/b*100;return p>=0?{t:'▲ '+Math.round(p)+'%',c:'up'}:{t:'▼ '+Math.round(-p)+'%',c:'dn'}}
+/* ---- التحميل ---- */
+async function loadAll(force){
+ if(busy)return;var p=Q('#path'),f=p?p.value:'',ns=COUNTER_NS[f];
+ if(!ns){body('<div class="empty">اختر قسمًا له عدّاد.</div>');return}
+ if(!series.length){body('<div class="empty">لازم تتصل بـ GitHub وتحمّل بيانات القسم الأول.<br>اضغط «الاتصال والإعدادات» واتصل، وبعدين ارجع هنا.</div>');return}
+ busy=true;lastPath=f;Q('#spRef').disabled=true;var D=days(range),items=series.map(function(x,i){return {i:i,x:x,ck:ckey(x)}});
+ var total=D.length+items.length,done=0,tick=function(){done++;if(done%8===0||done===total)info('جاري التحميل… '+done+' من '+total)};
+ var secD=await pool(D.map(function(d){return function(){return fk(ns,'d-'+d.k,d.fin)}}),4,tick);
+ var tots=await pool(items.map(function(it){return function(){return fk(ns,'s-'+it.ck,false)}}),4,tick);
+ var act=items.filter(function(it,k){return tots[k]===null||tots[k]>0||(cache[ns]&&D.some(function(d){return (cget(ns,'sd-'+it.ck+'-'+d.k)||0)>0}))});
+ var jobs=[];act.forEach(function(it){D.forEach(function(d,di){jobs.push({it:it,di:di,d:d})})});total+=jobs.length;
+ var vals=await pool(jobs.map(function(j){return function(){return fk(ns,'sd-'+j.it.ck+'-'+j.d.k,j.d.fin)}}),4,tick);
+ var rows=act.map(function(it){return {i:it.i,x:it.x,ck:it.ck,v:D.map(function(){return 0}),life:tots[items.indexOf(it)]||0}});var by={};rows.forEach(function(r){by[r.i]=r});
+ jobs.forEach(function(j,k){by[j.it.i].v[j.di]=vals[k]||0});
+ rows.forEach(function(r){r.sum=r.v.reduce(function(a,b){return a+b},0);r.today=r.v[r.v.length-1];r.y=r.v.length>1?r.v[r.v.length-2]:0;r.tr=(r.today-r.y)/Math.max(1,r.y)});
+ R={ns:ns,f:f,D:D,secD:secD.map(function(v){return v||0}),rows:rows.filter(function(r){return r.sum>0||r.life>0}),n:items.length};last=Date.now();busy=false;Q('#spRef').disabled=false;
+ info('آخر تحديث: '+new Date().toLocaleTimeString('ar-EG')+' · الأيام بتوقيت UTC');render()}
+/* ---- الرسم ---- */
+function sorted(){var a=R.rows.filter(function(r){return !qry||String(r.x.t).toLowerCase().indexOf(qry)>-1});var s={total:function(x,y){return y.sum-x.sum||y.life-x.life},today:function(x,y){return y.today-x.today||y.sum-x.sum},trend:function(x,y){return y.tr-x.tr||y.today-x.today},name:function(x,y){return String(x.x.t).localeCompare(String(y.x.t),'ar')}}[sortBy];return a.sort(s)}
+function render(){if(!R)return;var D=R.D,sd=R.secD,td=sd[sd.length-1],yd=sd.length>1?sd[sd.length-2]:0,sum=sd.reduce(function(a,b){return a+b},0),tr=trendOf(td,yd),mx=Math.max.apply(null,sd),bi=sd.indexOf(mx),all=R.rows.slice().sort(function(a,b){return b.sum-a.sum}),top=all[0];
+ var rows=sorted(),h='<div class="hero"><div class="hb"><small>مشاهدات اليوم · '+esc(SN[R.f]||'')+'</small><b>'+fmt(td)+'</b><span class="'+tr.c+'">'+tr.t+' عن أمس ('+fmt(yd)+')</span><span class="fl"> · '+fmt(sum)+' في '+D.length+' يوم · متوسط '+fmt(Math.round(sum/D.length))+'/يوم</span>'+mini(sd,50)+'</div><div class="hs"><small>أعلى عمل</small><b>'+(top&&top.sum?esc(top.x.t):'—')+'</b><span class="up">'+(top?fmt(top.sum)+' مشاهدة':'')+'</span></div><div class="hs"><small>أحسن يوم</small><b>'+(mx>0?esc(D[bi].l):'—')+'</b><span class="fl">'+fmt(mx)+' مشاهدة</span></div></div>';
+ if(!rows.length){h+='<div class="empty">'+(R.rows.length?'مفيش نتائج للبحث ده.':'لسه مفيش مشاهدات يومية مسجّلة للقسم ده.<br>التسجيل اليومي بيبدأ من لما ترفع صفحات الأقسام المحدّثة.')+'</div>';body(h);return}
+ h+='<div class="sec-h">'+(view==='cards'?'مشاهدات كل عمل':'جدول المشاهدات اليومية')+'<small>'+rows.length+' عمل</small></div>';
+ if(view==='cards'){var cd=Math.min(14,D.length);h+='<div class="cards">'+rows.slice(0,limit).map(function(r,k){var t=trendOf(r.today,r.y),img=r.x.img?' style="background-image:url(\''+esc(String(r.x.img).replace(/'/g,'%27').replace(/\)/g,'%29'))+'\')"':'';return '<button type="button" class="cd" data-i="'+r.i+'"><div class="ps"'+img+'><span class="bd">'+(k+1)+'</span><span class="td">اليوم <b>'+fmt(r.today)+'</b></span><strong>'+esc(r.x.t)+'</strong></div><div class="in">'+mini(r.v.slice(-cd),34)+'<div class="ft"><span>'+fmt(r.sum)+' / '+D.length+' يوم</span><span class="'+t.c+'">'+t.t+'</span></div></div></button>'}).join('')+'</div>'}
+ else{var cols=D.length>14?D.slice(-14):D,off=D.length-cols.length,m=1;rows.forEach(function(r){r.v.slice(off).forEach(function(x){if(x>m)m=x})});
+  h+='<div class="wrap"><table><tr><th>#</th><th style="text-align:right">العمل</th>'+cols.map(function(d){return '<th>'+esc(d.l)+'</th>'}).join('')+'<th>الإجمالي</th><th>عن أمس</th></tr>'+rows.slice(0,limit).map(function(r,k){var t=trendOf(r.today,r.y);return '<tr><td>'+(k+1)+'</td><td class="n" data-i="'+r.i+'">'+esc(r.x.t)+'</td>'+r.v.slice(off).map(function(x){var a=x?(.1+.8*x/m):0;return '<td style="'+(x?'background:rgba(216,177,91,'+a.toFixed(2)+');color:'+(a>.5?'#17130a':'#e6edf5'):'color:#4b5a6c')+'">'+fmt(x)+'</td>'}).join('')+'<td class="s">'+fmt(r.sum)+'</td><td class="'+t.c+'">'+t.t+'</td></tr>'}).join('')+'</table></div>'}
+ if(rows.length>limit)h+='<button class="bt more" id="spMore">عرض المزيد ('+(rows.length-limit)+')</button>';
+ body(h)}
+/* ---- تفاصيل العمل ---- */
+async function detail(i){var r=R&&R.rows.filter(function(z){return z.i===i})[0];if(!r)return;var x=r.x,D=R.D,bx=Q('.bx',md),mx=Math.max.apply(null,r.v.concat([1])),bi=r.v.indexOf(Math.max.apply(null,r.v));
+ bx.innerHTML='<button class="x" type="button" aria-label="إغلاق">✕</button><h3>'+esc(x.t)+'</h3><div class="sub">'+esc(SN[R.f]||'')+(x.y?' · '+esc(x.y):'')+' · الإجمالي من البداية '+fmt(r.life)+' مشاهدة</div><div class="kp"><div><small>اليوم</small><b>'+fmt(r.today)+'</b></div><div><small>مشاهدات '+D.length+' يوم</small><b>'+fmt(r.sum)+'</b></div><div><small>المتوسط اليومي</small><b>'+fmt(Math.round(r.sum/D.length))+'</b></div><div><small>أحسن يوم</small><b style="font-size:14px">'+(Math.max.apply(null,r.v)>0?esc(D[bi].l):'—')+'</b></div></div><div class="bars">'+r.v.map(function(v,k){return '<div class="bc"><b>'+fmt(v)+'</b><i style="height:'+(v?Math.max(3,v/mx*100):3)+'%"'+(k===r.v.length-1?' class="t"':'')+'></i><small>'+esc(D[k].l)+'</small></div>'}).join('')+'</div><h4>مشاهدات الحلقات (إجمالي)</h4><div id="spEps"><div class="sub">جاري التحميل…</div></div>';
+ md.classList.add('on');
+ var list=[];(x.ss||[]).forEach(function(s,si){s.forEach(function(e,ki){list.push({l:(x.ss.length>1?'م'+(si+1)+' · ':'')+(e&&e.t?e.t:'حلقة '+(ki+1)),k:ekey(x,si,ki)})})});
+ if(!list.length){Q('#spEps').innerHTML='<div class="sub">مفيش حلقات.</div>';return}
+ if(list.length>80)list=list.slice(0,80);
+ var v=await pool(list.map(function(e){return function(){return fk(R.ns,e.k,false)}}),4);var m=Math.max.apply(null,v.map(function(z){return z||0}).concat([1]));
+ var el=Q('#spEps');if(el)el.innerHTML=list.map(function(e,k){return '<div class="ep"><span title="'+esc(e.l)+'" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(e.l)+'</span><div class="eb"><i style="width:'+Math.max(2,(v[k]||0)/m*100)+'%"></i></div><b>'+fmt(v[k])+'</b></div>'}).join('')}
+/* ---- تصدير ونسخ احتياطي ---- */
+function csv(){if(!R)return;var D=R.D,q=function(s){return '"'+String(s).replace(/"/g,'""')+'"'},L=[['العمل'].concat(D.map(function(d){return d.k})).concat(['الإجمالي','من البداية']).map(q).join(',')];sorted().forEach(function(r){L.push([q(r.x.t)].concat(r.v).concat([r.sum,r.life]).join(','))});
+ var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+L.join('\n')],{type:'text/csv;charset=utf-8'}));a.download='views-'+R.f.replace('.json','')+'-'+dayKey(new Date())+'.csv';document.body.appendChild(a);a.click();setTimeout(function(){a.remove()},500)}
+function report(){if(!R)return;var D=R.D,sd=R.secD,sum=sd.reduce(function(a,b){return a+b},0),L=['📊 إحصائيات '+(SN[R.f]||''),'آخر '+D.length+' يوم: '+fmt(sum)+' مشاهدة · اليوم '+fmt(sd[sd.length-1]),'','🔥 الأعلى:'];R.rows.slice().sort(function(a,b){return b.sum-a.sum}).slice(0,10).forEach(function(r,k){L.push((k+1)+'. '+r.x.t+' — '+fmt(r.sum)+' (اليوم '+fmt(r.today)+')')});var t=L.join('\n');(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){info('تم نسخ التقرير.')}).catch(function(){window.prompt('انسخ التقرير:',t)})}
+function gh(){var c=config();return repoUrl(c,'/contents/stats-archive.json')+'?ref='+encodeURIComponent(c.branch)}
+async function saveGh(){if(!token){info('اتصل بـ GitHub أولًا.');return}var b=Q('#spSave');b.disabled=true;try{var sha=null,r=await fetch(gh(),{headers:headers(),cache:'no-store'});if(r.ok){var j=await r.json();sha=j.sha;try{var old=JSON.parse(fromB64(j.content||''));var d=old.data||{};Object.keys(d).forEach(function(ns){Object.keys(d[ns]).forEach(function(k){cput(ns,k,d[ns][k])})})}catch(e){}}
+ var c=config(),body={message:'Update stats archive',content:toB64(JSON.stringify({version:1,updated:new Date().toISOString(),data:cache})+'\n'),branch:c.branch};if(sha)body.sha=sha;
+ var w=await fetch(repoUrl(c,'/contents/stats-archive.json'),{method:'PUT',headers:headers(),body:JSON.stringify(body)});var jj=await w.json();if(!w.ok)throw new Error(jj.message||('HTTP '+w.status));info('تم حفظ نسخة العدّادات على GitHub (stats-archive.json).')}catch(e){info('فشل الحفظ: '+e.message)}b.disabled=false}
+async function resGh(){if(!token){info('اتصل بـ GitHub أولًا.');return}var b=Q('#spRes');b.disabled=true;try{var r=await fetch(gh(),{headers:headers(),cache:'no-store'});if(r.status===404){info('مفيش نسخة محفوظة لسه.');b.disabled=false;return}var j=await r.json();if(!r.ok)throw new Error(j.message||('HTTP '+r.status));var d=(JSON.parse(fromB64(j.content||''))||{}).data||{},n=0;Object.keys(d).forEach(function(ns){Object.keys(d[ns]).forEach(function(k){cput(ns,k,d[ns][k]);n++})});info('تم استرجاع '+n+' عدّاد من النسخة المحفوظة (القيمة الأعلى هي اللي بتتعرض).');last=0;loadAll()}catch(e){info('فشل الاسترجاع: '+e.message)}b.disabled=false}
+/* ---- أحداث ---- */
+Q('#spRg').onclick=function(e){var b=e.target.closest('button');if(!b)return;range=+b.dataset.r;[].forEach.call(this.children,function(c){c.classList.toggle('on',c===b)});limit=40;loadAll()};
+Q('#spVw').onclick=function(e){var b=e.target.closest('button');if(!b)return;view=b.dataset.v;[].forEach.call(this.children,function(c){c.classList.toggle('on',c===b)});render()};
+Q('#spQ').oninput=function(){qry=this.value.trim().toLowerCase();limit=40;render()};
+Q('#spSort').onchange=function(){sortBy=this.value;render()};
+Q('#spRef').onclick=function(){loadAll(true)};Q('#spCsv').onclick=csv;Q('#spRep').onclick=report;Q('#spSave').onclick=saveGh;Q('#spRes').onclick=resGh;
+box.addEventListener('click',function(e){var c=e.target.closest('[data-i]');if(c){detail(+c.dataset.i);return}if(e.target.id==='spMore'){limit+=40;render()}});
+Q('#spSec').onchange=function(){var p=Q('#path');if(!p)return;p.value=this.value;p.dispatchEvent(new Event('change',{bubbles:true}));R=null;body('<div class="empty">جاري تحميل بيانات القسم…</div>');var t0=Date.now(),iv=setInterval(function(){if(series.length||Date.now()-t0>9000){clearInterval(iv);loadAll()}},400);var cn=Q('#connect');if(token&&cn&&!series.length)setTimeout(function(){if(!series.length)cn.click()},700)};
+var wasOn=false;setInterval(function(){var on=page.classList.contains('active');var p=Q('#path');if(on&&(!wasOn||(p&&p.value!==lastPath))&&!busy&&(Date.now()-last>120000||(p&&p.value!==lastPath))){var s=Q('#spSec');if(p&&COUNTER_NS[p.value])s.value=p.value;loadAll()}wasOn=on},700);
+body('<div class="empty">افتح الصفحة بعد الاتصال بـ GitHub لعرض المشاهدات.</div>');
+}catch(e){try{console.error('stats-pro',e)}catch(_){}}
+})();
+</script>
 </body></html>
