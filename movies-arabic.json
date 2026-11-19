@@ -1,5 +1,29 @@
 [
   {
+    "k": "movie-1795113135387",
+    "addedAt": "2026-11-19T18:32:15.387Z",
+    "img": "https://image.tmdb.org/t/p/w500/i54jDaO9aFr7eAVMv02lnaPXvN4.jpg",
+    "t": "حدوتة",
+    "y": 2026,
+    "g": "جريمة، كوميديا، دراما",
+    "r": "7.0",
+    "ac": "#7c5cff",
+    "s": 1,
+    "d": "ينسى (حدوتة)، البلطجي، مكان إخفاء شاهد اختطفه، فيستعين بأخصائية علاج بالتنويم المغناطيسي لاستعادة ذاكرته وإتمام مهمته، لكنه يجد نفسه مضطرًا لمواجهة أعداء الماضي، واستعادة ذكريات طالما حاول الهروب منها، ومواجهة نفسه.",
+    "ss": [
+      [
+        {
+          "t": "حدوتة",
+          "u": "https://cima.aliyoussef7k.workers.dev/?action=stream&realid=230773"
+        }
+      ]
+    ],
+    "dur": 120,
+    "q": "CAM",
+    "co": "Egypt",
+    "bg": "https://image.tmdb.org/t/p/w1280/x4wQePzvBw1eJjWHOk6PUZBch7N.jpg"
+  },
+  {
     "k": "movie-1794235907418",
     "addedAt": "2026-11-09T14:51:47.418Z",
     "img": "https://image.tmdb.org/t/p/w500/6NC2oxIVAjbkW2C6LL9tUF1WsFC.jpg",
